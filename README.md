@@ -4,7 +4,8 @@ Ideoita tänne tai Google Driveen.
 ## Codio Box ##
 PHP:n ja Apachen asennus: `parts install php5 php5-apache2`
 
-Kirjoita terminaaliin `nano /home/codio/.parts/etc/apache2/httpd.conf`
+Kirjoita terminaaliin: `nano /home/codio/.parts/etc/apache2/httpd.conf`
+
 Etsi seuraavat allekkaiset rivit tiedostosta:
 ```
 DocumentRoot "/home/codio/workspace"

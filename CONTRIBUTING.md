@@ -13,23 +13,33 @@ From [Working with Git remote repos worksheet](https://github.com/covcom/205CDE/
 ## Git Branches ##
 * Make a **new branch** for each **new feature**.
 * Make a **new branch** for **fixing bugs**.
-* `master` branch is the latest fully functional **release**.
-* `master` branch has no bugs or outstanding issues.
-* Never delete the `master` branch.
-* Never `git push` to the `master` branch.
-* `develop` branch is the latest development version of the application.
-* Never delete the `develop` branch.
-* Any other branches can be deleted after they have been **merged** with the `develop` branch.
+* Any branches other than `master` and `develop` can be deleted after they have been **merged** with the `develop` branch.
+
+### 'master' branch ##
+* The latest fully functional **release**.
+* Should have no bugs or outstanding **Issues**.
+* Never delete the branch.
+* Never `git push` to the branch.
+* Never `git commit` in the branch.
+* Never write code or modify files in the branch.
+
+### 'develop' branch ###
+* The latest development version of the application.
+* Never delete the branch.
+* You can `git push` to the branch after **merges**.
+* Never `git commit` in the branch.
+* Never write code or modify files in the branch.
 
 # How to Develop a New Feature #
 * Development is always done in separate branches.
 * **NEVER WRITE, COMMIT, OR PUSH CODE IN `master` BRANCH.**
 * **NEVER WRITE, COMMIT, OR PUSH CODE IN `develop` BRANCH.**
 
-## How to Create a New Branch for Development ##
+## How to Create a New Local Branch for Development ##
 1. Switch to the `develop` branch: `git checkout develop`
-1. Make a new branch on your **local repository** from the `develop` branch: `git checkout -b mynewfeature`
-1. Your local repository is now on the `mynewfeature` branch. Doing this did not do anything on the remote repository in GitLab.
+1. Pull the latest changes: `git pull origin develop`
+1. Make a new branch on your local repository from the current branch (which is the `develop` branch): `git checkout -b mynewfeature`
+1. Your local repository is now on the `mynewfeature` branch and the contents are identical to the `develop` branch. Doing this did not do anything on the remote repository in GitLab.
 
 ## How to Write & Commit Code ##
 Repeat the following steps as many time as needed:
@@ -37,9 +47,14 @@ Repeat the following steps as many time as needed:
 1. Write your code.
 1. Test your code.
 1. Make sure your code works and has no bugs.
+1. Go to the root folder of the project `r2projekti` and stage your changes: `git add .`
 1. Commit with descriptive messages: `git commit -m 'Added email field to registration page'`
-1. When pushing, make absolutely sure that you are using the same branch name as the one you created before. Use `git status` to see what branch you are on. Push your commits to GitLab: `git push origin mynewfeature`
+
+If you want assistance with your code from other group members:
+
+1. Push your local branch into GitLab. Make absolutely sure that you are using the same branch name as the one you created before. Use `git status` to see what branch you are on. Push your commits to GitLab: `git push origin mynewfeature`
 1. When you do this the first time, Git creates a new branch in the remote repository in GitLab and your `mynewfeature` branch will be visible there.
+1. Other people can now access your branch from GitLab with: `git checkout mynewfeature`
 
 ## How to Merge to 'develop' Branch ##
 * You will never write code directly in the `develop` branch.
@@ -49,9 +64,10 @@ Repeat the following steps as many time as needed:
 Once the new feature is complete make sure you have committed any changes you've made and your working directory is clean. Check this with the `git status` command. You are now ready to **merge** your branch `mynewfeature` with the `develop` branch.
 
 1. Switch your local repository to the `develop` branch: `git checkout develop`
-1. Merge your current branch (which is the `develop` branch) with your `mynewfeature` branch: `git merge mynewfeature`
+1. Pull the latest changes: `git pull origin develop`
+1. Merge your `mynewfeature` branch to the current branch (which is the `develop` branch) : `git merge mynewfeature`
 1. Sometimes you get a merge conflict, sometimes you don't. I'll write about those later.
-1. Merging does not change the remote repository. Push the changes to GitLab: `git push origin develop`
+1. Merging does not change the remote repository. In fact if you check the status of your local repository with `git status` there are no changes or commits. You just need to know to always push after merges. Push the merge to GitLab: `git push origin develop`
 1. Delete the old development branch because it should not be used anymore: `git branch -d mynewfeature`
 1. Repeat from **How to Create a New Branch for Development**.
 
@@ -65,7 +81,7 @@ When the `develop` branch is in a state where it could be used by the public. It
 
 ## Merging 'develop' branch to 'master' branch ##
 1. Verify that the current `develop` branch is bug free and works as intended.
-1. Go to GitLab and open the Merge Requests page.
+1. Go to **GitLab** and open the Merge Requests page.
 1. Press the green **+ NEW MERGE REQUEST** button.
 1. In the **Source branch** box select the `develop` branch.
 1. In the **Target branch** box select the `master` branch.

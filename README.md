@@ -98,7 +98,8 @@ The following is a list of [worksheets](https://github.com/covcom/205CDE/tree/ma
     - Definitely read: http://code.tutsplus.com/tutorials/working-with-restful-services-in-codeigniter--net-8814
     - Watch: https://www.youtube.com/watch?v=YevHf8Y11ME
     - This is a little confusing but might have some useful bits here and there: http://www.slideshare.net/sachingk30/rest-api-best-practices-implementing-in-codeigniter
-- **Read only:** 20 Document Databases
+- **Skip:** 20 Document Databases
+    - We will use **MySQL** which is not a document database.
 
 # Resources Used In The Project#
 ## Technologies  ##
@@ -111,7 +112,7 @@ The following is a list of [worksheets](https://github.com/covcom/205CDE/tree/ma
 - Bootstrap
 - CodeIgniter
 - CodeIgniter REST Server
-- MongoDB/MySQL
+- MySQL
 - Jasmine
 - PHPUnit
 

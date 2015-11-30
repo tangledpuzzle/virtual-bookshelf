@@ -10,6 +10,7 @@ From [Working with Git remote repos worksheet](https://github.com/covcom/205CDE/
 1. [Git Configuration](https://gitlab.com/joseu/R2Projekti/wikis/git-configuration)
 1. [Installing MySQL](https://gitlab.com/joseu/R2Projekti/wikis/installing-mysql)
 1. [Using Git](https://gitlab.com/joseu/R2Projekti/wikis/using-git)
+1. [API Documentation](https://gitlab.com/joseu/R2Projekti/wikis/api-documentation)
 
 ## Git Branches ##
 * Make a **new branch** for each **new feature**.

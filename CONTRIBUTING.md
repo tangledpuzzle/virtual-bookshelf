@@ -32,8 +32,9 @@ From [Working with Git remote repos worksheet](https://github.com/covcom/205CDE/
 
 # How to Develop a New Feature #
 * Development is always done in separate branches.
-* **NEVER WRITE, COMMIT, OR PUSH CODE IN `master` BRANCH.**
-* **NEVER WRITE, COMMIT, OR PUSH CODE IN `develop` BRANCH.**
+* **NEVER WRITE, COMMIT, OR PUSH CODE WHILE IN `master` BRANCH.**
+* **NEVER WRITE, COMMIT, OR PUSH CODE WHILE IN `develop` BRANCH.**
+* Check your current branch with `git status`.
 
 ## How to Create a New Local Branch for Development ##
 1. Switch to the `develop` branch: `git checkout develop`
@@ -42,6 +43,12 @@ From [Working with Git remote repos worksheet](https://github.com/covcom/205CDE/
 1. Your local repository is now on the `mynewfeature` branch and the contents are identical to the `develop` branch. Doing this did not do anything on the remote repository in GitLab.
 
 ## How to Write & Commit Code ##
+Do your best to separate the **client** (browser/user) code and **server** (running on the Codio box) code.
+* **Client** code is written in HTML, CSS, and **JavaScript**.
+    * Most/All dynamic content that changes often (views) is client code.
+* **Server** code is written in **PHP**.
+    * Most/All static content (models, controllers) is server code.
+
 Repeat the following steps as many time as needed:
 
 1. Write your code.

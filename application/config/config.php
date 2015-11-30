@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://vital-minimum.codio.io:3000/';
+$config['base_url'] = 'http://vital-minimum.codio.io:3000/';	// Put your base URL here.
 
 /*
 |--------------------------------------------------------------------------

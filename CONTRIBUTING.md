@@ -28,14 +28,15 @@ From [Working with Git remote repos worksheet](https://github.com/covcom/205CDE/
 ### 'develop' branch ###
 * The latest development version of the application.
 * Never delete the branch.
-* You can `git push` to the branch after **merges**.
+* Never `git push` **to** the branch.
 * Never `git commit` in the branch.
 * Never write code or modify files in the branch.
+* You **must** `git push origin develop` after merging your feature development branch in to the `develop` branch.
 
 # How to Develop a New Feature #
 * Development is always done in separate branches.
 * **NEVER WRITE, COMMIT, OR PUSH CODE WHILE IN `master` BRANCH.**
-* **NEVER WRITE, COMMIT, OR PUSH CODE WHILE IN `develop` BRANCH.**
+* **NEVER WRITE OR COMMIT CODE IN `develop` BRANCH. DO NOT PUSH TO `develop`. ONLY MERGE TO `develop`.**
 * Check your current branch with `git status`.
 
 ## How to Create a New Local Branch for Development ##

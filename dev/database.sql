@@ -70,6 +70,17 @@ CREATE TABLE comments
 	FOREIGN KEY (UserID) REFERENCES users(UserID)
 ) ENGINE=INNODB;
 
+DROP TABLE IF EXISTS userComments;
+CREATE TABLE userComments
+(
+	UserID INT UNSIGNED NOT NULL,
+	CommentID INT UNSIGNED NOT NULL,
+	
+	PRIMARY KEY (UserID, CommentID),
+	FOREIGN KEY (UserID) REFERENCES users(UserID),
+	FOREIGN KEY (CommentID) REFERENCES comments(CommentID)
+) ENGINE=INNODB;
+
 DROP TABLE IF EXISTS products;
 CREATE TABLE products
 (
@@ -87,6 +98,17 @@ CREATE TABLE products
 	FOREIGN KEY (PublisherID) REFERENCES publishers(PublisherID)
 ) ENGINE=INNODB;
 
+DROP TABLE IF EXISTS productComments;
+CREATE TABLE productComments
+(
+	ProductID INT UNSIGNED NOT NULL,
+	CommentID INT UNSIGNED NOT NULL,
+	
+	PRIMARY KEY (ProductID, CommentID),
+	FOREIGN KEY (ProductID) REFERENCES products(ProductID),
+	FOREIGN KEY (CommentID) REFERENCES comments(CommentID)
+) ENGINE=INNODB;
+
 DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews
 (
@@ -101,6 +123,17 @@ CREATE TABLE reviews
 	
 	FOREIGN KEY (ProductID) REFERENCES products(ProductID),
 	FOREIGN KEY (UserID) REFERENCES users(UserID)
+) ENGINE=INNODB;
+
+DROP TABLE IF EXISTS reviewComments;
+CREATE TABLE reviewComments
+(
+	ReviewID INT UNSIGNED NOT NULL,
+	CommentID INT UNSIGNED NOT NULL,
+	
+	PRIMARY KEY (ReviewID, CommentID),
+	FOREIGN KEY (ReviewID) REFERENCES reviews(ReviewID),
+	FOREIGN KEY (CommentID) REFERENCES comments(CommentID)
 ) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS productGenres;
@@ -124,7 +157,7 @@ CREATE TABLE collections
 DROP TABLE IF EXISTS collectionProducts;
 CREATE TABLE collectionProducts
 (
-	CollectionID INT UNSIGNED NOT NULL ,
+	CollectionID INT UNSIGNED NOT NULL,
 	ProductID INT UNSIGNED NOT NULL,
 	
 	PRIMARY KEY (CollectionID, ProductID),

@@ -109,6 +109,17 @@ CREATE TABLE productComments
 	FOREIGN KEY (CommentID) REFERENCES comments(CommentID)
 ) ENGINE=INNODB;
 
+DROP TABLE IF EXISTS productGenres;
+CREATE TABLE productGenres
+(
+	ProductID INT UNSIGNED NOT NULL,
+	GenreID MEDIUMINT UNSIGNED NOT NULL,
+	
+	PRIMARY KEY (ProductID, GenreID),
+	FOREIGN KEY (ProductID) REFERENCES products(ProductID),
+	FOREIGN KEY (GenreID) REFERENCES genres(GenreID)
+) ENGINE=INNODB;
+
 DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews
 (
@@ -136,33 +147,11 @@ CREATE TABLE reviewComments
 	FOREIGN KEY (CommentID) REFERENCES comments(CommentID)
 ) ENGINE=INNODB;
 
-DROP TABLE IF EXISTS productGenres;
-CREATE TABLE productGenres
-(
-	ProductID INT UNSIGNED NOT NULL,
-	GenreID MEDIUMINT UNSIGNED NOT NULL,
-	
-	PRIMARY KEY (ProductID, GenreID),
-	FOREIGN KEY (ProductID) REFERENCES products(ProductID),
-	FOREIGN KEY (GenreID) REFERENCES genres(GenreID)
-) ENGINE=INNODB;
-
 DROP TABLE IF EXISTS collections;
 CREATE TABLE collections
 (
 	CollectionID INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	CollectionName VARCHAR(128) NOT NULL
-) ENGINE=INNODB;
-
-DROP TABLE IF EXISTS collectionProducts;
-CREATE TABLE collectionProducts
-(
-	CollectionID INT UNSIGNED NOT NULL,
-	ProductID INT UNSIGNED NOT NULL,
-	
-	PRIMARY KEY (CollectionID, ProductID),
-	FOREIGN KEY (CollectionID) REFERENCES collections(CollectionID),
-	FOREIGN KEY (ProductID) REFERENCES products(ProductID)
 ) ENGINE=INNODB;
 
 DROP TABLE IF EXISTS userCollections;
@@ -174,4 +163,15 @@ CREATE TABLE userCollections
 	PRIMARY KEY (UserID, CollectionID),
 	FOREIGN KEY (UserID) REFERENCES users(UserID),
 	FOREIGN KEY (CollectionID) REFERENCES collections(CollectionID)
+) ENGINE=INNODB;
+
+DROP TABLE IF EXISTS collectionProducts;
+CREATE TABLE collectionProducts
+(
+	CollectionID INT UNSIGNED NOT NULL,
+	ProductID INT UNSIGNED NOT NULL,
+	
+	PRIMARY KEY (CollectionID, ProductID),
+	FOREIGN KEY (CollectionID) REFERENCES collections(CollectionID),
+	FOREIGN KEY (ProductID) REFERENCES products(ProductID)
 ) ENGINE=INNODB;

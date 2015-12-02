@@ -58,5 +58,53 @@ $route['translate_uri_dashes'] = TRUE;
 | Sample REST API Routes
 | -------------------------------------------------------------------------
 */
-$route['api/example/users/(:num)'] = 'api/example/users/id/$1';
+
 $route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4';
+$route['api/example/users/(:num)'] = 'api/example/users/id/$1';
+
+/*
+| -------------------------------------------------------------------------
+| Project REST API Routes
+| -------------------------------------------------------------------------
+*/
+
+// -- HTTP GET: PRODUCTS (No Login) --
+
+// GET products/reviews/comments
+$route['api/requests/products/(:num)/reviews/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productreviews/productid/$1/reviewid/$2/commentid/$3/format/$4$5';
+$route['api/requests/products/(:num)/reviews/(:num)/comments/(:num)']['GET'] = 'api/requests/productreviews/productid/$1/reviewid/$2/commentid/$3';
+
+// GET products/comments
+$route['api/requests/products/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productcomments/productid/$1/commentid/$2/format/$3$4';
+$route['api/requests/products/(:num)/comments/(:num)']['GET'] = 'api/requests/productcomments/productid/$1/commentid/$2';
+
+// GET products/reviews
+$route['api/requests/products/(:num)/reviews/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productreviews/productid/$1/reviewid/$2/format/$3$4';
+$route['api/requests/products/(:num)/reviews/(:num)']['GET'] = 'api/requests/productreviews/productid/$1/reviewid/$2';
+
+// GET products
+$route['api/requests/products/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/products/productid/$1/format/$2$3';
+$route['api/requests/products/(:num)']['GET'] = 'api/requests/products/productid/$1';
+
+// -- HTTP GET: USERS (No Login) --
+
+// GET users/#/collections/#
+$route['api/requests/users/(:num)/collections/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/usercollections/userid/$1/collectionid/$2/format/$3$4';
+$route['api/requests/users/(:num)/collections/(:num)']['GET'] = 'api/requests/usercollections/userid/$1/collectionid/$2';
+
+// GET users/#/collections/
+$route['api/requests/users/(:num)/collections(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/usercollections/userid/$1/format/$3$4';
+$route['api/requests/users/(:num)/collections']['GET'] = 'api/requests/usercollections/userid/$1';
+
+// GET users/#/comments/#
+$route['api/requests/users/(:num)/comments/(:num)']['GET'] = 'api/requests/usercomments/userid/$1/commentid/$2';
+$route['api/requests/users/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/usercomments/userid/$1/commentid/$2/format/$3$4';
+
+// GET users/#/comments/
+$route['api/requests/users/(:num)/comments']['GET'] = 'api/requests/usercomments/userid/$1';
+$route['api/requests/users/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/usercomments/userid/$1/format/$3$4';
+
+// GET users 
+// GET users/#
+$route['api/requests/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/users/userid/$1/format/$2$3';
+$route['api/requests/users/(:num)']['GET'] = 'api/requests/users/userid/$1';

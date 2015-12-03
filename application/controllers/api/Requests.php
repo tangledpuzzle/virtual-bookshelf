@@ -27,7 +27,7 @@ class Requests extends REST_Controller
 		if ($userid === NULL)
 		{
 			// TODO: Get all users from the database.
-			$users = 'dummy get users';
+			$users = 'dummy get all users';
 			
 			// TODO: Check if the users data store contains users (in case the database result returns NULL)
 			if ($users)
@@ -66,7 +66,7 @@ class Requests extends REST_Controller
 		}
 	}
 	
-	public function usercollections_get()
+	public function userdata_get()
 	{
 		// Get userid parameter from the query.
 		$userid = $this->get('userid');
@@ -74,68 +74,11 @@ class Requests extends REST_Controller
 		// Get collectionid parameter from the query.
 		$collectionid = $this->get('collectionid');
 		
-		// TODO: Validate userid and collectionid in a separate function.
-		if ($userid === NULL || (int) $userid <= 0)
-		{
-			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-		}
-
-		$userid = (int) $userid;
-
-		// TODO: Get specific user from database.
-		$user = NULL;
-
-		if (empty($user))
-		{
-			$this->set_response("User with the ID " . $userid . " not found.", REST_Controller::HTTP_NOT_FOUND);
-		}
-
-		// If the collectionid is NULL, return all collections.
-		if ($collectionid === NULL)
-		{
-			// TODO: Get all user collections from the database.
-			$collections = "dummy get user collections";
-			
-			if ($collections)
-			{
-				$this->response($collections, REST_Controller::HTTP_OK);
-			}
-			else
-			{
-				$this->response("User has no collections.", REST_Controller::HTTP_NOT_FOUND);
-			}
-		}
-		
-		// TODO: Find and return a single record for a particular user.
-		$collectionid = (int) $collectionid;
-
-		//TODO: Validate
-		if ($collectionid <= 0)
-		{
-			// Invalid collectionid.
-			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-		}
-
-		// TODO: Get specific collection from database.
-		$collection = NULL;
-
-		if (!empty($collection))
-		{
-			$this->set_response($collection, REST_Controller::HTTP_OK);
-		}
-		else
-		{
-			$this->set_response("User ID " . $userid . " does not have a collection with the ID " . $collectionid . ".", REST_Controller::HTTP_NOT_FOUND);
-		}
-	}
-	
-	public function usercomments_get()
-	{
-		// Get userid parameter from the query.
-		$userid = $this->get('userid');
-	
 		// Get commentid parameter from the query.
 		$commentid = $this->get('commentid');
+		
+		// Get datatype parameter from the query.
+		$datatype = $this->get('datatype');
 		
 		// TODO: Validate userid in a separate function.
 		if ($userid === NULL || (int) $userid <= 0)
@@ -153,41 +96,85 @@ class Requests extends REST_Controller
 			$this->set_response("User with the ID " . $userid . " not found.", REST_Controller::HTTP_NOT_FOUND);
 		}
 
-		// If the commentid is NULL, return all comments.
-		if ($commentid === NULL)
+		if ($datatype !== NULL)
 		{
-			// TODO: Get all user comments from the database.
-			$comments = "dummy get user comments";
+			// Error checking, this should always be true when datatype is not NULL.
+			if ($collectionid === NULL && $commentid === NULL)
+			{
+				switch ($datatype)
+				{
+					case "collections":
+						$collections = "dummy get all user collections";
 			
-			if ($comments)
-			{
-				$this->response($comments, REST_Controller::HTTP_OK);
-			}
-			else
-			{
-				$this->response("User has no comments.", REST_Controller::HTTP_NOT_FOUND);
+						if ($collections)
+						{
+							$this->response($collections, REST_Controller::HTTP_OK);
+						}
+						else
+						{
+							$this->response("User has no collections.", REST_Controller::HTTP_NOT_FOUND);
+						}
+						break;
+					case "comments":
+						$comments = "dummy get all user comments";
+			
+						if ($comments)
+						{
+							$this->response($comments, REST_Controller::HTTP_OK);
+						}
+						else
+						{
+							$this->response("User has no comments.", REST_Controller::HTTP_NOT_FOUND);
+						}
+						break;
+					default:
+						// Theoretically this is not possible.
+						$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
+				}
+				
+				$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
 			}
 		}
-		
-		$commentid = (int) $commentid;
 
-		//TODO: Validate
-		if ($commentid <= 0)
+		// Determine what data to get.
+		if ($collectionid === NULL)
 		{
-			// Invalid commentid.
-			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-		}
-
-		// TODO: Get specific comment from database.
-		$comment = NULL;
-
-		if (!empty($comment))
-		{
-			$this->set_response($comment, REST_Controller::HTTP_OK);
+			$commentid = (int) $commentid;
+			$collectionid = 0; // Invalid ID
 		}
 		else
 		{
-			$this->set_response("User ID " . $userid . " does not have a comment with the ID " . $commentid . ".", REST_Controller::HTTP_NOT_FOUND);
+			$collectionid = (int) $collectionid;
+			$commentid = 0; // Invalid ID
+		}
+		
+		// One of these is 0 the other must not be 0 or less.
+		if ($collectionid <= 0 && $commentid <= 0)
+		{
+				$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
+		}
+		else if ($collectionid > $commentid) // One of these values is greater than 0.
+		{
+			// TODO: Get specific collection from database.
+			$data = NULL;
+			// Error message to return if the comment does not exist.
+			$errorMessage = "User ID " . $userid . " does not have a collection with the ID " . $collectionid . ".";
+		}
+		else
+		{
+			// TODO: Get specific comment from database.
+			$data = NULL;
+			// Error message to return if the comment does not exist.
+			$errorMessage = "User ID " . $userid . " does not have a comment with the ID " . $commentid . ".";
+		}
+			
+		if (!empty($data))
+		{
+			$this->set_response($data, REST_Controller::HTTP_OK);
+		}
+		else
+		{
+			$this->set_response($errorMessage, REST_Controller::HTTP_NOT_FOUND);
 		}
 	}
 }

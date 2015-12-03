@@ -66,7 +66,33 @@ $route['api/example/users/(:num)'] = 'api/example/users/id/$1';
 | -------------------------------------------------------------------------
 | Project REST API Routes
 | -------------------------------------------------------------------------
+| 
+| Note
+| Route rules are not filters! Setting a rule of e.g. ‘foo/bar/(:num)’ will not prevent controller Foo and method bar to be called with a non-numeric value if that is a valid route.
 */
+
+// -- HTTP GET: USERS (No Login) --
+
+// GET users/#/collections/# > userdata_get(userid, collectionid);
+$route['api/requests/users/(:num)/collections/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/collectionid/$2/format/$3$4';
+$route['api/requests/users/(:num)/collections/(:num)']['GET'] = 'api/requests/userdata/userid/$1/collectionid/$2';
+
+// GET users/#/comments/# > userdata_get(userid, commentid);
+$route['api/requests/users/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/commentid/$2/format/$3$4';
+$route['api/requests/users/(:num)/comments/(:num)']['GET'] = 'api/requests/userdata/userid/$1/commentid/$2';
+
+// GET users/#/collections/ > userdata_get(userid, datatype);
+$route['api/requests/users/(:num)/collections(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/datatype/collections/format/$2$3';
+$route['api/requests/users/(:num)/collections']['GET'] = 'api/requests/userdata/userid/$1/datatype/collections';
+
+// GET users/#/comments/ > userdata_get(userid, datatype);
+$route['api/requests/users/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/datatype/comments/format/$2$3';
+$route['api/requests/users/(:num)/comments']['GET'] = 'api/requests/userdata/userid/$1/datatype/comments';
+
+// GET users > users_get();
+// GET users/# > users_get(userid);
+$route['api/requests/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/users/userid/$1/format/$2$3';
+$route['api/requests/users/(:num)']['GET'] = 'api/requests/users/userid/$1';
 
 // -- HTTP GET: PRODUCTS (No Login) --
 
@@ -85,26 +111,3 @@ $route['api/requests/products/(:num)/reviews/(:num)']['GET'] = 'api/requests/pro
 // GET products
 $route['api/requests/products/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/products/productid/$1/format/$2$3';
 $route['api/requests/products/(:num)']['GET'] = 'api/requests/products/productid/$1';
-
-// -- HTTP GET: USERS (No Login) --
-
-// GET users/#/collections/#
-$route['api/requests/users/(:num)/collections/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/usercollections/userid/$1/collectionid/$2/format/$3$4';
-$route['api/requests/users/(:num)/collections/(:num)']['GET'] = 'api/requests/usercollections/userid/$1/collectionid/$2';
-
-// GET users/#/collections/
-$route['api/requests/users/(:num)/collections(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/usercollections/userid/$1/format/$3$4';
-$route['api/requests/users/(:num)/collections']['GET'] = 'api/requests/usercollections/userid/$1';
-
-// GET users/#/comments/#
-$route['api/requests/users/(:num)/comments/(:num)']['GET'] = 'api/requests/usercomments/userid/$1/commentid/$2';
-$route['api/requests/users/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/usercomments/userid/$1/commentid/$2/format/$3$4';
-
-// GET users/#/comments/
-$route['api/requests/users/(:num)/comments']['GET'] = 'api/requests/usercomments/userid/$1';
-$route['api/requests/users/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/usercomments/userid/$1/format/$3$4';
-
-// GET users 
-// GET users/#
-$route['api/requests/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/users/userid/$1/format/$2$3';
-$route['api/requests/users/(:num)']['GET'] = 'api/requests/users/userid/$1';

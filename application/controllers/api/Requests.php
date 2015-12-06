@@ -435,4 +435,86 @@ class Requests extends REST_Controller
 			}
 		}
 	}
+	
+	/*
+	 * HTTP PUT: COLLECTIONS
+	 */
+	public function userdata_put()
+	{
+		// Get userid parameter from the query.
+		$userid = $this->get('userid');
+		
+		// Get collectionid parameter from the query.
+		$collectionid = $this->get('collectionid');
+		
+		// Get productid parameter from the query.
+		$productid = $this->get('productid');
+		
+		// TODO: Userid is required at the moment.
+		if ($userid === NULL)
+		{
+			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
+		}
+		else
+		{
+			$userid = (int) $userid;
+		}
+
+		/* Validate the ID.
+		   UserID field in the database must be >= 1.
+		   TODO: Move to separate function later.
+		 */
+		if ($userid <= 0)
+		{
+			// Invalid id.
+			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
+		}
+
+		// TODO: Get specific user from database.
+		$user = NULL;
+
+		if ($collectionid === NULL)
+		{
+			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
+		}
+		else
+		{
+			$collectionid = (int) $collectionid;
+		}
+
+		if ($collectionid <= 0)
+		{
+			// Invalid id.
+			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
+		}
+
+		// TODO: Get specific product from database.
+		$collection = NULL;
+		
+		if ($productid === NULL)
+		{
+			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
+		}
+		else
+		{
+			$productid = (int) $productid;
+		}
+
+		/* Validate the ID.
+		   ProductID field in the database must be >= 1.
+		   TODO: Move to separate function later.
+		 */
+		if ($productid <= 0)
+		{
+			// Invalid id.
+			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
+		}
+
+		// TODO: Get specific product from database.
+		$product = NULL;
+		
+		$message = ['dummydata' => "Product ID " . $productid . " successfully added to collection ID " . $collectionid . " of user ID " . $userid . "."];
+			
+		$this->response($message, REST_Controller::HTTP_OK);
+	}
 }

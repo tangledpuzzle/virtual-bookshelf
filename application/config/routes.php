@@ -141,6 +141,15 @@ $route['api/requests/products/(:num)/comments']['POST'] = 'api/requests/comments
 $route['api/requests/users/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/userid/$1/format/$2$3';
 $route['api/requests/users/(:num)/comments']['POST'] = 'api/requests/comments/userid/$1';
 
+
+// -- HTTP PUT: COLLECTIONS (Login Required) --
+// TODO: Login functionality not yet implemented.
+
+// TODO: Technically the user ID is not needed here as it comes from the login details.
+// POST products/#/reviews/#/comments > comments_post(productid, reviewid, text);
+$route['api/requests/users/(:num)/collections/(:num)/products/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['PUT'] = 'api/requests/userdata/userid/$1/collectionid/$2/productid/$3/format/$4$5';
+$route['api/requests/users/(:num)/collections/(:num)/products/(:num)']['PUT'] = 'api/requests/userdata/userid/$1/collectionid/$2/productid/$3';
+
 // -- HTTP DELETE: REVIEWS & COLLECTIONS (Login Required) --
 // TODO: Login functionality not yet implemented.
 // TODO: Implement later if necessary.

@@ -1,5 +1,12 @@
 <?php
 class Projekti extends CI_Controller {
+	
+	function __construct() {
+		parent::__construct();
+		
+		$this->load->helper('url');
+		$this->load->model('r2pdb_model');
+	}
 
     public function view($page = 'front')
 {

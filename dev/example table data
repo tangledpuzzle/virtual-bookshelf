@@ -1,0 +1,165 @@
+[
+  {
+    "name": "UserID",
+    "type": 3,
+    "max_length": 1,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "ScreenName",
+    "type": 253,
+    "max_length": 17,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "FirstName",
+    "type": 253,
+    "max_length": 6,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "LastName",
+    "type": 253,
+    "max_length": 11,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "Age",
+    "type": 3,
+    "max_length": 2,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "GenderName",
+    "type": 253,
+    "max_length": 11,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "CountryName",
+    "type": 253,
+    "max_length": 7,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "RegistrationDate",
+    "type": 12,
+    "max_length": 19,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "AvatarPath",
+    "type": 253,
+    "max_length": 0,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "Bio",
+    "type": 252,
+    "max_length": 5,
+    "primary_key": 0,
+    "default": ""
+  }
+]
+
+
+
+
+
+
+
+[
+  {
+    "name": "UserID",
+    "type": 3,
+    "max_length": 1,
+    "primary_key": 2,
+    "default": ""
+  },
+  {
+    "name": "LoginName",
+    "type": 253,
+    "max_length": 10,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "Password",
+    "type": 253,
+    "max_length": 6,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "RegistrationDate",
+    "type": 12,
+    "max_length": 19,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "FirstName",
+    "type": 253,
+    "max_length": 4,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "LastName",
+    "type": 253,
+    "max_length": 8,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "Age",
+    "type": 3,
+    "max_length": 2,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "GenderID",
+    "type": 1,
+    "max_length": 1,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "CountryID",
+    "type": 2,
+    "max_length": 1,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "ScreenName",
+    "type": 253,
+    "max_length": 5,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "AvatarPath",
+    "type": 253,
+    "max_length": 0,
+    "primary_key": 0,
+    "default": ""
+  },
+  {
+    "name": "Bio",
+    "type": 252,
+    "max_length": 3,
+    "primary_key": 0,
+    "default": ""
+  }
+]

@@ -4,12 +4,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH . '/libraries/REST_Controller.php';
 
+/**
+* REST API.
+* @package r2p_api
+* @author Jose Uusitalo
+*/
 class Requests extends REST_Controller
 {
 	function __construct()
 	{
 		// Construct the parent class
 		parent::__construct();
+		$this->load->model('r2pdb_model');
 
 		// Configure limits on our controller methods
 		// Ensure you have created the 'limits' table and enabled 'limits' within application/config/rest.php
@@ -29,11 +35,11 @@ class Requests extends REST_Controller
 		// If the userid is NULL, return all users.
 		if ($userid === NULL)
 		{
-			// TODO: Get all users from the database.
-			$users = ['dummydata' => 'dummy get all users'];
+			// Get all users from the database.
+			$users = $this->r2pdb_model->get_users_formatted();
 			
-			// TODO: Check if the users data store contains users (in case the database result returns NULL)
-			if ($users)
+			// Check if the users data store contains users
+			if (!empty($users))
 			{
 				$this->response($users, REST_Controller::HTTP_OK);
 			}
@@ -43,23 +49,15 @@ class Requests extends REST_Controller
 			}
 		}
 
-		// TODO: Find and return a single record for a particular user.
-		$userid = (int) $userid;
-
-		/* Validate the ID.
-		   UserID field in the database must be >= 1.
-		   TODO: Move to separate function later.
-		 */
-		if ($userid <= 0)
+		// Get specific user from database.
+		$user = $this->r2pdb_model->get_user_by_id_formatted($userid);
+		
+		// Validate userid. NOTE: NULL equals FALSE with loose comparison.
+		if ($user == FALSE)
 		{
-			// Invalid id.
-			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
+			$this->response(['status' => FALSE, 'message' => 'Invalid or null user ID.'], REST_Controller::HTTP_BAD_REQUEST);
 		}
-
-		// TODO: Get specific user from database.
-		$user = NULL;
-
-		if (!empty($user))
+		else if (!empty($user))
 		{
 			$this->set_response($user, REST_Controller::HTTP_OK);
 		}

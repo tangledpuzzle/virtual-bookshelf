@@ -25,6 +25,21 @@ class Requests extends REST_Controller
 	}
 
 	/*
+	 * HTTP POST: RAW DATABASE ACCESS
+	 * 
+	 * FIXME: WARNING: REMOVE BEFORE PRODUCTION! DEVELOPMENT ONLY!
+	 * 
+	 */
+	public function db_post()
+	{
+		//$key = $this->post('key');
+		//$value = $this->post('value');
+		$array = $this->post('args');
+		$data = $this->r2pdb_model->get_rows_by_field_display($array);
+		$this->response($data, REST_Controller::HTTP_OK);
+	}
+	
+	/*
 	 * HTTP GET: USERS
 	 */
 	public function users_get()
@@ -36,7 +51,7 @@ class Requests extends REST_Controller
 		if ($userid === NULL)
 		{
 			// Get all users from the database.
-			$users = $this->r2pdb_model->get_users_formatted();
+			$users = $this->r2pdb_model->get_users_display();
 			
 			// Check if the users data store contains users
 			if (!empty($users))
@@ -50,7 +65,7 @@ class Requests extends REST_Controller
 		}
 
 		// Get specific user from database.
-		$user = $this->r2pdb_model->get_user_by_id_formatted($userid);
+		$user = $this->r2pdb_model->get_user_by_id_display($userid);
 		
 		// Validate userid. NOTE: NULL equals FALSE with loose comparison.
 		if ($user == FALSE)

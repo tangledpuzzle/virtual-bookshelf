@@ -153,3 +153,8 @@ $route['api/requests/users/(:num)/collections/(:num)/products/(:num)']['PUT'] = 
 // -- HTTP DELETE: REVIEWS & COLLECTIONS (Login Required) --
 // TODO: Login functionality not yet implemented.
 // TODO: Implement later if necessary.
+
+
+// -- HTTP POST: RAW DATABASE ACCESS --
+$route['api/requests/db/(:any)(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/db/args/$1/format/$2$3';
+$route['api/requests/db/(:any)']['POST'] = 'api/requests/db/args/$1';

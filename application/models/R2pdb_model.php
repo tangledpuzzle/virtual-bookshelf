@@ -6,11 +6,6 @@
 */
 class R2pdb_model extends CI_Model
 {
-	public function __construct()
-	{
-		$this->load->database();
-	}
-	
 	/**
 	* Returns a string containg the names of the table columns that contain publicly viewable information.
 	* @param string $table_name name of the table
@@ -30,9 +25,11 @@ class R2pdb_model extends CI_Model
 				case "products":
 				case "publishers":
 				case "reviews":
+					return "*";
 				case "users":
 					return "UserID, RegistrationDate, FirstName, LastName, Age, GenderID, CountryID, ScreenName, AvatarPath, Bio";
 				default:
+					// WARNING: Will throw a PHP error.
 					return NULL;
 			}
 			
@@ -41,28 +38,36 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Returns a string containg the names of the table columns that contain publicly viewable information. For use with the formatted data getter.
+	* Returns a string containg the names of the table columns that contain publicly viewable information. For use with the display data getter.
 	* @param string $table_name name of the table
 	* @return string|null|boolean public data columns names as a string, FALSE for unknown table name, NULL if $table_name was null 
 	*/
-	private function get_public_data_columns_formatted($table_name)
+	private function get_public_data_columns_display($table_name)
 	{
 		if ($table_name !== NULL)
 		{
 			switch ($table_name)
 			{
 				case "collections":
+					return "CollectionName";
 				case "comments":
+					return "CommentID, PostDate, UserID, ScreenName, Text";
 				case "countries":
+					return "CountrySymbol, CountryName, FlagPath";
 				case "genders":
+					return "GenderName";
 				case "genres":
+					return "GenreName";
 				case "products":
+					return "ProductID, Name, ReleaseDate, ImagePath, LanguageName, Brief, Description, EAN13, PublisherName";
 				case "publishers":
+					return "PublisherName";
 				case "reviews":
-					return NULL;
+					return "ReviewID, ReviewDate, reviews.ProductID, Name, ScreenName, reviews.UserID, Text, Pros, Cons, Rating";
 				case "users":
 					return "UserID, ScreenName, FirstName, LastName, Age, GenderName, CountryName, RegistrationDate, AvatarPath, Bio";
 				default:
+					// WARNING: Will throw a PHP error.
 					return NULL;
 			}
 			
@@ -195,14 +200,69 @@ class R2pdb_model extends CI_Model
 	* @param various $arg_array a key-value array of database field names to sort by, use "!table_name" key for table name
 	* @return array|null an array of arrays containing found rows, NULL if no arguments were given 
 	*/
-	private function get_rows_by_field()
+	public function get_rows_by_field_display()
 	{
-		$arg_list = func_get_args();
+		$arg_list = func_get_args()[0];
 		
         if ($arg_list !== NULL && count($arg_list))
         {
-			$table_name = $arg_list["!table_name"];
-			unset($arg_list["!table_name"]); // Remove table_name element from array as it is not a field.
+			$table_name = $arg_list["table_name"];
+			unset($arg_list["table_name"]); // Remove table_name element from array as it is not a field.
+			$this->db->where($arg_list); // Add all fields to WHERE statement.
+			$this->db->select($this->get_public_data_columns_display($table_name));
+	
+			// Left join the correct tables.
+			switch ($table_name)
+			{
+				case "reviews":
+					$this->db->join("products", 'products.ProductID = reviews.ProductID', 'left');
+					$this->db->join("users", 'users.UserID = reviews.UserID', 'left');
+					break;
+				case "comments":
+					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					break;
+				case "products":
+					$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
+					$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+					break;
+				case "users":
+					$this->db->join("countries", 'countries.CountryID = users.CountryID', 'left');
+					$this->db->join("genders", 'genders.GenderID = users.GenderID', 'left');
+					break;
+				case "collections":
+				case "countries":
+				case "genders":
+				case "genres":
+				case "publishers":
+				default:
+					// No foreign keys to join.
+					break;
+			}
+
+			$this->db->order_by($this->get_id_column_from_table($table_name), 'ASC');
+			
+			$query = $this->db->get($table_name);
+			$this->db->reset_query();
+			return $this->correct_result_data_types($query);
+	
+			return $query->result_array();
+        }
+		return NULL;
+	}
+	
+	/**
+	* A generic get data function for a variable number of fields. Warning: Fewer integrity checks are performed with this function, use with caution.
+	* @param various $arg_array a key-value array of database field names to sort by, use "!table_name" key for table name
+	* @return array|null an array of arrays containing found rows, NULL if no arguments were given 
+	*/
+	public function get_rows_by_field()
+	{
+		$arg_list = func_get_args()[0];
+		
+        if ($arg_list !== NULL && count($arg_list))
+        {
+			$table_name = $arg_list["table_name"];
+			unset($arg_list["table_name"]); // Remove table_name element from array as it is not a field.
 			$this->db->where($arg_list); // Add all fields to WHERE statement.
 			
 			$query = $this->db->get($table_name);
@@ -240,45 +300,51 @@ class R2pdb_model extends CI_Model
 	* @param string $table_name name of the table
 	* @return array an array of arrays containing the rows of the table 
 	*/
-	private function get_row_by_id_formatted($table_name, $id)
+	private function get_row_by_id_display($table_name, $id)
 	{
 		$valid = $this->validate_row_id($table_name, $id);
 		
         if ($valid !== NULL)
         {
-			print("one");
 			if ($valid)
 			{
-			print("two");
-				$this->db->select($this->get_public_data_columns_formatted($table_name));
+				$this->db->select($this->get_public_data_columns_display($table_name));
+				
 				// Left join the correct tables.
 				switch ($table_name)
 				{
-					case "collections":
-					case "comments":
-					case "countries":
-					case "genders":
-					case "genres":
-					case "products":
-					case "publishers":
 					case "reviews":
-						return NULL;
+						$this->db->join("products", 'products.ProductID = reviews.ProductID', 'left');
+						$this->db->join("users", 'users.UserID = reviews.UserID', 'left');
+						break;
+					case "comments":
+						$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+						break;
+					case "products":
+						$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
+						$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+						break;
 					case "users":
 						$this->db->join("countries", 'countries.CountryID = users.CountryID', 'left');
 						$this->db->join("genders", 'genders.GenderID = users.GenderID', 'left');
 						break;
+					case "collections":
+					case "countries":
+					case "genders":
+					case "genres":
+					case "publishers":
 					default:
-						return NULL;
+						// No foreign keys to join.
+						break;
 				}
-				$this->db->where($this->get_id_column_from_table($table_name), (int) $id));
+
+				$this->db->where($this->get_id_column_from_table($table_name), (int) $id);
 				// FIXME: QUERY FAILS
 				$query = $this->db->get($table_name);
 
 				$this->db->reset_query();
 
-			print_r($query->result_array());
-				//return $this->correct_result_data_types($query);
-				return $query->result_array();
+				return $this->correct_result_data_types($query);
 			}
 			return FALSE;
         }
@@ -303,29 +369,37 @@ class R2pdb_model extends CI_Model
 	* @param string $table_name name of the table
 	* @return array an array of arrays containing the rows of the table 
 	*/
-	private function get_table_rows_formatted($table_name)
+	private function get_table_rows_display($table_name)
 	{
-		$this->db->select($this->get_public_data_columns_formatted($table_name));
+		$this->db->select($this->get_public_data_columns_display($table_name));
 		
-		// Left join the correct tables.
-		switch ($table_name)
-		{
-			case "collections":
-			case "comments":
-			case "countries":
-			case "genders":
-			case "genres":
-			case "products":
-			case "publishers":
-			case "reviews":
-				return NULL;
-			case "users":
-				$this->db->join("countries", 'countries.CountryID = users.CountryID', 'left');
-				$this->db->join("genders", 'genders.GenderID = users.GenderID', 'left');
-				break;
-			default:
-				return NULL;
-		}
+			// Left join the correct tables.
+			switch ($table_name)
+			{
+				case "reviews":
+					$this->db->join("products", 'products.ProductID = reviews.ProductID', 'left');
+					$this->db->join("users", 'users.UserID = reviews.UserID', 'left');
+					break;
+				case "comments":
+					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					break;
+				case "products":
+					$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
+					$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+					break;
+				case "users":
+					$this->db->join("countries", 'countries.CountryID = users.CountryID', 'left');
+					$this->db->join("genders", 'genders.GenderID = users.GenderID', 'left');
+					break;
+				case "collections":
+				case "countries":
+				case "genders":
+				case "genres":
+				case "publishers":
+				default:
+					// No foreign keys to join.
+					break;
+			}
 		
 		$this->db->order_by($this->get_id_column_from_table($table_name), 'ASC');
 		
@@ -342,16 +416,16 @@ class R2pdb_model extends CI_Model
 	// collections
 	
 	/**
-	* Get all collections with data formatting.
+	* Get all collections with data formatting for display purposes.
 	* @return array an array of arrays containing all collections
 	*/
-	public function get_collections_formatted()
+	public function get_collections_display()
 	{
-		return $this->get_table_rows_formatted("collections");
+		return $this->get_table_rows_display("collections");
 	}
 	
 	/**
-	* Get all collections without data formatting.
+	* Get all collections without data formatting for display purposes.
 	* @return array an array of arrays containing all collections
 	*/
 	public function get_collections()
@@ -360,17 +434,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific collection by their ID with data formatting.
+	* Get a specific collection by their ID with data formatting for display purposes.
 	* @param int $id collection ID
 	* @return array|boolean|null an array containing found collection as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
-	public function get_collection_by_id_formatted($id)
+	public function get_collection_by_id_display($id)
 	{
-		return $this->get_row_by_id_formatted("collections", $id);
+		return $this->get_row_by_id_display("collections", $id);
 	}
 	
 	/**
-	* Get a specific collection by their ID without data formatting.
+	* Get a specific collection by their ID without data formatting for display purposes.
 	* @param int $id collection ID
 	* @return array|boolean|null an array containing found collection as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
@@ -382,16 +456,16 @@ class R2pdb_model extends CI_Model
 	// comments
 	
 	/**
-	* Get all comments with data formatting.
+	* Get all comments with data formatting for display purposes.
 	* @return array an array of arrays containing all comments
 	*/
-	public function get_comments_formatted()
+	public function get_comments_display()
 	{
-		return $this->get_table_rows_formatted("comments");
+		return $this->get_table_rows_display("comments");
 	}
 	
 	/**
-	* Get all comments without data formatting.
+	* Get all comments without data formatting for display purposes.
 	* @return array an array of arrays containing all comments
 	*/
 	public function get_comments()
@@ -400,17 +474,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific comment by their ID with data formatting.
+	* Get a specific comment by their ID with data formatting for display purposes.
 	* @param int $id comment ID
 	* @return array|boolean|null an array containing found comment as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
-	public function get_comment_by_id_formatted($id)
+	public function get_comment_by_id_display($id)
 	{
-		return $this->get_row_by_id_formatted("comments", $id);
+		return $this->get_row_by_id_display("comments", $id);
 	}
 	
 	/**
-	* Get a specific comment by their ID without data formatting.
+	* Get a specific comment by their ID without data formatting for display purposes.
 	* @param int $id comment ID
 	* @return array|boolean|null an array containing found comment as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
@@ -422,16 +496,16 @@ class R2pdb_model extends CI_Model
 	// countries
 	
 	/**
-	* Get all countries with data formatting.
+	* Get all countries with data formatting for display purposes.
 	* @return array an array of arrays containing all countries
 	*/
-	public function get_countries_formatted()
+	public function get_countries_display()
 	{
-		return $this->get_table_rows_formatted("countries");
+		return $this->get_table_rows_display("countries");
 	}
 	
 	/**
-	* Get all countries without data formatting.
+	* Get all countries without data formatting for display purposes.
 	* @return array an array of arrays containing all countries
 	*/
 	public function get_countries()
@@ -440,17 +514,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific country by their ID with data formatting.
+	* Get a specific country by their ID with data formatting for display purposes.
 	* @param int $id country ID
 	* @return array|boolean|null an array containing found country as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
-	public function get_country_by_id_formatted($id)
+	public function get_country_by_id_display($id)
 	{
-		return $this->get_row_by_id_formatted("countries", $id);
+		return $this->get_row_by_id_display("countries", $id);
 	}
 	
 	/**
-	* Get a specific country by their ID without data formatting.
+	* Get a specific country by their ID without data formatting for display purposes.
 	* @param int $id country ID
 	* @return array|boolean|null an array containing found country as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
@@ -462,16 +536,16 @@ class R2pdb_model extends CI_Model
 	// genders
 	
 	/**
-	* Get all genders with data formatting.
+	* Get all genders with data formatting for display purposes.
 	* @return array an array of arrays containing all genders
 	*/
-	public function get_genders_formatted()
+	public function get_genders_display()
 	{
-		return $this->get_table_rows_formatted("genders");
+		return $this->get_table_rows_display("genders");
 	}
 	
 	/**
-	* Get all genders without data formatting.
+	* Get all genders without data formatting for display purposes.
 	* @return array an array of arrays containing all genders
 	*/
 	public function get_genders()
@@ -480,17 +554,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific gender by their ID with data formatting.
+	* Get a specific gender by their ID with data formatting for display purposes.
 	* @param int $id gender ID
 	* @return array|boolean|null an array containing found gender as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
-	public function get_gender_by_id_formatted($id)
+	public function get_gender_by_id_display($id)
 	{
-		return $this->get_row_by_id_formatted("genders", $id);
+		return $this->get_row_by_id_display("genders", $id);
 	}
 	
 	/**
-	* Get a specific gender by their ID without data formatting.
+	* Get a specific gender by their ID without data formatting for display purposes.
 	* @param int $id gender ID
 	* @return array|boolean|null an array containing found gender as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
@@ -502,16 +576,16 @@ class R2pdb_model extends CI_Model
 	// genres
 	
 	/**
-	* Get all genres with data formatting.
+	* Get all genres with data formatting for display purposes.
 	* @return array an array of arrays containing all genres
 	*/
-	public function get_genres_formatted()
+	public function get_genres_display()
 	{
-		return $this->get_table_rows_formatted("genres");
+		return $this->get_table_rows_display("genres");
 	}
 	
 	/**
-	* Get all genres without data formatting.
+	* Get all genres without data formatting for display purposes.
 	* @return array an array of arrays containing all genres
 	*/
 	public function get_genres()
@@ -520,17 +594,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific genre by their ID with data formatting.
+	* Get a specific genre by their ID with data formatting for display purposes.
 	* @param int $id genre ID
 	* @return array|boolean|null an array containing found genre as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
-	public function get_genre_by_id_formatted($id)
+	public function get_genre_by_id_display($id)
 	{
-		return $this->get_row_by_id_formatted("genres", $id);
+		return $this->get_row_by_id_display("genres", $id);
 	}
 	
 	/**
-	* Get a specific genre by their ID without data formatting.
+	* Get a specific genre by their ID without data formatting for display purposes.
 	* @param int $id genre ID
 	* @return array|boolean|null an array containing found genre as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
@@ -542,16 +616,16 @@ class R2pdb_model extends CI_Model
 	// products
 	
 	/**
-	* Get all products with data formatting.
+	* Get all products with data formatting for display purposes.
 	* @return array an array of arrays containing all products
 	*/
-	public function get_products_formatted()
+	public function get_products_display()
 	{
-		return $this->get_table_rows_formatted("products");
+		return $this->get_table_rows_display("products");
 	}
 	
 	/**
-	* Get all products without data formatting.
+	* Get all products without data formatting for display purposes.
 	* @return array an array of arrays containing all products
 	*/
 	public function get_products()
@@ -560,17 +634,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific product by their ID with data formatting.
+	* Get a specific product by their ID with data formatting for display purposes.
 	* @param int $id product ID
 	* @return array|boolean|null an array containing found product as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
-	public function get_product_by_id_formatted($id)
+	public function get_product_by_id_display($id)
 	{
-		return $this->get_row_by_id_formatted("products", $id);
+		return $this->get_row_by_id_display("products", $id);
 	}
 	
 	/**
-	* Get a specific product by their ID without data formatting.
+	* Get a specific product by their ID without data formatting for display purposes.
 	* @param int $id product ID
 	* @return array|boolean|null an array containing found product as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
@@ -582,16 +656,16 @@ class R2pdb_model extends CI_Model
 	// publishers
 	
 	/**
-	* Get all publishers with data formatting.
+	* Get all publishers with data formatting for display purposes.
 	* @return array an array of arrays containing all publishers
 	*/
-	public function get_publishers_formatted()
+	public function get_publishers_display()
 	{
-		return $this->get_table_rows_formatted("publishers");
+		return $this->get_table_rows_display("publishers");
 	}
 	
 	/**
-	* Get all publishers without data formatting.
+	* Get all publishers without data formatting for display purposes.
 	* @return array an array of arrays containing all publishers
 	*/
 	public function get_publishers()
@@ -600,17 +674,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific publisher by their ID with data formatting.
+	* Get a specific publisher by their ID with data formatting for display purposes.
 	* @param int $id publisher ID
 	* @return array|boolean|null an array containing found publisher as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
-	public function get_publisher_by_id_formatted($id)
+	public function get_publisher_by_id_display($id)
 	{
-		return $this->get_row_by_id_formatted("publishers", $id);
+		return $this->get_row_by_id_display("publishers", $id);
 	}
 	
 	/**
-	* Get a specific publisher by their ID without data formatting.
+	* Get a specific publisher by their ID without data formatting for display purposes.
 	* @param int $id publisher ID
 	* @return array|boolean|null an array containing found publisher as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
@@ -622,16 +696,16 @@ class R2pdb_model extends CI_Model
 	// reviews
 	
 	/**
-	* Get all reviews with data formatting.
+	* Get all reviews with data formatting for display purposes.
 	* @return array an array of arrays containing all reviews
 	*/
-	public function get_reviews_formatted()
+	public function get_reviews_display()
 	{
-		return $this->get_table_rows_formatted("reviews");
+		return $this->get_table_rows_display("reviews");
 	}
 	
 	/**
-	* Get all reviews without data formatting.
+	* Get all reviews without data formatting for display purposes.
 	* @return array an array of arrays containing all reviews
 	*/
 	public function get_reviews()
@@ -640,17 +714,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific review by their ID with data formatting.
+	* Get a specific review by their ID with data formatting for display purposes.
 	* @param int $id review ID
 	* @return array|boolean|null an array containing found review as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
-	public function get_review_by_id_formatted($id)
+	public function get_review_by_id_display($id)
 	{
-		return $this->get_row_by_id_formatted("reviews", $id);
+		return $this->get_row_by_id_display("reviews", $id);
 	}
 	
 	/**
-	* Get a specific review by their ID without data formatting.
+	* Get a specific review by their ID without data formatting for display purposes.
 	* @param int $id review ID
 	* @return array|boolean|null an array containing found review as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
@@ -662,16 +736,16 @@ class R2pdb_model extends CI_Model
 	// users
 	
 	/**
-	* Get all users with data formatting.
+	* Get all users with data formatting for display purposes.
 	* @return array an array of arrays containing all users
 	*/
-	public function get_users_formatted()
+	public function get_users_display()
 	{
-		return $this->get_table_rows_formatted("users");
+		return $this->get_table_rows_display("users");
 	}
 	
 	/**
-	* Get all users without data formatting.
+	* Get all users without data formatting for display purposes.
 	* @return array an array of arrays containing all users
 	*/
 	public function get_users()
@@ -680,17 +754,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific user by their ID with data formatting.
+	* Get a specific user by their ID with data formatting for display purposes.
 	* @param int $id user ID
 	* @return array|boolean|null an array containing found user as an array, FALSE for invalid ID, NULL if $id was null 
 	*/
-	public function get_user_by_id_formatted($id)
+	public function get_user_by_id_display($id)
 	{
-		return $this->get_row_by_id_formatted("users", $id);
+		return $this->get_row_by_id_display("users", $id);
 	}
 	
 	/**
-	* Get a specific user by their ID without data formatting.
+	* Get a specific user by their ID without data formatting for display purposes.
 	* @param int $id user ID
 	* @return array|boolean|null an array containing found user as an array, FALSE for invalid ID, NULL if $id was null 
 	*/

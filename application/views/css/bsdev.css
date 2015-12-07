@@ -1,0 +1,12 @@
+/*
+    Document   : r2projekti/application/views/css/review.css
+    Created on : 2015-12-07 08:32 AM
+    Author     : joseu
+*/
+div[class="row"] {
+    border: 1px dotted rgba(0, 0, 0, 0.5);
+}
+
+div[class^="col-"] {
+    background-color: rgba(255, 0, 0, 0.2);
+}

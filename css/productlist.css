@@ -1,5 +1,34 @@
 #product-div {
-	background-color: burlywood;
+	background-color: lightsteelblue;
 	margin: 0.5em;
 	padding: 1em;
+	width: 50%;
+	-moz-border-radius-bottomright:4em; /* bottom right corner */
+	-webkit-border-bottom-right-radius:4em; /* bottom right corner */
+	border-bottom-right-radius:4em;
+	
+	
+
+
+
+
+	
+	
+	
+}
+
+div[class^="col-"] {
+	font-size: 1.25em;
+}
+
+#product-brief{
+	min-height: 2em;
+}
+
+#product-name{
+	font-weight: bold;
+}
+
+#product-year{
+	font-style:italic;
 }

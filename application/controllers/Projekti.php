@@ -1,4 +1,5 @@
 <?php
+
 class Projekti extends CI_Controller
 {
 	function __construct()
@@ -16,5 +17,6 @@ class Projekti extends CI_Controller
 		$this->load->view('templates/header');
 		$this->load->view('pages/'.$page, $data);
 		$this->load->view('templates/footer');
+
 	}
 }

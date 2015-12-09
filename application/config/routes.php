@@ -108,6 +108,11 @@ $route['api/requests/users/(:num)/collections']['GET'] = 'api/requests/userdata/
 $route['api/requests/users/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/datatype/comments/format/$2$3';
 $route['api/requests/users/(:num)/comments']['GET'] = 'api/requests/userdata/userid/$1/datatype/comments';
 
+// GET users/#/reviews > userdata_get(userid, datatype);
+$route['api/requests/users/(:num)/reviews(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/datatype/reviews/format/$2$3';
+$route['api/requests/users/(:num)/reviews']['GET'] = 'api/requests/userdata/userid/$1/datatype/reviews';
+
+
 // GET users/# > users_get(userid);
 // GET users > users_get();
 $route['api/requests/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/users/userid/$1/format/$2$3';

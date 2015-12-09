@@ -51,7 +51,7 @@ class R2pdb_model extends CI_Model
 				case "collections":
 					return "CollectionName";
 				case "comments":
-					return "CommentID, PostDate, UserID, ScreenName, Text";
+					return "CommentID, PostDate, comments.UserID, ScreenName, Text";
 				case "countries":
 					return "CountrySymbol, CountryName, FlagPath";
 				case "genders":
@@ -204,7 +204,7 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* A generic get data function for a variable number of fields. Warning: Fewer integrity checks are performed with this function, use with caution.
-	* @param various $arg_array a key-value array of database field names to sort by, use "!table_name" key for table name
+	* @param various $arg_array a key-value array of database field names to sort by, use "table_name" key for table name
 	* @return array|null an array of arrays containing found rows, NULL if no arguments were given 
 	*/
 	public function get_rows_by_field_display()
@@ -447,19 +447,39 @@ class R2pdb_model extends CI_Model
 		$this->db->insert('reviews', $data);
 	}
 	
+	/* 
+	 * SPECIFIC PUBLIC DATA GETTERS
+	 */
+	
 	/**
 	* Checks if given product ID is present in the table.
 	* @param int $product_id product id number
 	* @return boolean TRUE if ID is valid
 	*/
-	public function is_valid_product_id($product_id)
+	public function is_valid_product_id($id)
 	{
-		return $this->validate_row_id('products', (int) $product_id);
+		return $this->validate_row_id('products', (int) $id);
 	}
 	
-	/* 
-	 * SPECIFIC PUBLIC DATA GETTERS
-	 */
+	/**
+	* Checks if given user ID is present in the table.
+	* @param int $product_id product id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_valid_user_id($id)
+	{
+		return $this->validate_row_id('users', (int) $id);
+	}
+	
+	/**
+	* Checks if given user ID is present in the table.
+	* @param int $product_id product id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_valid_collection_id($id)
+	{
+		return $this->validate_row_id('collections', (int) $id);
+	}
 	
 	// collections
 	
@@ -701,6 +721,17 @@ class R2pdb_model extends CI_Model
 		return $this->get_row_by_id("products", $id);
 	}
 	
+	/**
+	* Get all product reviews with data formatting for display purposes.
+	* @param int $productid product ID
+	* @return array|boolean|null an array containing found product reviews as an array, FALSE for invalid ID, NULL if $id was null 
+	*/
+	public function get_product_reviews_by_id_display($productid)
+	{
+		$args = array("table_name" => "reviews", "reviews.ProductID" => (int) $productid);
+		return $this->get_rows_by_field_display($args);
+	}
+	
 	// publishers
 	
 	/**
@@ -819,5 +850,27 @@ class R2pdb_model extends CI_Model
 	public function get_user_by_id($id)
 	{
 		return $this->get_row_by_id("users", $id);
+	}
+	
+	/**
+	* Get all user reviews with data formatting for display purposes.
+	* @param int $userid user ID
+	* @return array an array of arrays containing all reviews
+	*/
+	public function get_user_reviews_display($userid)
+	{
+		$args = array("table_name" => "reviews", "reviews.UserID" => (int) $userid);
+		return $this->get_rows_by_field_display($args);
+	}
+		
+	/**
+	* Get all user comments with data formatting for display purposes.
+	* @param int $userid user ID
+	* @return array an array of arrays containing all reviews
+	*/
+	public function get_user_comments_display($userid)
+	{
+		$args = array("table_name" => "comments", "comments.UserID" => (int) $userid);
+		return $this->get_rows_by_field_display($args);
 	}
 }

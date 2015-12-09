@@ -98,102 +98,110 @@ class Requests extends REST_Controller
 		// Get datatype parameter from the query.
 		$datatype = $this->get('datatype');
 		
-		// TODO: Validate userid in a separate function.
 		if ($userid === NULL || (int) $userid <= 0)
 		{
 			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
 		}
-
-		$userid = (int) $userid;
-
-		// TODO: Get specific user from database.
-		$user = NULL;
-
-		if (empty($user))
-		{
-			$this->set_response(['status' => FALSE, 'message' => "User with the ID " . $userid . " not found."], REST_Controller::HTTP_NOT_FOUND);
-		}
 		else
 		{
-			if ($datatype !== NULL)
-			{
-				// Error checking, this should always be true when datatype is not NULL.
-				if ($collectionid === NULL && $commentid === NULL)
-				{
-					switch ($datatype)
-					{
-						case "collections":
-							$collections = ['dummydata' => "dummy get all user collections"];
-				
-							if ($collections)
-							{
-								$this->response($collections, REST_Controller::HTTP_OK);
-							}
-							else
-							{
-								$this->response(['status' => FALSE, 'message' => "User has no collections."], REST_Controller::HTTP_NOT_FOUND);
-							}
-							break;
-						case "comments":
-							$comments = ['dummydata' => "dummy get all user comments"];
-				
-							if ($comments)
-							{
-								$this->response($comments, REST_Controller::HTTP_OK);
-							}
-							else
-							{
-								$this->response(['status' => FALSE, 'message' => "User has no comments."], REST_Controller::HTTP_NOT_FOUND);
-							}
-							break;
-						default:
-							// Theoretically this is not possible.
-							$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-					}
-					
-					$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-				}
-			}
+			$userid = (int) $userid;
 
-			// Determine what data to get.
-			if ($collectionid === NULL)
+			if ($this->r2pdb_model->is_valid_user_id($userid) === FALSE)
 			{
-				$commentid = (int) $commentid;
-				$collectionid = 0; // Invalid ID
+				$this->set_response(['status' => FALSE, 'message' => "User with the ID " . $userid . " not found."], REST_Controller::HTTP_NOT_FOUND);
 			}
 			else
 			{
-				$collectionid = (int) $collectionid;
-				$commentid = 0; // Invalid ID
-			}
-			
-			// One of these is 0 the other must not be 0 or less.
-			if ($collectionid <= 0 && $commentid <= 0)
-			{
-					$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-			}
-			else if ($collectionid > $commentid) // One of these values is greater than 0.
-			{
-				// TODO: Get specific collection from database.
-				$data = NULL;
-				// Error message to return if the comment does not exist.
-				$errorMessage = "User ID " . $userid . " does not have a collection with the ID " . $collectionid . ".";
-			}
-			else
-			{
-				// TODO: Get specific comment from database.
-				$data = NULL;
-				// Error message to return if the comment does not exist.
-				$errorMessage = "User ID " . $userid . " does not have a comment with the ID " . $commentid . ".";
-			}
-				
-			if (!empty($data))
-			{
-				$this->set_response($data, REST_Controller::HTTP_OK);
-			}
-			else
-			{
-				$this->set_response(['status' => FALSE, 'message' => $errorMessage], REST_Controller::HTTP_NOT_FOUND);
+				if ($datatype !== NULL)
+				{
+					// Error checking, this should always be true when datatype is not NULL.
+					if ($collectionid === NULL && $commentid === NULL)
+					{
+						switch ($datatype)
+						{
+							case "collections":
+								$collections = ['dummydata' => "dummy get all user collections"];
+
+								if ($collections)
+								{
+									$this->response($collections, REST_Controller::HTTP_OK);
+								}
+								else
+								{
+									$this->response(['status' => FALSE, 'message' => "User has no collections."], REST_Controller::HTTP_NOT_FOUND);
+								}
+								break;
+							case "comments":
+								$comments = $this->r2pdb_model->get_user_comments_display($userid);
+
+								if ($comments)
+								{
+									$this->response($comments, REST_Controller::HTTP_OK);
+								}
+								else
+								{
+									$this->response(['status' => FALSE, 'message' => "User has no comments."], REST_Controller::HTTP_NOT_FOUND);
+								}
+								break;
+							case "reviews":
+								$reviews = $this->r2pdb_model->get_user_reviews_display($userid);
+
+								if ($reviews)
+								{
+									$this->response($reviews, REST_Controller::HTTP_OK);
+								}
+								else
+								{
+									$this->response(['status' => FALSE, 'message' => "User has no reviews."], REST_Controller::HTTP_NOT_FOUND);
+								}
+								break;
+							default:
+								// Theoretically this is not possible.
+								$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
+						}
+
+						$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
+					}
+				}
+
+				// Determine what data to get.
+				if ($collectionid === NULL)
+				{
+					$commentid = (int) $commentid;
+					$collectionid = 0; // Invalid ID
+				}
+				else
+				{
+					$collectionid = (int) $collectionid;
+					$commentid = 0; // Invalid ID
+				}
+
+				// One of these is 0 the other must not be 0 or less.
+				if ($collectionid <= 0 && $commentid <= 0)
+				{
+						$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
+				}
+				else if ($collectionid > $commentid) // One of these values is greater than 0.
+				{
+					$data = $this->r2pdb_model->get_collection_by_id_display($collectionid);
+					// Error message to return if the comment does not exist.
+					$errorMessage = "User ID " . $userid . " does not have a collection with the ID " . $collectionid . ".";
+				}
+				else
+				{
+					$data = $this->r2pdb_model->get_comment_by_id_display($commentid);
+					// Error message to return if the comment does not exist.
+					$errorMessage = "User ID " . $userid . " does not have a comment with the ID " . $commentid . ".";
+				}
+
+				if (!empty($data))
+				{
+					$this->set_response($data, REST_Controller::HTTP_OK);
+				}
+				else
+				{
+					$this->set_response(['status' => FALSE, 'message' => $errorMessage], REST_Controller::HTTP_NOT_FOUND);
+				}
 			}
 		}
 	}
@@ -209,10 +217,8 @@ class Requests extends REST_Controller
 		// If the productid is NULL, return all products.
 		if ($productid === NULL)
 		{
-			// TODO: Get all products from the database.
-			$products = ['dummydata' => 'dummy get all products'];
+			$products = $this->r2pdb_model->get_products_display();
 			
-			// TODO: Check if the products data store contains products (in case the database result returns NULL)
 			if ($products)
 			{
 				$this->response($products, REST_Controller::HTTP_OK);
@@ -223,21 +229,13 @@ class Requests extends REST_Controller
 			}
 		}
 
-		// TODO: Find and return a single record for a particular product.
-		$productid = (int) $productid;
-
-		/* Validate the ID.
-		   ProductID field in the database must be >= 1.
-		   TODO: Move to separate function later.
-		 */
 		if ($productid <= 0)
 		{
 			// Invalid id.
 			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
 		}
 
-		// TODO: Get specific product from database.
-		$product = NULL;
+		$product = $this->r2pdb_model->get_product_by_id_display((int) $productid);
 
 		if (!empty($product))
 		{
@@ -266,7 +264,6 @@ class Requests extends REST_Controller
 		// Get datatype parameter from the query.
 		$datatype = $this->get('datatype');
 		
-		// TODO: Validate productid in a separate function.
 		if ($productid === NULL || (int) $productid <= 0)
 		{
 			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
@@ -274,10 +271,7 @@ class Requests extends REST_Controller
 
 		$productid = (int) $productid;
 
-		// TODO: ID validation function
-		$product = NULL;
-
-		if (empty($product))
+		if ($this->r2pdb_model->is_valid_product_id($productid) === FALSE)
 		{
 			$this->set_response(['status' => FALSE, 'message' => "Product with the ID " . $productid . " not found."], REST_Controller::HTTP_NOT_FOUND);
 		}
@@ -293,8 +287,7 @@ class Requests extends REST_Controller
 					switch ($datatype)
 					{
 						case "reviews":
-							$reviews = ['dummydata' => "dummy get all product reviews"];
-				
+							$reviews = $this->r2pdb_model->get_product_reviews_by_id_display($productid);
 							if ($reviews)
 							{
 								$this->response($reviews, REST_Controller::HTTP_OK);

@@ -6,7 +6,7 @@ class Projekti extends CI_Controller
         parent::__construct();
     }
 	
-	public function view($page = 'front', $data)
+	public function view($page = 'front', $data = NULL)
 	{
 		if ( ! file_exists(APPPATH.'/views/pages/'.$page.'.php'))
 		{

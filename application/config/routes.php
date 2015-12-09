@@ -120,18 +120,6 @@ $route['api/requests/users/(:num)']['GET'] = 'api/requests/users/userid/$1';
 
 // -- HTTP GET: PRODUCTS (No Login) --
 
-// GET products/#/reviews/#/comments/# > productdata_get(productid, reviewid, commentid);
-$route['api/requests/products/(:num)/reviews/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productdata/productid/$1/reviewid/$2/commentid/$3/format/$4$5';
-$route['api/requests/products/(:num)/reviews/(:num)/comments/(:num)']['GET'] = 'api/requests/productdata/productid/$1/reviewid/$2/commentid/$3';
-
-// GET products/#/reviews/#/comments > productdata_get(productid, reviewid, datatype);
-$route['api/requests/products/(:num)/reviews/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productdata/productid/$1/reviewid/$2/datatype/comments/format/$3$4';
-$route['api/requests/products/(:num)/reviews/(:num)/comments']['GET'] = 'api/requests/productdata/productid/$1/reviewid/$2/datatype/comments';
-
-// GET products/#/reviews/# > productdata_get(productid, reviewid);
-$route['api/requests/products/(:num)/reviews/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productdata/productid/$1/reviewid/$2/format/$3$4';
-$route['api/requests/products/(:num)/reviews/(:num)']['GET'] = 'api/requests/productdata/productid/$1/reviewid/$2';
-
 // GET products/#/comments/# > productdata_get(productid, commentid);
 $route['api/requests/products/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productdata/productid/$1/commentid/$2/format/$3$4';
 $route['api/requests/products/(:num)/comments/(:num)']['GET'] = 'api/requests/productdata/productid/$1/commentid/$2';
@@ -148,6 +136,18 @@ $route['api/requests/products/(:num)/comments']['GET'] = 'api/requests/productda
 // GET products > products_get();
 $route['api/requests/products/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/products/productid/$1/format/$2$3';
 $route['api/requests/products/(:num)']['GET'] = 'api/requests/products/productid/$1';
+
+// -- HTTP GET: REVIEWS (No Login) --
+
+// GET reviews/#/comments > reviewdata_get(reviewid, datatype);
+$route['api/requests/reviews/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/reviewdata/reviewid/$1/datatype/comments/format/$2$3';
+$route['api/requests/reviews/(:num)/comments']['GET'] = 'api/requests/reviewdata/reviewid/$1/datatype/comments';
+
+// GET reviews/# > reviews_get(reviewid);
+// GET reviews > reviews_get();
+$route['api/requests/reviews/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/reviews/reviewid/$1/format/$2$3';
+$route['api/requests/reviews/(:num)']['GET'] = 'api/requests/reviews/reviewid/$1';
+
 
 // -- HTTP POST: PRODUCTS & USERS (Login Required) --
 // TODO: Login functionality not yet implemented.

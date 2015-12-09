@@ -120,7 +120,7 @@ class Requests extends REST_Controller
 						switch ($datatype)
 						{
 							case "collections":
-								$collections = ['dummydata' => "dummy get all user collections"];
+								$collections = $this->r2pdb_model->get_user_collections_display($userid);
 
 								if ($collections)
 								{
@@ -318,6 +318,7 @@ class Requests extends REST_Controller
 				}
 			}
 			
+			// FIXME: This is dumb. Do review_data_get.
 			$both = FALSE;
 			
 			// Determine what data to get.
@@ -392,8 +393,51 @@ class Requests extends REST_Controller
 		}
 	}
 
+	
+	/*
+	 * HTTP GET: REVIEWS
+	 */
+	public function reviews_get()
+	{
+		// Get reviewid parameter from the query.
+		$reviewid = $this->get('reviewid');
+		
+		// If the reviewid is NULL, return all reviews.
+		if ($reviewid === NULL)
+		{
+			$reviews = $this->r2pdb_model->get_reviews_display();
+			
+			if ($reviews)
+			{
+				$this->response($reviews, REST_Controller::HTTP_OK);
+			}
+			else
+			{
+				$this->response(['status' => FALSE, 'message' => 'No reviews were found'], REST_Controller::HTTP_NOT_FOUND);
+			}
+		}
+
+		if ($reviewid <= 0)
+		{
+			// Invalid id.
+			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
+		}
+
+		$review = $this->r2pdb_model->get_review_by_id_display((int) $reviewid);
+
+		if (!empty($review))
+		{
+			$this->set_response($review, REST_Controller::HTTP_OK);
+		}
+		else
+		{
+			$this->set_response(['status' => FALSE, 'message' => "Product with the ID " . $reviewid . " not found."], REST_Controller::HTTP_NOT_FOUND);
+		}
+	}
+	
 	/*
 	 * HTTP POST: COMMENTS
+	 * TODO: Implement login functionality.
 	 */
 	public function comments_post()
 	{
@@ -412,12 +456,10 @@ class Requests extends REST_Controller
 		if ($productid === NULL)
 		{
 			// User comment.
-			if ($userid !== NULL)
+			if ($userid !== NULL && $this->r2pdb_model->is_valid_user_id((int) $userid) === TRUE)
 			{
-				$userid = (int) $userid;
-
-				// TODO: Validate userid.
-				$this->set_response(['status' => TRUE, 'message' => "Comment posted to user ID " . $userid . ": " . $text], REST_Controller::HTTP_OK);
+				// DUMMY DATA!
+				$this->set_response(['status' => TRUE, 'message' => "Dummy data: Comment posted to user ID " . $userid . ": " . $text], REST_Controller::HTTP_OK);
 			}
 			else
 			{
@@ -427,12 +469,9 @@ class Requests extends REST_Controller
 		else
 		{
 			// Review comment.
-			if ($reviewid !== NULL)
+			if ($reviewid !== NULL && $this->r2pdb_model->is_valid_review_id((int) $reviewid) === TRUE)
 			{
-				$reviewid = (int) $reviewid;
-
-				// TODO: Validate reviewid.
-				$this->set_response(['status' => TRUE, 'message' => "Comment posted to review ID " . $reviewid . " on product ID " . $productid . "."], REST_Controller::HTTP_OK);
+				$this->set_response(['status' => TRUE, 'message' => "Dummy data: Comment posted to review ID " . $reviewid . " on product ID " . $productid . "."], REST_Controller::HTTP_OK);
 			}
 			else
 			{
@@ -443,6 +482,7 @@ class Requests extends REST_Controller
 	
 	/*
 	 * HTTP PUT: COLLECTIONS
+	 * TODO: Needs login
 	 */
 	public function userdata_put()
 	{
@@ -458,6 +498,7 @@ class Requests extends REST_Controller
 		// TODO: Userid is required at the moment.
 		if ($userid === NULL)
 		{
+			// FIXME: Dev code
 			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
 		}
 		else
@@ -472,6 +513,7 @@ class Requests extends REST_Controller
 		if ($userid <= 0)
 		{
 			// Invalid id.
+			// FIXME: Dev code
 			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
 		}
 
@@ -480,6 +522,7 @@ class Requests extends REST_Controller
 
 		if ($collectionid === NULL)
 		{
+			// FIXME: Dev code
 			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
 		}
 		else

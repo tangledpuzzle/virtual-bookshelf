@@ -66,6 +66,8 @@ class R2pdb_model extends CI_Model
 					return "ReviewID, ReviewDate, reviews.ProductID, Name, ScreenName, reviews.UserID, Text, Pros, Cons, Rating";
 				case "users":
 					return "UserID, ScreenName, FirstName, LastName, Age, GenderName, CountryName, RegistrationDate, AvatarPath, Bio";
+				case "userCollections":
+					return "userCollections.UserID, userCollections.CollectionID, CollectionName, products.ProductID, Name, ReleaseDate, ImagePath, LanguageName, Brief, Description, EAN13, PublisherName";
 				default:
 					// WARNING: Will throw a PHP error.
 					return NULL;
@@ -346,7 +348,7 @@ class R2pdb_model extends CI_Model
 				}
 
 				$this->db->where($this->get_id_column_from_table($table_name), (int) $id);
-				// FIXME: QUERY FAILS
+				
 				$query = $this->db->get($table_name);
 
 				$this->db->reset_query();
@@ -872,5 +874,34 @@ class R2pdb_model extends CI_Model
 	{
 		$args = array("table_name" => "comments", "comments.UserID" => (int) $userid);
 		return $this->get_rows_by_field_display($args);
+	}
+		
+	/**
+	* Get all user comments with data formatting for display purposes.
+	* @param int $userid user ID
+	* @return array an array of arrays containing all reviews
+	*/
+	public function get_user_collections_display($userid)
+	{
+		$table_name ="userCollections";
+		$this->db->where("userCollections.UserID", (int) $userid); // Add all fields to WHERE statement.
+		$this->db->select($this->get_public_data_columns_display($table_name));
+
+		// Left join the correct tables.
+		$this->db->join("collections", 'userCollections.CollectionID = collections.CollectionID', 'left');
+		$this->db->join("collectionProducts", 'userCollections.CollectionID = collectionProducts.CollectionID', 'left');
+		$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
+		
+		// Product joins.
+		$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
+		$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+
+		$this->db->order_by("userCollections.CollectionID", 'ASC');
+		$this->db->order_by("collectionProducts.ProductID", 'ASC');
+
+		$query = $this->db->get($table_name);
+		$this->db->reset_query();
+		
+		return $this->correct_result_data_types($query);
 	}
 }

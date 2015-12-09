@@ -15,7 +15,6 @@ class Requests extends REST_Controller
 	{
 		// Construct the parent class
 		parent::__construct();
-		$this->load->model('r2pdb_model');
 
 		// Configure limits on our controller methods
 		// Ensure you have created the 'limits' table and enabled 'limits' within application/config/rest.php

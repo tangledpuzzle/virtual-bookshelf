@@ -13,7 +13,7 @@ background-color: yellow;
 }
 
 	</style>
-
+</div>
 <div class="footer">Powered by Ryhmä2</div>
 </body>
 </html>

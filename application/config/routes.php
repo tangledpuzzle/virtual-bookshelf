@@ -49,7 +49,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples: my-controller/index -> my_controller/index
 |   my-controller/my-method -> my_controller/my_method
 */
+
+/*
+| -------------------------------------------------------------------------
+| Project Routes
+| -------------------------------------------------------------------------
+*/
+// SPECIFIC CONTROLLERS
+$route['review'] = 'review/index';
+$route['form'] = 'form/index';
+
+// GENERIC CONTROLLER
 $route['(:any)'] = 'projekti/view/$1';
+
+
+/*
+| -------------------------------------------------------------------------
+| Project Routes: Do not change
+| -------------------------------------------------------------------------
+*/
 $route['default_controller'] = 'projekti/view';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;

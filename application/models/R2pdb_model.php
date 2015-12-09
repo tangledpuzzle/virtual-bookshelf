@@ -182,7 +182,14 @@ class R2pdb_model extends CI_Model
 					/* Not all database drivers have a native way of getting the total number of rows for a result set.
 					When this is the case, all of the data is prefetched and count() is manually called on the resulting array in order to achieve the same result. */
 
-					return ($query->num_rows() > 0);
+					if ($query->num_rows() > 0)
+					{
+						return TRUE;
+					}
+					else
+					{
+						return FALSE;
+					}
 				}
 				return FALSE;
 			}
@@ -407,6 +414,47 @@ class R2pdb_model extends CI_Model
 		$this->db->reset_query();
 		
 		return $this->correct_result_data_types($query);
+	}
+	
+	/* 
+	 * PUBLIC DATA SETTERS
+	 */
+	
+	/**
+	* Insert data into the reviews table. Warning: Does not check data types! Assumes that data is in the correct format!
+	* @param int $user_id user id who wrote the review
+	* @param int $product_id product id the review is about
+	* @param int $rating rating number in the range [1,5]
+	* @param string $review review text
+	* @param string $pros positive things
+	* @param string $cons negative things
+	* @return array an array of arrays containing all collections
+	*/
+	public function add_review($user_id, $product_id, $rating, $review, $pros, $cons)
+	{
+		date_default_timezone_set('Europe/Helsinki');
+
+		$data = array(
+			'ReviewDate' => date('Y-m-d'),
+			'ProductID' => $product_id,
+			'UserID' => $user_id,
+			'Text' => $review,
+			'Pros' => $pros,
+			'Cons' => $cons,
+			'Rating' => $rating
+		);
+
+		$this->db->insert('reviews', $data);
+	}
+	
+	/**
+	* Checks if given product ID is present in the table.
+	* @param int $product_id product id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_valid_product_id($product_id)
+	{
+		return $this->validate_row_id('products', (int) $product_id);
 	}
 	
 	/* 

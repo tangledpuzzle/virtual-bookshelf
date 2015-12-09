@@ -1,18 +1,20 @@
 <?php
-class Projekti extends CI_Controller {
-
-    public function view($page = 'front')
+class Projekti extends CI_Controller
 {
-        if ( ! file_exists(APPPATH.'/views/pages/'.$page.'.php'))
-        {
-                // Whoops, we don't have a page for that!
-                show_404();
-        }
-
-       
-        $this->load->view('templates/header');
-        $this->load->view('pages/'.$page);
-        $this->load->view('templates/footer');
-}
-
+	function __construct()
+	{
+        parent::__construct();
+    }
+	
+	public function view($page = 'front', $data)
+	{
+		if ( ! file_exists(APPPATH.'/views/pages/'.$page.'.php'))
+		{
+			show_404();
+		}
+		
+		$this->load->view('templates/header');
+		$this->load->view('pages/'.$page, $data);
+		$this->load->view('templates/footer');
+	}
 }

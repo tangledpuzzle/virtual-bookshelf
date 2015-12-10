@@ -1,22 +1,19 @@
-<style>
 
-	
-	.footer {
-
-width: 940px;
-height: 40px;
-margin: 5px auto;
-border: 1px solid #000000;
-text-align: center;
-background-color: yellow;
-border-top: 3px solid black;
-
-}
-
-	</style>
-
+	</div>
 </div>
 
-<div class="footer">Powered by Ryhmä2</div>
+<div class=" navbar-inverse">
+
+
+
+   <div class="vcenter" >Powered by Ryhmä 2</div>
+	 
+  </div>
+	</div>
+
+
+
+
+</div>
 </body>
 </html>

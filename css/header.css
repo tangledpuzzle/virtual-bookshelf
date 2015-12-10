@@ -1,3 +1,29 @@
+#subtext{
+	padding-left: 1em;
+}
+.vcenter {
+
+	text-align:right;
+	line-height:3em;
+	height:3em;
+	color:#9d9d9d;
+	padding-right: 2em;
+}
+.navbar {
+    
+    margin-bottom: 0px !important;
+  
+}
 body{
-	 background-color: yellow; 
+	background-color: #ccc !important;
+}
+
+.white-div{
+	background-color: white;
+	height: 100%;
+	width: 100%;
+-webkit-box-shadow: 0px 0px 64px 0px rgba(50, 50, 50, 0.75);
+-moz-box-shadow:    0px 0px 64px 0px rgba(50, 50, 50, 0.75);
+box-shadow:         0px 0px 64px 0px rgba(50, 50, 50, 0.75);
+	
 }

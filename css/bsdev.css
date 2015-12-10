@@ -3,8 +3,21 @@
     Created on : 2015-12-07 08:32 AM
     Author     : joseu
 */
-div[class="row"] {
-    border: 1px dotted rgba(0, 0, 0, 0.5);
+.row {
+    border: 1px dashed green;
+
+}
+
+span {
+    border: 1px dotted red;
+}
+
+.navbar {
+    border: 1px dotted blue !important;
+}
+
+ul {
+    border: 1px dotted blue !important;
 }
 
 div[class^="col-"] {

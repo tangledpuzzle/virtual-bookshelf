@@ -8,5 +8,8 @@ div[class="row"] {
 }
 
 div[class^="col-"] {
+	font-size: 1.25em;
+	min-height: 2em;
     background-color: rgba(255, 0, 0, 0.2);
+	
 }

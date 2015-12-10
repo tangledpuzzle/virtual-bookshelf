@@ -1,6 +1,6 @@
 "use strict";
 
-var console, document, i, prodlist_productdivrow1, prodlist_productnamespan, prodlist_productidspan, prodlist_productdivrow2, prodlist_productdiv , title, sectionHead, sectionBody, prodlist_productname, prodlist_productid, prodlist_publisher, prodlist_year, prodlist_productbrief;
+var console, document, i, prodlist_productdivrow1, prodlist_productnamespan, prodlist_productidspan, prodlist_productdivrow2, prodlist_productdiv , sectionHead, sectionBody, prodlist_productname, prodlist_productid, prodlist_publisher, prodlist_year, prodlist_productbrief;
 
 for(var product in json){
 	
@@ -44,21 +44,18 @@ for(var product in json){
 	
 	
 	prodlist_productid = document.createElement("div");
-	prodlist_productid.id = "product-id";
 	
 	prodlist_productid.className = "col-md-1";
 	prodlist_productdivrow1.appendChild(prodlist_productid);
 	
 	
 	prodlist_year = document.createElement("div");
-	prodlist_year.id = "product-year";
 	prodlist_year.innerHTML = json[product].ReleaseDate;
 	prodlist_year.className = "col-md-2";
 	prodlist_productdivrow1.appendChild(prodlist_year);
 	
 	
 	prodlist_publisher = document.createElement("div");
-	prodlist_publisher.id = "product-publisher";
 	prodlist_publisher.innerHTML = json[product].PublisherName;
 	prodlist_publisher.className = "col-md-2";
 	prodlist_productdivrow1.appendChild(prodlist_publisher);
@@ -69,8 +66,7 @@ for(var product in json){
 	
 	
 	prodlist_productbrief = document.createElement("div");
-	prodlist_productbrief.id = "product-brief";
-	prodlist_productbrief.innerHTML = json[product].Description;
+	prodlist_productbrief.innerHTML = json[product].Brief;
 	prodlist_productbrief.className = "col-md-12";
 	prodlist_productdivrow2.appendChild(prodlist_productbrief);
 	

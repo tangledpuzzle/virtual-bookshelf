@@ -1,0 +1,33 @@
+#product-div {
+	background-color: lightsteelblue;
+	margin: 0.5em;
+	padding: 1em;
+	width: 50%;
+	-moz-border-radius-bottomright:4em; /* bottom right corner */
+	-webkit-border-bottom-right-radius:4em; /* bottom right corner */
+	border-bottom-right-radius:4em;
+	
+	
+
+
+
+
+	
+	
+	
+}
+
+div[class^="col-"] {
+	font-size: 1.25em;
+
+	min-height: 2em;
+
+	font-weight: bold;
+
+	font-style:italic;
+}
+
+button{
+	margin:0.5em;
+	margin-left:0em;
+}

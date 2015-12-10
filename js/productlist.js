@@ -1,6 +1,6 @@
 "use strict";
 
-var console, document, i, prodlist_productdivrow1, prodlist_productnamespan, prodlist_productidspan, prodlist_productdivrow2, prodlist_productdiv , sectionHead, sectionBody, prodlist_productname, prodlist_productid, prodlist_publisher, prodlist_year, prodlist_productbrief;
+var console, document, i, prodlist_productdivrow1, prodlist_productnamespan, prodlist_productidspan, prodlist_productdivrow2, prodlist_productdiv , sectionHead, sectionBody, prodlist_productname, prodlist_productid, prodlist_publisher, prodlist_year, prodlist_productbrief, prodean;
 
 for(var product in json){
 	
@@ -39,7 +39,7 @@ for(var product in json){
 	prodlist_productidspan.innerHTML = " [" + json[product].ProductID + "]";
 	prodlist_productname.appendChild(prodlist_productidspan);
 	
-	prodlist_productname.className = "col-md-4";
+	prodlist_productname.className = "col-md-3";
 	prodlist_productdivrow1.appendChild(prodlist_productname);
 	
 	
@@ -59,6 +59,13 @@ for(var product in json){
 	prodlist_publisher.innerHTML = json[product].PublisherName;
 	prodlist_publisher.className = "col-md-2";
 	prodlist_productdivrow1.appendChild(prodlist_publisher);
+	
+	
+	prodean = document.createElement("div");
+	prodean.innerHTML = json[0].EAN13;
+	prodean.className = "col-md-1";
+	prodlist_productdivrow1.appendChild(prodean);
+
 	
 	
 	prodlist_productdivrow2 = document.createElement("div");

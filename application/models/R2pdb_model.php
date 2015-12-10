@@ -88,6 +88,8 @@ class R2pdb_model extends CI_Model
 		{
 			switch ($table_name)
 			{
+				case "userCollections":
+					return "UserID, CollectionID";
 				case "collections":
 					return "CollectionID";
 				case "comments":
@@ -165,7 +167,7 @@ class R2pdb_model extends CI_Model
 	* Validates given row ID value.
 	* @param int $id row ID
 	* @param string $table_name name of the table
-	* @return boolean|null TRUE if the ID is valid and present in the table, FALSE for invalid ID or unknown table name, NULL if $table_name or $id was null 
+	* @return boolean|null TRUE if the ID is valid and present in the table, FALSE if ID is not present or is invalid, NULL if $table_name or $id was null or table name is unknown
 	*/
 	public function validate_row_id($table_name, $id)
 	{
@@ -176,7 +178,7 @@ class R2pdb_model extends CI_Model
 				$id_column_name = $this->get_id_column_from_table($table_name);		
 				
 				// Null check was performed earlier.
-				if ($id_column_name)
+				if ($id_column_name !== NULL)
 				{
 					$query = $this->db->get_where($table_name, array($id_column_name => $id));
 					$this->db->reset_query();
@@ -193,7 +195,7 @@ class R2pdb_model extends CI_Model
 						return FALSE;
 					}
 				}
-				return FALSE;
+				return NULL;
 			}
 			return FALSE;
 		}
@@ -453,36 +455,6 @@ class R2pdb_model extends CI_Model
 	 * SPECIFIC PUBLIC DATA GETTERS
 	 */
 	
-	/**
-	* Checks if given product ID is present in the table.
-	* @param int $product_id product id number
-	* @return boolean TRUE if ID is valid
-	*/
-	public function is_valid_product_id($id)
-	{
-		return $this->validate_row_id('products', (int) $id);
-	}
-	
-	/**
-	* Checks if given user ID is present in the table.
-	* @param int $product_id product id number
-	* @return boolean TRUE if ID is valid
-	*/
-	public function is_valid_user_id($id)
-	{
-		return $this->validate_row_id('users', (int) $id);
-	}
-	
-	/**
-	* Checks if given user ID is present in the table.
-	* @param int $product_id product id number
-	* @return boolean TRUE if ID is valid
-	*/
-	public function is_valid_collection_id($id)
-	{
-		return $this->validate_row_id('collections', (int) $id);
-	}
-	
 	// collections
 	
 	/**
@@ -501,6 +473,16 @@ class R2pdb_model extends CI_Model
 	public function get_collections()
 	{
 		return $this->get_table_rows("collections");
+	}
+	
+	/**
+	* Checks if given collection ID is present in the table.
+	* @param int $product_id collection id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_valid_collection_id($id)
+	{
+		return $this->validate_row_id('collections', (int) $id);
 	}
 	
 	/**
@@ -542,6 +524,16 @@ class R2pdb_model extends CI_Model
 	{
 		return $this->get_table_rows("comments");
 	}
+	
+	/**
+	* Checks if given comment ID is present in the table.
+	* @param int $id comment id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_valid_comment_id($id)
+	{
+		return $this->validate_row_id('comments', (int) $id);
+	}	
 	
 	/**
 	* Get a specific comment by their ID with data formatting for display purposes.
@@ -704,6 +696,16 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
+	* Checks if given product ID is present in the table.
+	* @param int $id product id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_valid_product_id($id)
+	{
+		return $this->validate_row_id('products', (int) $id);
+	}
+	
+	/**
 	* Get a specific product by their ID with data formatting for display purposes.
 	* @param int $id product ID
 	* @return array|boolean|null an array containing found product as an array, FALSE for invalid ID, NULL if $id was null 
@@ -755,6 +757,16 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
+	* Checks if given publisher ID is present in the table.
+	* @param int $id publisher id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_valid_publisher_id($id)
+	{
+		return $this->validate_row_id('publishers', (int) $id);
+	}
+	
+	/**
 	* Get a specific publisher by their ID with data formatting for display purposes.
 	* @param int $id publisher ID
 	* @return array|boolean|null an array containing found publisher as an array, FALSE for invalid ID, NULL if $id was null 
@@ -792,6 +804,16 @@ class R2pdb_model extends CI_Model
 	public function get_reviews()
 	{
 		return $this->get_table_rows("reviews");
+	}
+	
+	/**
+	* Checks if given review ID is present in the table.
+	* @param int $id review id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_valid_review_id($id)
+	{
+		return $this->validate_row_id('reviews', (int) $id);
 	}
 	
 	/**
@@ -833,6 +855,16 @@ class R2pdb_model extends CI_Model
 	{
 		return $this->get_table_rows("users");
 	}
+	
+	/**
+	* Checks if given user ID is present in the table.
+	* @param int $id product id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_valid_user_id($id)
+	{
+		return $this->validate_row_id('users', (int) $id);
+	}	
 	
 	/**
 	* Get a specific user by their ID with data formatting for display purposes.
@@ -882,6 +914,35 @@ class R2pdb_model extends CI_Model
 	* @return array an array of arrays containing all reviews
 	*/
 	public function get_user_collections_display($userid)
+	{
+		$table_name ="userCollections";
+		$this->db->where("userCollections.UserID", (int) $userid); // Add all fields to WHERE statement.
+		$this->db->select($this->get_public_data_columns_display($table_name));
+
+		// Left join the correct tables.
+		$this->db->join("collections", 'userCollections.CollectionID = collections.CollectionID', 'left');
+		$this->db->join("collectionProducts", 'userCollections.CollectionID = collectionProducts.CollectionID', 'left');
+		$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
+		
+		// Product joins.
+		$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
+		$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+
+		$this->db->order_by("userCollections.CollectionID", 'ASC');
+		$this->db->order_by("collectionProducts.ProductID", 'ASC');
+
+		$query = $this->db->get($table_name);
+		$this->db->reset_query();
+		
+		return $this->correct_result_data_types($query);
+	}
+		
+	/**
+	* Get all user comments with data formatting for display purposes.
+	* @param int $userid user ID
+	* @return array an array of arrays containing all reviews
+	*/
+	public function get_user_collection_by_id_display($userid)
 	{
 		$table_name ="userCollections";
 		$this->db->where("userCollections.UserID", (int) $userid); // Add all fields to WHERE statement.

@@ -93,12 +93,12 @@ $route['api/example/users/(:num)'] = 'api/example/users/id/$1';
 // -- HTTP GET: USERS (No Login) --
 
 // GET users/#/collections/# > userdata_get(userid, collectionid);
-$route['api/requests/users/(:num)/collections/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/collectionid/$2/format/$3$4';
-$route['api/requests/users/(:num)/collections/(:num)']['GET'] = 'api/requests/userdata/userid/$1/collectionid/$2';
+//$route['api/requests/users/(:num)/collections/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/collectionid/$2/format/$3$4';
+//$route['api/requests/users/(:num)/collections/(:num)']['GET'] = 'api/requests/userdata/userid/$1/collectionid/$2';
 
 // GET users/#/comments/# > userdata_get(userid, commentid);
-$route['api/requests/users/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/commentid/$2/format/$3$4';
-$route['api/requests/users/(:num)/comments/(:num)']['GET'] = 'api/requests/userdata/userid/$1/commentid/$2';
+//$route['api/requests/users/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/commentid/$2/format/$3$4';
+//$route['api/requests/users/(:num)/comments/(:num)']['GET'] = 'api/requests/userdata/userid/$1/commentid/$2';
 
 // GET users/#/collections > userdata_get(userid, datatype);
 $route['api/requests/users/(:num)/collections(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/userdata/userid/$1/datatype/collections/format/$2$3';
@@ -121,8 +121,8 @@ $route['api/requests/users/(:num)']['GET'] = 'api/requests/users/userid/$1';
 // -- HTTP GET: PRODUCTS (No Login) --
 
 // GET products/#/comments/# > productdata_get(productid, commentid);
-$route['api/requests/products/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productdata/productid/$1/commentid/$2/format/$3$4';
-$route['api/requests/products/(:num)/comments/(:num)']['GET'] = 'api/requests/productdata/productid/$1/commentid/$2';
+//$route['api/requests/products/(:num)/comments/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productdata/productid/$1/commentid/$2/format/$3$4';
+//$route['api/requests/products/(:num)/comments/(:num)']['GET'] = 'api/requests/productdata/productid/$1/commentid/$2';
 
 // GET products/#/reviews > productdata_get(productid, datatype);
 $route['api/requests/products/(:num)/reviews(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/productdata/productid/$1/datatype/reviews/format/$2$3';

@@ -6,7 +6,12 @@
 </head>
 <body>
 <style>
-	
+	a{
+		  position: absolute;
+    top: 160px;
+    right: 540px;
+    width: 100px
+	}
 	#a{
 		  position: absolute;
     top: 120px;
@@ -34,6 +39,7 @@ background-color: blue;
 	</style>
 
 <div class="header"><h1>R2Projekti</h1></div>
+	<a href="https://www.kitapyurdu.com/index.php?route=account/login"><br>Account Page</a>
 	<!-- login form -->
 
 	<form id="a" action="http://www.frmtr.com/login.php?do=login" method="post" onsubmit="md5hash(vb_login_password, vb_login_md5password, vb_login_md5password_utf, 0)">

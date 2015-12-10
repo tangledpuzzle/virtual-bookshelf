@@ -1,14 +1,21 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-    <h1 class="section">Register Account</h1>
-    <p>If you already have an account with us, please login at the <a href="https://www.kitapyurdu.com/index.php?route=account/login">login page</a>.</p>
 
-    <form action="https://www.kitapyurdu.com/index.php?route=account/register" method="post" enctype="multipart/form-data">
+    <h1 class="section" style="width:800px; margin:0 auto;">Register Account</h1>
+ 
 
-	<div class="grid_6 alpha">
+    <form action="https://www.kitapyurdu.com/index.php?route=account/register" method="post" enctype="multipart/form-data" style="width:800px; margin:0 auto;" >
+
+	<div class="grid_6 alpha" >
 	    <div class="box background-light">
 		<!-- DETAILS SECTION -->
-		<div class="padding">
-		    <table class="form">
+		<div class="padding" >
+		    <table class="form" >
 			<tr>
 			    <td>First Name:</td>
 			    <td><input type="text" name="firstname" value="" maxlength="30"/>

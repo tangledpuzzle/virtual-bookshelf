@@ -5,21 +5,11 @@ var console, document, i, prodlist_productdivrow1, prodlist_productnamespan, pro
 for(var product in json){
 	
 	
-	prodlist_productdiv = document.createElement("div");
-	prodlist_productdiv.id = "product-div";
-	prodlist_productdiv.className = "row";
+	prodlist_productdiv = document.createElement("a");
+	prodlist_productdiv.className = "list-group-item";
 	
-	prodlist_productdiv.onclick = function() {
+	prodlist_productdiv.href="./bookview/"+ json[product].ProductID;
 	
-		console.log("tekstiä");
-	var idstring = this.childNodes[0].childNodes[0].childNodes[1].innerHTML;
-	idstring = idstring.substring(2); 
-	idstring = idstring.split("").reverse().join("");
-	idstring = idstring.substring(1);
-	idstring = idstring.split("").reverse().join("");
-		console.log(idstring);
-		alert("Open " + idstring + " page.");
-	};
 	
 	
 	prodlist_productdivrow1 = document.createElement("div");

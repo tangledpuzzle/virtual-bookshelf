@@ -1,0 +1,36 @@
+#product-div {
+	
+	
+	padding: 1em;
+	padding-left:0;
+	padding-right:0;
+
+}
+#product-div:last-child{
+	padding:0;
+}
+
+div[class^="col-"] {
+	font-size: 1.25em;
+
+	min-height: 2em;
+
+	
+}
+
+#button1{
+	margin-left:0.5em;
+}
+
+.table{
+	background-color: #eee;
+}
+
+
+.buttonit{
+	
+}
+.row{
+	margin-left:0;
+	margin-right:0;
+}

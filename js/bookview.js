@@ -7,7 +7,7 @@
 */
 console.log(json[0]);
 
-var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_description, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, language, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, button1, button2, buttonit, hiddendiv, hvdiv;
+var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_description, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, language, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, button1, button2, buttonit, hiddendiv, hvdiv, thead, tbody;
 
 
 
@@ -32,8 +32,8 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 	button1 = document.createElement("button");
 	button2 = document.createElement("button");
 	button1.id = "button1";
-	button1.className = "btn-lg btn-primary pull-right";
-	button2.className = "btn-lg btn-success pull-right";
+	button1.className = "btn-md btn-primary pull-right";
+	button2.className = "btn-md btn-success pull-right";
 	button1.innerHTML = "Add to collection";
 	button2.innerHTML = "Review";
 	buttonit.appendChild(button1);
@@ -56,61 +56,63 @@ document.getElementById("productview").appendChild(titlerow);
 document.getElementById("productview").appendChild(hiddendiv);
 
 
-	prodview_proddivtitle = document.createElement("div");
-	prodview_proddivtitle.id = "product-title";
-	prodview_proddivtitle.className = "row";
+	prodview_proddivtitle = document.createElement("tr");
 
-	prodview_datetitle = document.createElement("div");
+	prodview_datetitle = document.createElement("th");
 	prodview_datetitle.innerHTML = "Julkaisupäivä";
 	prodview_datetitle.className = "col-md-3";
 	prodview_proddivtitle.appendChild(prodview_datetitle);
 
-	prodview_publishertitle = document.createElement("div");
+	prodview_publishertitle = document.createElement("th");
 	prodview_publishertitle.innerHTML = "Julkaisija";
 	prodview_publishertitle.className = "col-md-3";
 	prodview_proddivtitle.appendChild(prodview_publishertitle);
 
-	prodeantitle = document.createElement("div");
+	prodeantitle = document.createElement("th");
 	prodeantitle.innerHTML = "EAN";
 	prodeantitle.className = "col-md-4";
 	prodview_proddivtitle.appendChild(prodeantitle);
 
-	languagedivtitle = document.createElement("div");
+	languagedivtitle = document.createElement("th");
 	languagedivtitle.innerHTML = "Kieli";
 	languagedivtitle.className = "col-md-2";
 	prodview_proddivtitle.appendChild(languagedivtitle);
 
 
-	prodview_proddivrow0 = document.createElement("div");
-	prodview_proddivrow0.id = "product-title";
-	prodview_proddivrow0.className = "row";
+	prodview_proddivrow0 = document.createElement("tr");
 
-	prodview_date = document.createElement("div");
+	prodview_date = document.createElement("td");
 	prodview_date.innerHTML = json[0].ReleaseDate;
 	prodview_date.className = "col-md-3";
 	prodview_proddivrow0.appendChild(prodview_date);
 
-	prodview_publisher = document.createElement("div");
+	prodview_publisher = document.createElement("td");
 	prodview_publisher.innerHTML = json[0].PublisherName;
 	prodview_publisher.className = "col-md-3";
 	prodview_proddivrow0.appendChild(prodview_publisher);
 
-	prodean = document.createElement("div");
+	prodean = document.createElement("td");
 	prodean.innerHTML = json[0].EAN13;
 	prodean.className = "col-md-4";
 	prodview_proddivrow0.appendChild(prodean);
 
-	languagediv = document.createElement("div");
+	languagediv = document.createElement("td");
 	languagediv.innerHTML = json[0].LanguageName;
 	languagediv.className = "col-md-2";
 	prodview_proddivrow0.appendChild(languagediv);
 
 
-	ihmediv = document.createElement("div");
-	ihmediv.className = "row";
-	ihmediv.appendChild(prodview_proddivtitle);
-	ihmediv.appendChild(prodview_proddivrow0);
+	thead = document.createElement("thead");
+	thead.appendChild(prodview_proddivtitle);
 
+	tbody = document.createElement("tbody");
+	tbody.appendChild(prodview_proddivrow0);
+
+
+	ihmediv = document.createElement("table");
+	ihmediv.className = "table";
+	ihmediv.appendChild(thead);
+	ihmediv.appendChild(tbody);
 
 
 	prodview_proddivrow1 = document.createElement("div");

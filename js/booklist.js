@@ -33,12 +33,6 @@ for(var product in json){
 	prodlist_productdivrow1.appendChild(prodlist_productname);
 	
 	
-	prodlist_productid = document.createElement("div");
-	
-	prodlist_productid.className = "col-md-1";
-	prodlist_productdivrow1.appendChild(prodlist_productid);
-	
-	
 	prodlist_year = document.createElement("div");
 	prodlist_year.innerHTML = json[product].ReleaseDate;
 	prodlist_year.className = "col-md-2";
@@ -52,7 +46,7 @@ for(var product in json){
 	
 	
 	prodean = document.createElement("div");
-	prodean.innerHTML = json[0].EAN13;
+	prodean.innerHTML = json[user].EAN13;
 	prodean.className = "col-md-1";
 	prodlist_productdivrow1.appendChild(prodean);
 

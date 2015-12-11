@@ -9,5 +9,9 @@ class Bookview extends CI_Controller {
 		
 		
 		$main->view('bookview', $data);
+		
+		$data["comment_type"]="product";	
+	
+		$main->view('comment', $data);
 	}
 }

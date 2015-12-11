@@ -58,9 +58,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // SPECIFIC CONTROLLERS
 $route['review'] = 'review/index';
 //$route['bookview/(:num)'] = 'bookview/index';
+$route['userview'] = 'projekti/view_comment/userview//user';
 
 // GENERIC CONTROLLER
 $route['(:any)'] = 'projekti/view/$1';
+
+
 
 
 /*

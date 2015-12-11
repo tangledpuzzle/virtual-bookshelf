@@ -1,7 +1,18 @@
+html {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-color: #ccc !important;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
 #subtext {
     padding-left: 1em;
 }
-.vcenter {
+.page-footer {
     text-align:right;
     line-height:3em;
     height:3em;
@@ -11,37 +22,26 @@
 .navbar {
     margin-bottom: 0px !important;
 }
-body {
-    background-color: #ccc !important;
-    height: 100%;
-    padding:0;
-    margin:0;
-}
 .white-div {
     background-color: white;
-    min-height: 100%;
-    height: auto;
-    width: auto;
     -webkit-box-shadow: 0px 0px 64px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow: 0px 0px 64px 0px rgba(50, 50, 50, 0.75);
     box-shadow: 0px 0px 64px 0px rgba(50, 50, 50, 0.75);
-	
 }
 .main-content {
-    height:auto;
-	padding: 20px ;
-
+    height: auto !important;
+	min-height: 10 em;
+    padding: 2em;
 }
 .navbar-right {
     margin-right:0 !important;
 }
-
-.firstcontentelement{
-	margin-top: 0 !important ;
+.first-content-element {
+    margin-top: 0 !important;
 }
-.lastcontentelement{
-	margin-bottom: 0 !important;
+.last-content-element {
+    margin-bottom: 0 !important;
 }
-.sight-title{
-	margin-left: 1em;
+.site-title {
+    margin-left: 1em;
 }

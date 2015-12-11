@@ -1,0 +1,11 @@
+INSERT INTO comments (CommentID, PostDate, UserID, Text) VALUES (1, "2001-01-11", 1, "Test User Comment");
+INSERT INTO comments (CommentID, PostDate, UserID, Text) VALUES (2, "1901-11-11", 2, "Test Product Comment");
+INSERT INTO comments (CommentID, PostDate, UserID, Text) VALUES (3, "2021-09-19", 3, "Test Product Comment 2");
+INSERT INTO comments (CommentID, PostDate, UserID, Text) VALUES (4, "2014-10-12", 1, "Test Review Comment");
+
+INSERT INTO userComments (UserID, CommentID) VALUES (1, 1);
+
+INSERT INTO productComments (ProductID, CommentID) VALUES (1, 2);
+INSERT INTO productComments (ProductID, CommentID) VALUES (1, 3);
+
+INSERT INTO reviewComments (ReviewID, CommentID) VALUES (1, 4);

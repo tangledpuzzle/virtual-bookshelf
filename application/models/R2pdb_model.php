@@ -50,8 +50,11 @@ class R2pdb_model extends CI_Model
 			{
 				case "collections":
 					return "CollectionName";
+				case "reviewComments":
+				case "userComments":
+				case "productComments":
 				case "comments":
-					return "CommentID, PostDate, comments.UserID, ScreenName, Text";
+					return "comments.CommentID, PostDate, comments.UserID, ScreenName, comments.Text";
 				case "countries":
 					return "CountrySymbol, CountryName, FlagPath";
 				case "genders":
@@ -225,6 +228,20 @@ class R2pdb_model extends CI_Model
 			// Left join the correct tables.
 			switch ($table_name)
 			{
+				case "reviewComments":
+					$this->db->join("comments", 'comments.CommentID = reviewComments.CommentID', 'left');
+					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					$this->db->join("reviews", 'reviews.ReviewID = reviewComments.ReviewID', 'left');
+					break;
+				case "userComments":
+					$this->db->join("comments", 'comments.CommentID = userComments.CommentID', 'left');
+					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					break;
+				case "productComments":
+					$this->db->join("comments", 'comments.CommentID = productComments.CommentID', 'left');
+					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					$this->db->join("products", 'products.ProductID = productComments.ProductID', 'left');
+					break;
 				case "reviews":
 					$this->db->join("products", 'products.ProductID = reviews.ProductID', 'left');
 					$this->db->join("users", 'users.UserID = reviews.UserID', 'left');
@@ -678,6 +695,17 @@ class R2pdb_model extends CI_Model
 	// products
 	
 	/**
+	* Get all comments of a specific product with data formatting for display purposes.
+	* @param int $productid id of the product
+	* @return array an array of arrays containing all comments
+	*/
+	public function get_product_comments_display($productid)
+	{
+		$args = array("table_name" => "productComments", "products.ProductID" => (int) $productid);
+		return $this->get_rows_by_field_display($args);
+	}
+	
+	/**
 	* Get all products with data formatting for display purposes.
 	* @return array an array of arrays containing all products
 	*/
@@ -787,6 +815,17 @@ class R2pdb_model extends CI_Model
 	}
 	
 	// reviews
+	
+	/**
+	* Get all comments of a specific review with data formatting for display purposes.
+	* @param int $reviewid id of the review
+	* @return array an array of arrays containing all comments
+	*/
+	public function get_review_comments_display($reviewid)
+	{
+		$args = array("table_name" => "reviewComments", "reviews.ReviewID" => (int) $reviewid);
+		return $this->get_rows_by_field_display($args);
+	}
 	
 	/**
 	* Get all reviews with data formatting for display purposes.
@@ -904,7 +943,7 @@ class R2pdb_model extends CI_Model
 	*/
 	public function get_user_comments_display($userid)
 	{
-		$args = array("table_name" => "comments", "comments.UserID" => (int) $userid);
+		$args = array("table_name" => "userComments", "comments.UserID" => (int) $userid);
 		return $this->get_rows_by_field_display($args);
 	}
 		

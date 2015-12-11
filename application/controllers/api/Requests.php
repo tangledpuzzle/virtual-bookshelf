@@ -75,7 +75,7 @@ class Requests extends REST_Controller
 					
 				if ($present_in_table === FALSE)
 				{
-					$this->set_response(['status' => FALSE, 'message' => id_type_name . " with the ID " . $id . " not found."], REST_Controller::HTTP_NOT_FOUND);
+					$this->set_response(['status' => FALSE, 'message' => $id_type_name . " with the ID " . $id . " not found."], REST_Controller::HTTP_NOT_FOUND);
 				}
 				else
 				{
@@ -313,10 +313,10 @@ class Requests extends REST_Controller
 					switch ($datatype)
 					{
 						case "reviews":
-							$data = $this->r2pdb_model->get_product_reviews_by_id_display($productid);
+							$data = $this->r2pdb_model->get_product_reviews_display($productid);
 							break;
 						case "comments":
-							$data = $this->r2pdb_model->get_product_comments_by_id_display($userid);
+							$data = $this->r2pdb_model->get_product_comments_display($productid);
 							break;
 						default:
 							// Theoretically this is not possible.
@@ -333,80 +333,6 @@ class Requests extends REST_Controller
 					}
 				}
 			}
-			
-			// FIXME: This is dumb. Do reviewdata_get.
-			$both = FALSE;
-			/*
-			// Determine what data to get.
-			if ($reviewid === NULL)
-			{
-				$commentid = (int) $commentid;
-				$reviewid = 0; // Invalid ID
-			}
-			else if ($commentid === NULL)
-			{
-				$reviewid = (int) $reviewid;
-				$commentid = 0; // Invalid ID
-				
-				// Get all review comments
-				if ($datatype === "comments")
-				{
-					$comments = ['dummydata' => "dummy get all product review comments"];
-				
-					if ($comments)
-					{
-						$this->response($comments, REST_Controller::HTTP_OK);
-					}
-					else
-					{
-						$this->response(['status' => FALSE, 'message' => "Product ID " . $productid . " review ID " . $reviewid. " has no comments."], REST_Controller::HTTP_NOT_FOUND);
-					}
-				}
-			}
-			else
-			{
-				// Neither are NULL, get specific comment from specific review.
-				$commentid = (int) $commentid;
-				$reviewid = (int) $reviewid;
-				$both = TRUE;
-			}
-			
-			if ($reviewid <= 0 && $commentid <= 0)
-			{
-					$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-			}
-			else if (!$both && ($reviewid > $commentid)) // One of these ID values is greater than 0.
-			{
-				// TODO: Get specific review from database.
-				$data = NULL;
-				// Error message to return if the comment does not exist.
-				$errorMessage = "Product ID " . $productid . " does not have a review with the ID " . $reviewid . ".";
-			}
-			else if (!$both)
-			{
-				// TODO: Get specific comment from database.
-				$data = NULL;
-				// Error message to return if the comment does not exist.
-				$errorMessage = "Product ID " . $productid . " does not have a comment with the ID " . $commentid . ".";
-			}
-			else // both is TRUE.
-			{
-				// TODO: Get specific comment from specific review.
-				// TODO: Validate review id.
-				$data = NULL;
-				// Error message to return if the comment does not exist.
-				$errorMessage = "Product ID " . $productid . " review ID " . $reviewid . " does not have a comment with the ID " . $commentid . ".";
-			}
-			
-			if (!empty($data))
-			{
-				$this->set_response($data, REST_Controller::HTTP_OK);
-			}
-			else
-			{
-				$this->set_response(['status' => FALSE, 'message' => $errorMessage], REST_Controller::HTTP_NOT_FOUND);
-			}
-			*/
 		}
 	}
 
@@ -433,6 +359,44 @@ class Requests extends REST_Controller
 		$this->set_response($data, REST_Controller::HTTP_OK);
 	}
 	
+	/*
+	 * HTTP GET: PRODUCT DATA
+	 */
+	public function reviewdata_get()
+	{
+		// Get reviewid parameter from the query.
+		$reviewid = $this->get('reviewid');
+		
+		// Get datatype parameter from the query.
+		$datatype = $this->get('datatype');
+		
+		if ($this->check_for_valid_id("Review", $reviewid) === TRUE)
+		{
+			$reviewid = (int) $reviewid;
+
+			if ($datatype !== NULL)
+			{
+					switch ($datatype)
+					{
+						case "comments":
+							$data = $this->r2pdb_model->get_review_comments_display($reviewid);
+							break;
+						default:
+							// Theoretically this is not possible.
+							$this->response(['status' => FALSE, 'message' => "This should not have happened, please contact the site administrator."], REST_Controller::HTTP_BAD_REQUEST);
+					}
+				
+					if (!empty($data))
+					{
+						$this->response($data, REST_Controller::HTTP_OK);
+					}
+					else
+					{
+						$this->response(['status' => FALSE, 'message' => "Review has no " . $datatype . "."], REST_Controller::HTTP_NOT_FOUND);
+					}
+			}
+		}
+	}
 	/*
 	 * HTTP POST: COMMENTS
 	 * TODO: Implement login functionality.

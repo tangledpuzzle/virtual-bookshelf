@@ -3,3 +3,4 @@ source ~/workspace/r2projekti/dev/users.sql;
 source ~/workspace/r2projekti/dev/products.sql;
 source ~/workspace/r2projekti/dev/reviews.sql;
 source ~/workspace/r2projekti/dev/collections.sql;
+source ~/workspace/r2projekti/dev/comments.sql;

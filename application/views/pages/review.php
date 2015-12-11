@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../../../css/review.css" >
-	<legend>Write a Book Review</legend>
+
+	<legend class="first-content-element">Write a Book Review</legend>
 	<form accept-charset="UTF-8" class="form-horizontal" id="write_review" role="form" action="<?php echo base_url(); ?>index.php/review" method="POST">
 
 		<input type="hidden" name="user_id" value='<?php echo $user_id; ?>' />
@@ -53,7 +54,7 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group  last-content-element">
 			<div class="col-md-offset-1 col-md-1">
 				<input class="btn btn-primary" name="submit" value="Post Review" type="submit">
 			</div>

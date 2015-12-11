@@ -1,10 +1,9 @@
-
-		</div>
-
+			</section>
+		</div> <!-- main-content -->
 		<div class="row">
-			<div class=" navbar-inverse bottom-align">
-				<div class="vcenter" >Powered by Ryhmä 2</div>
-			</div>
+			<footer class="navbar-inverse page-footer">
+				Powered by Ryhmä 2
+			</footer>
 		</div>
 	</div>
 </body>

@@ -1,1 +1,1 @@
-<h3>Review posted!</h3>
+<h3 class="first-content-element">Review posted!</h3>

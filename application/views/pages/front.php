@@ -1,3 +1,3 @@
-<h1 class="firstcontentelement">Welcome!</h1>
+<h1 class="first-content-element">Welcome!</h1>
 <p>Some text</p>
-<p class="lastcontentelement">some text</p>
+<p class="last-content-element">some text</p>

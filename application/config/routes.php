@@ -56,12 +56,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | -------------------------------------------------------------------------
 */
 // SPECIFIC CONTROLLERS
-$route['review'] = 'review/index';
+$route[LOGIN_PAGE] = 'login/login';
+$route['logout'] = 'login/logout';
+$route['review'] = 'review/write_review';
 //$route['bookview/(:num)'] = 'bookview/index';
 $route['userview'] = 'projekti/view_comment/userview//user';
 
 // GENERIC CONTROLLER
-$route['(:any)'] = 'projekti/view/$1';
+$route['(:any)'] = 'my_projekti/view/$1';
 
 
 
@@ -71,7 +73,7 @@ $route['(:any)'] = 'projekti/view/$1';
 | Project Routes: Do not change
 | -------------------------------------------------------------------------
 */
-$route['default_controller'] = 'projekti/view';
+$route['default_controller'] = 'my_projekti/view';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 

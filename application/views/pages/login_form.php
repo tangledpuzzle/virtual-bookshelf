@@ -77,7 +77,6 @@ if( ! isset( $on_hold_message ) )
 				<input class="btn btn-primary" name="submit" id="submit_button" value="Login" type="submit">
 			</div>
 		</div>
-	</div>
 </form>
 
 <?php

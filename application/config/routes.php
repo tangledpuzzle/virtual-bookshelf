@@ -56,8 +56,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | -------------------------------------------------------------------------
 */
 // SPECIFIC CONTROLLERS
-//$route[LOGIN_PAGE] = 'examples/login';
 $route[LOGIN_PAGE] = 'login/login';
+$route['logout'] = 'login/logout';
 $route['review'] = 'review/write_review';
 //$route['bookview/(:num)'] = 'bookview/index';
 

@@ -141,8 +141,8 @@ CREATE TABLE IF NOT EXISTS genres
 
 CREATE TABLE IF NOT EXISTS `users` (
 	`user_id` int(10) unsigned NOT NULL,
-	`user_name` varchar(255) DEFAULT NULL,
-	`user_email` varchar(255) NOT NULL,
+	`user_name` varchar(255) NOT NULL,
+	`user_email` varchar(255) DEFAULT NULL,
 	`user_pass` varchar(60) NOT NULL,
 	`user_salt` varchar(32) NOT NULL,
 	`user_last_login` datetime DEFAULT NULL,
@@ -167,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 	PRIMARY KEY (`user_id`),
 	UNIQUE KEY `user_name` (`user_name`),
+	UNIQUE KEY ScreenName (ScreenName),
 	UNIQUE KEY `user_email` (`user_email`),
 	FOREIGN KEY (CountryID) REFERENCES countries(CountryID),
 	FOREIGN KEY (GenderID) REFERENCES genders(GenderID)

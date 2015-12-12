@@ -205,6 +205,31 @@ class R2pdb_model extends CI_Model
 		return NULL;
 	}
 	
+	// Copied from Community Auth examples.
+	/**
+    * Get an unused ID for user creation
+    *
+    * @return  int between 1200 and 4294967295
+    */
+    public function get_unused_user_id()
+    {
+        // Create a random user id
+        $random_unique_int = 2147483648 + mt_rand( -2147482447, 2147483647 );
+
+        // Make sure the random user_id isn't already in use
+        $query = $this->db->where('user_id', $random_unique_int)->get_where(config_item('user_table'));
+
+        if ($query->num_rows() > 0)
+		{
+            $query->free_result();
+
+            // If the random user_id is already in use, get a new number by recursively calling this function until a free ID is found.
+            return $this->get_unused_user_id();
+        }
+
+        return $random_unique_int;
+    }
+	
 	/* 
 	 * GENERIC PRIVATE DATA GETTERS
 	 */

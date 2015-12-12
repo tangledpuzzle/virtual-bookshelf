@@ -3,10 +3,10 @@ INSERT INTO collections (CollectionID, CollectionName) VALUES (2, "Empty Collect
 INSERT INTO collections (CollectionID, CollectionName) VALUES (3, "My Stuff");
 INSERT INTO collections (CollectionID, CollectionName) VALUES (4, "fav books");
 
-INSERT INTO userCollections (UserID, CollectionID) VALUES (1, 1);
-INSERT INTO userCollections (UserID, CollectionID) VALUES (1, 2);
-INSERT INTO userCollections (UserID, CollectionID) VALUES (2, 3);
-INSERT INTO userCollections (UserID, CollectionID) VALUES (3, 4);
+INSERT INTO userCollections (`user_id`, CollectionID) VALUES (1, 1);
+INSERT INTO userCollections (`user_id`, CollectionID) VALUES (1, 2);
+INSERT INTO userCollections (`user_id`, CollectionID) VALUES (2, 3);
+INSERT INTO userCollections (`user_id`, CollectionID) VALUES (3, 4);
 
 INSERT INTO collectionProducts (CollectionID, ProductID) VALUES (1, 1);
 INSERT INTO collectionProducts (CollectionID, ProductID) VALUES (1, 3);

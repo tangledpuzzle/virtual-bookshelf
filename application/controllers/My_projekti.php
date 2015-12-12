@@ -1,6 +1,6 @@
 <?php
 
-class Projekti extends CI_Controller
+class My_projekti extends MY_Controller
 {
 	function __construct()
 	{
@@ -9,9 +9,9 @@ class Projekti extends CI_Controller
 	
 	public function view($page = 'front', $data = NULL)
 	{
-		if ( ! file_exists(APPPATH.'views/pages/'.$page.'.php'))
+		if ( ! file_exists(APPPATH . 'views/pages/' . $page . '.php'))
 		{
-			echo "Can't find " . APPPATH.'views/pages/'.$page.'.php';
+			echo "Can't find " . APPPATH . 'views/pages/' . $page . '.php';
 			show_404();
 		}
 		

@@ -312,6 +312,7 @@ $config['redirect_to_https'] = FALSE;
 */
 
 $config['min_chars_for_password'] = 8;
+$config['min_chars_for_user_name'] = 3;
 
 /*
 | -----------------------------------------------------------------
@@ -321,6 +322,7 @@ $config['min_chars_for_password'] = 8;
 */
 
 $config['max_chars_for_password'] = 512;
+$config['max_chars_for_user_name'] = 128;
 
 /*
 | -----------------------------------------------------------------

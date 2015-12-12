@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="../../../css/bsdev.css" >
 	<link rel="stylesheet" type="text/css" href="../../../bs/css/bootstrap.css" >
 	<link rel="stylesheet" type="text/css" href="../../../bs/css/bootstrap-theme.css" >
-	<script language="javascript" type="text/javascript" src="../../../bs/js/bootstrap.js"></script>
+	<!--<script language="javascript" type="text/javascript" src="../../../bs/js/bootstrap.js"></script>-->
 </head>
 <body>
 	<div class="container white-div clear-top">

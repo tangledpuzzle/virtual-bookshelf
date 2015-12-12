@@ -27,7 +27,7 @@ class R2pdb_model extends CI_Model
 				case "reviews":
 					return "*";
 				case "users":
-					return "UserID, RegistrationDate, FirstName, LastName, Age, GenderID, CountryID, ScreenName, AvatarPath, Bio";
+					return "user_id, user_date, FirstName, LastName, Age, GenderID, CountryID, ScreenName, AvatarPath, Bio";
 				default:
 					// WARNING: Will throw a PHP error.
 					return NULL;
@@ -54,7 +54,7 @@ class R2pdb_model extends CI_Model
 				case "userComments":
 				case "productComments":
 				case "comments":
-					return "comments.CommentID, PostDate, comments.UserID, ScreenName, comments.Text";
+					return "comments.CommentID, PostDate, comments.user_id, ScreenName, comments.Text";
 				case "countries":
 					return "CountrySymbol, CountryName, FlagPath";
 				case "genders":
@@ -66,11 +66,11 @@ class R2pdb_model extends CI_Model
 				case "publishers":
 					return "PublisherName";
 				case "reviews":
-					return "ReviewID, ReviewDate, reviews.ProductID, Name, ScreenName, reviews.UserID, Text, Pros, Cons, Rating";
+					return "ReviewID, ReviewDate, reviews.ProductID, Name, ScreenName, reviews.user_id, Text, Pros, Cons, Rating";
 				case "users":
-					return "UserID, ScreenName, FirstName, LastName, Age, GenderName, CountryName, RegistrationDate, AvatarPath, Bio";
+					return "user_id, ScreenName, FirstName, LastName, Age, GenderName, CountryName, user_date, AvatarPath, Bio";
 				case "userCollections":
-					return "userCollections.UserID, userCollections.CollectionID, CollectionName, products.ProductID, Name, ReleaseDate, ImagePath, LanguageName, Brief, Description, EAN13, PublisherName";
+					return "userCollections.user_id, userCollections.CollectionID, CollectionName, products.ProductID, Name, ReleaseDate, ImagePath, LanguageName, Brief, Description, EAN13, PublisherName";
 				default:
 					// WARNING: Will throw a PHP error.
 					return NULL;
@@ -92,7 +92,7 @@ class R2pdb_model extends CI_Model
 			switch ($table_name)
 			{
 				case "userCollections":
-					return "UserID, CollectionID";
+					return "user_id, CollectionID";
 				case "collections":
 					return "CollectionID";
 				case "comments":
@@ -110,7 +110,7 @@ class R2pdb_model extends CI_Model
 				case "reviews":
 					return "ReviewID";
 				case "users":
-					return "UserID";
+					return "user_id";
 				default:
 					return NULL;
 			}
@@ -129,7 +129,7 @@ class R2pdb_model extends CI_Model
 		if ($query !== NULL)
 		{
 			/* Array of key-value pairs, example:
-			{"name":"UserID","type":3,"max_length":1,"primary_key":0,"default":""},
+			{"name":"user_id","type":3,"max_length":1,"primary_key":0,"default":""},
 			{"name":"ScreenName","type":253,"max_length":17,"primary_key":0,"default":""}
 			*/
 			$fields = $query->field_data();
@@ -230,24 +230,24 @@ class R2pdb_model extends CI_Model
 			{
 				case "reviewComments":
 					$this->db->join("comments", 'comments.CommentID = reviewComments.CommentID', 'left');
-					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					$this->db->join("users", 'users.user_id = comments.user_id', 'left');
 					$this->db->join("reviews", 'reviews.ReviewID = reviewComments.ReviewID', 'left');
 					break;
 				case "userComments":
 					$this->db->join("comments", 'comments.CommentID = userComments.CommentID', 'left');
-					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					$this->db->join("users", 'users.user_id = comments.user_id', 'left');
 					break;
 				case "productComments":
 					$this->db->join("comments", 'comments.CommentID = productComments.CommentID', 'left');
-					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					$this->db->join("users", 'users.user_id = comments.user_id', 'left');
 					$this->db->join("products", 'products.ProductID = productComments.ProductID', 'left');
 					break;
 				case "reviews":
 					$this->db->join("products", 'products.ProductID = reviews.ProductID', 'left');
-					$this->db->join("users", 'users.UserID = reviews.UserID', 'left');
+					$this->db->join("users", 'users.user_id = reviews.user_id', 'left');
 					break;
 				case "comments":
-					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					$this->db->join("users", 'users.user_id = comments.user_id', 'left');
 					break;
 				case "products":
 					$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
@@ -343,10 +343,10 @@ class R2pdb_model extends CI_Model
 				{
 					case "reviews":
 						$this->db->join("products", 'products.ProductID = reviews.ProductID', 'left');
-						$this->db->join("users", 'users.UserID = reviews.UserID', 'left');
+						$this->db->join("users", 'users.user_id = reviews.user_id', 'left');
 						break;
 					case "comments":
-						$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+						$this->db->join("users", 'users.user_id = comments.user_id', 'left');
 						break;
 					case "products":
 						$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
@@ -406,10 +406,10 @@ class R2pdb_model extends CI_Model
 			{
 				case "reviews":
 					$this->db->join("products", 'products.ProductID = reviews.ProductID', 'left');
-					$this->db->join("users", 'users.UserID = reviews.UserID', 'left');
+					$this->db->join("users", 'users.user_id = reviews.user_id', 'left');
 					break;
 				case "comments":
-					$this->db->join("users", 'users.UserID = comments.UserID', 'left');
+					$this->db->join("users", 'users.user_id = comments.user_id', 'left');
 					break;
 				case "products":
 					$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
@@ -458,7 +458,7 @@ class R2pdb_model extends CI_Model
 		$data = array(
 			'ReviewDate' => date('Y-m-d'),
 			'ProductID' => $product_id,
-			'UserID' => $user_id,
+			'user_id' => $user_id,
 			'Text' => $review,
 			'Pros' => $pros,
 			'Cons' => $cons,
@@ -932,7 +932,7 @@ class R2pdb_model extends CI_Model
 	*/
 	public function get_user_reviews_display($userid)
 	{
-		$args = array("table_name" => "reviews", "reviews.UserID" => (int) $userid);
+		$args = array("table_name" => "reviews", "reviews.user_id" => (int) $userid);
 		return $this->get_rows_by_field_display($args);
 	}
 		
@@ -943,7 +943,7 @@ class R2pdb_model extends CI_Model
 	*/
 	public function get_user_comments_display($userid)
 	{
-		$args = array("table_name" => "userComments", "comments.UserID" => (int) $userid);
+		$args = array("table_name" => "userComments", "comments.user_id" => (int) $userid);
 		return $this->get_rows_by_field_display($args);
 	}
 		
@@ -955,7 +955,7 @@ class R2pdb_model extends CI_Model
 	public function get_user_collections_display($userid)
 	{
 		$table_name ="userCollections";
-		$this->db->where("userCollections.UserID", (int) $userid); // Add all fields to WHERE statement.
+		$this->db->where("userCollections.user_id", (int) $userid); // Add all fields to WHERE statement.
 		$this->db->select($this->get_public_data_columns_display($table_name));
 
 		// Left join the correct tables.
@@ -984,7 +984,7 @@ class R2pdb_model extends CI_Model
 	public function get_user_collection_by_id_display($userid)
 	{
 		$table_name ="userCollections";
-		$this->db->where("userCollections.UserID", (int) $userid); // Add all fields to WHERE statement.
+		$this->db->where("userCollections.user_id", (int) $userid); // Add all fields to WHERE statement.
 		$this->db->select($this->get_public_data_columns_display($table_name));
 
 		// Left join the correct tables.

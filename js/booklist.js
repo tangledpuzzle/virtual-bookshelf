@@ -46,7 +46,7 @@ for(var product in json){
 	
 	
 	prodean = document.createElement("div");
-	prodean.innerHTML = json[user].EAN13;
+	prodean.innerHTML = json[product].EAN13;
 	prodean.className = "col-md-1";
 	prodlist_productdivrow1.appendChild(prodean);
 

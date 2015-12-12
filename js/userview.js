@@ -18,7 +18,7 @@ var userview_name, userview_id, userview_date, userview_brief, userview_descript
 	hiddendiv = document.createElement("div");
 	hiddendiv.id = "user_iddiv";
 	hiddendiv.style.display= "none";
-	hiddendiv.innerHTML = json[0].UserID;
+	hiddendiv.innerHTML = json[0].user_id;
 
 
 	hvdiv = document.createElement("div");
@@ -26,7 +26,7 @@ var userview_name, userview_id, userview_date, userview_brief, userview_descript
 	titlerow = document.createElement("div");
 	titlerow.className="row";
 	userview_title = document.createElement("h1");
-	userview_title.innerHTML = json[0].ScreenName + " <small> [" + json[0].UserID + "] </small>";
+	userview_title.innerHTML = json[0].ScreenName + " <small> [" + json[0].user_id + "] </small>";
 	hvdiv.appendChild(userview_title);
 	titlerow.appendChild(hvdiv);
 
@@ -88,7 +88,7 @@ document.getElementById("userview").appendChild(hiddendiv);
 	userview_userdivrow0.appendChild(genderdiv);
 
 	userview_date = document.createElement("td");
-	userview_date.innerHTML = json[0].RegistrationDate;
+	userview_date.innerHTML = json[0].user_date;
 	userview_date.className = "col-md-3";
 	userview_userdivrow0.appendChild(userview_date);
 

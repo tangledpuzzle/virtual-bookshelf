@@ -73,7 +73,7 @@ for(var user in json){
 
 		
 	userlist_useridspan = document.createElement("td");
-	userlist_useridspan.innerHTML =  json[user].UserID;
+	userlist_useridspan.innerHTML =  json[user].user_id;
 	userlist_userdivrow1.appendChild(userlist_useridspan);
 	
 	
@@ -98,7 +98,7 @@ for(var user in json){
 	
 	
 	userlist_year = document.createElement("td");
-	userlist_year.innerHTML = json[user].RegistrationDate;
+	userlist_year.innerHTML = json[user].user_date;
 	userlist_userdivrow1.appendChild(userlist_year);
 	
 	

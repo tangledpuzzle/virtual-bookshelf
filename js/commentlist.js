@@ -22,7 +22,7 @@ for(var comment in json){
 	datediv = document.createElement("div");
 	
 	
-	usera.href="./userview/"+ json[comment].UserID;
+	usera.href="./userview/"+ json[comment].user_id;
 	usera.innerHTML = json[comment].ScreenName;
 	userdiv.className = "col-md-3";
 	userdiv.appendChild(usera);

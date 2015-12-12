@@ -142,7 +142,7 @@ class Examples extends MY_Controller
         // Customize this array for your user
         $user_data = array(
             'user_name'     => 'admin',
-            'ScreenName'     => 'CAuthAdmin',
+            'ScreenName'    => 'CAuthAdmin',
             'user_pass'     => 'adminADMIN123',
             'user_email'    => 'admin@admin.com',
             'user_level'    => '9', // 9 if you want to login @ examples/index.

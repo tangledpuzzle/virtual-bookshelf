@@ -55,7 +55,7 @@ $config['groups'] = array(
 | 
 */
 
-$config['max_allowed_attempts'] = 100;
+$config['max_allowed_attempts'] = 5;
 
 /*
 | -----------------------------------------------------------------
@@ -161,7 +161,7 @@ $config['encrypt_all_cookies'] = TRUE;
 |
 */
 
-$config['allow_remember_me'] = FALSE;
+$config['allow_remember_me'] = TRUE;
 
 /*
 | -----------------------------------------------------------------
@@ -212,7 +212,7 @@ $config['http_user_cookie_name'] = 'httpUser';
 |
 */
 
-$config['http_user_cookie_elements'] = array('user_name');
+$config['http_user_cookie_elements'] = array('user_id', 'user_name');
 
 /*
 | -----------------------------------------------------------------
@@ -241,7 +241,7 @@ $config['token_name']          = 'token';
 |
 */
 
-$config['recovery_code_expiration'] = 60 * 60 * 2;
+$config['recovery_code_expiration'] = 60 * 10;
 
 /*
 | -----------------------------------------------------------------
@@ -311,7 +311,7 @@ $config['redirect_to_https'] = FALSE;
 | The lease amount of characters for a valid password
 */
 
-$config['min_chars_for_password'] = 3;
+$config['min_chars_for_password'] = 8;
 
 /*
 | -----------------------------------------------------------------
@@ -320,7 +320,7 @@ $config['min_chars_for_password'] = 3;
 | The maximum amount of characters for a valid password
 */
 
-$config['max_chars_for_password'] = 256;
+$config['max_chars_for_password'] = 512;
 
 /*
 | -----------------------------------------------------------------

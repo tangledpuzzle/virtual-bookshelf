@@ -212,7 +212,7 @@ $config['http_user_cookie_name'] = 'httpUser';
 |
 */
 
-$config['http_user_cookie_elements'] = array('user_id', 'user_name');
+$config['http_user_cookie_elements'] = array('user_id', 'ScreenName');
 
 /*
 | -----------------------------------------------------------------

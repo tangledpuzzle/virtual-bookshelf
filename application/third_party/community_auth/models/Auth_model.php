@@ -43,7 +43,8 @@ class Auth_model extends MY_Model {
 			'user_salt',
 			'user_id',
 			'user_modified',
-			'user_banned'
+			'user_banned',
+			'ScreenName'	// R2Projekti: Get auth data ScreenName.
 		);
 
 		// User table query
@@ -106,7 +107,8 @@ class Auth_model extends MY_Model {
 			'user_level',
 			'user_agent_string',
 			'user_id',
-			'user_banned'
+			'user_banned',
+			'ScreenName'	// R2Projekti: Get data from ScreenName column for the http user cookie.
 		);
 
 		$this->db->select( $selected_columns );
@@ -140,7 +142,7 @@ class Auth_model extends MY_Model {
 
 		if ( $query->num_rows() == 1 )
 		{
-			return $query->row();
+			return $query->row();;
 		}
 
 		return FALSE;

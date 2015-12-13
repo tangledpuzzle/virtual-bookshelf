@@ -5,24 +5,20 @@
 */
 .row {
     border: 1px dashed green;
-
 }
 
 span {
     border: 1px dotted red;
 }
 
-.navbar {
-    border: 1px dotted blue !important;
-}
-
 ul {
-    border: 1px dotted blue !important;
+    border: 1px dotted orange !important;
 }
 
 div[class^="col-"] {
-	font-size: 1.25em;
-	min-height: 2em;
-    background-color: rgba(255, 0, 0, 0.2);
-	
+    background-color: rgba(255, 0, 0, 0.1) !important;	
+}
+
+.form-group {
+    border: 1px dotted cyan !important;
 }

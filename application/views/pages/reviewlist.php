@@ -1,5 +1,7 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('css/reviewlist.css'); ?>">
-<script type="text/javascript" src="<?php echo base_url('js/reviewlist.js'); ?>"></script>
+<link type="text/css" rel="stylesheet" href="../../../css/reviewlist.css">
+<script type="text/javascript" src="../../../js/reviewlist.js"></script>
+<script type="text/javascript" src="../../../lib/sorttable.js"></script>
+
 <hr>
 <h3 class="first-content-element">Reviews</h3>
 <div id="reviewlist"></div>

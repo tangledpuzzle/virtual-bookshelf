@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="<?php echo base_url('css/review.css'); ?>">
+<link rel="stylesheet" type="text/css" href="../../../css/review.css">
 
 	<h1 class="first-content-element">Book Review of <a href="<?php echo "../bookview/" . $review["ProductID"]; ?>";><?php echo $review["Name"]; ?></a></h1>
 	

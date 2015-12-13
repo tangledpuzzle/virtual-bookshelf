@@ -1,10 +1,4 @@
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-	
- <form action="LAITA TÄHÄN JOTAIN">
+<form action="LAITA TÄHÄN JOTAIN">
   Product ID:<br>
   <input type="text" name="productID">
 	 Product name:<br>
@@ -26,8 +20,4 @@
   <input type="text" name="publisher">
 	 
 	 <input type="submit" value="Search">
-</form> 
-	
-	
-</body>
-</html>
+</form>

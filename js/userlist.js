@@ -68,7 +68,7 @@ for(var user in json){
 	
 	
 	userlist_userdivrow1.onclick = function() {	
-		window.location.href="./userview/" + this.childNodes[0].innerHTML;
+		window.location.href="userview/" + this.childNodes[0].innerHTML;
 	};
 
 		

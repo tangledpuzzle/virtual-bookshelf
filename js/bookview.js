@@ -46,9 +46,8 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 		alert("Add " + idstring );
 	};
 
-	button2.onclick = function() {	
-	var idstring = document.getElementById("product_iddiv").innerHTML;
-		alert("Review " + idstring );
+	button2.onclick = function() {
+		window.location.href="../writereview/" + document.getElementById("product_iddiv").innerHTML;
 	};
 
 	

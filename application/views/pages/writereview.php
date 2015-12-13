@@ -1,14 +1,12 @@
 <link rel="stylesheet" type="text/css" href="../../../css/review.css" >
 
 	<legend class="first-content-element">Write a Book Review</legend>
-	<form accept-charset="UTF-8" class="form-horizontal" id="write_review" role="form" action="<?php echo base_url(); ?>index.php/review" method="POST">
-
-		<input type="hidden" name="user_id" value='<?php echo $user_id; ?>' />
+	<form accept-charset="UTF-8" class="form-horizontal" id="write_review" role="form" action="<?php echo base_url() . 'index.php/writereview/' . $productid ?>" method="POST">
 		
 		<div class="form-group required">
-			<label for="inputProductID" class="control-label col-md-1 required">Book ID</label>
+			<label class="control-label col-md-1">Book ID</label>
 			<div class="col-md-2">
-				<input type="number" value='<?php echo $product_id ?>' class="form-control" id="inputProductID" name="product_id" min="1" placeholder="ID" required="true" disabled="true">
+				<div class="label-left-aligned"><?php echo $productid ?></div>
 			</div>
 		</div>
 

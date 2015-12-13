@@ -7,3 +7,8 @@
    content:"*";
    color:red;
 }
+.label-left-aligned {
+	padding-top: 7px;
+    margin-bottom: 0px;
+    text-align: left;
+}

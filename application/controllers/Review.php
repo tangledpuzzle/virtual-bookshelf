@@ -42,16 +42,16 @@ class Review extends My_projekti
 		}
 	}
 	
-	public function show_review($productid)
+	public function show_review($reviewid)
 	{
-		if ($this->r2pdb_model->is_valid_product_id($productid) === TRUE)
+		if ($this->r2pdb_model->is_valid_review_id($reviewid) === TRUE)
 		{
-			$data["message"] = $this->r2pdb_model->get_review_by_id_display($productid);
-			$this->view('showreview', $data);
+			$data["review"] = $this->r2pdb_model->get_review_by_id_display($reviewid);
+			$this->view_comment('showreview', $data, "review");
 		}
 		else
 		{
-			$data["message"] = "Invalid product ID.";
+			$data["message"] = "Invalid review ID.";
 			$this->view('message', $data);
 		}
 	}

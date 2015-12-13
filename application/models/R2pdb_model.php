@@ -397,7 +397,8 @@ class R2pdb_model extends CI_Model
 
 				$this->db->reset_query();
 
-				return $this->correct_result_data_types($query);
+				// Correcting the array data types (i.e. numerical data into ints because the database driver returns everything as a string) and returning the first row because IDs are unique.
+				return $this->correct_result_data_types($query)[0];
 			}
 			return FALSE;
         }

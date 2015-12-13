@@ -3,12 +3,73 @@
     Created on : 2015-12-08 01:20 PM
     Author     : joseu
 */
-.form-group.required .control-label:after { 
-   content:"*";
-   color:red;
+.form-group.required .control-label:after {
+    content:"*";
+    color:red;
+}
+p.review {
+    font-family: Georgia, serif;
+}
+p.review:first-child:first-letter {
+    font-size: 1.5em;
+    font-weight: bold;
 }
 .label-left-aligned {
-	padding-top: 7px;
+    padding-top: 7px;
     margin-bottom: 0px;
     text-align: left;
+}
+.star {
+    margin: 0.2em;
+    color: gold !important;
+    font-size: 2em;
+}
+#star-div {
+    background-color: PaleVioletRed;
+    margin-bottom: 1em;
+    padding: 0 1em;
+    display: inline-block;
+    -webkit-border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    border-radius: 2em;
+}
+.pros, .cons {
+    background-color: WhiteSmoke;
+    padding: 2em;
+}
+.pros h2:first-child, .cons h2:first-child {
+    margin-top: 0;
+}
+.pros p:last-child, .cons p:last-child {
+    margin-bottom: 0;
+}
+.pros {
+    -webkit-border-top-left-radius: 2em;
+    -webkit-border-bottom-left-radius: 2em;
+    -moz-border-radius-topleft: 2em;
+    -moz-border-radius-bottomleft: 2em;
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+}
+.cons {
+    -webkit-border-top-right-radius: 2em;
+    -webkit-border-bottom-right-radius: 2em;
+    -moz-border-radius-topright: 2em;
+    -moz-border-radius-bottomright: 2em;
+    border-top-right-radius: 2em;
+    border-bottom-right-radius: 2em;
+}
+/*
+ * Copied from http://www.bootply.com/qjvYXfWLuN
+*/
+ .row.vdivide [class*='col-']:not(:last-child):after {
+    background: #ccc;
+    width: 1px;
+    content:"";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    min-height: 10px;
 }

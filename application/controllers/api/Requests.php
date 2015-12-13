@@ -190,7 +190,7 @@ class Requests extends REST_Controller
 				switch ($datatype)
 				{
 					case "collections":
-						$data = $this->r2pdb_model->get_user_collections_display($userid);
+						$data = $this->r2pdb_model->get_user_collections_full_display($userid);
 						break;
 					case "comments":
 						$data = $this->r2pdb_model->get_user_comments_display($userid);

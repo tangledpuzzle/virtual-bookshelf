@@ -152,7 +152,7 @@ class R2pdb_model extends CI_Model
 							break;
 						case 12: // Datetime
 						default: // Some other type.
-							// Do nothing.
+							// Keep as string.
 							break;
 					}
 					$col++;
@@ -964,7 +964,7 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get all user comments with data formatting for display purposes.
 	* @param int $userid user ID
-	* @return array an array of arrays containing all reviews
+	* @return array an array of arrays containing all comments
 	*/
 	public function get_user_comments_display($userid)
 	{
@@ -973,60 +973,96 @@ class R2pdb_model extends CI_Model
 	}
 		
 	/**
-	* Get all user comments with data formatting for display purposes.
+	* Get all user collections with full product data with data formatting for display purposes.
 	* @param int $userid user ID
-	* @return array an array of arrays containing all reviews
+	* @return array an array of collections containing all products in an array
 	*/
-	public function get_user_collections_display($userid)
+	public function get_user_collections_full_display($userid)
 	{
 		$table_name ="userCollections";
-		$this->db->where("userCollections.user_id", (int) $userid); // Add all fields to WHERE statement.
-		$this->db->select($this->get_public_data_columns_display($table_name));
+		$this->db->select("userCollections.CollectionID, CollectionName");
+		$this->db->where("userCollections.user_id", (int) $userid);
 
-		// Left join the correct tables.
+		// Left join to get collection name.
 		$this->db->join("collections", 'userCollections.CollectionID = collections.CollectionID', 'left');
-		$this->db->join("collectionProducts", 'userCollections.CollectionID = collectionProducts.CollectionID', 'left');
-		$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
-		
-		// Product joins.
-		$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
-		$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
-
-		$this->db->order_by("userCollections.CollectionID", 'ASC');
-		$this->db->order_by("collectionProducts.ProductID", 'ASC');
 
 		$query = $this->db->get($table_name);
 		$this->db->reset_query();
 		
-		return $this->correct_result_data_types($query);
+		$collections = $query->result_array();
+		
+		$length = count($collections);
+		
+		// For every collection.
+		for ($i = 0; $i < $length; $i++)
+		{
+			$table_name ="collectionProducts";
+			$this->db->select("products.ProductID, Name, ReleaseDate, ImagePath, LanguageName, Brief, Description, EAN13, PublisherName");
+			$this->db->where("collectionProducts.CollectionID", (int) $collections[$i]["CollectionID"]);
+
+			// Left join with products to get product data.
+			$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
+
+			// Product joins.
+			$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
+			$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+
+			$this->db->order_by("collectionProducts.ProductID", 'ASC');
+
+			// Get collection product data.
+			$query = $this->db->get($table_name);
+			$this->db->reset_query();
+		
+			$collections[$i]["Products"] = $this->correct_result_data_types($query);
+		}
+		
+		return $collections;
 	}
 		
 	/**
-	* Get all user comments with data formatting for display purposes.
+	* Get all user collections with product id, name, and release date with data formatting for display purposes.
 	* @param int $userid user ID
-	* @return array an array of arrays containing all reviews
+	* @return array an array of collections containing all products in an array
 	*/
-	public function get_user_collection_by_id_display($userid)
+	public function get_user_collections_short_display($userid)
 	{
 		$table_name ="userCollections";
-		$this->db->where("userCollections.user_id", (int) $userid); // Add all fields to WHERE statement.
-		$this->db->select($this->get_public_data_columns_display($table_name));
+		$this->db->select("userCollections.CollectionID, CollectionName");
+		$this->db->where("userCollections.user_id", (int) $userid);
 
-		// Left join the correct tables.
+		// Left join to get collection name.
 		$this->db->join("collections", 'userCollections.CollectionID = collections.CollectionID', 'left');
-		$this->db->join("collectionProducts", 'userCollections.CollectionID = collectionProducts.CollectionID', 'left');
-		$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
-		
-		// Product joins.
-		$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
-		$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
-
-		$this->db->order_by("userCollections.CollectionID", 'ASC');
-		$this->db->order_by("collectionProducts.ProductID", 'ASC');
 
 		$query = $this->db->get($table_name);
 		$this->db->reset_query();
 		
-		return $this->correct_result_data_types($query);
+		$collections = $query->result_array();
+		
+		$length = count($collections);
+		
+		// For every collection.
+		for ($i = 0; $i < $length; $i++)
+		{
+			$table_name ="collectionProducts";
+			$this->db->select("products.ProductID, Name, ReleaseDate");
+			$this->db->where("collectionProducts.CollectionID", (int) $collections[$i]["CollectionID"]);
+
+			// Left join with products to get product data.
+			$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
+
+			// Product joins.
+			$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
+			$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+
+			$this->db->order_by("collectionProducts.ProductID", 'ASC');
+
+			// Get collection product data.
+			$query = $this->db->get($table_name);
+			$this->db->reset_query();
+		
+			$collections[$i]["Products"] = $this->correct_result_data_types($query);
+		}
+		
+		return $collections;
 	}
 }

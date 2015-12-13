@@ -24,7 +24,7 @@ function createReviewList()
 	
 	
 	var table = document.createElement("table");
-	table.className = "table last-content-element";
+	table.className = "table sortable last-content-element";
 	document.getElementById("reviewlist").appendChild(table)
 	
 	var thead = document.createElement("thead");

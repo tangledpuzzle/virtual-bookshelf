@@ -15,7 +15,7 @@ var console, document, i, userlist_userdivrow1, userlist_usernamespan, userlist_
 
 
 	ihmediv = document.createElement("table");
-	ihmediv.className = "table last-content-element";
+	ihmediv.className = "table sortable last-content-element";
 	thead = document.createElement("thead");
 	userlist_userdivtitle = document.createElement("tr");
 	thead.appendChild(userlist_userdivtitle);

@@ -12,12 +12,12 @@
 	<div class="container white-div clear-top">
 		<div class="row">
 			<header>
-				<h1 class="site-title">Virtual Bookshelf<small id="subtext">Reviews &amp; Listing</small></h1>
+				<a href="<?php echo base_url(); ?>"><img id="logo" class="center-block img-responsive" src="../../../img/virtual_bookshelf.png" alt="Virtual Bookshelf Website Logo" width="589" height="69"></a>
 				<nav class="navbar navbar-inverse">
 					<ul class="nav navbar-nav">
 						<li><a href="<?php echo base_url(); ?>">Home</a></li>
-						<li><a  href="<?php echo base_url(); ?>index.php/booklist">Book List</a></li>
-						<li><a href="<?php echo base_url(); ?>index.php/search">Search</a></li>
+						<li><a href="<?php echo base_url(); ?>index.php/booklist">Book List</a></li>
+						<li><a href="<?php echo base_url(); ?>index.php/booksearch">Search Books</a></li>
 						<li><a href="<?php echo base_url(); ?>index.php/userlist">Users</a></li>
 					</ul>
 

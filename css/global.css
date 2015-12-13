@@ -30,7 +30,7 @@ body {
 }
 .main-content {
     height: auto !important;
-	min-height: 10 em;
+    min-height: 10 em;
     padding: 2em;
 }
 .navbar-right {
@@ -42,6 +42,7 @@ body {
 .last-content-element {
     margin-bottom: 0 !important;
 }
-.site-title {
-    margin-left: 1em;
+#logo {
+    margin-top: 2em;
+    margin-bottom: 2em;
 }

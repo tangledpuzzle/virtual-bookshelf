@@ -1,31 +1,20 @@
 #product-div {
-	margin: 0;
-	padding: 0;
-	margin-top:0.5em;
-	
+    margin: 0;
+    padding: 0;
+    margin-top:0.5em;
 }
-
-
-#product-brief{
-	min-height: 2em;
+#product-brief {
+    min-height: 2em;
 }
-
-#product-name{
-	font-weight: bold;
+#product-name {
+    font-weight: bold;
 }
-
-#product-year{
-	font-style:italic;
+#product-year {
+    font-style:italic;
 }
-.row{
-	margin-left:0;
-	margin-right:0;
+.list-group-item {
+    min-height: 6em;
 }
-
-.list-group-item{
-	min-height: 6em;
-}
-
-.list-group{
-	margin-bottom:0;
+.list-group {
+    margin-bottom:0;
 }

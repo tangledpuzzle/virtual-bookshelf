@@ -1,4 +1,7 @@
-html {
+/*
+ * Standard HTML
+ */
+ html {
     height: 100%;
     padding: 0;
     margin: 0;
@@ -9,18 +12,18 @@ body {
     padding: 0;
     margin: 0;
 }
-#subtext {
-    padding-left: 1em;
+.navbar {
+    margin-bottom: 0px !important;
 }
-.page-footer {
+/*
+ * Custom Rules
+ */
+ .page-footer {
     text-align:right;
     line-height:3em;
     height:3em;
     color:#9d9d9d;
     padding-right: 2em;
-}
-.navbar {
-    margin-bottom: 0px !important;
 }
 .white-div {
     background-color: white;
@@ -33,9 +36,6 @@ body {
     min-height: 10 em;
     padding: 2em;
 }
-.navbar-right {
-    margin-right:0 !important;
-}
 .first-content-element {
     margin-top: 0 !important;
 }
@@ -46,11 +46,47 @@ body {
     margin-top: 2em;
     margin-bottom: 2em;
 }
-.row {
+/*
+ * Bootstrap Overrides
+ */
+ .row {
     margin-right: 0 !important;
     margin-left: 0 !important;
 }
 .container {
     padding-right: 0 !important;
     padding-left: 0 !important;
+}
+.navbar-right {
+    margin-right:0 !important;
+}
+/*
+ * Tables
+*/
+ tr.table-row-link:hover {
+    background-color: White !important;
+    cursor: pointer;
+}
+table {
+    -webkit-border-top-left-radius: 1em;
+    -moz-border-radius-topleft: 1em;
+    border-top-left-radius: 1em;
+    -webkit-border-top-right-radius: 1em;
+    -moz-border-radius-topright: 1em;
+    border-top-right-radius: 1em;
+}
+table.sortable thead {
+    cursor: default;
+}
+table tbody tr:nth-child(2n+1) {
+    background-color: WhiteSmoke;
+}
+table tbody tr:nth-child(2n) {
+    background-color: #eee;
+}
+/*
+ * Copied from: http://www.kryogenix.org/code/browser/sorttable/#symbolsbeforesorting
+*/
+ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    content:" \25B4\25BE"
 }

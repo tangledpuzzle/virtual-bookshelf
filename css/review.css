@@ -3,7 +3,7 @@
     Created on : 2015-12-08 01:20 PM
     Author     : joseu
 */
-.form-group.required .control-label:after {
+ .form-group.required .control-label:after {
     content:"*";
     color:red;
 }

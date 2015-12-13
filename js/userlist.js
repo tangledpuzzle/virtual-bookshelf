@@ -5,9 +5,27 @@
 * Time: 09:37 AM
 * To change this template use Tools | Templates.
 */
-"use strict";
-
-var console, document, i, userlist_userdivrow1, userlist_usernamespan, userlist_useridspan, userlist_userdivrow2, userlist_userdiv , sectionHead, sectionBody, userlist_username,
+function createUserList()
+{
+	"use strict";
+	
+	var users;
+	
+	// Is the global json array not undefined?
+	if (typeof users_json !== 'undefined')
+	{
+		// Copy the data to the local variable.
+    	users = users_json;
+	}
+	else
+	{
+		// Get the data from sessionStorage.
+		users = JSON.parse(sessionStorage.getItem('users_json'));
+		// Remove the item from storage as it is no longer needed.
+		sessionStorage.removeItem('users_json');
+	}
+	
+var i, userlist_userdivrow1, userlist_usernamespan, userlist_useridspan, userlist_userdivrow2, userlist_userdiv , sectionHead, sectionBody, userlist_username,
 	userlist_userid, userlist_country, userlist_year, userlist_userbrief, userage,
 	thead, tbody, ihmediv, userlist_userdivrow0, userlist_userdivtitle,
 	userlist_name, userlist_countrytitle, useragetitle, genderdivtitle, userlist_datetitle, userlist_id, userlist_usergender;
@@ -60,7 +78,7 @@ var console, document, i, userlist_userdivrow1, userlist_usernamespan, userlist_
 	ihmediv.appendChild(tbody);
 
 
-for(var user in json){
+for(var user in users){
 	
 	
 	userlist_userdivrow1 = document.createElement("tr");
@@ -73,32 +91,32 @@ for(var user in json){
 
 		
 	userlist_useridspan = document.createElement("td");
-	userlist_useridspan.innerHTML =  json[user].user_id;
+	userlist_useridspan.innerHTML =  users[user].user_id;
 	userlist_userdivrow1.appendChild(userlist_useridspan);
 	
 	
 	userlist_username = document.createElement("td");
-	userlist_username.innerHTML = json[user].ScreenName;
+	userlist_username.innerHTML = users[user].ScreenName;
 	userlist_userdivrow1.appendChild(userlist_username);
 	
 	
 	userlist_country = document.createElement("td");
-	userlist_country.innerHTML = json[user].CountryName;
+	userlist_country.innerHTML = users[user].CountryName;
 	userlist_userdivrow1.appendChild(userlist_country);
 	
 	
 	userage = document.createElement("td");
-	userage.innerHTML = json[user].Age;
+	userage.innerHTML = users[user].Age;
 	userlist_userdivrow1.appendChild(userage);
 	
 	
 	userlist_usergender = document.createElement("td");
-	userlist_usergender.innerHTML =  json[user].GenderName;
+	userlist_usergender.innerHTML =  users[user].GenderName;
 	userlist_userdivrow1.appendChild(userlist_usergender);
 	
 	
 	userlist_year = document.createElement("td");
-	userlist_year.innerHTML = json[user].user_date;
+	userlist_year.innerHTML = users[user].user_date;
 	userlist_userdivrow1.appendChild(userlist_year);
 	
 	
@@ -106,6 +124,4 @@ for(var user in json){
 }
 
 	document.getElementById("userlist").appendChild(ihmediv);
-
-
-
+}

@@ -5,9 +5,27 @@
 * Time: 01:51 PM
 * To change this template use Tools | Templates.
 */
-console.log(json);
+function createBookView()
+{
+	"use strict";
+	
+	var book;
+	
+	// Is the global json array not undefined?
+	if (typeof book_json !== 'undefined')
+	{
+		// Copy the data to the local variable.
+    	book = book_json;
+	}
+	else
+	{
+		// Get the data from sessionStorage.
+		book = JSON.parse(sessionStorage.getItem('book_json'));
+		// Remove the item from storage as it is no longer needed.
+		sessionStorage.removeItem('book_json');
+	}
 
-var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_description, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, language, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, button1, button2, buttonit, hiddendiv, hvdiv, thead, tbody;
+var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_description, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, language, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, button1, button2, buttonit, hiddendiv, hvdiv, thead, tbody;
 
 
 
@@ -16,7 +34,7 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 	hiddendiv = document.createElement("div");
 	hiddendiv.id = "product_iddiv";
 	hiddendiv.style.display= "none";
-	hiddendiv.innerHTML = json.ProductID;
+	hiddendiv.innerHTML = book.ProductID;
 
 
 	hvdiv = document.createElement("div");
@@ -24,20 +42,19 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 	titlerow = document.createElement("div");
 	titlerow.className="row";
 	prodview_title = document.createElement("h1");
-	prodview_title.innerHTML = json.Name + " <small> [" + json.ProductID + "] </small>";
+	prodview_title.innerHTML = book.Name + " <small> [" + book.ProductID + "] </small>";
 	hvdiv.appendChild(prodview_title);
 	titlerow.appendChild(hvdiv);
 	buttonit = document.createElement("div");
 	buttonit.className = "col-md-4 buttonit";
 	button1 = document.createElement("button");
 	button2 = document.createElement("button");
-	button1.id = "button1";
-	button1.className = "btn-md btn-primary pull-right";
-	button2.className = "btn-md btn-success pull-right";
+	button1.className = "btn-lg btn-primary pull-right";
+	button2.className = "btn-lg btn-success pull-right";
 	button1.innerHTML = "Add to collection";
 	button2.innerHTML = "Review";
-	buttonit.appendChild(button1);
 	buttonit.appendChild(button2);
+	buttonit.appendChild(button1);
 	titlerow.appendChild(buttonit);
 
 
@@ -81,22 +98,22 @@ document.getElementById("productview").appendChild(hiddendiv);
 	prodview_proddivrow0 = document.createElement("tr");
 
 	prodview_date = document.createElement("td");
-	prodview_date.innerHTML = json.ReleaseDate;
+	prodview_date.innerHTML = book.ReleaseDate;
 	prodview_date.className = "col-md-3";
 	prodview_proddivrow0.appendChild(prodview_date);
 
 	prodview_publisher = document.createElement("td");
-	prodview_publisher.innerHTML = json.PublisherName;
+	prodview_publisher.innerHTML = book.PublisherName;
 	prodview_publisher.className = "col-md-3";
 	prodview_proddivrow0.appendChild(prodview_publisher);
 
 	prodean = document.createElement("td");
-	prodean.innerHTML = json.EAN13;
+	prodean.innerHTML = book.EAN13;
 	prodean.className = "col-md-4";
 	prodview_proddivrow0.appendChild(prodean);
 
 	languagediv = document.createElement("td");
-	languagediv.innerHTML = json.LanguageName;
+	languagediv.innerHTML = book.LanguageName;
 	languagediv.className = "col-md-2";
 	prodview_proddivrow0.appendChild(languagediv);
 
@@ -119,7 +136,7 @@ document.getElementById("productview").appendChild(hiddendiv);
 	prodview_proddivrow1.className = "row";
 
 	prodview_brief = document.createElement("div");
-	prodview_brief.innerHTML = json.Brief;
+	prodview_brief.innerHTML = book.Brief;
 	prodview_brief.className = "col-md-12";
 	prodview_proddivrow1.appendChild(prodview_brief);
 
@@ -129,7 +146,7 @@ document.getElementById("productview").appendChild(hiddendiv);
 	prodview_proddivrow2.className = "row";
 
 	prodview_proddescription = document.createElement("div");
-	prodview_proddescription.innerHTML = json.Description;
+	prodview_proddescription.innerHTML = book.Description;
 	prodview_proddescription.className = "col-md-12";
 	prodview_proddivrow2.appendChild(prodview_proddescription);
 
@@ -138,3 +155,4 @@ document.getElementById("productview").appendChild(hiddendiv);
 document.getElementById("productview").appendChild(ihmediv);
 document.getElementById("productview").appendChild(prodview_proddivrow1);
 document.getElementById("productview").appendChild(prodview_proddivrow2);
+}

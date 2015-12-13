@@ -41,18 +41,4 @@ class Review extends My_projekti
 			$this->view('message', $data);
 		}
 	}
-	
-	public function show_review($reviewid)
-	{
-		if ($this->r2pdb_model->is_valid_review_id($reviewid) === TRUE)
-		{
-			$data["review"] = $this->r2pdb_model->get_review_by_id_display($reviewid);
-			$this->view_comment('showreview', $data, "review");
-		}
-		else
-		{
-			$data["message"] = "Invalid review ID.";
-			$this->view('message', $data);
-		}
-	}
 }

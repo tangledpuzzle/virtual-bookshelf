@@ -5,6 +5,8 @@
 	<link rel="stylesheet" type="text/css" href="../../../css/global.css" >
 	<link rel="stylesheet" type="text/css" href="../../../bs/css/bootstrap.css" >
 	<link rel="stylesheet" type="text/css" href="../../../bs/css/bootstrap-theme.css" >
+	<!-- Project helper functions. -->
+	<script type="text/javascript" src="../../../js/r2p.js"></script>
 </head>
 <body>
 	<div class="container white-div clear-top">

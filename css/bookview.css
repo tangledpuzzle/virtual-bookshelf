@@ -6,6 +6,6 @@
 #product-div:last-child {
     padding:0;
 }
-#button1 {
+.buttonit button {
     margin-left:0.5em;
 }

@@ -5,7 +5,25 @@
 * Time: 09:37 AM
 * To change this template use Tools | Templates.
 */
-console.log(json);
+function createUserView()
+{
+	"use strict";
+	
+	var user;
+	
+	// Is the global json array not undefined?
+	if (typeof user_json !== 'undefined')
+	{
+		// Copy the data to the local variable.
+    	user = user_json;
+	}
+	else
+	{
+		// Get the data from sessionStorage.
+		user = JSON.parse(sessionStorage.getItem('user_json'));
+		// Remove the item from storage as it is no longer needed.
+		sessionStorage.removeItem('user_json');
+	}
 
 var userview_name, userview_id, userview_date, userview_brief, userview_description, userview_country, userage, language, genderdiv, thead, tbody, fullname,
 	hiddendiv, userview_userdivrow1, userview_userdivrow2, ihmediv, userview_userdivrow0,
@@ -18,7 +36,7 @@ var userview_name, userview_id, userview_date, userview_brief, userview_descript
 	hiddendiv = document.createElement("div");
 	hiddendiv.id = "user_iddiv";
 	hiddendiv.style.display= "none";
-	hiddendiv.innerHTML = json.user_id;
+	hiddendiv.innerHTML = user.user_id;
 
 
 	hvdiv = document.createElement("div");
@@ -26,7 +44,7 @@ var userview_name, userview_id, userview_date, userview_brief, userview_descript
 	titlerow = document.createElement("div");
 	titlerow.className="row";
 	userview_title = document.createElement("h1");
-	userview_title.innerHTML = json.ScreenName + " <small> [" + json.user_id + "] </small>";
+	userview_title.innerHTML = user.ScreenName + " <small> [" + user.user_id + "] </small>";
 	hvdiv.appendChild(userview_title);
 	titlerow.appendChild(hvdiv);
 
@@ -68,27 +86,27 @@ document.getElementById("userview").appendChild(hiddendiv);
 	userview_userdivrow0 = document.createElement("tr");
 
 	fullname = document.createElement("td");
-	fullname.innerHTML = json.FirstName + json.LastName;
+	fullname.innerHTML = user.FirstName + user.LastName;
 	fullname.className = "col-md-4";
 	userview_userdivrow0.appendChild(fullname);
 
 	userview_country = document.createElement("td");
-	userview_country.innerHTML = json.CountryName;
+	userview_country.innerHTML = user.CountryName;
 	userview_country.className = "col-md-3";
 	userview_userdivrow0.appendChild(userview_country);
 
 	userage = document.createElement("td");
-	userage.innerHTML = json.Age;
+	userage.innerHTML = user.Age;
 	userage.className = "col-md-1";
 	userview_userdivrow0.appendChild(userage);
 
 	genderdiv = document.createElement("td");
-	genderdiv.innerHTML = json.GenderName;
+	genderdiv.innerHTML = user.GenderName;
 	genderdiv.className = "col-md-1";
 	userview_userdivrow0.appendChild(genderdiv);
 
 	userview_date = document.createElement("td");
-	userview_date.innerHTML = json.user_date;
+	userview_date.innerHTML = user.user_date;
 	userview_date.className = "col-md-3";
 	userview_userdivrow0.appendChild(userview_date);
 
@@ -111,7 +129,7 @@ document.getElementById("userview").appendChild(hiddendiv);
 	userview_userdivrow1.className = "row";
 
 	userview_brief = document.createElement("div");
-	userview_brief.innerHTML = json.Bio;
+	userview_brief.innerHTML = user.Bio;
 	userview_brief.className = "col-md-12";
 	userview_userdivrow1.appendChild(userview_brief);
 
@@ -120,3 +138,4 @@ document.getElementById("userview").appendChild(hiddendiv);
 
 document.getElementById("userview").appendChild(ihmediv);
 document.getElementById("userview").appendChild(userview_userdivrow1);
+}

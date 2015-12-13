@@ -5,7 +5,7 @@
 * Time: 09:37 AM
 * To change this template use Tools | Templates.
 */
-console.log(json[0]);
+console.log(json);
 
 var userview_name, userview_id, userview_date, userview_brief, userview_description, userview_country, userage, language, genderdiv, thead, tbody, fullname,
 	hiddendiv, userview_userdivrow1, userview_userdivrow2, ihmediv, userview_userdivrow0,
@@ -18,7 +18,7 @@ var userview_name, userview_id, userview_date, userview_brief, userview_descript
 	hiddendiv = document.createElement("div");
 	hiddendiv.id = "user_iddiv";
 	hiddendiv.style.display= "none";
-	hiddendiv.innerHTML = json[0].user_id;
+	hiddendiv.innerHTML = json.user_id;
 
 
 	hvdiv = document.createElement("div");
@@ -26,7 +26,7 @@ var userview_name, userview_id, userview_date, userview_brief, userview_descript
 	titlerow = document.createElement("div");
 	titlerow.className="row";
 	userview_title = document.createElement("h1");
-	userview_title.innerHTML = json[0].ScreenName + " <small> [" + json[0].user_id + "] </small>";
+	userview_title.innerHTML = json.ScreenName + " <small> [" + json.user_id + "] </small>";
 	hvdiv.appendChild(userview_title);
 	titlerow.appendChild(hvdiv);
 
@@ -68,27 +68,27 @@ document.getElementById("userview").appendChild(hiddendiv);
 	userview_userdivrow0 = document.createElement("tr");
 
 	fullname = document.createElement("td");
-	fullname.innerHTML = json[0].FirstName + json[0].LastName;
+	fullname.innerHTML = json.FirstName + json.LastName;
 	fullname.className = "col-md-4";
 	userview_userdivrow0.appendChild(fullname);
 
 	userview_country = document.createElement("td");
-	userview_country.innerHTML = json[0].CountryName;
+	userview_country.innerHTML = json.CountryName;
 	userview_country.className = "col-md-3";
 	userview_userdivrow0.appendChild(userview_country);
 
 	userage = document.createElement("td");
-	userage.innerHTML = json[0].Age;
+	userage.innerHTML = json.Age;
 	userage.className = "col-md-1";
 	userview_userdivrow0.appendChild(userage);
 
 	genderdiv = document.createElement("td");
-	genderdiv.innerHTML = json[0].GenderName;
+	genderdiv.innerHTML = json.GenderName;
 	genderdiv.className = "col-md-1";
 	userview_userdivrow0.appendChild(genderdiv);
 
 	userview_date = document.createElement("td");
-	userview_date.innerHTML = json[0].user_date;
+	userview_date.innerHTML = json.user_date;
 	userview_date.className = "col-md-3";
 	userview_userdivrow0.appendChild(userview_date);
 
@@ -111,7 +111,7 @@ document.getElementById("userview").appendChild(hiddendiv);
 	userview_userdivrow1.className = "row";
 
 	userview_brief = document.createElement("div");
-	userview_brief.innerHTML = json[0].Bio;
+	userview_brief.innerHTML = json.Bio;
 	userview_brief.className = "col-md-12";
 	userview_userdivrow1.appendChild(userview_brief);
 

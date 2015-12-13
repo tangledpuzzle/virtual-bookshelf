@@ -1,17 +1,12 @@
 <?php
-class Bookview extends CI_Controller {
+defined('BASEPATH') or exit('No direct script access allowed');
+include_once (dirname(__FILE__) . "/My_projekti.php");
 
-	public function index($bookid = NULL)
+class Bookview extends My_projekti
+{
+	public function show_product($productid = NULL)
 	{
-		require_once('Projekti.php');
-		$main = new Projekti();
-		$data=NULL;
-		
-		
-		$main->view('bookview', $data);
-		
-		$data["comment_type"]="product";	
-	
-		$main->view('comment', $data);
+		$data['productid'] = $productid;
+		$this->view_comment('bookview', $data, "product");
 	}
 }

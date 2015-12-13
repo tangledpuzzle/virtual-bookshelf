@@ -64,11 +64,11 @@ for(var user in json){
 	
 	
 	userlist_userdivrow1 = document.createElement("tr");
+	userlist_userdivrow1.className = "table-row-link";
 	
 	
 	userlist_userdivrow1.onclick = function() {	
-	var idstring = this.childNodes[0].innerHTML;
-		alert("Open " + idstring + " page.");
+		window.location.href="./userview/" + this.childNodes[0].innerHTML;
 	};
 
 		

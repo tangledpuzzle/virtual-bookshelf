@@ -56,18 +56,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | -------------------------------------------------------------------------
 */
 // SPECIFIC CONTROLLERS
+$route['bookview/(:num)'] = 'bookview/show_product/$1';
+$route['userview/(:num)'] = 'userview/show_user/$1';
+$route['review/(:num)'] = 'review/show_review/$1';
+$route['writereview/(:num)'] = 'review/write_review/$1';
+$route['myprofile'] = 'myprofile/show_myprofile';
+$route['register'] = 'register/show_register';
 $route[LOGIN_PAGE] = 'login/login';
 $route['logout'] = 'login/logout';
-$route['register'] = 'register/show_register';
-$route['review'] = 'review/write_review';
-//$route['bookview/(:num)'] = 'bookview/index';
-$route['userview'] = 'projekti/view_comment/userview//user';
 
 // GENERIC CONTROLLER
 $route['(:any)'] = 'my_projekti/view/$1';
-
-
-
 
 /*
 | -------------------------------------------------------------------------

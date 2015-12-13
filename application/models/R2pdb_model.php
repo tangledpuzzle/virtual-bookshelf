@@ -892,6 +892,26 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
+	* Get a list of review information without the text by the ProductID with data formatting for display purposes.
+	* @param int $id product ID
+	* @return array|boolean|null an array containing found reviews as an array, FALSE for invalid ID, NULL if $id was null 
+	*/
+	public function get_review_infos_by_product_id_display($id)
+	{
+		$table_name ="reviews";
+		$this->db->select("ReviewID, ReviewDate, reviews.user_id, ScreenName, Rating");
+		$this->db->where("ProductID", (int) $id);
+
+		// Left join to get user name.
+		$this->db->join("users", 'reviews.user_id = users.user_id', 'left');
+
+		$query = $this->db->get($table_name);
+		$this->db->reset_query();
+		
+		return $this->correct_result_data_types($query);
+	}
+	
+	/**
 	* Get a specific review by their ID without data formatting for display purposes.
 	* @param int $id review ID
 	* @return array|boolean|null an array containing found review as an array, FALSE for invalid ID, NULL if $id was null 

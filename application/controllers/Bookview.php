@@ -7,6 +7,8 @@ class Bookview extends My_projekti
 	public function show_product($productid = NULL)
 	{
 		$data['productid'] = $productid;
-		$this->view_comment('bookview', $data, "product");
+		$data['reviews'] = json_encode($this->r2pdb_model->get_review_infos_by_product_id_display($productid));
+		$data["comment_type"] = "product";
+		$this->view_review_comment('bookview', $data);
 	}
 }

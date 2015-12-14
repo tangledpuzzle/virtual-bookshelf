@@ -22,7 +22,7 @@ class Review extends My_projekti
 						$this->input->post("pros"),
 						$this->input->post("cons"));
 					
-						$this->show_review($productid);
+					$this->view('bookview', $productid);
 				}
 				else
 				{

@@ -468,19 +468,20 @@ class R2pdb_model extends CI_Model
 	 */
 	
 	/**
-	* Insert data into the reviews table. Warning: Does not check data types! Assumes that data is in the correct format!
+	* Insert data into the reviews table.
+	* Warning: Does not perform data integrity checks.
 	* @param int $user_id user id who wrote the review
 	* @param int $product_id product id the review is about
 	* @param int $rating rating number in the range [1,5]
 	* @param string $review review text
 	* @param string $pros positive things
 	* @param string $cons negative things
-	* @return array an array of arrays containing all collections
+	* @return boolean|null TRUE if review was added,
+							FALSE if database query failed,
 	*/
 	public function add_review($user_id, $product_id, $rating, $review, $pros, $cons)
 	{
 		date_default_timezone_set('Europe/Helsinki');
-
 		$data = array(
 			'ReviewDate' => date('Y-m-d'),
 			'ProductID' => $product_id,
@@ -490,8 +491,289 @@ class R2pdb_model extends CI_Model
 			'Cons' => $cons,
 			'Rating' => $rating
 		);
-
-		$this->db->insert('reviews', $data);
+		// Return TRUE on success, FALSE on failure
+		return $this->db->insert('reviews', $data);
+	}
+	
+	/**
+	* Insert given product to given collection.
+	* Warning: Does not perform data integrity checks.
+	* $productid int product ID
+	* $collectionid int collection ID
+	* @return boolean TRUE if product was added,
+							 FALSE if database query failed
+	*/
+	public function add_product_id_to_collection($productid, $collectionid)
+	{
+		// INSERT: 'column name' => value
+		$data = array(
+			'CollectionID' => $collectionid,
+			'ProductID' => $productid
+		);
+		// Return TRUE on success, FALSE on failure
+		return $this->db->insert('collectionProducts', $data);
+	}
+	
+	/**
+	* Deletes given product from given collection.
+	* Warning: Does not perform data integrity checks.
+	* $productid int product ID
+	* $collectionid int collection ID
+	* @return boolean TRUE if product was removed,
+							 FALSE if database query failed
+	*/
+	public function remove_product_id_from_collection($productid, $collectionid)
+	{
+		// WHERE: 'column name' => value
+		$data = array(
+			'CollectionID' => $collectionid,
+			'ProductID' => $productid
+		);
+		
+		// If FALSE query failed
+		if ($this->db->delete('collectionProducts', $data) === FALSE)
+		{
+			return FALSE;
+		}
+		return TRUE;
+	}
+	
+	/**
+	* Insert data into the user comments table.
+	* Warning: Does not perform data integrity checks.
+	* @param int $user_id user id who wrote the comment
+	* @param string $text comment text
+	* @param int $target_user_id user id the comment is about
+	* @return boolean TRUE if comment was added,
+						FALSE if database query failed,
+	*/
+	public function add_user_comment($user_id, $text, $target_user_id)
+	{
+		date_default_timezone_set('Europe/Helsinki');
+		
+		// INSERT: 'column name' => value
+		$data = array(
+			'PostDate' => date('Y-m-d'),
+			'user_id' => $user_id,
+			'Text' => $text
+		);
+		
+		// Insert comment data.
+		// Returns TRUE on success, FALSE on failure
+		$success = $this->db->insert('comments', $data);
+		
+		if ($success)
+		{
+			// INSERT: 'column name' => value
+			// $this->db->insert_id() returns the ID of the last insert statement.
+			$data = array(
+				'CommentID' => $this->db->insert_id(),
+				'user_id' => $target_user_id
+			);
+			
+			// Link comment to user profile.
+			// Return TRUE on success, FALSE on failure
+			return $this->db->insert('userComments', $data);
+		}
+		return FALSE;
+	}
+	
+	/**
+	* Delete comment data.
+	* Warning: Does not perform data integrity checks.
+	* @param int $target_user_id user id of the person whose profile the comment is on
+	* @param int $commentid comment id to be deleted
+	* @return boolean TRUE if comment was deleted,
+						FALSE if database query failed,
+	*/
+	public function remove_user_comment($target_user_id, $commentid)
+	{
+		// WHERE: 'column name' => value
+		$data = array(
+			'user_id' => $target_user_id,
+			'CommentID' => $commentid
+		);
+		
+		// Delete from user profile first because of foreign keys.
+		// If FALSE query failed
+		if ($this->db->delete('userComments', $data) === FALSE)
+		{
+			return FALSE;
+		}
+		else
+		{
+			// WHERE: 'column name' => value
+			$data = array(
+				'CommentID' => $commentid,
+			);
+		
+			// Delete comment data.
+			// If FALSE query failed
+			if ($this->db->delete('comments', $data) === FALSE)
+			{
+				return FALSE;
+			}
+			
+			return TRUE;
+		}
+	}
+	
+	/**
+	* Insert data into the product comments table.
+	* Warning: Does not perform data integrity checks.
+	* @param int $user_id user id who wrote the comment
+	* @param string $text comment text
+	* @param int $target_product_id product id the comment is about
+	* @return boolean TRUE if comment was added,
+						FALSE if database query failed,
+	*/
+	public function add_product_comment($user_id, $text, $target_product_id)
+	{
+		date_default_timezone_set('Europe/Helsinki');
+		
+		// INSERT: 'column name' => value
+		$data = array(
+			'PostDate' => date('Y-m-d'),
+			'user_id' => $user_id,
+			'Text' => $text
+		);
+		// Insert into comments.
+		// Returns TRUE on success, FALSE on failure
+		$success = $this->db->insert('comments', $data);
+		
+		if ($success)
+		{
+			// INSERT: 'column name' => value
+			// $this->db->insert_id() returns the ID of the last insert statement.
+			$data = array(
+				'CommentID' => $this->db->insert_id(),
+				'ProductID' => $target_product_id
+			);
+			
+			// Link comment to product.
+			// Return TRUE on success, FALSE on failure
+			return $this->db->insert('productComments', $data);
+		}
+		return FALSE;
+	}
+	
+	/**
+	* Delete comment data.
+	* Warning: Does not perform data integrity checks.
+	* @param int $target_product_id product id the comment is about
+	* @param int $commentid comment id to be deleted
+	* @return boolean TRUE if comment was deleted,
+						FALSE if database query failed,
+	*/
+	public function remove_product_comment($target_product_id, $commentid)
+	{
+		// WHERE: 'column name' => value
+		$data = array(
+			'ProductID' => $target_product_id,
+			'CommentID' => $commentid
+		);
+		
+		// Delete from product page first because of foreign keys.
+		// If FALSE query failed
+		if ($this->db->delete('productComments', $data) === FALSE)
+		{
+			return FALSE;
+		}
+		else
+		{
+			// Delete comment data.
+			// WHERE: 'column name' => value
+			$data = array(
+				'CommentID' => $commentid,
+			);
+		
+			// If FALSE query failed
+			if ($this->db->delete('comments', $data) === FALSE)
+			{
+				return FALSE;
+			}
+			
+			return TRUE;
+		}
+	}
+	
+	/**
+	* Insert data into the review comments table.
+	* Warning: Does not perform data integrity checks.
+	* @param int $user_id user id who wrote the comment
+	* @param string $text comment text
+	* @param int $target_review_id review id the comment is about
+	* @return boolean TRUE if comment was added,
+						FALSE if database query failed,
+	*/
+	public function add_review_comment($user_id, $text, $target_review_id)
+	{
+		date_default_timezone_set('Europe/Helsinki');
+		
+		// INSERT: 'column name' => value
+		$data = array(
+			'PostDate' => date('Y-m-d'),
+			'user_id' => $user_id,
+			'Text' => $text
+		);
+		// Insert into comments.
+		// Returns TRUE on success, FALSE on failure
+		$success = $this->db->insert('comments', $data);
+		
+		if ($success)
+		{
+			// INSERT: 'column name' => value
+			// $this->db->insert_id() returns the ID of the last insert statement.
+			$data = array(
+				'CommentID' => $this->db->insert_id(),
+				'ReviewID' => $target_review_id
+			);
+			
+			// Link review to product.
+			// Return TRUE on success, FALSE on failure
+			return $this->db->insert('reviewComments', $data);
+		}
+		return FALSE;
+	}
+	
+	/**
+	* Delete comment data.
+	* Warning: Does not perform data integrity checks.
+	* @param int $target_review_id review id the comment is about
+	* @param int $commentid comment id to be deleted
+	* @return boolean TRUE if comment was deleted,
+						FALSE if database query failed,
+	*/
+	public function remove_review_comment($target_review_id, $commentid)
+	{
+		// WHERE: 'column name' => value
+		$data = array(
+			'ReviewID' => $target_review_id,
+			'CommentID' => $commentid
+		);
+		
+		// Delete from review page first because of foreign keys.
+		// If FALSE query failed
+		if ($this->db->delete('reviewComments', $data) === FALSE)
+		{
+			return FALSE;
+		}
+		else
+		{
+			// Delete comment data.
+			// WHERE: 'column name' => value
+			$data = array(
+				'CommentID' => $commentid,
+			);
+		
+			// If FALSE query failed
+			if ($this->db->delete('comments', $data) === FALSE)
+			{
+				return FALSE;
+			}
+			
+			return TRUE;
+		}
 	}
 	
 	/* 
@@ -519,16 +801,6 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Checks if given collection ID is present in the table.
-	* @param int $product_id collection id number
-	* @return boolean TRUE if ID is valid
-	*/
-	public function is_valid_collection_id($id)
-	{
-		return $this->validate_row_id('collections', (int) $id);
-	}
-	
-	/**
 	* Get a specific collection by their ID with data formatting for display purposes.
 	* @param int $id collection ID
 	* @return array|boolean|null an array containing found collection as an array, FALSE for invalid ID, NULL if $id was null 
@@ -539,14 +811,15 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get a specific collection by their ID without data formatting for display purposes.
-	* @param int $id collection ID
-	* @return array|boolean|null an array containing found collection as an array, FALSE for invalid ID, NULL if $id was null 
+	* Checks if given collection ID is present in the table.
+	* @param int $product_id collection id number
+	* @return boolean TRUE if ID is valid
 	*/
-	public function get_collection_by_id($id)
+	public function is_valid_collection_id($id)
 	{
-		return $this->get_row_by_id("collections", $id);
+		return $this->validate_row_id('collections', (int) $id);
 	}
+	
 	
 	// comments
 	

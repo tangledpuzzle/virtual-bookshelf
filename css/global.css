@@ -33,7 +33,7 @@ body {
 }
 .main-content {
     height: auto !important;
-    min-height: 10 em;
+    min-height: 10em;
     padding: 2em;
 }
 .first-content-element {

@@ -541,7 +541,7 @@ class R2pdb_model extends CI_Model
 	/**
 	* Insert data into the user comments table.
 	* Warning: Does not perform data integrity checks.
-	* @param int $user_id user id who wrote the review
+	* @param int $user_id user id who wrote the comment
 	* @param string $text comment text
 	* @param int $target_user_id user id the comment is about
 	* @return boolean TRUE if comment was added,
@@ -557,7 +557,9 @@ class R2pdb_model extends CI_Model
 			'user_id' => $user_id,
 			'Text' => $text
 		);
-		// Return TRUE on success, FALSE on failure
+		
+		// Insert comment data.
+		// Returns TRUE on success, FALSE on failure
 		$success = $this->db->insert('comments', $data);
 		
 		if ($success)
@@ -568,11 +570,210 @@ class R2pdb_model extends CI_Model
 				'CommentID' => $this->db->insert_id(),
 				'user_id' => $target_user_id
 			);
-			// Return TRUE when succeeded
-			// Return FALSE when either one failed
-			$success = $success && $this->db->insert('userComments', $data);
+			
+			// Link comment to user profile.
+			// Return TRUE on success, FALSE on failure
+			return $this->db->insert('userComments', $data);
 		}
 		return FALSE;
+	}
+	
+	/**
+	* Delete comment data.
+	* Warning: Does not perform data integrity checks.
+	* @param int $target_user_id user id of the person whose profile the comment is on
+	* @param int $commentid comment id to be deleted
+	* @return boolean TRUE if comment was deleted,
+						FALSE if database query failed,
+	*/
+	public function remove_user_comment($target_user_id, $commentid)
+	{
+		// WHERE: 'column name' => value
+		$data = array(
+			'user_id' => $target_user_id,
+			'CommentID' => $commentid
+		);
+		
+		// Delete from user profile first because of foreign keys.
+		// If FALSE query failed
+		if ($this->db->delete('userComments', $data) === FALSE)
+		{
+			return FALSE;
+		}
+		else
+		{
+			// WHERE: 'column name' => value
+			$data = array(
+				'CommentID' => $commentid,
+			);
+		
+			// Delete comment data.
+			// If FALSE query failed
+			if ($this->db->delete('comments', $data) === FALSE)
+			{
+				return FALSE;
+			}
+			
+			return TRUE;
+		}
+	}
+	
+	/**
+	* Insert data into the product comments table.
+	* Warning: Does not perform data integrity checks.
+	* @param int $user_id user id who wrote the comment
+	* @param string $text comment text
+	* @param int $target_product_id product id the comment is about
+	* @return boolean TRUE if comment was added,
+						FALSE if database query failed,
+	*/
+	public function add_product_comment($user_id, $text, $target_product_id)
+	{
+		date_default_timezone_set('Europe/Helsinki');
+		
+		// INSERT: 'column name' => value
+		$data = array(
+			'PostDate' => date('Y-m-d'),
+			'user_id' => $user_id,
+			'Text' => $text
+		);
+		// Insert into comments.
+		// Returns TRUE on success, FALSE on failure
+		$success = $this->db->insert('comments', $data);
+		
+		if ($success)
+		{
+			// INSERT: 'column name' => value
+			// $this->db->insert_id() returns the ID of the last insert statement.
+			$data = array(
+				'CommentID' => $this->db->insert_id(),
+				'ProductID' => $target_product_id
+			);
+			
+			// Link comment to product.
+			// Return TRUE on success, FALSE on failure
+			return $this->db->insert('productComments', $data);
+		}
+		return FALSE;
+	}
+	
+	/**
+	* Delete comment data.
+	* Warning: Does not perform data integrity checks.
+	* @param int $target_product_id product id the comment is about
+	* @param int $commentid comment id to be deleted
+	* @return boolean TRUE if comment was deleted,
+						FALSE if database query failed,
+	*/
+	public function remove_product_comment($target_product_id, $commentid)
+	{
+		// WHERE: 'column name' => value
+		$data = array(
+			'ProductID' => $target_product_id,
+			'CommentID' => $commentid
+		);
+		
+		// Delete from product page first because of foreign keys.
+		// If FALSE query failed
+		if ($this->db->delete('productComments', $data) === FALSE)
+		{
+			return FALSE;
+		}
+		else
+		{
+			// Delete comment data.
+			// WHERE: 'column name' => value
+			$data = array(
+				'CommentID' => $commentid,
+			);
+		
+			// If FALSE query failed
+			if ($this->db->delete('comments', $data) === FALSE)
+			{
+				return FALSE;
+			}
+			
+			return TRUE;
+		}
+	}
+	
+	/**
+	* Insert data into the review comments table.
+	* Warning: Does not perform data integrity checks.
+	* @param int $user_id user id who wrote the comment
+	* @param string $text comment text
+	* @param int $target_review_id review id the comment is about
+	* @return boolean TRUE if comment was added,
+						FALSE if database query failed,
+	*/
+	public function add_review_comment($user_id, $text, $target_review_id)
+	{
+		date_default_timezone_set('Europe/Helsinki');
+		
+		// INSERT: 'column name' => value
+		$data = array(
+			'PostDate' => date('Y-m-d'),
+			'user_id' => $user_id,
+			'Text' => $text
+		);
+		// Insert into comments.
+		// Returns TRUE on success, FALSE on failure
+		$success = $this->db->insert('comments', $data);
+		
+		if ($success)
+		{
+			// INSERT: 'column name' => value
+			// $this->db->insert_id() returns the ID of the last insert statement.
+			$data = array(
+				'CommentID' => $this->db->insert_id(),
+				'ReviewID' => $target_review_id
+			);
+			
+			// Link review to product.
+			// Return TRUE on success, FALSE on failure
+			return $this->db->insert('reviewComments', $data);
+		}
+		return FALSE;
+	}
+	
+	/**
+	* Delete comment data.
+	* Warning: Does not perform data integrity checks.
+	* @param int $target_review_id review id the comment is about
+	* @param int $commentid comment id to be deleted
+	* @return boolean TRUE if comment was deleted,
+						FALSE if database query failed,
+	*/
+	public function remove_review_comment($target_review_id, $commentid)
+	{
+		// WHERE: 'column name' => value
+		$data = array(
+			'ReviewID' => $target_review_id,
+			'CommentID' => $commentid
+		);
+		
+		// Delete from review page first because of foreign keys.
+		// If FALSE query failed
+		if ($this->db->delete('reviewComments', $data) === FALSE)
+		{
+			return FALSE;
+		}
+		else
+		{
+			// Delete comment data.
+			// WHERE: 'column name' => value
+			$data = array(
+				'CommentID' => $commentid,
+			);
+		
+			// If FALSE query failed
+			if ($this->db->delete('comments', $data) === FALSE)
+			{
+				return FALSE;
+			}
+			
+			return TRUE;
+		}
 	}
 	
 	/* 

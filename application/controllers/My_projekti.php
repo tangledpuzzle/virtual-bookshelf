@@ -125,9 +125,12 @@ class My_projekti extends MY_Controller
 					
 						
 				}
+				
 					
 					
 					// Get data from database.
+					
+					$data["collections"] = json_encode($this->r2pdb_model->get_user_collections_short_display($user_id));
 					$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
 					$data["comment_type"] = "user";
 					$data["comment_target_id"] = $user_id;
@@ -220,6 +223,12 @@ class My_projekti extends MY_Controller
 			if (isset($data["reviews"]))
 			{
 				$this->load->view('pages/reviewlist', $data);
+			}
+			
+			// Load collections after the page?
+			if (isset($data["collections"]))
+			{
+				$this->load->view('pages/userscollections', $data);
 			}
 			
 			// Load comments after the page?

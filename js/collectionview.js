@@ -27,6 +27,11 @@ function createCollectionView()
 
 	console.log(collection[obj]);
 	
+	var title = document.createElement("h1");
+	title.className ="first-content-element";
+	title.innerHTML = collection.CollectionName;
+	document.getElementById("collectionview").appendChild(title);
+	
 	var collection_id = document.createElement("div");
 	collection_id.className = "hidden";
 	collection_id.innerHTML = collection.CollectionID;
@@ -61,6 +66,8 @@ var table = document.createElement("table");
 	
 	var tbody = document.createElement("tbody");
 	table.appendChild(tbody);
+	
+
 	
 	for (var obj in collection.Products)
 	{

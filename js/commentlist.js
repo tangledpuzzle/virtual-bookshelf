@@ -26,7 +26,9 @@ function createCommentList()
 		sessionStorage.removeItem('users_json');
 	}
 
-
+	var commenttitle = document.createElement("h3");
+	commenttitle.innerHTML = "Comments";
+	document.getElementById("commentlist").appendChild(commenttitle);
 
 for(var comment in comments){
 

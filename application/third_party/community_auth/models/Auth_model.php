@@ -172,6 +172,7 @@ class Auth_model extends MY_Model {
 	 */
 	public function clear_expired_holds()
 	{
+		date_default_timezone_set('Europe/Helsinki');
 		$expiration = date('Y-m-d H:i:s', time() - config_item('seconds_on_hold') );
 
 		$this->db->delete( config_item('IP_hold_table'), array( 'time <' => $expiration ) );
@@ -186,6 +187,8 @@ class Auth_model extends MY_Model {
 	 */
 	public function clear_login_errors()
 	{
+		
+		date_default_timezone_set('Europe/Helsinki');
 		$expiration = date('Y-m-d H:i:s', time() - config_item('seconds_on_hold') );
 
 		$this->db->delete( config_item('errors_table'), array( 'time <' => $expiration ) );
@@ -287,6 +290,7 @@ class Auth_model extends MY_Model {
 	 */
 	public function check_login_attempts( $string )
 	{
+		date_default_timezone_set('Europe/Helsinki');
 		$ip_address = $this->input->ip_address();
 
 		// Check if this IP now has too many login attempts
@@ -296,6 +300,7 @@ class Auth_model extends MY_Model {
 		if( $count == config_item('max_allowed_attempts') )
 		{
 			// Place the IP on hold
+			
 			$data = array(
 				'IP_address' => $ip_address,
 				'time'       => date('Y-m-d H:i:s')
@@ -321,6 +326,7 @@ class Auth_model extends MY_Model {
 
 			if( config_item('deny_access_at') > 0 )
 			{
+				
 				// Log the IP address in the denied_access database
 				$data = array(
 					'IP_address'  => $ip_address,

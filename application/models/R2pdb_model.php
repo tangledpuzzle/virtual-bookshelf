@@ -514,6 +514,48 @@ class R2pdb_model extends CI_Model
 		return $this->db->insert('collectionProducts', $data);
 	}
 	
+	
+	/**
+	* Insert a new collection for a user.
+	* Warning: Does not perform data integrity checks.
+	* $name string collection name
+	* $user_id int user ID who created the collection
+	* @return boolean TRUE if collection was added,
+							 FALSE if database query failed
+	*/
+	public function add_collection($name, $user_id)
+	{
+		// INSERT: 'column name' => value
+		$data = array(
+			'CollectionName' => $name
+		);
+		// Return TRUE on success, FALSE on failure
+		$success = $this->db->insert('collections', $data);
+		
+		if ($success)
+		{
+			$collection_id = $this->db->insert_id();
+			// INSERT: 'column name' => value
+			// $this->db->insert_id() returns the ID of the last insert statement.
+			$data = array(
+				'CollectionID' => $collection_id,
+				'user_id' => $user_id
+			);
+			
+			// Link comment to user profile.
+			// Return TRUE on success, FALSE on failure
+			if ($this->db->insert('userCollections', $data) === TRUE)
+			{
+				return $collection_id;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		return FALSE;
+	}
+	
 	/**
 	* Deletes given product from given collection.
 	* Warning: Does not perform data integrity checks.

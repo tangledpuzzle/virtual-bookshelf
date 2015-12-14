@@ -55,6 +55,32 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 	collectionrow.appendChild(collectionformdiv);
 	
 	var form = document.createElement("form");
+	var colnamefield = document.createElement("input");
+	var hiddencolid = document.createElement("input");
+	var select = document.createElement("select");
+	//var userCollections = book.UserCollection;
+	var userCollections = {123:"asd" , 52:"b"};
+	
+	form.onsubmit = function()
+	{
+		// Check if the text field and list select contents are identical.	
+		if (colnamefield.value == userCollections[select.value])
+		{
+			// Use ID from the JSON.
+			hiddencolid.value = select.value;
+		}
+		else
+		{
+			// User wants to add a product to a a new collection.
+			// 0 is an invalid ID value.
+			hiddencolid.value = 0;
+		}
+	}
+	
+	// Posts to the same page.
+	form.action="";
+	form.method="post";
+	
 	collectionformdiv.appendChild(form);
 	
 	var informdiv = document.createElement("div");
@@ -65,33 +91,43 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 	colnamediv.className="form-group col-md-3 inline-form-col required";
 	informdiv.appendChild(colnamediv);
 	
-	var colnamefield = document.createElement("input");
 	colnamefield.type="text";
+	colnamefield.name="collection-name";
 	colnamefield.placeholder="New or Existing Shelf Name";
 	colnamefield.className="form-control required";
 	colnamediv.appendChild(colnamefield);
 	
+	
+	hiddencolid.type="number";
+	hiddencolid.name="collection-id";
+	hiddencolid.className="form-control";
+	colnamediv.appendChild(hiddencolid);
+		
 	var colselectdiv = document.createElement("div");
 	colselectdiv.className="form-group col-md-3 inline-form-col";
 	informdiv.appendChild(colselectdiv);
 	
-	var select = document.createElement("select");
 	select.className="form-control";
 	select.id="collection-select";
 	
-	select.onchange = function()
-	{
-		colnamefield.value = document.getElementById("collection-select").value;
-	}
 	colselectdiv.appendChild(select);
 	
-	var test = ["asd", "test", "qwe"];
+	select.onchange = function()
+	{
+		colnamefield.value = userCollections[document.getElementById("collection-select").value];
+	}
+	/*
+	colnamefield.onchange = function()
+	{
+		hiddencolid.value = null;
+	}*/
 	
-	for (var item in test)
+	
+	for (var item in userCollections)
 	{
 		var option = document.createElement("option");
-		option.innerHTML = test[item];
-		option.value = test[item]
+		option.value = item;
+		option.innerHTML = userCollections[item];
 		select.appendChild(option);
 	}
 	

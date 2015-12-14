@@ -48,8 +48,6 @@ class R2pdb_model extends CI_Model
 		{
 			switch ($table_name)
 			{
-				case "collections":
-					return "CollectionName";
 				case "reviewComments":
 				case "userComments":
 				case "productComments":
@@ -71,6 +69,8 @@ class R2pdb_model extends CI_Model
 					return "user_id, ScreenName, FirstName, LastName, Age, GenderName, CountryName, user_date, AvatarPath, Bio";
 				case "userCollections":
 					return "userCollections.user_id, userCollections.CollectionID, CollectionName, products.ProductID, Name, ReleaseDate, ImagePath, LanguageName, Brief, Description, EAN13, PublisherName";
+				case "collections":
+					return "*";
 				default:
 					// WARNING: Will throw a PHP error.
 					return NULL;
@@ -792,22 +792,42 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get all collections without data formatting for display purposes.
-	* @return array an array of arrays containing all collections
-	*/
-	public function get_collections()
-	{
-		return $this->get_table_rows("collections");
-	}
-	
-	/**
-	* Get a specific collection by their ID with data formatting for display purposes.
+	* Get a specific collection and contents by their ID with data formatting for display purposes.
 	* @param int $id collection ID
-	* @return array|boolean|null an array containing found collection as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found collection as an array,
+								FALSE for invalid ID,
+								NULL if $id was null 
 	*/
-	public function get_collection_by_id_display($id)
+	public function get_collections_by_id_display($id)
 	{
-		return $this->get_row_by_id_display("collections", $id);
+		$table_name ="collections";
+		$this->db->select($this->get_public_data_columns_display($table_name));
+		$this->db->where("collections.CollectionID", (int) $id);
+
+		// Get collection id and name.
+		$query = $this->db->get($table_name);
+		
+		// Only one row is returned.
+		$collection = $this->correct_result_data_types($query)[0];
+		$this->db->reset_query();
+		
+		// Get collection product data.
+		$table_name = "collectionProducts";
+		$this->db->select("products.ProductID, Name, ReleaseDate");
+		$this->db->where("collectionProducts.CollectionID", (int) $id);
+
+		// Left join with products to get product data.
+		$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
+
+		$this->db->order_by("collectionProducts.ProductID", 'ASC');
+
+		// Get collection product data.
+		$query = $this->db->get($table_name);
+		$this->db->reset_query();
+	
+		$collection["Products"] = $this->correct_result_data_types($query);
+		
+		return $collection;
 	}
 	
 	/**
@@ -1330,7 +1350,7 @@ class R2pdb_model extends CI_Model
 		$query = $this->db->get($table_name);
 		$this->db->reset_query();
 		
-		$collections = $query->result_array();
+		$collections = $this->correct_result_data_types($query);
 		
 		$length = count($collections);
 		
@@ -1338,23 +1358,24 @@ class R2pdb_model extends CI_Model
 		for ($i = 0; $i < $length; $i++)
 		{
 			$table_name ="collectionProducts";
-			$this->db->select("products.ProductID, Name, ReleaseDate");
+			/*$this->db->select("products.ProductID");
 			$this->db->where("collectionProducts.CollectionID", (int) $collections[$i]["CollectionID"]);
 
-			// Left join with products to get product data.
+			/ Left join with products to get product data.
 			$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
 
 			// Product joins.
 			$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
 			$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
 
-			$this->db->order_by("collectionProducts.ProductID", 'ASC');
+			$this->db->order_by("collectionProducts.ProductID", 'ASC');*/
 
 			// Get collection product data.
-			$query = $this->db->get($table_name);
-			$this->db->reset_query();
+			$this->db->like('collectionProducts.CollectionID', (int) $collections[$i]["CollectionID"]);
+			$this->db->from($table_name);
 		
-			$collections[$i]["Products"] = $this->correct_result_data_types($query);
+			$collections[$i]["ProductCount"] = $this->db->count_all_results();
+			$this->db->reset_query();
 		}
 		
 		return $collections;

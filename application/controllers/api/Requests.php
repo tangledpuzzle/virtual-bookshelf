@@ -190,7 +190,7 @@ class Requests extends REST_Controller
 				switch ($datatype)
 				{
 					case "collections":
-						$data = $this->r2pdb_model->get_user_collections_full_display($userid);
+						$data = $this->r2pdb_model->get_user_collections_short_display($userid);
 						break;
 					case "comments":
 						$data = $this->r2pdb_model->get_user_comments_display($userid);
@@ -336,6 +336,27 @@ class Requests extends REST_Controller
 		}
 	}
 
+	/*
+	 * HTTP GET: COLLECTIONS
+	 */
+	public function collections_get()
+	{
+		// Get productid parameter from the query.
+		// CodeIgniter routing rules read anything less than 0 or non-numbers as NULL.
+		$id = $this->get('collectionid');
+
+		// If the ID is NULL, return all collections.
+		if ($this->check_for_valid_id("Collection", $id) === NULL)
+		{
+			$this->respond_with_all("collections");
+		}
+		
+		// Get specific collection from database.
+		$data = $this->r2pdb_model->get_collections_by_id_display($id);
+		
+		// Because of the validity check above it is certain that the collection id is present in the table.
+		$this->set_response($data, REST_Controller::HTTP_OK);
+	}
 	
 	/*
 	 * HTTP GET: REVIEWS

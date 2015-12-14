@@ -176,3 +176,10 @@ $route['api/requests/reviews/(:num)']['GET'] = 'api/requests/reviews/reviewid/$1
 // -- HTTP POST: RAW DATABASE ACCESS --
 //$route['api/requests/db/(:any)(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/db/args/$1/format/$2$3';
 //$route['api/requests/db/(:any)']['POST'] = 'api/requests/db/args/$1';
+
+// -- HTTP GET: COLLECTIONS (No Login) --
+
+// GET collections/# > collections_get(collectionid);
+// GET collections > collections_get();
+$route['api/requests/collections/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/collections/collectionid/$1/format/$2$3';
+$route['api/requests/collections/(:num)']['GET'] = 'api/requests/collections/collectionid/$1';

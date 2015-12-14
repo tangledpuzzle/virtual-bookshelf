@@ -56,7 +56,7 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 	buttonit.appendChild(button2);
 	buttonit.appendChild(button1);
 	titlerow.appendChild(buttonit);
-
+	
 
 	button1.onclick = function() {	
 	var idstring = document.getElementById("product_iddiv").innerHTML;

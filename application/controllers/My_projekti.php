@@ -56,7 +56,7 @@ class My_projekti extends MY_Controller
 				if ($this->r2pdb_model->is_valid_collection_id($id) === TRUE)
 				{
 					// Get data from database.
-					$data["collection"] = json_encode($this->r2pdb_model->get_collection_by_id_display($id));
+					$data["collection"] = json_encode($this->r2pdb_model->get_collections_by_id_display($id));
 					
 				}
 				else
@@ -82,9 +82,22 @@ class My_projekti extends MY_Controller
 				// Validate ID.
 				if ($this->r2pdb_model->is_valid_review_id($review_id) === TRUE)
 				{
+					
+					if($this->input->post('submit'))
+				{
+					$this->r2pdb_model->add_review_comment(
+						(int) $this->auth_user_id,
+						$this->input->post("comment-text"),
+						$review_id);
+					
+						
+				}
+					
 					// Get data from database.
 					$data["review"] = $this->r2pdb_model->get_review_by_id_display($review_id);
 					$data["comment_type"] = "review";
+					$data["comment_target_id"] = $review_id;
+					$data["comments"] = json_encode($this->r2pdb_model->get_review_comments_display($review_id));
 				}
 				else
 				{
@@ -102,9 +115,23 @@ class My_projekti extends MY_Controller
 				// Validate ID.
 				if ($this->r2pdb_model->is_valid_user_id($user_id) === TRUE)
 				{
+					
+					if($this->input->post('submit'))
+				{
+					$this->r2pdb_model->add_user_comment(
+						(int) $this->auth_user_id,
+						$this->input->post("comment-text"),
+						$user_id);
+					
+						
+				}
+					
+					
 					// Get data from database.
 					$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
 					$data["comment_type"] = "user";
+					$data["comment_target_id"] = $user_id;
+					$data["comments"] = json_encode($this->r2pdb_model->get_user_comments_display($user_id));
 				}
 				else
 				{
@@ -128,25 +155,7 @@ class My_projekti extends MY_Controller
 					// Get data from database.
 					$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
 					$data["comment_type"] = "user";
-				}
-				else
-				{
-					print_r($user_id);
-					$data["error_message"] = "Invalid user ID '" . $user_id . "'.";
-				}
-				break;
-				
-			case "profileedit":
-				// ID comes from the cookie.
-				$user_id = $this->auth_user_id;
-
-				
-				// Validate ID.
-				if ($this->r2pdb_model->is_valid_user_id($user_id) === TRUE)
-				{
-					// Get data from database.
-					$data["user"] = $this->r2pdb_model->get_user_by_id_display($user_id);
-				
+					$data["comments"] = json_encode($this->r2pdb_model->get_user_comments_display($user_id));
 				}
 				else
 				{
@@ -165,10 +174,24 @@ class My_projekti extends MY_Controller
 				// Validate ID.
 				if ($this->r2pdb_model->is_valid_product_id($book_id) === TRUE)
 				{
+					
+					if($this->input->post('submit'))
+				{
+					$this->r2pdb_model->add_product_comment(
+						(int) $this->auth_user_id,
+						$this->input->post("comment-text"),
+						$book_id);
+					
+						
+				}
+					
 					// Get data from database.
 					$data["book"] = json_encode($this->r2pdb_model->get_product_by_id_display($book_id));
 					$data['reviews'] = json_encode($this->r2pdb_model->get_review_infos_by_product_id_display($book_id));
 					$data["comment_type"] = "product";
+					$data["comment_target_id"] = $book_id;
+					$data["comments"] = json_encode($this->r2pdb_model->get_product_comments_display($book_id));
+					
 				}
 				else
 				{
@@ -202,6 +225,8 @@ class My_projekti extends MY_Controller
 			// Load comments after the page?
 			if (isset($data["comment_type"]))
 			{
+				
+				$this->load->view('pages/commentlist', $data);
 				$this->load->view('pages/comment', $data);
 			}
 		}

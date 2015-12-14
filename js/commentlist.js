@@ -6,39 +6,58 @@
 * To change this template use Tools | Templates.
 * CommentID, PostDate, UserID, Text
 */
+function createCommentList()
+{
+	"use strict";
+	
+	var comments;
+	
+	// Is the global json array not undefined?
+	if (typeof comments_json !== 'undefined')
+	{
+		// Copy the data to the local variable.
+  	comments = comments_json;
+	}
+	else
+	{
+		// Get the data from sessionStorage.
+		comments = JSON.parse(sessionStorage.getItem('comments_json'));
+		// Remove the item from storage as it is no longer needed.
+		sessionStorage.removeItem('users_json');
+	}
 
 
-var commentdiv, usera, datediv, maindiv, userdiv, infodiv;
 
-
-for(var comment in json){
+for(var comment in comments){
 
 	
-	usera = document.createElement("a");
-	userdiv = document.createElement("div");
-	infodiv = document.createElement("div");
-	maindiv = document.createElement("div");
-	commentdiv = document.createElement("div");
-	datediv = document.createElement("div");
+	var usera = document.createElement("a");
+	var userdiv = document.createElement("div");
+	var infodiv = document.createElement("div");
+	var maindiv = document.createElement("div");
+	maindiv.className = "row";
+	var commentdiv = document.createElement("div");
+	var datediv = document.createElement("div");
 	
 	
-	usera.href="./userview/"+ json[comment].user_id;
-	usera.innerHTML = json[comment].ScreenName;
-	userdiv.className = "col-md-3";
+	
+	usera.href="./useview/"+ comments[comment].user_id;
+	usera.innerHTML = comments[comment].ScreenName;
+	userdiv.className = "col-md-4";
 	userdiv.appendChild(usera);
 	infodiv.className = "row";
 	infodiv.appendChild(userdiv);
 	
-	datediv.innerHTML = json[comment].PostDate;
-	datediv.className = "row";
+	datediv.innerHTML = comments[comment].PostDate;
+	datediv.className = "col-md-2 ";
 	infodiv.appendChild(datediv);
 	maindiv.appendChild(infodiv);
 	
-	
-	commentdiv.innerHTML = json[comment].Text;
-	commentdiv.className = "col-md-6";
+	commentdiv.innerHTML = comments[comment].Text;
+	commentdiv.className = "col-md-12";
 	maindiv.appendChild(commentdiv);
 	document.getElementById("commentlist").appendChild(maindiv);
 	
 	
+}
 }

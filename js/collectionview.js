@@ -27,6 +27,11 @@ function createCollectionView()
 
 	console.log(collection[obj]);
 	
+	var collection_id = document.createElement("div");
+	collection_id.className = "hidden";
+	collection_id.innerHTML = collection.CollectionID;
+	document.getElementById("collectionview").appendChild(collection_id);
+	
 var table = document.createElement("table");
 	table.className = "table sortable last-content-element";
 	document.getElementById("collectionview").appendChild(table);
@@ -57,33 +62,33 @@ var table = document.createElement("table");
 	var tbody = document.createElement("tbody");
 	table.appendChild(tbody);
 	
-	for (var obj in collection)
+	for (var obj in collection.Products)
 	{
-		console.log(collection[obj]);
+		console.log(collection.Products[obj].Name);
 		
 		tr = document.createElement("tr");
 		tr.className = "table-row-link";
 
 		tr.onclick = function()
 		{	
-			window.location.href="../collection/" + this.childNodes[0].innerHTML;
+			window.location.href="../collectionview/" + this.childNodes[0].innerHTML;
 		};
 
 		book_id = document.createElement("td");
 		book_id.className = "hidden";
-		book_id.innerHTML = collection[obj].CollectionID;
+		book_id.innerHTML = collection.Products[obj].ProductID;
 		tr.appendChild(book_id);
 		
 		book_name = document.createElement("td");
-		book_name.innerHTML = collection[obj].ProductName;
+		book_name.innerHTML = collection.Products[obj].Name;
 		tr.appendChild(book_name);
 		
 		publisher = document.createElement("td");
-		publisher.innerHTML = collection[obj].Publisher;
+		publisher.innerHTML = collection.Products[obj].Publisher;
 		tr.appendChild(publisher);
 		
 		release_date = document.createElement("td");
-		release_date.innerHTML = collection[obj].ReleaseDate;
+		release_date.innerHTML = collection.Products[obj].ReleaseDate;
 		tr.appendChild(release_date);
 		
 		tbody.appendChild(tr);

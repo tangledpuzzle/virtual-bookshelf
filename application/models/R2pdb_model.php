@@ -1282,7 +1282,7 @@ class R2pdb_model extends CI_Model
 	*/
 	public function get_user_comments_display($userid)
 	{
-		$args = array("table_name" => "userComments", "comments.user_id" => (int) $userid);
+		$args = array("table_name" => "userComments", "userComments.user_id" => (int) $userid);
 		return $this->get_rows_by_field_display($args);
 	}
 		

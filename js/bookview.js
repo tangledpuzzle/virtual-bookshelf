@@ -5,6 +5,7 @@
 * Time: 01:51 PM
 * To change this template use Tools | Templates.
 */
+
 function createBookView()
 {
 	"use strict";
@@ -38,7 +39,7 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 
 
 	hvdiv = document.createElement("div");
-	hvdiv.className = "col-md-4";
+	hvdiv.className = "col-md-10";
 	titlerow = document.createElement("div");
 	titlerow.className="row";
 	prodview_title = document.createElement("h1");
@@ -47,15 +48,13 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 	titlerow.appendChild(hvdiv);
 
 	var collectionrow = document.createElement("div");
-	collectionformdiv.className = "row";
-	titlerow.appendChild(collectionformdiv);
+	collectionrow.className = "row";
 
 	var collectionformdiv = document.createElement("div");
-	collectionformdiv.className = "col-md-4";
-	titlerow.appendChild(collectionformdiv);
+	collectionformdiv.className = "col-md-12";
+	collectionrow.appendChild(collectionformdiv);
 	
 	var form = document.createElement("form");
-	form.className = "std-form form-horizontal";
 	collectionformdiv.appendChild(form);
 	
 	var informdiv = document.createElement("div");
@@ -63,42 +62,51 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 	form.appendChild(informdiv);
 	
 	var colnamediv = document.createElement("div");
-	colnamediv.className="form-group col-md-2 inline-form-col required";
+	colnamediv.className="form-group col-md-3 inline-form-col required";
 	informdiv.appendChild(colnamediv);
 	
 	var colnamefield = document.createElement("input");
 	colnamefield.type="text";
-	colnamefield.placeholder="New or Existing Shelf";
+	colnamefield.placeholder="New or Existing Shelf Name";
 	colnamefield.className="form-control required";
 	colnamediv.appendChild(colnamefield);
 	
 	var colselectdiv = document.createElement("div");
-	colselectdiv.className="form-group col-md-2 inline-form-col";
+	colselectdiv.className="form-group col-md-3 inline-form-col";
 	informdiv.appendChild(colselectdiv);
 	
 	var select = document.createElement("select");
 	select.className="form-control";
+	select.id="collection-select";
+	
+	select.onchange = function()
+	{
+		colnamefield.value = document.getElementById("collection-select").value;
+	}
 	colselectdiv.appendChild(select);
 	
 	var test = ["asd", "test", "qwe"];
+	
 	for (var item in test)
 	{
 		var option = document.createElement("option");
-		option.innerHTML = item;
-		option.value = item;
+		option.innerHTML = test[item];
+		option.value = test[item]
 		select.appendChild(option);
 	}
 	
-	var buttoncol = document.createElement("button");
+	var buttoncol = document.createElement("input");
 	buttoncol.className = "btn btn-default";
-	buttoncol.innerHTML = "Add to Shelf";
-	form.appendChild(buttoncol);
+	buttoncol.type = "submit";
+	buttoncol.name = "submit";
+	buttoncol.value = "Add to Shelf";
+	informdiv.appendChild(buttoncol);
 	
 	var brev = document.createElement("div");
-	brev.className = "col-md-1";
+	brev.className = "col-md-2";
 	
 	var buttonrev = document.createElement("button");
-	buttonrev.className = "btn-lg btn-success";
+	buttonrev.className = "btn-lg btn-success pull-right no-pad-col";
 	buttonrev.innerHTML = "Review";
 	brev.appendChild(buttonrev);
 	
@@ -115,6 +123,7 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 
 	
 document.getElementById("productview").appendChild(titlerow);
+document.getElementById("productview").appendChild(collectionrow);
 document.getElementById("productview").appendChild(hiddendiv);
 
 

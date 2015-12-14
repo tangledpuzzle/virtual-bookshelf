@@ -45,7 +45,30 @@ class My_projekti extends MY_Controller
 				$data["books"] = json_encode($this->r2pdb_model->get_products_display());
 				break;
 				
+			case "collectionview":
+				// ID comes from the URL routing.
+				$id = $data["id"];
+				
+				// For some reason the previous data needs to be cleared before it can be initialized with an array.
+				$data = NULL;
+				
+				// Validate ID.
+				if ($this->r2pdb_model->is_valid_collection_id($id) === TRUE)
+				{
+					// Get data from database.
+					$data["collection"] = json_encode($this->r2pdb_model->get_collection_by_id_display($id));
+					
+				}
+				else
+				{
+					$data["error_message"] = "Invalid collection ID '" . $id . "'.";
+				}
+				
+				
+				break;
+				
 			case "userlist":
+				
 				$data["users"] = json_encode($this->r2pdb_model->get_users_display());
 				break;
 				

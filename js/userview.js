@@ -86,7 +86,7 @@ document.getElementById("userview").appendChild(hiddendiv);
 	userview_userdivrow0 = document.createElement("tr");
 
 	fullname = document.createElement("td");
-	fullname.innerHTML = user.FirstName + user.LastName;
+	fullname.innerHTML = user.FirstName + " " +user.LastName;
 	fullname.className = "col-md-4";
 	userview_userdivrow0.appendChild(fullname);
 

@@ -75,22 +75,22 @@ document.getElementById("productview").appendChild(hiddendiv);
 	prodview_proddivtitle = document.createElement("tr");
 
 	prodview_datetitle = document.createElement("th");
-	prodview_datetitle.innerHTML = "Julkaisupäivä";
+	prodview_datetitle.innerHTML = "Release Date";
 	prodview_datetitle.className = "col-md-3";
 	prodview_proddivtitle.appendChild(prodview_datetitle);
 
 	prodview_publishertitle = document.createElement("th");
-	prodview_publishertitle.innerHTML = "Julkaisija";
+	prodview_publishertitle.innerHTML = "Publisher";
 	prodview_publishertitle.className = "col-md-3";
 	prodview_proddivtitle.appendChild(prodview_publishertitle);
 
 	prodeantitle = document.createElement("th");
-	prodeantitle.innerHTML = "EAN";
+	prodeantitle.innerHTML = "EAN13";
 	prodeantitle.className = "col-md-4";
 	prodview_proddivtitle.appendChild(prodeantitle);
 
 	languagedivtitle = document.createElement("th");
-	languagedivtitle.innerHTML = "Kieli";
+	languagedivtitle.innerHTML = "Language";
 	languagedivtitle.className = "col-md-2";
 	prodview_proddivtitle.appendChild(languagedivtitle);
 

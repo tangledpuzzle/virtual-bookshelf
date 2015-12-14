@@ -63,14 +63,6 @@ if( ! isset( $on_hold_message ) )
 		<?php
 			}
 		?>
-		
-<div class="form-group">
-			<div class="col-md-offset-2 col-md-3">
-				<a href="<?php echo secure_site_url('recover'); ?>">
-					Forgot your password?
-				</a>
-			</div>
-		</div>
 
 		<div class="form-group last-content-element">
 			<div class="col-md-offset-2 col-md-1">

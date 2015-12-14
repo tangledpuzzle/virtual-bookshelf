@@ -38,32 +38,78 @@ var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_descript
 
 
 	hvdiv = document.createElement("div");
-	hvdiv.className = "col-md-8";
+	hvdiv.className = "col-md-4";
 	titlerow = document.createElement("div");
 	titlerow.className="row";
 	prodview_title = document.createElement("h1");
 	prodview_title.innerHTML = book.Name + " <small> [" + book.ProductID + "] </small>";
 	hvdiv.appendChild(prodview_title);
 	titlerow.appendChild(hvdiv);
-	buttonit = document.createElement("div");
-	buttonit.className = "col-md-4 buttonit";
-	button1 = document.createElement("button");
-	button2 = document.createElement("button");
-	button1.className = "btn-lg btn-primary pull-right";
-	button2.className = "btn-lg btn-success pull-right";
-	button1.innerHTML = "Add to collection";
-	button2.innerHTML = "Review";
-	buttonit.appendChild(button2);
-	buttonit.appendChild(button1);
-	titlerow.appendChild(buttonit);
 
+	var collectionrow = document.createElement("div");
+	collectionformdiv.className = "row";
+	titlerow.appendChild(collectionformdiv);
 
-	button1.onclick = function() {	
+	var collectionformdiv = document.createElement("div");
+	collectionformdiv.className = "col-md-4";
+	titlerow.appendChild(collectionformdiv);
+	
+	var form = document.createElement("form");
+	form.className = "std-form form-horizontal";
+	collectionformdiv.appendChild(form);
+	
+	var informdiv = document.createElement("div");
+	informdiv.className="form-group";
+	form.appendChild(informdiv);
+	
+	var colnamediv = document.createElement("div");
+	colnamediv.className="form-group col-md-2 inline-form-col required";
+	informdiv.appendChild(colnamediv);
+	
+	var colnamefield = document.createElement("input");
+	colnamefield.type="text";
+	colnamefield.placeholder="New or Existing Shelf";
+	colnamefield.className="form-control required";
+	colnamediv.appendChild(colnamefield);
+	
+	var colselectdiv = document.createElement("div");
+	colselectdiv.className="form-group col-md-2 inline-form-col";
+	informdiv.appendChild(colselectdiv);
+	
+	var select = document.createElement("select");
+	select.className="form-control";
+	colselectdiv.appendChild(select);
+	
+	var test = ["asd", "test", "qwe"];
+	for (var item in test)
+	{
+		var option = document.createElement("option");
+		option.innerHTML = item;
+		option.value = item;
+		select.appendChild(option);
+	}
+	
+	var buttoncol = document.createElement("button");
+	buttoncol.className = "btn btn-default";
+	buttoncol.innerHTML = "Add to Shelf";
+	form.appendChild(buttoncol);
+	
+	var brev = document.createElement("div");
+	brev.className = "col-md-1";
+	
+	var buttonrev = document.createElement("button");
+	buttonrev.className = "btn-lg btn-success";
+	buttonrev.innerHTML = "Review";
+	brev.appendChild(buttonrev);
+	
+	titlerow.appendChild(brev);
+
+	buttoncol.onclick = function() {	
 	var idstring = document.getElementById("product_iddiv").innerHTML;
 		alert("Add " + idstring );
 	};
 
-	button2.onclick = function() {
+	buttonrev.onclick = function() {
 		window.location.href="../writereview/" + document.getElementById("product_iddiv").innerHTML;
 	};
 

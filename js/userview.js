@@ -15,7 +15,7 @@ function createUserView()
 	if (typeof user_json !== 'undefined')
 	{
 		// Copy the data to the local variable.
-    	user = user_json;
+    user = user_json;
 	}
 	else
 	{
@@ -27,7 +27,7 @@ function createUserView()
 
 var userview_name, userview_id, userview_date, userview_brief, userview_description, userview_country, userage, language, genderdiv, thead, tbody, fullname,
 	hiddendiv, userview_userdivrow1, userview_userdivrow2, ihmediv, userview_userdivrow0,
-	hvdiv, titlerow, userview_userdivtitle, userview_datetitle, userview_countrytitle, useragetitle, genderdivtitle, userview_title;
+	hvdiv, titlerow, userview_userdivtitle, userview_datetitle, userview_countrytitle, useragetitle, genderdivtitle, userview_title, buttondiv;
 
 
 
@@ -40,14 +40,25 @@ var userview_name, userview_id, userview_date, userview_brief, userview_descript
 
 
 	hvdiv = document.createElement("div");
-	hvdiv.className = "col-md-8";
+	hvdiv.className = "col-md-10";
+	buttondiv = document.createElement("div");
+	buttondiv.className = "col-md-2 no-pad-col";
 	titlerow = document.createElement("div");
 	titlerow.className="row";
 	userview_title = document.createElement("h1");
 	userview_title.innerHTML = user.ScreenName + " <small> [" + user.user_id + "] </small>";
 	hvdiv.appendChild(userview_title);
 	titlerow.appendChild(hvdiv);
-
+	var button_edit = document.createElement("button");
+	button_edit.innerHTML = "Edit Profile";
+	buttondiv.appendChild(button_edit);
+	button_edit.className = "btn btn-default btn-lg pull-right";
+	titlerow.appendChild(buttondiv);
+	
+	button_edit.onclick = function() {
+		window.location.href="profileedit";
+	};
+	
 	
 document.getElementById("userview").appendChild(titlerow);
 document.getElementById("userview").appendChild(hiddendiv);

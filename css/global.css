@@ -18,6 +18,10 @@ body {
 /*
  * Custom Rules
  */
+.no-pad-col{
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
  .page-footer {
     text-align:right;
     line-height:3em;

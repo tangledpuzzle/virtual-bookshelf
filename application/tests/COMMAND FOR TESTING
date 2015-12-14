@@ -1,5 +1,0 @@
-RUN ALL TESTS:
-
-cd ~/workspace/r2projekti/application/tests/
-
-php phpunit.phar

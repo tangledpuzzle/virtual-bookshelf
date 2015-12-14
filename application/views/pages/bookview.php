@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../../../css/bookview.css">
+<link rel="stylesheet" type="text/css" href="../../../css/bsdev.css">
 <script type="text/javascript" src="../../../js/bookview.js"></script>
 
 <div id="productview"></div>

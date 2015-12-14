@@ -177,17 +177,46 @@ class My_projekti extends MY_Controller
 				// Validate ID.
 				if ($this->r2pdb_model->is_valid_product_id($book_id) === TRUE)
 				{
-					
 					if($this->input->post('submit'))
-				{
-					$this->r2pdb_model->add_product_comment(
-						(int) $this->auth_user_id,
-						$this->input->post("comment-text"),
-						$book_id);
-					
+					{
+						$collection_id = $this->input->post("collection-id");
+						$collection_name = $this->input->post("collection-name");
+						$user_id = (int) $this->auth_user_id;
+						$comment = $this->input->post("comment-text");
 						
-				}
-					
+						if ($comment !== NULL)
+						{
+							// Post comment.
+							$this->r2pdb_model->add_product_comment($user_id, $comment, $book_id);
+						}
+						else
+						{
+							// Add to existing collection?
+							if ($collection_id > 0)
+							{
+								$this->r2pdb_model->add_product_id_to_collection($book_id, $collection_id);
+								
+								// FIXME: Handle success message.
+								$data["success_message"] = "Book added to shelf " . $collection_name . "!";
+							}
+							else
+							{
+								$collection_id = $this->r2pdb_model->add_collection($collection_name, $this->auth_user_id);
+								// Create a new collection.
+								if ($collection_id > 0)
+								{
+									// On success, add product to the collection.
+									$this->r2pdb_model->add_product_id_to_collection($book_id, $collection_id);
+									$data["success_message"] = "New shelf " . $collection_name . " created and book added!";
+								}
+								else
+								{
+									$data["error_message"] = "Attempt to create a new shelf '" . $collection_name . "' failed.";
+								}
+							}
+						}
+					}
+
 					// Get data from database.
 					$data["book"] = json_encode($this->r2pdb_model->get_product_by_id_display($book_id));
 					$data['reviews'] = json_encode($this->r2pdb_model->get_review_infos_by_product_id_display($book_id));

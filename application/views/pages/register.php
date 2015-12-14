@@ -1,15 +1,16 @@
+
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 	echo '<legend class="first-content-element">Register an Account</legend>';
 
-	if( isset( $error_message ) )
+	if( isset( $validation_errors ) )
 	{
-		echo '<div class="error-msg-box">' . $error_message . '</div>';
+		echo '<div class="error-msg-box">' . $validation_errors . '</div>';
 	}
-	else if( isset( $success_message ) )
+	else if( isset( $validation_ok ) )
 	{
-		echo '<div class="success-msg-box">' . $success_message . '</div>';
+		echo '<div class="success-msg-box">' . $validation_ok . '</div>';
 	}
 ?>
 	<form accept-charset="UTF-8" class="std-form form-horizontal" action="<?php echo base_url(); ?>index.php/register" method="POST">
@@ -26,13 +27,6 @@
 			<label for="reg_pass" class="control-label col-md-2 required">Password</label>
 			<div class="col-md-3">
 				<input type="password" class="form-control" id="reg_pass" name="reg_pass" min="8" required="true" maxlength="<?php echo config_item('max_chars_for_password'); ?>" autocomplete="off" onfocus="this.removeAttribute('readonly');">
-			</div>
-		</div>
-		
-		<div class="form-group required">
-			<label for="reg_email" class="control-label col-md-2 required">Email</label>
-			<div class="col-md-3">
-				<input type="text" class="form-control" id="reg_email" name="reg_email" min="5" placeholder="example@example.net" required="true">
 			</div>
 		</div>
 

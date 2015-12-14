@@ -76,15 +76,6 @@ $route['translate_uri_dashes'] = TRUE;
 
 /*
 | -------------------------------------------------------------------------
-| Sample REST API Routes
-| -------------------------------------------------------------------------
-*/
-
-$route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4';
-$route['api/example/users/(:num)'] = 'api/example/users/id/$1';
-
-/*
-| -------------------------------------------------------------------------
 | Project REST API Routes
 | -------------------------------------------------------------------------
 | 
@@ -156,16 +147,16 @@ $route['api/requests/reviews/(:num)']['GET'] = 'api/requests/reviews/reviewid/$1
 
 // TODO: Technically the product ID is not needed here.
 // POST products/#/reviews/#/comments > comments_post(productid, reviewid, text);
-$route['api/requests/products/(:num)/reviews/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/productid/$1/reviewid/$2/format/$3$4';
-$route['api/requests/products/(:num)/reviews/(:num)/comments']['POST'] = 'api/requests/comments/productid/$1/reviewid/$2';
+//$route['api/requests/products/(:num)/reviews/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/productid/$1/reviewid/$2/format/$3$4';
+//$route['api/requests/products/(:num)/reviews/(:num)/comments']['POST'] = 'api/requests/comments/productid/$1/reviewid/$2';
 
 // POST products/#/comments > comments_post(productid, text);
-$route['api/requests/products/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/productid/$1/format/$2$3';
-$route['api/requests/products/(:num)/comments']['POST'] = 'api/requests/comments/productid/$1';
+//$route['api/requests/products/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/productid/$1/format/$2$3';
+//$route['api/requests/products/(:num)/comments']['POST'] = 'api/requests/comments/productid/$1';
 
 // POST users/#/comments > comments_post(userid, text);
-$route['api/requests/users/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/userid/$1/format/$2$3';
-$route['api/requests/users/(:num)/comments']['POST'] = 'api/requests/comments/userid/$1';
+//$route['api/requests/users/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/userid/$1/format/$2$3';
+//$route['api/requests/users/(:num)/comments']['POST'] = 'api/requests/comments/userid/$1';
 
 
 // -- HTTP PUT: COLLECTIONS (Login Required) --
@@ -173,8 +164,8 @@ $route['api/requests/users/(:num)/comments']['POST'] = 'api/requests/comments/us
 
 // TODO: Technically the user ID is not needed here as it comes from the login details.
 // POST products/#/reviews/#/comments > comments_post(productid, reviewid, text);
-$route['api/requests/users/(:num)/collections/(:num)/products/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['PUT'] = 'api/requests/userdata/userid/$1/collectionid/$2/productid/$3/format/$4$5';
-$route['api/requests/users/(:num)/collections/(:num)/products/(:num)']['PUT'] = 'api/requests/userdata/userid/$1/collectionid/$2/productid/$3';
+//$route['api/requests/users/(:num)/collections/(:num)/products/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['PUT'] = 'api/requests/userdata/userid/$1/collectionid/$2/productid/$3/format/$4$5';
+//$route['api/requests/users/(:num)/collections/(:num)/products/(:num)']['PUT'] = 'api/requests/userdata/userid/$1/collectionid/$2/productid/$3';
 
 // -- HTTP DELETE: REVIEWS & COLLECTIONS (Login Required) --
 // TODO: Login functionality not yet implemented.
@@ -182,5 +173,5 @@ $route['api/requests/users/(:num)/collections/(:num)/products/(:num)']['PUT'] = 
 
 
 // -- HTTP POST: RAW DATABASE ACCESS --
-$route['api/requests/db/(:any)(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/db/args/$1/format/$2$3';
-$route['api/requests/db/(:any)']['POST'] = 'api/requests/db/args/$1';
+//$route['api/requests/db/(:any)(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/db/args/$1/format/$2$3';
+//$route['api/requests/db/(:any)']['POST'] = 'api/requests/db/args/$1';

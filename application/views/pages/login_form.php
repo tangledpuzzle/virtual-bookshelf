@@ -36,7 +36,7 @@ if( ! isset( $on_hold_message ) )
 		<div class="form-group required">
 			<label for="login_string" class="control-label col-md-2 required">Login Name</label>
 			<div class="col-md-3">
-				<input type="text" class="form_input" id="login_string" name="login_string" min="3" autocomplete="off" maxlength="<?php echo config_item('max_chars_for_user_name'); ?>" required="true">
+				<input type="text" class="form-control" id="login_string" name="login_string" min="3" autocomplete="off" maxlength="<?php echo config_item('max_chars_for_user_name'); ?>" required="true">
 			</div>
 		</div>
 		
@@ -63,11 +63,11 @@ if( ! isset( $on_hold_message ) )
 		<?php
 			}
 		?>
-
-		<div class="form-group">
+		
+<div class="form-group">
 			<div class="col-md-offset-2 col-md-3">
-				<a href="<?php echo secure_site_url('examples/recover'); ?>">
-					Can't access your account?
+				<a href="<?php echo secure_site_url('recover'); ?>">
+					Forgot your password?
 				</a>
 			</div>
 		</div>

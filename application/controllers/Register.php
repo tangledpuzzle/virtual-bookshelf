@@ -19,7 +19,6 @@ class Register extends My_projekti
 				'user_name'     => $this->input->post("reg_name"),
 				'ScreenName'    => $this->input->post("reg_screenname"),
 				'user_pass'     => $this->input->post("reg_pass"),
-				'user_email'    => $this->input->post("reg_email"),
 				'user_level'    => '1',
 			);
 
@@ -44,11 +43,6 @@ class Register extends My_projekti
 					'rules' => 'trim|required|min_length[8]|external_callbacks[model,formval_callbacks,_check_password_strength,TRUE]',
 				),
 				array(
-					'field' => 'user_email',
-					'label' => 'Email',
-					'rules' => 'trim|required|valid_email|is_unique[users.user_email]'
-				),
-				array(
 					'field' => 'user_level',
 					'label' => 'user_level',
 					'rules' => 'required|integer|in_list[1,6,9]'
@@ -69,12 +63,12 @@ class Register extends My_projekti
 
 				if ($this->db->affected_rows() == 1)
 				{
-					$data["success_message"] = 'User ' . $user_data['ScreenName'] . ' was created!';
+					$data["validation_ok"] = 'User ' . $user_data['ScreenName'] . ' was created!';
 				}
 			}
 			else
 			{
-				$data["error_message"] = validation_errors();
+				$data["validation_errors"] = validation_errors();
 			}
 		}
 

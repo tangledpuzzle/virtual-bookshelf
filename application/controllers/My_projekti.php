@@ -136,6 +136,25 @@ class My_projekti extends MY_Controller
 				}
 				break;
 				
+			case "profileedit":
+				// ID comes from the cookie.
+				$user_id = $this->auth_user_id;
+
+				
+				// Validate ID.
+				if ($this->r2pdb_model->is_valid_user_id($user_id) === TRUE)
+				{
+					// Get data from database.
+					$data["user"] = $this->r2pdb_model->get_user_by_id_display($user_id);
+				
+				}
+				else
+				{
+					print_r($user_id);
+					$data["error_message"] = "Invalid user ID '" . $user_id . "'.";
+				}
+				break;
+				
 			case "bookview":
 				// ID comes from the URL routing.
 				$book_id = $data["id"];

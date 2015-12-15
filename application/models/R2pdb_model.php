@@ -307,7 +307,7 @@ class R2pdb_model extends CI_Model
 		return NULL;
 	}
 	
-	/**
+	/*
 	* A generic get data function for a variable number of fields. Warning: Fewer integrity checks are performed with this function, use with caution.
 	* @param various $arg_array a key-value array of database field names to sort by, use "!table_name" key for table name
 	* @return array|null an array of arrays containing found rows, NULL if no arguments were given 

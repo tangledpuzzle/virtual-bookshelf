@@ -1,12 +1,387 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="CodeIgniter Application Test Suite" tests="5" assertions="7" failures="0" errors="0" time="0.019462">
-    <testsuite name="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" tests="5" assertions="7" failures="0" errors="0" time="0.019462">
-      <testcase name="test_APPPATH" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="8" assertions="1" time="0.000605"/>
-      <testcase name="test_404" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="22" assertions="1" time="0.004754"/>
-      <testcase name="test_404_2" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="31" assertions="1" time="0.004730"/>
-      <testcase name="test_index_by_function" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="40" assertions="2" time="0.004433"/>
-      <testcase name="test_index_by_url" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="50" assertions="2" time="0.004940"/>
+  <testsuite name="CodeIgniter Application Test Suite" tests="30" assertions="81" failures="1" errors="0" time="0.184511">
+    <testsuite name="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" tests="30" assertions="81" failures="1" errors="0" time="0.184511">
+      <testcase name="test_APPPATH" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="22" assertions="1" time="0.000724"/>
+      <testcase name="test_404" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="36" assertions="1" time="0.005084"/>
+      <testcase name="test_404_2" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="45" assertions="1" time="0.005024"/>
+      <testcase name="test_index_by_function" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="54" assertions="2" time="0.004679"/>
+      <testcase name="test_index_by_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="64" assertions="2" time="0.004848"/>
+      <testcase name="test_booklist_by_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="74" assertions="3" time="0.010224"/>
+      <testcase name="test_bookview_by_null_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="88" assertions="3" time="0.004848"/>
+      <testcase name="test_bookview_by_valid_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="102" assertions="3" time="0.009016"/>
+      <testcase name="test_bookview_by_invalid_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="116" assertions="3" time="0.006686"/>
+      <testcase name="test_bookview_by_unused_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="130" assertions="3" time="0.006083"/>
+      <testcase name="test_bookview_by_malformed_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="144" assertions="3" time="0.004829"/>
+      <testcase name="test_review_by_null_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="158" assertions="3" time="0.004771"/>
+      <testcase name="test_review_by_valid_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="172" assertions="3" time="0.007364"/>
+      <testcase name="test_review_by_invalid_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="186" assertions="3" time="0.004785"/>
+      <testcase name="test_review_by_unused_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="200" assertions="3" time="0.005266"/>
+      <testcase name="test_review_by_malformed_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="214" assertions="3" time="0.004663"/>
+      <testcase name="test_userview_by_null_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="228" assertions="3" time="0.004658"/>
+      <testcase name="test_userview_by_valid_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="242" assertions="3" time="0.008841"/>
+      <testcase name="test_userview_by_invalid_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="256" assertions="3" time="0.005203"/>
+      <testcase name="test_userview_by_unused_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="270" assertions="3" time="0.005053"/>
+      <testcase name="test_userview_by_malformed_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="284" assertions="3" time="0.004856"/>
+      <testcase name="test_userview_by_valid_uri_with_commentlist" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="298" assertions="3" time="0.008827"/>
+      <testcase name="test_userview_by_valid_uri_with_reviews" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="312" assertions="2" time="0.009402">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">My_projekti_test::test_userview_by_valid_uri_with_reviews
+Failed asserting that '
+Warning: date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /home/codio/workspace/r2projekti/system/core/Log.php on line 176
+
+Warning: date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /home/codio/workspace/r2projekti/system/core/Log.php on line 204
+
+A PHP Error was encountered
+
+Severity:    Warning
+Message:     Cannot modify header information - headers already sent by (output started at phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Util/Printer.php:134)
+Filename:    /home/codio/workspace/r2projekti/application/third_party/community_auth/core/Auth_Controller.php
+Line Number: 81
+
+Backtrace:
+	File: /home/codio/workspace/r2projekti/application/third_party/community_auth/core/Auth_Controller.php
+	Line: 81
+	Function: header
+
+	File: /home/codio/workspace/r2projekti/application/core/MY_Controller.php
+	Line: 25
+	Function: __construct
+
+	File: /home/codio/workspace/r2projekti/application/controllers/My_projekti.php
+	Line: 7
+	Function: __construct
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestRequest.php
+	Line: 292
+	Function: __construct
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestRequest.php
+	Line: 254
+	Function: createAndCallController
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestRequest.php
+	Line: 130
+	Function: requestUri
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestCase.php
+	Line: 106
+	Function: request
+
+	File: /home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php
+	Line: 314
+	Function: request
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestCase.php
+	Line: 909
+	Function: invokeArgs
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestCase.php
+	Line: 768
+	Function: runTest
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestResult.php
+	Line: 612
+	Function: runBare
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestCase.php
+	Line: 724
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/TextUI/TestRunner.php
+	Line: 440
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/TextUI/Command.php
+	Line: 149
+	Function: doRun
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/TextUI/Command.php
+	Line: 100
+	Function: run
+
+	File: /home/codio/workspace/r2projekti/application/tests/phpunit.phar
+	Line: 545
+	Function: main
+
+
+
+Warning: date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /home/codio/workspace/r2projekti/system/core/Log.php on line 176
+
+Warning: date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /home/codio/workspace/r2projekti/system/core/Log.php on line 204
+
+A PHP Error was encountered
+
+Severity:    Warning
+Message:     Cannot modify header information - headers already sent by (output started at phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Util/Printer.php:134)
+Filename:    /home/codio/workspace/r2projekti/application/third_party/community_auth/core/Auth_Controller.php
+Line Number: 82
+
+Backtrace:
+	File: /home/codio/workspace/r2projekti/application/third_party/community_auth/core/Auth_Controller.php
+	Line: 82
+	Function: header
+
+	File: /home/codio/workspace/r2projekti/application/core/MY_Controller.php
+	Line: 25
+	Function: __construct
+
+	File: /home/codio/workspace/r2projekti/application/controllers/My_projekti.php
+	Line: 7
+	Function: __construct
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestRequest.php
+	Line: 292
+	Function: __construct
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestRequest.php
+	Line: 254
+	Function: createAndCallController
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestRequest.php
+	Line: 130
+	Function: requestUri
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestCase.php
+	Line: 106
+	Function: request
+
+	File: /home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php
+	Line: 314
+	Function: request
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestCase.php
+	Line: 909
+	Function: invokeArgs
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestCase.php
+	Line: 768
+	Function: runTest
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestResult.php
+	Line: 612
+	Function: runBare
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestCase.php
+	Line: 724
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/TextUI/TestRunner.php
+	Line: 440
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/TextUI/Command.php
+	Line: 149
+	Function: doRun
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/TextUI/Command.php
+	Line: 100
+	Function: run
+
+	File: /home/codio/workspace/r2projekti/application/tests/phpunit.phar
+	Line: 545
+	Function: main
+
+
+
+Warning: date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /home/codio/workspace/r2projekti/system/core/Log.php on line 176
+
+Warning: date(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /home/codio/workspace/r2projekti/system/core/Log.php on line 204
+
+A PHP Error was encountered
+
+Severity:    Warning
+Message:     Cannot modify header information - headers already sent by (output started at phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Util/Printer.php:134)
+Filename:    /home/codio/workspace/r2projekti/application/third_party/community_auth/core/Auth_Controller.php
+Line Number: 83
+
+Backtrace:
+	File: /home/codio/workspace/r2projekti/application/third_party/community_auth/core/Auth_Controller.php
+	Line: 83
+	Function: header
+
+	File: /home/codio/workspace/r2projekti/application/core/MY_Controller.php
+	Line: 25
+	Function: __construct
+
+	File: /home/codio/workspace/r2projekti/application/controllers/My_projekti.php
+	Line: 7
+	Function: __construct
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestRequest.php
+	Line: 292
+	Function: __construct
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestRequest.php
+	Line: 254
+	Function: createAndCallController
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestRequest.php
+	Line: 130
+	Function: requestUri
+
+	File: /home/codio/workspace/r2projekti/application/tests/_ci_phpunit_test/CIPHPUnitTestCase.php
+	Line: 106
+	Function: request
+
+	File: /home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php
+	Line: 314
+	Function: request
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestCase.php
+	Line: 909
+	Function: invokeArgs
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestCase.php
+	Line: 768
+	Function: runTest
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestResult.php
+	Line: 612
+	Function: runBare
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestCase.php
+	Line: 724
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/Framework/TestSuite.php
+	Line: 747
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/TextUI/TestRunner.php
+	Line: 440
+	Function: run
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/TextUI/Command.php
+	Line: 149
+	Function: doRun
+
+	File: phar:///home/codio/workspace/r2projekti/application/tests/phpunit.phar/phpunit/TextUI/Command.php
+	Line: 100
+	Function: run
+
+	File: /home/codio/workspace/r2projekti/application/tests/phpunit.phar
+	Line: 545
+	Function: main
+
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;title&gt;Virtual Bookshelf&lt;/title&gt;
+	&lt;link rel="stylesheet" type="text/css" href="../../../css/global.css" &gt;
+	&lt;link rel="stylesheet" type="text/css" href="../../../bs/css/bootstrap.css" &gt;
+	&lt;link rel="stylesheet" type="text/css" href="../../../bs/css/bootstrap-theme.css" &gt;
+	&lt;!-- Project helper functions. --&gt;
+	&lt;script type="text/javascript" src="../../../js/r2p.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;div class="container white-div clear-top"&gt;
+		&lt;div class="row"&gt;
+			&lt;header&gt;
+				&lt;a href="https://explore-latin.codio.io:9500/"&gt;&lt;img id="logo" class="center-block img-responsive" src="../../../img/virtual_bookshelf.png" alt="Virtual Bookshelf Website Logo" width="589" height="69"&gt;&lt;/a&gt;
+				&lt;nav class="navbar navbar-inverse"&gt;
+					&lt;ul class="nav navbar-nav"&gt;
+						&lt;li&gt;&lt;a href="https://explore-latin.codio.io:9500/"&gt;Home&lt;/a&gt;&lt;/li&gt;
+						&lt;li&gt;&lt;a href="https://explore-latin.codio.io:9500/index.php/booklist"&gt;Books&lt;/a&gt;&lt;/li&gt;
+						&lt;!-- Unimplemented: &lt;li&gt;&lt;a href="https://explore-latin.codio.io:9500/index.php/booksearch"&gt;Search Books&lt;/a&gt;&lt;/li&gt; --&gt;
+						&lt;li&gt;&lt;a href="https://explore-latin.codio.io:9500/index.php/userlist"&gt;Users&lt;/a&gt;&lt;/li&gt;
+					&lt;/ul&gt;
+
+					&lt;ul class="nav navbar-nav navbar-right" &gt; 
+						&lt;li&gt;&lt;a href="https://explore-latin.codio.io:9500/index.php/register"&gt;&lt;span class="glyphicon glyphicon-user"&gt;&lt;/span&gt; Register&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="https://explore-latin.codio.io:9500/index.php/login"&gt;&lt;span class="glyphicon glyphicon-log-in"&gt;&lt;/span&gt; Login&lt;/a&gt;&lt;/li&gt;					&lt;/ul&gt;
+				&lt;/nav&gt;
+			&lt;/header&gt;
+		&lt;/div&gt;
+	
+	&lt;div class="row main-content"&gt;
+		&lt;section&gt;&lt;link rel="stylesheet" type="text/css" href="../../../css/userview.css"&gt;
+&lt;link rel="stylesheet" type="text/css" href="../../../css/bsdev.css"&gt;
+&lt;script type="text/javascript" src="../../../js/r2p.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../../../js/userview.js"&gt;&lt;/script&gt;
+
+&lt;div id="userview"&gt;&lt;/div&gt;
+&lt;script type="text/javascript"&gt;
+	if (!putIntoSessionStorage("user_json", JSON.stringify({"user_id":1,"ScreenName":"A User","FirstName":null,"LastName":null,"Age":37,"GenderName":"Male","CountryName":"Japan","user_date":"2015-12-12 21:14:07","AvatarPath":null,"Bio":"test user please ignore"})))
+	{
+		// Do it the old fashioned way.
+		var user_json = JSON.stringify({"user_id":1,"ScreenName":"A User","FirstName":null,"LastName":null,"Age":37,"GenderName":"Male","CountryName":"Japan","user_date":"2015-12-12 21:14:07","AvatarPath":null,"Bio":"test user please ignore"});	}
+	createUserView(-1);
+&lt;/script&gt;&lt;script type="text/javascript" src="../../../lib/sorttable.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../../../js/r2p.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../../../js/userscollections.js"&gt;&lt;/script&gt;
+
+&lt;hr&gt;
+
+&lt;div id="userscollections"&gt;&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+	if (!putIntoSessionStorage("collections_json", JSON.stringify([{"CollectionID":1,"CollectionName":"Test Collection","ProductCount":5},{"CollectionID":2,"CollectionName":"Empty Collection","ProductCount":0}])))
+	{
+		// Do it the old fashioned way.
+		var collections_json = JSON.stringify([{"CollectionID":1,"CollectionName":"Test Collection","ProductCount":5},{"CollectionID":2,"CollectionName":"Empty Collection","ProductCount":0}]);	}
+	createUsersCollections();
+&lt;/script&gt;&lt;link rel="stylesheet" type="text/css" href="../../../css/commentlist.css"&gt;
+&lt;link rel="stylesheet" type="text/css" href="../../../css/bsdev.css"&gt;
+
+&lt;hr&gt;
+
+&lt;div id="commentlist"&gt;&lt;/div&gt;
+
+&lt;script type="text/javascript" src="../../../js/commentlist.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../../../js/r2p.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="../../../lib/sorttable.js"&gt;&lt;/script&gt;
+
+
+
+&lt;script type="text/javascript"&gt;
+	if (!putIntoSessionStorage("comments_json", JSON.stringify([{"CommentID":1,"PostDate":"2001-01-11 00:00:00","user_id":1,"ScreenName":"A User","Text":"Test User Comment"}])))
+	{
+		// Do it the old fashioned way.
+		var comments_json = JSON.stringify([{"CommentID":1,"PostDate":"2001-01-11 00:00:00","user_id":1,"ScreenName":"A User","Text":"Test User Comment"}]);	}
+	createCommentList();
+&lt;/script&gt;			&lt;/section&gt;
+		&lt;/div&gt; &lt;!-- main-content --&gt;
+		&lt;div class="row"&gt;
+			&lt;footer class="navbar-inverse page-footer"&gt;
+				Powered by Ryhmä 2
+			&lt;/footer&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+' contains "&lt;div id="reviewlist"&gt;".
+
+/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php:318
+/home/codio/workspace/r2projekti/application/tests/phpunit.phar:545
+</failure>
+      </testcase>
+      <testcase name="test_userview_by_valid_uri_no_commentig_without_login" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="326" assertions="3" time="0.009508"/>
+      <testcase name="test_collectionview_by_null_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="342" assertions="3" time="0.004730"/>
+      <testcase name="test_collectionview_by_valid_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="356" assertions="3" time="0.006241"/>
+      <testcase name="test_collectionview_by_invalid_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="370" assertions="3" time="0.004883"/>
+      <testcase name="test_collectionview_by_unused_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="384" assertions="3" time="0.006042"/>
+      <testcase name="test_collectionview_by_malformed_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="398" assertions="3" time="0.007495"/>
+      <testcase name="test_commenting_by_uri" class="My_projekti_test" file="/home/codio/workspace/r2projekti/application/tests/controllers/My_projekti_test.php" line="412" assertions="3" time="0.009878"/>
     </testsuite>
   </testsuite>
 </testsuites>

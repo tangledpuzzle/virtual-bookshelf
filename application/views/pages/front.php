@@ -1,5 +1,7 @@
 <h1 class="first-content-element">Welcome!</h1><br>
-<p>You can add to your collection and review on what books can be found in the site.<br><br>First , you need to register and you must be logged in to the site.</p><br>
+<p>This web page is our project for web technologies course. On this website You can add to your collection and review on what books can be found in the site.</p><p>First , You need to register and You must be logged in to the site. Review rating  from 1 to 5 and You can add comments as You want. The rating and the comment  You have 
+<p>entered will appear on the site with your screen name.</p>
+
 <dl>
 	<dt>Resources Used In The Project</dt>
 	<dd>Technologies</dd>

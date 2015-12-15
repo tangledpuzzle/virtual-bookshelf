@@ -1,3 +1,9 @@
+<?php 
+// disallow direct access.
+if ($this->uri->uri_string()==="writereview"){
+	show_404();
+}
+else{ ?>
 <link rel="stylesheet" type="text/css" href="../../../css/review.css" >
 
 	<legend class="first-content-element">Write a Book Review</legend>
@@ -58,3 +64,4 @@
 			</div>
 		</div>
 	</form>
+<?php }?>

@@ -32,4 +32,3 @@ application/config/database.php
 
 # Testing
 application/tests/build/*
-application/_ci_phpunit_test/*

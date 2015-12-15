@@ -1,4 +1,12 @@
 <?php
+
+
+// disallow direct access.
+if ($this->uri->uri_string()==="login_form"){
+	show_404();
+}
+else{ 
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -96,6 +104,7 @@ if( ! isset( $on_hold_message ) )
 			</div>
 		';
 	}
+}
 
 /* End of file login_form.php */
 /* Location: /views/examples/login_form.php */ 

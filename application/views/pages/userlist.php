@@ -10,7 +10,7 @@
 	if (!putIntoSessionStorage("users_json", JSON.stringify(<?php echo $users ;?>)))
 	{
 		// Do it the old fashioned way.
-		<?php echo 'var reviews_json = JSON.stringify(' . $users . ');' ;?>
+		<?php echo 'var users_json = JSON.stringify(' . $users . ');' ;?>
 	}
 	createUserList();
 </script>

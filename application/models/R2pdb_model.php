@@ -48,8 +48,6 @@ class R2pdb_model extends CI_Model
 		{
 			switch ($table_name)
 			{
-				case "collections":
-					return "CollectionName";
 				case "reviewComments":
 				case "userComments":
 				case "productComments":
@@ -71,6 +69,8 @@ class R2pdb_model extends CI_Model
 					return "user_id, ScreenName, FirstName, LastName, Age, GenderName, CountryName, user_date, AvatarPath, Bio";
 				case "userCollections":
 					return "userCollections.user_id, userCollections.CollectionID, CollectionName, products.ProductID, Name, ReleaseDate, ImagePath, LanguageName, Brief, Description, EAN13, PublisherName";
+				case "collections":
+					return "*";
 				default:
 					// WARNING: Will throw a PHP error.
 					return NULL;
@@ -170,10 +170,13 @@ class R2pdb_model extends CI_Model
 	* Validates given row ID value.
 	* @param int $id row ID
 	* @param string $table_name name of the table
-	* @return boolean|null TRUE if the ID is valid and present in the table, FALSE if ID is not present or is invalid, NULL if $table_name or $id was null or table name is unknown
+	* @return boolean|null TRUE if the ID is valid and present in the table,
+							FALSE if ID is not present or is invalid,
+							NULL if $table_name or $id was null or table name is unknown
 	*/
 	public function validate_row_id($table_name, $id)
 	{
+		// FIXME: FAILS ON "123GSDSR"
 		if ($id !== NULL && $table_name !== NULL)
 		{
 			if ((int) $id > 0)
@@ -207,7 +210,7 @@ class R2pdb_model extends CI_Model
 	
 	// Copied from Community Auth examples.
 	/**
-    * Get an unused ID for user creation
+    * Get an unused ID for user creation. Currently not used.
     *
     * @return  int between 1200 and 4294967295
     */
@@ -237,7 +240,8 @@ class R2pdb_model extends CI_Model
 	/**
 	* A generic get data function for a variable number of fields. Warning: Fewer integrity checks are performed with this function, use with caution.
 	* @param various $arg_array a key-value array of database field names to sort by, use "table_name" key for table name
-	* @return array|null an array of arrays containing found rows, NULL if no arguments were given 
+	* @return array|null an array of arrays containing found rows,
+							NULL if no arguments were given 
 	*/
 	public function get_rows_by_field_display()
 	{
@@ -303,11 +307,11 @@ class R2pdb_model extends CI_Model
 		return NULL;
 	}
 	
-	/**
+	/*
 	* A generic get data function for a variable number of fields. Warning: Fewer integrity checks are performed with this function, use with caution.
 	* @param various $arg_array a key-value array of database field names to sort by, use "!table_name" key for table name
 	* @return array|null an array of arrays containing found rows, NULL if no arguments were given 
-	*/
+	
 	public function get_rows_by_field()
 	{
 		$arg_list = func_get_args()[0];
@@ -323,14 +327,14 @@ class R2pdb_model extends CI_Model
 			return $query->result_array();
         }
 		return NULL;
-	}
+	}*/
 	
-	/**
+	/*
 	* A generic get data by id function for a single row.
 	* @param int $id row ID
 	* @param string $table_name name of the table
 	* @return array|boolean|null an array of arrays containing found rows, FALSE for invalid ID or unknown table name, NULL if $table_name or $id was null 
-	*/
+	
 	private function get_row_by_id($table_name, $id)
 	{
 		$valid = $this->validate_row_id($table_name, $id);
@@ -346,7 +350,7 @@ class R2pdb_model extends CI_Model
 			return FALSE;
         }
 		return NULL;
-	}
+	}*/
 	
 	/**
 	* A generic get data function for all rows in a table.
@@ -483,7 +487,7 @@ class R2pdb_model extends CI_Model
 	{
 		date_default_timezone_set('Europe/Helsinki');
 		$data = array(
-			'ReviewDate' => date('Y-m-d'),
+			'ReviewDate' => date('Y-m-d H:m:s'),
 			'ProductID' => $product_id,
 			'user_id' => $user_id,
 			'Text' => $review,
@@ -512,6 +516,48 @@ class R2pdb_model extends CI_Model
 		);
 		// Return TRUE on success, FALSE on failure
 		return $this->db->insert('collectionProducts', $data);
+	}
+	
+	
+	/**
+	* Insert a new collection for a user.
+	* Warning: Does not perform data integrity checks.
+	* $name string collection name
+	* $user_id int user ID who created the collection
+	* @return boolean TRUE if collection was added,
+							 FALSE if database query failed
+	*/
+	public function add_collection($name, $user_id)
+	{
+		// INSERT: 'column name' => value
+		$data = array(
+			'CollectionName' => $name
+		);
+		// Return TRUE on success, FALSE on failure
+		$success = $this->db->insert('collections', $data);
+		
+		if ($success)
+		{
+			$collection_id = $this->db->insert_id();
+			// INSERT: 'column name' => value
+			// $this->db->insert_id() returns the ID of the last insert statement.
+			$data = array(
+				'CollectionID' => $collection_id,
+				'user_id' => $user_id
+			);
+			
+			// Link comment to user profile.
+			// Return TRUE on success, FALSE on failure
+			if ($this->db->insert('userCollections', $data) === TRUE)
+			{
+				return $collection_id;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -553,7 +599,7 @@ class R2pdb_model extends CI_Model
 		
 		// INSERT: 'column name' => value
 		$data = array(
-			'PostDate' => date('Y-m-d'),
+			'PostDate' => date('Y-m-d H:m:s'),
 			'user_id' => $user_id,
 			'Text' => $text
 		);
@@ -633,7 +679,7 @@ class R2pdb_model extends CI_Model
 		
 		// INSERT: 'column name' => value
 		$data = array(
-			'PostDate' => date('Y-m-d'),
+			'PostDate' => date('Y-m-d H:m:s'),
 			'user_id' => $user_id,
 			'Text' => $text
 		);
@@ -712,7 +758,7 @@ class R2pdb_model extends CI_Model
 		
 		// INSERT: 'column name' => value
 		$data = array(
-			'PostDate' => date('Y-m-d'),
+			'PostDate' => date('Y-m-d H:m:s'),
 			'user_id' => $user_id,
 			'Text' => $text
 		);
@@ -792,22 +838,42 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get all collections without data formatting for display purposes.
-	* @return array an array of arrays containing all collections
-	*/
-	public function get_collections()
-	{
-		return $this->get_table_rows("collections");
-	}
-	
-	/**
-	* Get a specific collection by their ID with data formatting for display purposes.
+	* Get a specific collection and contents by their ID with data formatting for display purposes.
 	* @param int $id collection ID
-	* @return array|boolean|null an array containing found collection as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found collection as an array,
+								FALSE for invalid ID,
+								NULL if $id was null 
 	*/
-	public function get_collection_by_id_display($id)
+	public function get_collections_by_id_display($id)
 	{
-		return $this->get_row_by_id_display("collections", $id);
+		$table_name ="collections";
+		$this->db->select($this->get_public_data_columns_display($table_name));
+		$this->db->where("collections.CollectionID", (int) $id);
+
+		// Get collection id and name.
+		$query = $this->db->get($table_name);
+		
+		// Only one row is returned.
+		$collection = $this->correct_result_data_types($query)[0];
+		$this->db->reset_query();
+		
+		// Get collection product data.
+		$table_name = "collectionProducts";
+		$this->db->select("products.ProductID, Name, ReleaseDate");
+		$this->db->where("collectionProducts.CollectionID", (int) $id);
+
+		// Left join with products to get product data.
+		$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
+
+		$this->db->order_by("collectionProducts.ProductID", 'ASC');
+
+		// Get collection product data.
+		$query = $this->db->get($table_name);
+		$this->db->reset_query();
+	
+		$collection["Products"] = $this->correct_result_data_types($query);
+		
+		return $collection;
 	}
 	
 	/**
@@ -861,15 +927,15 @@ class R2pdb_model extends CI_Model
 		return $this->get_row_by_id_display("comments", $id);
 	}
 	
-	/**
+	/*
 	* Get a specific comment by their ID without data formatting for display purposes.
 	* @param int $id comment ID
 	* @return array|boolean|null an array containing found comment as an array, FALSE for invalid ID, NULL if $id was null 
-	*/
+	
 	public function get_comment_by_id($id)
 	{
 		return $this->get_row_by_id("comments", $id);
-	}
+	}*/
 	
 	// countries
 	
@@ -901,15 +967,15 @@ class R2pdb_model extends CI_Model
 		return $this->get_row_by_id_display("countries", $id);
 	}
 	
-	/**
+	/*
 	* Get a specific country by their ID without data formatting for display purposes.
 	* @param int $id country ID
 	* @return array|boolean|null an array containing found country as an array, FALSE for invalid ID, NULL if $id was null 
-	*/
+	
 	public function get_country_by_id($id)
 	{
 		return $this->get_row_by_id("countries", $id);
-	}
+	}*/
 	
 	// genders
 	
@@ -941,15 +1007,15 @@ class R2pdb_model extends CI_Model
 		return $this->get_row_by_id_display("genders", $id);
 	}
 	
-	/**
+	/*
 	* Get a specific gender by their ID without data formatting for display purposes.
 	* @param int $id gender ID
 	* @return array|boolean|null an array containing found gender as an array, FALSE for invalid ID, NULL if $id was null 
-	*/
+	
 	public function get_gender_by_id($id)
 	{
 		return $this->get_row_by_id("genders", $id);
-	}
+	}*/
 	
 	// genres
 	
@@ -981,15 +1047,15 @@ class R2pdb_model extends CI_Model
 		return $this->get_row_by_id_display("genres", $id);
 	}
 	
-	/**
+	/*
 	* Get a specific genre by their ID without data formatting for display purposes.
 	* @param int $id genre ID
 	* @return array|boolean|null an array containing found genre as an array, FALSE for invalid ID, NULL if $id was null 
-	*/
+	
 	public function get_genre_by_id($id)
 	{
 		return $this->get_row_by_id("genres", $id);
-	}
+	}*/
 	
 	// products
 	
@@ -1042,15 +1108,15 @@ class R2pdb_model extends CI_Model
 		return $this->get_row_by_id_display("products", $id);
 	}
 	
-	/**
+	/*
 	* Get a specific product by their ID without data formatting for display purposes.
 	* @param int $id product ID
 	* @return array|boolean|null an array containing found product as an array, FALSE for invalid ID, NULL if $id was null 
-	*/
+	
 	public function get_product_by_id($id)
 	{
 		return $this->get_row_by_id("products", $id);
-	}
+	}*/
 	
 	/**
 	* Get all product reviews with data formatting for display purposes.
@@ -1103,15 +1169,15 @@ class R2pdb_model extends CI_Model
 		return $this->get_row_by_id_display("publishers", $id);
 	}
 	
-	/**
+	/*
 	* Get a specific publisher by their ID without data formatting for display purposes.
 	* @param int $id publisher ID
 	* @return array|boolean|null an array containing found publisher as an array, FALSE for invalid ID, NULL if $id was null 
-	*/
+	
 	public function get_publisher_by_id($id)
 	{
 		return $this->get_row_by_id("publishers", $id);
-	}
+	}*/
 	
 	// reviews
 	
@@ -1184,15 +1250,15 @@ class R2pdb_model extends CI_Model
 		return $this->correct_result_data_types($query);
 	}
 	
-	/**
+	/*
 	* Get a specific review by their ID without data formatting for display purposes.
 	* @param int $id review ID
 	* @return array|boolean|null an array containing found review as an array, FALSE for invalid ID, NULL if $id was null 
-	*/
+	
 	public function get_review_by_id($id)
 	{
 		return $this->get_row_by_id("reviews", $id);
-	}
+	}*/
 	
 	// users
 	
@@ -1234,15 +1300,15 @@ class R2pdb_model extends CI_Model
 		return $this->get_row_by_id_display("users", $id);
 	}
 	
-	/**
+	/*
 	* Get a specific user by their ID without data formatting for display purposes.
 	* @param int $id user ID
 	* @return array|boolean|null an array containing found user as an array, FALSE for invalid ID, NULL if $id was null 
-	*/
+	
 	public function get_user_by_id($id)
 	{
 		return $this->get_row_by_id("users", $id);
-	}
+	}*/
 	
 	/**
 	* Get all user reviews with data formatting for display purposes.
@@ -1262,7 +1328,7 @@ class R2pdb_model extends CI_Model
 	*/
 	public function get_user_comments_display($userid)
 	{
-		$args = array("table_name" => "userComments", "comments.user_id" => (int) $userid);
+		$args = array("table_name" => "userComments", "userComments.user_id" => (int) $userid);
 		return $this->get_rows_by_field_display($args);
 	}
 		
@@ -1330,7 +1396,7 @@ class R2pdb_model extends CI_Model
 		$query = $this->db->get($table_name);
 		$this->db->reset_query();
 		
-		$collections = $query->result_array();
+		$collections = $this->correct_result_data_types($query);
 		
 		$length = count($collections);
 		
@@ -1338,23 +1404,24 @@ class R2pdb_model extends CI_Model
 		for ($i = 0; $i < $length; $i++)
 		{
 			$table_name ="collectionProducts";
-			$this->db->select("products.ProductID, Name, ReleaseDate");
+			/*$this->db->select("products.ProductID");
 			$this->db->where("collectionProducts.CollectionID", (int) $collections[$i]["CollectionID"]);
 
-			// Left join with products to get product data.
+			/ Left join with products to get product data.
 			$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
 
 			// Product joins.
 			$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
 			$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
 
-			$this->db->order_by("collectionProducts.ProductID", 'ASC');
+			$this->db->order_by("collectionProducts.ProductID", 'ASC');*/
 
 			// Get collection product data.
-			$query = $this->db->get($table_name);
-			$this->db->reset_query();
+			$this->db->like('collectionProducts.CollectionID', (int) $collections[$i]["CollectionID"]);
+			$this->db->from($table_name);
 		
-			$collections[$i]["Products"] = $this->correct_result_data_types($query);
+			$collections[$i]["ProductCount"] = $this->db->count_all_results();
+			$this->db->reset_query();
 		}
 		
 		return $collections;

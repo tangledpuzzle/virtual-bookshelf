@@ -144,20 +144,18 @@ $route['api/requests/reviews/(:num)']['GET'] = 'api/requests/reviews/reviewid/$1
 
 
 // -- HTTP POST: PRODUCTS & USERS (Login Required) --
-// TODO: Login functionality not yet implemented.
 
-// TODO: Technically the product ID is not needed here.
-// POST products/#/reviews/#/comments > comments_post(productid, reviewid, text);
-//$route['api/requests/products/(:num)/reviews/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/productid/$1/reviewid/$2/format/$3$4';
-//$route['api/requests/products/(:num)/reviews/(:num)/comments']['POST'] = 'api/requests/comments/productid/$1/reviewid/$2';
+// POST reviews/#/comments > comments_post(reviewid, text);
+$route['api/requests/reviews/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/reviewid/$1/format/$2$3';
+$route['api/requests/reviews/(:num)/comments']['POST'] = 'api/requests/comments/reviewid/$1';
 
 // POST products/#/comments > comments_post(productid, text);
-//$route['api/requests/products/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/productid/$1/format/$2$3';
-//$route['api/requests/products/(:num)/comments']['POST'] = 'api/requests/comments/productid/$1';
+$route['api/requests/products/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/productid/$1/format/$2$3';
+$route['api/requests/products/(:num)/comments']['POST'] = 'api/requests/comments/productid/$1';
 
 // POST users/#/comments > comments_post(userid, text);
-//$route['api/requests/users/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/userid/$1/format/$2$3';
-//$route['api/requests/users/(:num)/comments']['POST'] = 'api/requests/comments/userid/$1';
+$route['api/requests/users/(:num)/comments(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/comments/userid/$1/format/$2$3';
+$route['api/requests/users/(:num)/comments']['POST'] = 'api/requests/comments/userid/$1';
 
 
 // -- HTTP PUT: COLLECTIONS (Login Required) --
@@ -176,3 +174,10 @@ $route['api/requests/reviews/(:num)']['GET'] = 'api/requests/reviews/reviewid/$1
 // -- HTTP POST: RAW DATABASE ACCESS --
 //$route['api/requests/db/(:any)(\.)([a-zA-Z0-9_-]+)(.*)']['POST'] = 'api/requests/db/args/$1/format/$2$3';
 //$route['api/requests/db/(:any)']['POST'] = 'api/requests/db/args/$1';
+
+// -- HTTP GET: COLLECTIONS (No Login) --
+
+// GET collections/# > collections_get(collectionid);
+// GET collections > collections_get();
+$route['api/requests/collections/(:num)(\.)([a-zA-Z0-9_-]+)(.*)']['GET'] = 'api/requests/collections/collectionid/$1/format/$2$3';
+$route['api/requests/collections/(:num)']['GET'] = 'api/requests/collections/collectionid/$1';

@@ -1,5 +1,9 @@
 /**
- * User: joseu
+ * Created with webprojekti.
+ * User: ME-varjoil
+ * Date: 2015-12-14
+ * Time: 03:31 PM
+ * To change this template use Tools | Templates.
  */
 
 function createReviewList() {
@@ -15,9 +19,12 @@ function createReviewList() {
         // Remove the item from storage as it is no longer needed.
         sessionStorage.removeItem('reviews_json');
     }
+    var reviewstitle = document.createElement("h1");
+    reviewstitle.innerHTML = reviews[obj].ScreenName + "'s Reviews";
+    document.getElementById("usersreviews").appendChild(reviewstitle);
     var table = document.createElement("table");
     table.className = "table sortable last-content-element";
-    document.getElementById("reviewlist").appendChild(table);
+    document.getElementById("usersreviews").appendChild(table);
     var thead = document.createElement("thead");
     table.appendChild(thead);
     var tr = document.createElement("tr");

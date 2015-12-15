@@ -356,7 +356,7 @@ class My_projekti extends MY_Controller
 			// Load collections after the page?
 			if (isset($data["collections"]))
 			{
-				$this->load->view('pages/userscollections', $data);
+				$this->load->view('pages/collectionlist', $data);
 			}
 			
 			// Load comments after the page?

@@ -1,3 +1,9 @@
+<?php 
+// disallow direct access.
+if ($this->uri->uri_string()==="comment"){
+	show_404();
+}
+else{ ?>
 <link rel="stylesheet" type="text/css" href="../../../css/comment.css" >
 	
 
@@ -18,3 +24,4 @@
 			
 		</div>
 </form> 
+<?php } ?>

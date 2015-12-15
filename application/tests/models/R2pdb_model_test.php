@@ -19,6 +19,7 @@ class R2pdbmodel_model_test extends TestCase
 	public $database_row_no_result;
 	public $database_products_language_swedish;
 	public $database_row_empty_collection_id_2;
+	public $database_row_comment_id_1;
 	
 	public $valid_table_name;
 	public $invalid_table_name;
@@ -39,66 +40,67 @@ class R2pdbmodel_model_test extends TestCase
 		
 		// $this->unassigned is unassigned for a reason.
 		// NULL is also tested but it does not need a variable.
-		// 
-		$this->database_row_product_1 = array(
-array("ProductID"=> 1,
-  "Name"=> "Sample Book 1",
-  "ReleaseDate"=> "2008-11-11",
-  "ImagePath"=> "img-path",
-  "LanguageName"=> "Finnish",
-  "Brief"=> "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.",
-  "Description"=> "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti. Lorem ipsum ligula ut hendrerit mollis, ipsum erat vehicula risus, eu suscipit sem libero nec erat. Aliquam erat volutpat. Sed congue augue vitae neque. Nulla consectetuer porttitor pede. Fusce purus morbi tortor magna condimentum vel, placerat id blandit sit amet tortor.\n\nMauris sed libero. Suspendisse facilisis nulla in lacinia laoreet, lorem velit accumsan velit vel mattis libero nisl et sem. Proin interdum maecenas massa turpis sagittis in, interdum non lobortis vitae massa. Quisque purus lectus, posuere eget imperdiet nec sodales id arcu. Vestibulum elit pede dictum eu, viverra non tincidunt eu ligula.\n\nNam molestie nec tortor. Donec placerat leo sit amet velit. Vestibulum id justo ut vitae massa. Proin in dolor mauris consequat aliquam. Donec ipsum, vestibulum ullamcorper venenatis augue. Aliquam tempus nisi in auctor vulputate, erat felis pellentesque augue nec, pellentesque lectus justo nec erat. Aliquam et nisl. Quisque sit amet dolor in justo pretium condimentum.\n\nVivamus placerat lacus vel vehicula scelerisque, dui enim adipiscing lacus sit amet sagittis, libero enim vitae mi. In neque magna posuere, euismod ac tincidunt tempor est. Ut suscipit nisi eu purus. Proin ut pede mauris eget ipsum. Integer vel quam nunc commodo consequat. Integer ac eros eu tellus dignissim viverra. Maecenas erat aliquam erat volutpat. Ut venenatis ipsum quis turpis. Integer cursus scelerisque lorem. Sed nec mauris id quam blandit consequat. Cras nibh mi hendrerit vitae, dapibus et aliquam et magna. Nulla vitae elit. Mauris consectetuer odio vitae augue.",
-  "EAN13"=> "0000000000000",
-  "PublisherName"=> "Publisher #3")
-		);
-		
+
 		$this->database_products_language_swedish = array(
- array (
-    "ProductID" => 3,
-    "Name" => "Sample Book 3",
-    "ReleaseDate" => "2018-12-11",
-    "ImagePath" => "ipsum",
-    "LanguageName" => "Swedish",
-    "Brief" => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.",
-    "Description" => "minim",
-    "EAN13" => "0000000000002",
-    "PublisherName" => "Publisher #2"
-  ),
-  array (
-    "ProductID" => 9,
-    "Name" => "Sample Book 9",
-    "ReleaseDate" => null,
-    "ImagePath" => "elit",
-    "LanguageName" => "Swedish",
-    "Brief" => "ea",
-    "Description" => "commodo",
-    "EAN13" => "0000000000008",
-    "PublisherName" => "Publisher #4"
-  ),
-  array (
-    "ProductID" => 17,
-    "Name" => "Sample Book 17",
-    "ReleaseDate" => "2010-11-11",
-    "ImagePath" => "et",
-    "LanguageName" => "Swedish",
-    "Brief" => "fugiat",
-    "Description" => null,
-    "EAN13" => "7000000000000",
-    "PublisherName" => "Publisher #6"
-  )
-		);
+													 array (
+														"ProductID" => 3,
+														"Name" => "Sample Book 3",
+														"ReleaseDate" => "2018-12-11",
+														"ImagePath" => "ipsum",
+														"LanguageName" => "Swedish",
+														"Brief" => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.",
+														"Description" => "minim",
+														"EAN13" => "0000000000002",
+														"PublisherName" => "Publisher #2"
+													  ),
+													  array (
+														"ProductID" => 9,
+														"Name" => "Sample Book 9",
+														"ReleaseDate" => null,
+														"ImagePath" => "elit",
+														"LanguageName" => "Swedish",
+														"Brief" => "ea",
+														"Description" => "commodo",
+														"EAN13" => "0000000000008",
+														"PublisherName" => "Publisher #4"
+													  ),
+													  array (
+														"ProductID" => 17,
+														"Name" => "Sample Book 17",
+														"ReleaseDate" => "2010-11-11",
+														"ImagePath" => "et",
+														"LanguageName" => "Swedish",
+														"Brief" => "fugiat",
+														"Description" => null,
+														"EAN13" => "7000000000000",
+														"PublisherName" => "Publisher #6"
+													  ));
+		
+		$this->database_row_product_1 = array(array("ProductID"=> 1,
+													  "Name"=> "Sample Book 1",
+													  "ReleaseDate"=> "2008-11-11",
+													  "ImagePath"=> "img-path",
+													  "LanguageName"=> "Finnish",
+													  "Brief"=> "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.",
+													  "Description"=> "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti. Lorem ipsum ligula ut hendrerit mollis, ipsum erat vehicula risus, eu suscipit sem libero nec erat. Aliquam erat volutpat. Sed congue augue vitae neque. Nulla consectetuer porttitor pede. Fusce purus morbi tortor magna condimentum vel, placerat id blandit sit amet tortor.\n\nMauris sed libero. Suspendisse facilisis nulla in lacinia laoreet, lorem velit accumsan velit vel mattis libero nisl et sem. Proin interdum maecenas massa turpis sagittis in, interdum non lobortis vitae massa. Quisque purus lectus, posuere eget imperdiet nec sodales id arcu. Vestibulum elit pede dictum eu, viverra non tincidunt eu ligula.\n\nNam molestie nec tortor. Donec placerat leo sit amet velit. Vestibulum id justo ut vitae massa. Proin in dolor mauris consequat aliquam. Donec ipsum, vestibulum ullamcorper venenatis augue. Aliquam tempus nisi in auctor vulputate, erat felis pellentesque augue nec, pellentesque lectus justo nec erat. Aliquam et nisl. Quisque sit amet dolor in justo pretium condimentum.\n\nVivamus placerat lacus vel vehicula scelerisque, dui enim adipiscing lacus sit amet sagittis, libero enim vitae mi. In neque magna posuere, euismod ac tincidunt tempor est. Ut suscipit nisi eu purus. Proin ut pede mauris eget ipsum. Integer vel quam nunc commodo consequat. Integer ac eros eu tellus dignissim viverra. Maecenas erat aliquam erat volutpat. Ut venenatis ipsum quis turpis. Integer cursus scelerisque lorem. Sed nec mauris id quam blandit consequat. Cras nibh mi hendrerit vitae, dapibus et aliquam et magna. Nulla vitae elit. Mauris consectetuer odio vitae augue.",
+													  "EAN13"=> "0000000000000",
+													  "PublisherName"=> "Publisher #3"));
+		
+		$this->database_row_comment_id_1 = array("CommentID" => 1,
+												"PostDate" => "2001-01-11 00:00:00",
+												"user_id" => 1,
+												"ScreenName" => "A User",
+												"Text" => "Test User Comment");
 		
 		$this->database_row_no_result = array();
 		
+		$this->database_row_empty_collection_id_2 = array("CollectionID" => 2,
+														  "CollectionName" => "Empty Collection",
+														  "Products" => array());
+  
 		$this->valid_table_name = "products";
 		$this->invalid_table_name = '!#¤%&/()=?;:_@£$€[\\]}';
 		$this->unused_table_name = "this_table_name_is_not_used";
-		
-		$this->database_row_empty_collection_id_2 = 
-		array("CollectionID" => 2,
-  "CollectionName" => "Empty Collection",
-  "Products" => array());
-  
 		$this->number_of_collections = 4;
 		$this->number_of_products = 29;
 		
@@ -362,7 +364,7 @@ array("ProductID"=> 1,
 	
 	
 	/*
-	 * ----------- get_collections_display -----------
+	 * ----------- collections -----------
 	 */
 	
 	/**
@@ -385,5 +387,21 @@ array("ProductID"=> 1,
         $this->assertEquals($expected, $actual);
     }
 	
-	
+	/*
+	 * is_valid_collection_id() and other is_valid_*_id() use is_valid_row_id() which has been extensively tested.
+	 */
+	 
+	/*
+	 * ----------- comments -----------
+	 */
+	 
+	/**
+	 * Test get comment by id
+	 */
+    public function test_get_comment_by_id_display()
+    {
+		$actual = $this->obj->get_comment_by_id_display(1);
+		$expected = $this->database_row_comment_id_1;
+        $this->assertEquals($expected, $actual);
+    }
 }

@@ -8,6 +8,7 @@
 */
 function createCommentList()
 {
+	
 	"use strict";
 	
 	var comments;
@@ -25,12 +26,13 @@ function createCommentList()
 		// Remove the item from storage as it is no longer needed.
 		sessionStorage.removeItem('users_json');
 	}
-
+	
 	var commenttitle = document.createElement("h3");
 	commenttitle.innerHTML = "Comments";
 	document.getElementById("commentlist").appendChild(commenttitle);
+	
 
-for(var comment in comments){
+for(var i = comments.length; i > 0; i--){
 
 	
 	var usera = document.createElement("a");
@@ -43,19 +45,19 @@ for(var comment in comments){
 	
 	
 	
-	usera.href="./useview/"+ comments[comment].user_id;
-	usera.innerHTML = comments[comment].ScreenName;
+	usera.href="./useview/"+ comments[i-1].user_id;
+	usera.innerHTML = comments[i-1].ScreenName;
 	userdiv.className = "col-md-4";
 	userdiv.appendChild(usera);
 	infodiv.className = "row";
 	infodiv.appendChild(userdiv);
 	
-	datediv.innerHTML = comments[comment].PostDate;
+	datediv.innerHTML = comments[i-1].PostDate;
 	datediv.className = "col-md-2 ";
 	infodiv.appendChild(datediv);
 	maindiv.appendChild(infodiv);
 	
-	commentdiv.innerHTML = comments[comment].Text;
+	commentdiv.innerHTML = comments[i-1].Text;
 	commentdiv.className = "col-md-12";
 	maindiv.appendChild(commentdiv);
 	document.getElementById("commentlist").appendChild(maindiv);

@@ -12,8 +12,11 @@ class Register extends My_projekti
 
     public function show_register()
     {
+		// Load Community Auth variables.
+		$this->is_logged_in();
+		
 		// Is the user logged in?
-		if($this->verify_min_level(1))
+		if($this->auth_level !== NULL)
 		{
 			$this->view('myprofile', NULL);
 		}

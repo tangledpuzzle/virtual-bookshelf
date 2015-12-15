@@ -19,7 +19,7 @@ function createCommentList(user_is_admin) {
         // Get the data from sessionStorage.
         comments = JSON.parse(sessionStorage.getItem('comments_json'));
         // Remove the item from storage as it is no longer needed.
-        sessionStorage.removeItem('users_json');
+        sessionStorage.removeItem('comments_json');
     }
     var commenttitle = document.createElement("h3");
     commenttitle.innerHTML = "Comments";

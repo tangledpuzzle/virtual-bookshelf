@@ -25,8 +25,12 @@ class Login extends My_projekti
         }
 		else
 		{
+			
+			// Load Community Auth variables.
+			$this->is_logged_in();
+
 			// Is the user logged in?
-			if($this->verify_min_level(1))
+			if($this->auth_level !== NULL)
 			{
 				$this->view('myprofile', NULL);
 			}

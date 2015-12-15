@@ -6,7 +6,7 @@ class Review extends My_projekti
 {
 	public function write_review($productid)
 	{
-		if ($this->verify_min_level(1))
+		if($this->auth_level > 0)
 		{
 			if ($this->r2pdb_model->is_valid_product_id($productid) === TRUE)
 			{

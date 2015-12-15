@@ -21,8 +21,11 @@ class My_projekti extends MY_Controller
 			$data["id"] = $id;
 		}
 		
+		// Load Community Auth variables.
+		$this->is_logged_in();
+		
 		// Is the user logged in?
-		if($this->verify_min_level(1))
+		if($this->auth_level !== NULL)
 		{
 			if( $http_user_cookie_contents = $this->input->cookie(config_item('http_user_cookie_name')))
 			{
@@ -40,7 +43,7 @@ class My_projekti extends MY_Controller
 	private function load_page($page, $data)
 	{
 		// Community Auth: Is the user logged in?
-		if($this->verify_min_level(1))
+		if($this->auth_level !== NULL)
 		{
 			// Get logged in user id from Community Auth.
 			$logged_in_user_id = (int) $this->auth_user_id;
@@ -186,6 +189,22 @@ class My_projekti extends MY_Controller
 					// Validate ID.
 					if ($this->r2pdb_model->is_valid_user_id($user_id) === TRUE)
 					{
+						// Was data submitted to this page with HTTP POST?
+						if($this->input->post('submit'))
+						{
+							// Is the user logged in?
+							if($logged_in_user_id > 0)
+							{
+								$this->r2pdb_model->add_user_comment($logged_in_user_id,
+																	 $this->input->post("comment-text"),
+																	 $user_id);
+							}
+							else
+							{
+								$data["error_message"] = "You need to be logged in to write comments.";
+							}
+						}
+						
 						// Get user data from database.
 						$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
 						
@@ -379,9 +398,9 @@ class My_projekti extends MY_Controller
 			if (isset($data["comment_type"]))
 			{
 				// Is the user an admin?
-				// The value is an int because PHP echos booleans as int.
-				if($this->verify_min_level(9))
+				if($this->auth_level >= 9)
 				{
+				// The value is an int because PHP echos booleans as int.
 					$data["user_is_admin"] = 1;
 				}
 				else

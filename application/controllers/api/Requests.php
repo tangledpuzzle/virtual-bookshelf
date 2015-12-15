@@ -129,7 +129,7 @@ class Requests extends REST_Controller
 	 * 
 	 * FIXME: WARNING: REMOVE BEFORE PRODUCTION! DEVELOPMENT ONLY!
 	 * 
-	 
+	 */
 	public function db_post()
 	{
 		//$key = $this->post('key');
@@ -137,7 +137,7 @@ class Requests extends REST_Controller
 		$array = $this->post('args');
 		$data = $this->r2pdb_model->get_rows_by_field_display($array);
 		$this->response($data, REST_Controller::HTTP_OK);
-	}*/
+	}
 	
 	/*
 	 * HTTP GET: USERS
@@ -190,7 +190,7 @@ class Requests extends REST_Controller
 				switch ($datatype)
 				{
 					case "collections":
-						$data = $this->r2pdb_model->get_user_collections_short_display($userid);
+						$data = $this->r2pdb_model->get_user_collections_full_display($userid);
 						break;
 					case "comments":
 						$data = $this->r2pdb_model->get_user_comments_display($userid);
@@ -336,27 +336,6 @@ class Requests extends REST_Controller
 		}
 	}
 
-	/*
-	 * HTTP GET: COLLECTIONS
-	 */
-	public function collections_get()
-	{
-		// Get productid parameter from the query.
-		// CodeIgniter routing rules read anything less than 0 or non-numbers as NULL.
-		$id = $this->get('collectionid');
-
-		// If the ID is NULL, return all collections.
-		if ($this->check_for_valid_id("Collection", $id) === NULL)
-		{
-			$this->respond_with_all("collections");
-		}
-		
-		// Get specific collection from database.
-		$data = $this->r2pdb_model->get_collections_by_id_display($id);
-		
-		// Because of the validity check above it is certain that the collection id is present in the table.
-		$this->set_response($data, REST_Controller::HTTP_OK);
-	}
 	
 	/*
 	 * HTTP GET: REVIEWS
@@ -424,107 +403,49 @@ class Requests extends REST_Controller
 	 */
 	public function comments_post()
 	{
-		if (!empty($this->input->server('PHP_AUTH_USER')))
+		// Get productid parameter from the query.
+		$productid = $this->get('productid');
+	
+		// Get reviewid parameter from the query.
+		$reviewid = $this->get('reviewid');
+		
+		// Get userid parameter from the query.
+		$userid = $this->get('userid');
+		
+		// Get comment text.
+		$text = $this->post('text');
+		
+		if ($productid === NULL)
 		{
-			// REST API authentication: user name
-			$user_name = $this->input->server('PHP_AUTH_USER');
-			$password = $this->input->server('PHP_AUTH_PW');
-			
-			// No proper API login is implemented.
-			if ($user_name === "admin" && $password === 1234)
+			// User comment.
+			if ($userid !== NULL && $this->r2pdb_model->is_valid_user_id((int) $userid) === TRUE)
 			{
-				// Get productid parameter from the query.
-				$productid = $this->get('productid');
-
-				// Get reviewid parameter from the query.
-				$reviewid = $this->get('reviewid');
-
-				// Get userid parameter from the query.
-				$userid = $this->get('userid');
-
-				// Get comment text.
-				$text = $this->post('text');
-
-
-				// Hard coded for now because there is no real support for API logins.
-				$logged_in_user_id = 3; // Admin user.
-
-				if ($userid !== NULL)
-				{
-					// User comment.
-					if ($userid !== NULL && $this->r2pdb_model->is_valid_user_id((int) $userid) === TRUE)
-					{
-						if ($this->r2pdb_model->add_user_comment($logged_in_user_id, $text, $userid) === TRUE)
-						{
-							$this->set_response(['status' => TRUE, 'message' => "Comment posted."], REST_Controller::HTTP_OK);
-						}
-						else
-						{
-							$this->set_response(['status' => FALSE, 'message' => "Comment posting failed."], REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-						}
-					}
-					else
-					{
-						$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-					}
-				}
-				else if ($reviewid !== NULL)
-				{
-					// Review comment.
-					if ($reviewid !== NULL && $this->r2pdb_model->is_valid_review_id((int) $reviewid) === TRUE)
-					{
-						if ($this->r2pdb_model->add_review_comment($logged_in_user_id, $text, $reviewid) === TRUE)
-						{
-							$this->set_response(['status' => TRUE, 'message' => "Comment posted."], REST_Controller::HTTP_OK);
-						}
-						else
-						{
-							$this->set_response(['status' => FALSE, 'message' => "Comment posting failed."], REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-						}
-					}
-					else
-					{
-						$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-					}
-				}
-				else if ($productid !== NULL)
-				{
-					// Product comment.
-					if ($productid !== NULL && $this->r2pdb_model->is_valid_product_id((int) $productid) === TRUE)
-					{
-						if ($this->r2pdb_model->add_product_comment($logged_in_user_id, $text, $productid) === TRUE)
-						{
-							$this->set_response(['status' => TRUE, 'message' => "Comment posted."], REST_Controller::HTTP_OK);
-						}
-						else
-						{
-							$this->set_response(['status' => FALSE, 'message' => "Comment posting failed."], REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
-						}
-					}
-					else
-					{
-						$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-					}
-				}
-				else
-				{
-					$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-				}
+				// DUMMY DATA!
+				$this->set_response(['status' => TRUE, 'message' => "Dummy data: Comment posted to user ID " . $userid . ": " . $text], REST_Controller::HTTP_OK);
 			}
 			else
 			{
-				$this->set_response(['status' => FALSE, 'message' => "Invalid credentials."], REST_Controller::HTTP_UNAUTHORIZED);
+				$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
 			}
 		}
 		else
 		{
-			$this->set_response(['status' => FALSE, 'message' => "Please provide authentication."], REST_Controller::HTTP_UNAUTHORIZED);
+			// Review comment.
+			if ($reviewid !== NULL && $this->r2pdb_model->is_valid_review_id((int) $reviewid) === TRUE)
+			{
+				$this->set_response(['status' => TRUE, 'message' => "Dummy data: Comment posted to review ID " . $reviewid . " on product ID " . $productid . "."], REST_Controller::HTTP_OK);
+			}
+			else
+			{
+				$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
+			}
 		}
 	}
 	
 	/*
 	 * HTTP PUT: COLLECTIONS
-	 
+	 * TODO: Needs login
+	 */
 	public function userdata_put()
 	{
 		// Get userid parameter from the query.
@@ -550,7 +471,7 @@ class Requests extends REST_Controller
 		/* Validate the ID.
 		   UserID field in the database must be >= 1.
 		   TODO: Move to separate function later.
-		 *
+		 */
 		if ($userid <= 0)
 		{
 			// Invalid id.
@@ -592,7 +513,7 @@ class Requests extends REST_Controller
 		/* Validate the ID.
 		   ProductID field in the database must be >= 1.
 		   TODO: Move to separate function later.
-		 *
+		 */
 		if ($productid <= 0)
 		{
 			// Invalid id.
@@ -605,5 +526,5 @@ class Requests extends REST_Controller
 		$message = ['dummydata' => "Product ID " . $productid . " successfully added to collection ID " . $collectionid . " of user ID " . $userid . "."];
 			
 		$this->response($message, REST_Controller::HTTP_OK);
-	}*/
+	}
 }

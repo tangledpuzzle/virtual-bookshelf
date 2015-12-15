@@ -16,8 +16,8 @@
 				<nav class="navbar navbar-inverse">
 					<ul class="nav navbar-nav">
 						<li><a href="<?php echo base_url(); ?>">Home</a></li>
-						<li><a href="<?php echo base_url(); ?>index.php/booklist">Books</a></li>
-						<!-- Unimplemented: <li><a href="<?php echo base_url(); ?>index.php/booksearch">Search Books</a></li> -->
+						<li><a href="<?php echo base_url(); ?>index.php/booklist">Book List</a></li>
+						<li><a href="<?php echo base_url(); ?>index.php/booksearch">Search Books</a></li>
 						<li><a href="<?php echo base_url(); ?>index.php/userlist">Users</a></li>
 					</ul>
 

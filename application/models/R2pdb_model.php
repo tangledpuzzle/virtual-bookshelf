@@ -170,10 +170,13 @@ class R2pdb_model extends CI_Model
 	* Validates given row ID value.
 	* @param int $id row ID
 	* @param string $table_name name of the table
-	* @return boolean|null TRUE if the ID is valid and present in the table, FALSE if ID is not present or is invalid, NULL if $table_name or $id was null or table name is unknown
+	* @return boolean|null TRUE if the ID is valid and present in the table,
+							FALSE if ID is not present or is invalid,
+							NULL if $table_name or $id was null or table name is unknown
 	*/
 	public function validate_row_id($table_name, $id)
 	{
+		// FIXME: FAILS ON "123GSDSR"
 		if ($id !== NULL && $table_name !== NULL)
 		{
 			if ((int) $id > 0)
@@ -207,7 +210,7 @@ class R2pdb_model extends CI_Model
 	
 	// Copied from Community Auth examples.
 	/**
-    * Get an unused ID for user creation
+    * Get an unused ID for user creation. Currently not used.
     *
     * @return  int between 1200 and 4294967295
     */
@@ -239,7 +242,7 @@ class R2pdb_model extends CI_Model
 	* @param various $arg_array a key-value array of database field names to sort by, use "table_name" key for table name
 	* @return array|null an array of arrays containing found rows, NULL if no arguments were given 
 	*/
-	public function get_rows_by_field_display()
+	private function get_rows_by_field_display()
 	{
 		$arg_list = func_get_args()[0];
 		
@@ -308,7 +311,7 @@ class R2pdb_model extends CI_Model
 	* @param various $arg_array a key-value array of database field names to sort by, use "!table_name" key for table name
 	* @return array|null an array of arrays containing found rows, NULL if no arguments were given 
 	*/
-	public function get_rows_by_field()
+	private function get_rows_by_field()
 	{
 		$arg_list = func_get_args()[0];
 		

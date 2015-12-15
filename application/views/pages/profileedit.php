@@ -1,5 +1,3 @@
-
-<link rel="stylesheet" type="text/css" href="../../../css/profileedit.css">
     <h1 class="first-content-element">Edit Profile</h1>
   	<hr>
 	<div class="row">
@@ -55,7 +53,7 @@
      
 		<div class="col-lg-8 col-md-offset-3" >
             <label for="bio">Bio:</label>
-      <textarea class="form-control" rows="5"   id="bio" ><?php echo $user["Bio"];?></textarea>
+      <textarea class="form-control fixed-horizontal-size" rows="5"   id="bio" ><?php echo $user["Bio"];?></textarea>
 			
     </div>
 

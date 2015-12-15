@@ -15,14 +15,19 @@ body {
 .navbar {
     margin-bottom: 0px !important;
 }
+
 /*
  * Custom Rules
  */
-.no-pad-col{
-	padding-left: 0 !important;
-	padding-right: 0 !important;
+
+.fixed-horizontal-size {
+    max-width:100% !important;
 }
- .page-footer {
+.no-pad-col {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.page-footer {
     text-align:right;
     line-height:3em;
     height:3em;

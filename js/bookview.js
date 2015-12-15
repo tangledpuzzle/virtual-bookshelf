@@ -25,7 +25,7 @@ function createBookView(logged_in_user_id) {
 	var prodview_date, prodview_brief, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, hiddendiv, hvdiv, thead, tbody;
     
 	hiddendiv = document.createElement("div");
-    hiddendiv.className = "product_iddiv";
+    hiddendiv.id = "product_iddiv";
     hiddendiv.style.display = "none";
     hiddendiv.innerHTML = book.ProductID;
     hvdiv = document.createElement("div");
@@ -121,8 +121,7 @@ function createBookView(logged_in_user_id) {
         brev.appendChild(buttonrev);
         titlerow.appendChild(brev);
         buttonrev.onclick = function () {
-			alert("broken url:" + document.getElementById("product_iddiv").innerHTML);
-            window.location.href = "../writereview/" + document.getElementById("product_iddiv").innerHTML;
+            window.location = "../writereview/" + document.getElementById("product_iddiv").innerHTML;
         };
         document.getElementById("productview").appendChild(collectionrow);
     }

@@ -87,7 +87,7 @@ function createBookView(logged_in_user_id) {
         colnamediv.appendChild(colnamefield);
         hiddencolid.type = "number";
         hiddencolid.name = "collection-id";
-        hiddencolid.className = "form-control hidden";
+        hiddencolid.className = "hidden";
         colnamediv.appendChild(hiddencolid);
         var colselectdiv = document.createElement("div");
         colselectdiv.className = "form-group col-md-3 inline-form-col";

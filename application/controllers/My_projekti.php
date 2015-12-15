@@ -272,6 +272,7 @@ class My_projekti extends MY_Controller
 						$collection_name = $this->input->post("collection-name");
 						$user_id = $logged_in_user_id;
 						$comment = $this->input->post("comment-text");
+						$delete_comment_id = $this->input->post("delete_comment_id");
 						
 						// Is there comment text data?
 						if ($comment !== NULL)

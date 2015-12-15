@@ -24,7 +24,7 @@ function createCommentList(user_is_admin) {
     var commenttitle = document.createElement("h3");
     commenttitle.innerHTML = "Comments";
     document.getElementById("commentlist").appendChild(commenttitle);
-    var comment, usera, infodiv, maindiv, datediv, userdiv, commentdiv, deldiv, delform, delbtn;
+    var comment, usera, infodiv, maindiv, datediv, userdiv, commentdiv, deldiv, delform, delbtn, delid;
     for(comment in comments) {
         usera = document.createElement("a");
         userdiv = document.createElement("div");
@@ -46,11 +46,17 @@ function createCommentList(user_is_admin) {
 		if (user_is_admin === 1)
 		{
 			deldiv = document.createElement("div");
-			deldiv.className = "col-md-1";
+			deldiv.className = "col-md-2";
 			
 			delform = document.createElement("form");
 			delform.action = "";
 			delform.method = "post";
+			
+			delid = document.createElement("input");
+			delid.type = "number";
+			delid.name = "delete_comment_id";
+			delid.className = "hidden";
+			delid.value = comments[comment].CommentID;
 			
 			delbtn = document.createElement("input");
 			delbtn.value = "Delete Comment";
@@ -58,6 +64,7 @@ function createCommentList(user_is_admin) {
 			delbtn.type = "submit";
 			delbtn.name = "submit";
 			
+			delform.appendChild(delid);
 			delform.appendChild(delbtn);
 			deldiv.appendChild(delform);
 			infodiv.appendChild(deldiv);

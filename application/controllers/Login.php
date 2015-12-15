@@ -23,15 +23,25 @@ class Login extends My_projekti
         {
             show_404();
         }
+		else
+		{
+			// Is the user logged in?
+			if($this->verify_min_level(1))
+			{
+				$this->view('myprofile', NULL);
+			}
+			else
+			{
+				if( strtolower( $_SERVER['REQUEST_METHOD'] ) == 'post' )
+				{
+					$this->require_min_level(1);
+				}
 
-        if( strtolower( $_SERVER['REQUEST_METHOD'] ) == 'post' )
-        {
-            $this->require_min_level(1);
-        }
+				$this->setup_login_form();
 
-        $this->setup_login_form();
-
-		$this->view('login_form', null);
+				$this->view('login_form', null);
+			}
+		}
     }
 
     // --------------------------------------------------------------

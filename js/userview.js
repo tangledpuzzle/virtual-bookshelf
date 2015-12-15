@@ -5,7 +5,7 @@
 * Time: 09:37 AM
 * To change this template use Tools | Templates.
 */
-function createUserView()
+function createUserView(logged_in_user_id)
 {
 	"use strict";
 	
@@ -27,7 +27,7 @@ function createUserView()
 
 var userview_name, userview_id, userview_date, userview_brief, userview_description, userview_country, userage, language, genderdiv, thead, tbody, fullname,
 	hiddendiv, userview_userdivrow1, userview_userdivrow2, ihmediv, userview_userdivrow0,
-	hvdiv, titlerow, userview_userdivtitle, userview_datetitle, userview_countrytitle, useragetitle, genderdivtitle, userview_title, buttondiv;
+	hvdiv, titlerow, userview_userdivtitle, userview_datetitle, userview_countrytitle, useragetitle, genderdivtitle, userview_title;
 
 
 
@@ -40,25 +40,37 @@ var userview_name, userview_id, userview_date, userview_brief, userview_descript
 
 
 	hvdiv = document.createElement("div");
-	hvdiv.className = "col-md-10";
-	buttondiv = document.createElement("div");
-	buttondiv.className = "col-md-2 no-pad-col";
+	
+	if (logged_in_user_id === user.user_id)
+	{
+		hvdiv.className = "col-md-10";
+	}
+	else
+	{
+		hvdiv.className = "col-md-12";
+	}
+	
 	titlerow = document.createElement("div");
 	titlerow.className="row";
 	userview_title = document.createElement("h1");
 	userview_title.innerHTML = user.ScreenName + " <small> [" + user.user_id + "] </small>";
 	hvdiv.appendChild(userview_title);
 	titlerow.appendChild(hvdiv);
-	var button_edit = document.createElement("button");
-	button_edit.innerHTML = "Edit Profile";
-	buttondiv.appendChild(button_edit);
-	button_edit.className = "btn btn-default btn-lg pull-right";
-	titlerow.appendChild(buttondiv);
 	
-	button_edit.onclick = function() {
-		window.location.href="profileedit";
-	};
-	
+	if (logged_in_user_id === user.user_id)
+	{
+		var buttondiv = document.createElement("div");
+		buttondiv.className = "col-md-2 no-pad-col";
+		var button_edit = document.createElement("button");
+		button_edit.innerHTML = "Edit Profile";
+		buttondiv.appendChild(button_edit);
+		button_edit.className = "btn btn-default btn-lg pull-right";
+		titlerow.appendChild(buttondiv);
+
+		button_edit.onclick = function() {
+			window.location.href="profileedit";
+		};
+	}
 	
 document.getElementById("userview").appendChild(titlerow);
 document.getElementById("userview").appendChild(hiddendiv);

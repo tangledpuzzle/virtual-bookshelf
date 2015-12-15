@@ -483,7 +483,7 @@ class R2pdb_model extends CI_Model
 	{
 		date_default_timezone_set('Europe/Helsinki');
 		$data = array(
-			'ReviewDate' => date('Y-m-d'),
+			'ReviewDate' => date('Y-m-d H:m:s'),
 			'ProductID' => $product_id,
 			'user_id' => $user_id,
 			'Text' => $review,
@@ -512,6 +512,48 @@ class R2pdb_model extends CI_Model
 		);
 		// Return TRUE on success, FALSE on failure
 		return $this->db->insert('collectionProducts', $data);
+	}
+	
+	
+	/**
+	* Insert a new collection for a user.
+	* Warning: Does not perform data integrity checks.
+	* $name string collection name
+	* $user_id int user ID who created the collection
+	* @return boolean TRUE if collection was added,
+							 FALSE if database query failed
+	*/
+	public function add_collection($name, $user_id)
+	{
+		// INSERT: 'column name' => value
+		$data = array(
+			'CollectionName' => $name
+		);
+		// Return TRUE on success, FALSE on failure
+		$success = $this->db->insert('collections', $data);
+		
+		if ($success)
+		{
+			$collection_id = $this->db->insert_id();
+			// INSERT: 'column name' => value
+			// $this->db->insert_id() returns the ID of the last insert statement.
+			$data = array(
+				'CollectionID' => $collection_id,
+				'user_id' => $user_id
+			);
+			
+			// Link comment to user profile.
+			// Return TRUE on success, FALSE on failure
+			if ($this->db->insert('userCollections', $data) === TRUE)
+			{
+				return $collection_id;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		return FALSE;
 	}
 	
 	/**
@@ -553,7 +595,7 @@ class R2pdb_model extends CI_Model
 		
 		// INSERT: 'column name' => value
 		$data = array(
-			'PostDate' => date('Y-m-d'),
+			'PostDate' => date('Y-m-d H:m:s'),
 			'user_id' => $user_id,
 			'Text' => $text
 		);
@@ -633,7 +675,7 @@ class R2pdb_model extends CI_Model
 		
 		// INSERT: 'column name' => value
 		$data = array(
-			'PostDate' => date('Y-m-d'),
+			'PostDate' => date('Y-m-d H:m:s'),
 			'user_id' => $user_id,
 			'Text' => $text
 		);
@@ -712,7 +754,7 @@ class R2pdb_model extends CI_Model
 		
 		// INSERT: 'column name' => value
 		$data = array(
-			'PostDate' => date('Y-m-d'),
+			'PostDate' => date('Y-m-d H:m:s'),
 			'user_id' => $user_id,
 			'Text' => $text
 		);

@@ -39,10 +39,26 @@ class My_projekti extends MY_Controller
 	
 	private function load_page($page, $data)
 	{
+		// Community Auth: Is the user logged in?
+		if($this->verify_min_level(1))
+		{
+			// Get logged in user id from Community Auth.
+			$logged_in_user_id = (int) $this->auth_user_id;
+		}
+		else
+		{
+			// Else set id to -1. IDs <= 0 are invalid.
+			$logged_in_user_id = -1;
+		}
+		
 		switch ($page)
 		{
 			case "booklist":
 				$data["books"] = json_encode($this->r2pdb_model->get_products_display());
+				break;
+				
+			case "userlist":
+				$data["users"] = json_encode($this->r2pdb_model->get_users_display());
 				break;
 				
 			case "collectionview":
@@ -64,16 +80,10 @@ class My_projekti extends MY_Controller
 					$data["error_message"] = "Invalid collection ID '" . $id . "'.";
 				}
 				
-				
 				break;
 				
-			case "userlist":
-				
-				$data["users"] = json_encode($this->r2pdb_model->get_users_display());
-				break;
-				
-			case "review":
-				// ID comes from the URL routing.
+			case "review":	// Read review.
+				// Review ID comes from the URL routing.
 				$review_id = $data["id"];
 				
 				// For some reason the previous data needs to be cleared before it can be initialized with an array.
@@ -82,16 +92,21 @@ class My_projekti extends MY_Controller
 				// Validate ID.
 				if ($this->r2pdb_model->is_valid_review_id($review_id) === TRUE)
 				{
-					
+					// Was data submitted to this page with HTTP POST?
 					if($this->input->post('submit'))
-				{
-					$this->r2pdb_model->add_review_comment(
-						(int) $this->auth_user_id,
-						$this->input->post("comment-text"),
-						$review_id);
-					
-						
-				}
+					{
+						// Is the user logged in?
+						if($logged_in_user_id > 0)
+						{
+							$this->r2pdb_model->add_review_comment($logged_in_user_id,
+																   $this->input->post("comment-text"),
+																   $review_id);
+						}
+						else
+						{
+							$data["error_message"] = "You need to be logged in to write reviews.";
+						}
+					}
 					
 					// Get data from database.
 					$data["review"] = $this->r2pdb_model->get_review_by_id_display($review_id);
@@ -106,7 +121,7 @@ class My_projekti extends MY_Controller
 				break;
 			
 			case "userview":
-				// ID comes from the URL routing.
+				// User ID comes from the URL routing.
 				$user_id = $data["id"];
 				
 				// For some reason the previous data needs to be cleared before it can be initialized with an array.
@@ -115,26 +130,39 @@ class My_projekti extends MY_Controller
 				// Validate ID.
 				if ($this->r2pdb_model->is_valid_user_id($user_id) === TRUE)
 				{
-					
+					// Was data submitted to this page with HTTP POST?
 					if($this->input->post('submit'))
-				{
-					$this->r2pdb_model->add_user_comment(
-						(int) $this->auth_user_id,
-						$this->input->post("comment-text"),
-						$user_id);
+					{
+						// Is the user logged in?
+						if($logged_in_user_id > 0)
+						{
+							$this->r2pdb_model->add_user_comment($logged_in_user_id,
+																 $this->input->post("comment-text"),
+																 $user_id);
+						}
+						else
+						{
+							$data["error_message"] = "You need to be logged in to write comments.";
+						}
+					}
 					
-						
-				}
-				
-					
-					
-					// Get data from database.
-					
-					$data["collections"] = json_encode($this->r2pdb_model->get_user_collections_short_display($user_id));
+					// Get user data from database.
 					$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
+					
+					// Get a short info list of this user's collections from database.
+					$data["collections"] = json_encode($this->r2pdb_model->get_user_collections_short_display($user_id));
+					
+					// Comment type for writing comments.
 					$data["comment_type"] = "user";
+					
+					// User ID to attach written comment to.
 					$data["comment_target_id"] = $user_id;
+					
+					// Existing comments for this user.
 					$data["comments"] = json_encode($this->r2pdb_model->get_user_comments_display($user_id));
+					
+					// Give the JavaScript script information (through the view PHP file) if the current user is logged in to selectively disable dynamically created site features.
+					$data["logged_in_user_id"] = $logged_in_user_id;
 				}
 				else
 				{
@@ -143,27 +171,35 @@ class My_projekti extends MY_Controller
 				break;
 					
 			case "myprofile":
-				// ID comes from the cookie.
-				$user_id = $this->auth_user_id;
-
-				// My profile just routes to the standard user view page.
-				$page = "userview";
-				
-				// For some reason the previous data needs to be cleared before it can be initialized with an array.
-				$data = NULL;
-				
-				// Validate ID.
-				if ($this->r2pdb_model->is_valid_user_id($user_id) === TRUE)
+				// Is the user logged in?
+				if($logged_in_user_id > 0)
 				{
-					// Get data from database.
-					$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
-					$data["comment_type"] = "user";
-					$data["comments"] = json_encode($this->r2pdb_model->get_user_comments_display($user_id));
+					// ID comes from the cookie.
+					$user_id = $logged_in_user_id;
+
+					// My profile just routes to the standard user view page.
+					$page = "userview";
+
+					// For some reason the previous data needs to be cleared before it can be initialized with an array.
+					$data = NULL;
+
+					// Validate ID.
+					if ($this->r2pdb_model->is_valid_user_id($user_id) === TRUE)
+					{
+						// Get data from database.
+						$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
+						$data["comment_type"] = "user";
+						$data["comments"] = json_encode($this->r2pdb_model->get_user_comments_display($user_id));
+					}
+					else
+					{
+						print_r($user_id);
+						$data["error_message"] = "Invalid user ID '" . $user_id . "'.";
+					}
 				}
 				else
 				{
-					print_r($user_id);
-					$data["error_message"] = "Invalid user ID '" . $user_id . "'.";
+					$data["error_message"] = "You need to be logged in to view your profile.";
 				}
 				break;
 				
@@ -177,23 +213,81 @@ class My_projekti extends MY_Controller
 				// Validate ID.
 				if ($this->r2pdb_model->is_valid_product_id($book_id) === TRUE)
 				{
-					
+					// Was data submitted to this page with HTTP POST?
 					if($this->input->post('submit'))
-				{
-					$this->r2pdb_model->add_product_comment(
-						(int) $this->auth_user_id,
-						$this->input->post("comment-text"),
-						$book_id);
-					
+					{
+						$collection_id = $this->input->post("collection-id");
+						$collection_name = $this->input->post("collection-name");
+						$user_id = $logged_in_user_id;
+						$comment = $this->input->post("comment-text");
 						
-				}
-					
-					// Get data from database.
+						// Is there comment text data?
+						if ($comment !== NULL)
+						{
+							// Is the user logged in?
+							if($logged_in_user_id > 0)
+							{
+								// Post comment.
+								$this->r2pdb_model->add_product_comment($user_id, $comment, $book_id);
+							}
+							else
+							{
+								$data["error_message"] = "You need to be logged in to write comments.";
+							}
+						}
+						else
+						{
+							// Is the user logged in?
+							if($logged_in_user_id > 0)
+							{
+								// Add to existing collection?
+								if ($collection_id > 0)
+								{
+									$this->r2pdb_model->add_product_id_to_collection($book_id, $collection_id);
+									
+									// FIXME: Handle success message.
+									$data["success_message"] = "Book added to shelf " . $collection_name . "!";
+								}
+								else
+								{
+									$collection_id = $this->r2pdb_model->add_collection($collection_name, $logged_in_user_id);
+									// Create a new collection.
+									if ($collection_id > 0)
+									{
+										// On success, add product to the collection.
+										$this->r2pdb_model->add_product_id_to_collection($book_id, $collection_id);
+										$data["success_message"] = "New shelf " . $collection_name . " created and book added!";
+									}
+									else
+									{
+										$data["error_message"] = "Attempt to create a new shelf '" . $collection_name . "' failed.";
+									}
+								}
+							}
+							else
+							{
+								$data["error_message"] = "You need to be logged in to add books to shelves.";
+							}
+						}
+					}
+
+					// Get book data from database.
 					$data["book"] = json_encode($this->r2pdb_model->get_product_by_id_display($book_id));
+					
+					// Get reviews written for this book.
 					$data['reviews'] = json_encode($this->r2pdb_model->get_review_infos_by_product_id_display($book_id));
+					
+					// Comment type for writing comments.
 					$data["comment_type"] = "product";
+					
+					// Book ID to attach written comment to.
 					$data["comment_target_id"] = $book_id;
+					
+					// Existing comments for this book.
 					$data["comments"] = json_encode($this->r2pdb_model->get_product_comments_display($book_id));
+					
+					// Give the JavaScript script information (through the view PHP file) if the current user is logged in to selectively disable dynamically created site features.
+					$data["logged_in_user_id"] = $logged_in_user_id;
 					
 				}
 				else
@@ -210,6 +304,7 @@ class My_projekti extends MY_Controller
 		}
 		else
 		{
+			// Does the wanted page exist?
 			if (!file_exists(APPPATH . 'views/pages/' . $page . '.php'))
 			{
 				echo "Unable to find " . APPPATH . 'views/pages/' . $page . '.php';
@@ -234,9 +329,16 @@ class My_projekti extends MY_Controller
 			// Load comments after the page?
 			if (isset($data["comment_type"]))
 			{
-				
+				// Load list of comments.
 				$this->load->view('pages/commentlist', $data);
-				$this->load->view('pages/comment', $data);
+				
+				// Is the user logged in?
+				if($logged_in_user_id > 0)
+				{
+					// Load comment writing box.
+					$this->load->view('pages/comment', $data);
+				}
+				// User not logged in, do not load comment writing.
 			}
 		}
 	}

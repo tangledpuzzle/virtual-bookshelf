@@ -24,6 +24,8 @@ class R2pdbmodel_model_test extends TestCase
 	public $invalid_table_name;
 	public $unused_table_name;
 	
+	public $number_of_collections;
+	public $number_of_products;
 	/**
 	 * Set up the database model before each test and assign the common variables.
 	 */
@@ -42,7 +44,7 @@ class R2pdbmodel_model_test extends TestCase
 array("ProductID"=> 1,
   "Name"=> "Sample Book 1",
   "ReleaseDate"=> "2008-11-11",
-  "ImagePath"=> "tekstiä",
+  "ImagePath"=> "img-path",
   "LanguageName"=> "Finnish",
   "Brief"=> "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.",
   "Description"=> "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti. Lorem ipsum ligula ut hendrerit mollis, ipsum erat vehicula risus, eu suscipit sem libero nec erat. Aliquam erat volutpat. Sed congue augue vitae neque. Nulla consectetuer porttitor pede. Fusce purus morbi tortor magna condimentum vel, placerat id blandit sit amet tortor.\n\nMauris sed libero. Suspendisse facilisis nulla in lacinia laoreet, lorem velit accumsan velit vel mattis libero nisl et sem. Proin interdum maecenas massa turpis sagittis in, interdum non lobortis vitae massa. Quisque purus lectus, posuere eget imperdiet nec sodales id arcu. Vestibulum elit pede dictum eu, viverra non tincidunt eu ligula.\n\nNam molestie nec tortor. Donec placerat leo sit amet velit. Vestibulum id justo ut vitae massa. Proin in dolor mauris consequat aliquam. Donec ipsum, vestibulum ullamcorper venenatis augue. Aliquam tempus nisi in auctor vulputate, erat felis pellentesque augue nec, pellentesque lectus justo nec erat. Aliquam et nisl. Quisque sit amet dolor in justo pretium condimentum.\n\nVivamus placerat lacus vel vehicula scelerisque, dui enim adipiscing lacus sit amet sagittis, libero enim vitae mi. In neque magna posuere, euismod ac tincidunt tempor est. Ut suscipit nisi eu purus. Proin ut pede mauris eget ipsum. Integer vel quam nunc commodo consequat. Integer ac eros eu tellus dignissim viverra. Maecenas erat aliquam erat volutpat. Ut venenatis ipsum quis turpis. Integer cursus scelerisque lorem. Sed nec mauris id quam blandit consequat. Cras nibh mi hendrerit vitae, dapibus et aliquam et magna. Nulla vitae elit. Mauris consectetuer odio vitae augue.",
@@ -96,6 +98,9 @@ array("ProductID"=> 1,
 		array("CollectionID" => 2,
   "CollectionName" => "Empty Collection",
   "Products" => array());
+  
+		$this->number_of_collections = 4;
+		$this->number_of_products = 29;
 		
         $this->resetInstance();
         $this->CI->load->model('r2pdb_model');
@@ -301,7 +306,7 @@ array("ProductID"=> 1,
 		
 		$actual = count($pubfunc($this->valid_table_name));
 		
-		$expected = 29;
+		$expected = $this->number_of_products;
         $this->assertEquals($expected, $actual);
     }
 	
@@ -366,7 +371,7 @@ array("ProductID"=> 1,
     public function test_get_collections()
     {
 		$actual = count($this->obj->get_collections_display());
-		$expected = 4;
+		$expected = $this->number_of_collections;
         $this->assertEquals($expected, $actual);
     }
 	

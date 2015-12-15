@@ -3,17 +3,16 @@
 class My_projekti_test extends TestCase
 {
 	public $invalid_id_int;
-	public $valid_id_int ;
-	public $malformed_id_string ;
+	public $valid_id_int;
+	public $malformed_id_string;
 	public $unused_id_int;
 	
 	
 	public function setUp(){
-	$this->invalid_id_int=0;
-	$this->valid_id_int=1;
-	$this->malformed_id_string="eifkgnmrit";
-	$this->unused_id_int=999999;
-		
+		$this->invalid_id_int=0;
+		$this->valid_id_int=1;
+		$this->malformed_id_string="eifkgnmrit";
+		$this->unused_id_int=999999;
 	}
 	
 	/**

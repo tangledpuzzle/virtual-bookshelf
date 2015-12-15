@@ -186,20 +186,53 @@ class My_projekti extends MY_Controller
 					// Validate ID.
 					if ($this->r2pdb_model->is_valid_user_id($user_id) === TRUE)
 					{
-						// Get data from database.
+						// Get user data from database.
 						$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
+						
+						// Comment type for writing comments.
 						$data["comment_type"] = "user";
+						
+						// Existing comments for this user.
 						$data["comments"] = json_encode($this->r2pdb_model->get_user_comments_display($user_id));
+	
+						// Give the JavaScript script information (through the view PHP file) if the current user is logged in to selectively disable dynamically created site features.
+						$data["logged_in_user_id"] = $logged_in_user_id;
 					}
 					else
 					{
-						print_r($user_id);
 						$data["error_message"] = "Invalid user ID '" . $user_id . "'.";
 					}
 				}
 				else
 				{
 					$data["error_message"] = "You need to be logged in to view your profile.";
+				}
+				break;
+				
+			case "profileedit":
+				// Is the user logged in?
+				if($logged_in_user_id > 0)
+				{
+					// ID comes from the cookie.
+					$user_id = $logged_in_user_id;
+
+					// For some reason the previous data needs to be cleared before it can be initialized with an array.
+					$data = NULL;
+
+					// Validate ID.
+					if ($this->r2pdb_model->is_valid_user_id($user_id) === TRUE)
+					{
+						// Get user data from database.
+						$data["user"] = $this->r2pdb_model->get_user_by_id_display($user_id);
+					}
+					else
+					{
+						$data["error_message"] = "Invalid user ID '" . $user_id . "'.";
+					}
+				}
+				else
+				{
+					$data["error_message"] = "You need to be logged in to edit your profile.";
 				}
 				break;
 				

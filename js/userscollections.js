@@ -5,12 +5,13 @@
  * Time: 03:31 PM
  * To change this template use Tools | Templates.
  */
+var document, sessionStorage, collections_json, window;
 
 function createUsersCollections() {
     "use strict";
     var collections;
     // Is the global variable json not undefined?
-    if(typeof collections_json !== 'undefined') {
+    if('undefined' !== typeof collections_json) {
         // Copy the data to the local variable.
         collections = collections_json;
     } else {
@@ -41,14 +42,14 @@ function createUsersCollections() {
     tr.appendChild(rating);
     var tbody = document.createElement("tbody");
     table.appendChild(tbody);
-    for(var obj in collections) {
-        console.log(collections[obj]);
+    var obj, collection_id;
+    for(obj in collections) {
         tr = document.createElement("tr");
         tr.className = "table-row-link";
-        tr.onclick = function () {
+        tr.onclick = function() {
             window.location.href = "../collectionview/" + this.childNodes[0].innerHTML;
         };
-        var collection_id = document.createElement("td");
+        collection_id = document.createElement("td");
         collection_id.className = "hidden";
         collection_id.innerHTML = collections[obj].CollectionID;
         tr.appendChild(collection_id);

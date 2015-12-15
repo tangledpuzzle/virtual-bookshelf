@@ -1,12 +1,13 @@
 /**
  * User: ME-varjoil
  */
+var books_json, sessionStorage, document;
 
 function createBookList() {
     "use strict";
     var books;
     // Is the global json array not undefined?
-    if(typeof books_json !== 'undefined') {
+    if('undefined' !== typeof books_json) {
         // Copy the data to the local variable.
         books = books_json;
     } else {
@@ -15,8 +16,8 @@ function createBookList() {
         // Remove the item from storage as it is no longer needed.
         sessionStorage.removeItem('books_json');
     }
-    var i, prodlist_productdivrow1, prodlist_productnamespan, prodlist_productidspan, prodlist_productdivrow2, prodlist_productdiv, sectionHead, sectionBody, prodlist_productname, prodlist_productid, prodlist_publisher, prodlist_year, prodlist_productbrief, prodean;
-    for(var product in books) {
+    var product, prodlist_productdivrow1, prodlist_productnamespan, prodlist_productidspan, prodlist_productdivrow2, prodlist_productdiv, prodlist_productname, prodlist_publisher, prodlist_year, prodlist_productbrief, prodean;
+    for(product in books) {
         prodlist_productdiv = document.createElement("a");
         prodlist_productdiv.className = "list-group-item";
         prodlist_productdiv.href = "./bookview/" + books[product].ProductID;

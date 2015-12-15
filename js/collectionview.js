@@ -5,12 +5,13 @@
  * Time: 09:25 AM
  * To change this template use Tools | Templates.
  */
+var document, sessionStorage, collection_json, window;
 
 function createCollectionView() {
     "use strict";
     var collection;
     // Is the global json array not undefined?
-    if(typeof collection_json !== 'undefined') {
+    if('undefined' !== typeof collection_json) {
         // Copy the data to the local variable.
         collection = collection_json;
     } else {
@@ -19,7 +20,6 @@ function createCollectionView() {
         // Remove the item from storage as it is no longer needed.
         sessionStorage.removeItem('collection_json');
     }
-    console.log(collection[obj]);
     var title = document.createElement("h1");
     title.className = "first-content-element";
     title.innerHTML = collection.CollectionName;
@@ -50,12 +50,12 @@ function createCollectionView() {
     tr.appendChild(release_date);
     var tbody = document.createElement("tbody");
     table.appendChild(tbody);
-    for(var obj in collection.Products) {
-        console.log(collection.Products[obj].Name);
+    var obj;
+    for(obj in collection.Products) {
         tr = document.createElement("tr");
         tr.className = "table-row-link";
-        tr.onclick = function () {
-            window.location.href = "../collectionview/" + this.childNodes[0].innerHTML;
+        tr.onclick = function() {
+            window.location.href = "../bookview/" + this.childNodes[0].innerHTML;
         };
         book_id = document.createElement("td");
         book_id.className = "hidden";

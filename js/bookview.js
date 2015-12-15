@@ -6,11 +6,13 @@
  * To change this template use Tools | Templates.
  */
 
+var book_json, sessionStorage, document, window, alert;
+
 function createBookView(logged_in_user_id) {
     "use strict";
     var book;
     // Is the global json array not undefined?
-    if(typeof book_json !== 'undefined') {
+    if('undefined' !== typeof book_json) {
         // Copy the data to the local variable.
         book = book_json;
     } else {
@@ -19,8 +21,10 @@ function createBookView(logged_in_user_id) {
         // Remove the item from storage as it is no longer needed.
         sessionStorage.removeItem('book_json');
     }
-    var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_description, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, language, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, button1, button2, buttonit, hiddendiv, hvdiv, thead, tbody;
-    hiddendiv = document.createElement("div");
+    
+	var prodview_date, prodview_brief, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, hiddendiv, hvdiv, thead, tbody;
+    
+	hiddendiv = document.createElement("div");
     hiddendiv.className = "product_iddiv";
     hiddendiv.style.display = "none";
     hiddendiv.innerHTML = book.ProductID;
@@ -52,12 +56,12 @@ function createBookView(logged_in_user_id) {
         //var userCollections = book.UserCollection;
         //FIXME!!! Get data from database        
         var userCollections = {
-            123: "asd",
-            52: "b"
+            "123": "asd",
+            "52": "b"
         };
         form.onsubmit = function () {
             // Check if the text field and list select contents are identical.	
-            if(colnamefield.value == userCollections[select.value]) {
+            if(colnamefield.value === userCollections[select.value]) {
                 // Use ID from the JSON.
                 hiddencolid.value = select.value;
             } else {
@@ -65,7 +69,7 @@ function createBookView(logged_in_user_id) {
                 // 0 is an invalid ID value.
                 hiddencolid.value = 0;
             }
-        }
+        };
         // Posts to the same page.
         form.action = "";
         form.method = "post";
@@ -91,11 +95,14 @@ function createBookView(logged_in_user_id) {
         select.className = "form-control";
         select.id = "collection-select";
         colselectdiv.appendChild(select);
+		
         select.onchange = function () {
             colnamefield.value = userCollections[document.getElementById("collection-select").value];
         };
-        for(var item in userCollections) {
-            var option = document.createElement("option");
+		
+		var item, option;
+        for(item in userCollections) {
+            option = document.createElement("option");
             option.value = item;
             option.innerHTML = userCollections[item];
             select.appendChild(option);
@@ -114,6 +121,7 @@ function createBookView(logged_in_user_id) {
         brev.appendChild(buttonrev);
         titlerow.appendChild(brev);
         buttonrev.onclick = function () {
+			alert("broken url:" + document.getElementById("product_iddiv").innerHTML);
             window.location.href = "../writereview/" + document.getElementById("product_iddiv").innerHTML;
         };
         document.getElementById("productview").appendChild(collectionrow);

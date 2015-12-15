@@ -5,12 +5,13 @@
  * Time: 09:37 AM
  * To change this template use Tools | Templates.
  */
+var users_json, sessionStorage, document, window;
 
 function createUserList() {
     "use strict";
     var users;
     // Is the global json array not undefined?
-    if(typeof users_json !== 'undefined') {
+    if('undefined' !== typeof users_json) {
         // Copy the data to the local variable.
         users = users_json;
     } else {
@@ -19,10 +20,7 @@ function createUserList() {
         // Remove the item from storage as it is no longer needed.
         sessionStorage.removeItem('users_json');
     }
-    var i, userlist_userdivrow1, userlist_usernamespan, userlist_useridspan, userlist_userdivrow2, userlist_userdiv, sectionHead, sectionBody, userlist_username,
-        userlist_userid, userlist_country, userlist_year, userlist_userbrief, userage,
-        thead, tbody, ihmediv, userlist_userdivrow0, userlist_userdivtitle,
-        userlist_name, userlist_countrytitle, useragetitle, genderdivtitle, userlist_datetitle, userlist_id, userlist_usergender;
+    var userlist_userdivrow1, userlist_useridspan, userlist_username, userlist_country, userlist_year, userage, thead, tbody, ihmediv, userlist_userdivtitle, userlist_name, userlist_countrytitle, useragetitle, genderdivtitle, userlist_datetitle, userlist_id, userlist_usergender;
     ihmediv = document.createElement("table");
     ihmediv.className = "table sortable last-content-element";
     thead = document.createElement("thead");
@@ -55,10 +53,11 @@ function createUserList() {
     ihmediv.appendChild(thead);
     tbody = document.createElement("tbody");
     ihmediv.appendChild(tbody);
-    for(var user in users) {
+    var user;
+    for(user in users) {
         userlist_userdivrow1 = document.createElement("tr");
         userlist_userdivrow1.className = "table-row-link";
-        userlist_userdivrow1.onclick = function () {
+        userlist_userdivrow1.onclick = function() {
             window.location.href = "userview/" + this.childNodes[0].innerHTML;
         };
         userlist_useridspan = document.createElement("td");

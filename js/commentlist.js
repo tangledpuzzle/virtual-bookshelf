@@ -6,12 +6,13 @@
  * To change this template use Tools | Templates.
  * CommentID, PostDate, UserID, Text
  */
+var comments_json, sessionStorage, document;
 
 function createCommentList() {
     "use strict";
     var comments;
     // Is the global json array not undefined?
-    if(typeof comments_json !== 'undefined') {
+    if('undefined' !== typeof comments_json) {
         // Copy the data to the local variable.
         comments = comments_json;
     } else {
@@ -23,14 +24,15 @@ function createCommentList() {
     var commenttitle = document.createElement("h3");
     commenttitle.innerHTML = "Comments";
     document.getElementById("commentlist").appendChild(commenttitle);
-    for(var comment in comments) {
-        var usera = document.createElement("a");
-        var userdiv = document.createElement("div");
-        var infodiv = document.createElement("div");
-        var maindiv = document.createElement("div");
+    var comment, usera, infodiv, maindiv, datediv, userdiv, commentdiv;
+    for(comment in comments) {
+        usera = document.createElement("a");
+        userdiv = document.createElement("div");
+        infodiv = document.createElement("div");
+        maindiv = document.createElement("div");
         maindiv.className = "row";
-        var commentdiv = document.createElement("div");
-        var datediv = document.createElement("div");
+        commentdiv = document.createElement("div");
+        datediv = document.createElement("div");
         usera.href = "./useview/" + comments[comment].user_id;
         usera.innerHTML = comments[comment].ScreenName;
         userdiv.className = "col-md-4";

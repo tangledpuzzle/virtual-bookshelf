@@ -1,12 +1,12 @@
 /**
  * User: joseu
  */
-
+var document, sessionStorage, window, reviews_json;
 function createReviewList() {
     "use strict";
     var reviews;
     // Is the global variable json not undefined?
-    if(typeof reviews_json !== 'undefined') {
+    if('undefined' !== typeof reviews_json) {
         // Copy the data to the local variable.
         reviews = reviews_json;
     } else {
@@ -37,11 +37,11 @@ function createReviewList() {
     tr.appendChild(review_date);
     var tbody = document.createElement("tbody");
     table.appendChild(tbody);
-    for(var obj in reviews) {
-        console.log(reviews[obj]);
+	var obj;
+    for(obj in reviews) {
         tr = document.createElement("tr");
         tr.className = "table-row-link";
-        tr.onclick = function () {
+        tr.onclick = function() {
             window.location.href = "../review/" + this.childNodes[0].innerHTML;
         };
         review_id = document.createElement("td");

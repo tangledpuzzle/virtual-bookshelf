@@ -50,7 +50,7 @@ function createUserView(logged_in_user_id) {
         buttondiv.appendChild(button_edit);
         button_edit.className = "btn btn-default btn-lg pull-right";
         titlerow.appendChild(buttondiv);
-        button_edit.onclick = function () {
+        button_edit.onclick = function() {
             window.location.href = "profileedit";
         };
     }

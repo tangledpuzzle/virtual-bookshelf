@@ -1,19 +1,12 @@
-<link rel="stylesheet" type="text/css" href="../../../css/bsdev.css">
 <link rel="stylesheet" type="text/css" href="../../../css/profileedit.css">
-<?php print_r($user);?>
-    <h1>Edit Profile</h1>
+    <h1 class="first-content-element">Edit Profile</h1>
   	<hr>
 	<div class="row">
-      <!-- left column -->
- 
-       
-
-      
-      <!-- edit form column -->
+	
       <div class="col-md-9 personal-info">
        
         <h3>Personal info</h3>
-        
+        <p>Sorry, profile editing is not yet supported.</p>
         <form class="form-horizontal" role="form"  method="POST" accept-charset="UTF-8" action="<?php echo base_url() . 'index.php/profileedit/' ?>">
           <div class="form-group">
             <label class="col-lg-3 control-label">First name:</label>
@@ -44,9 +37,6 @@
             <div class="col-lg-8">
               <div class="ui-select">
                 <select id="user_gender" class="form-control">
-                  	 <option disabled selected> - </option>
-					<option value="male">Male</option>
-                  <option value="female">Female</option>
                   
                 </select>
               </div>
@@ -73,16 +63,12 @@
 
 			
           
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">
 				<input class="btn btn-primary" name="submit" value="Save Changes" type="submit" >
-              <span></span>
             </div>
-          </div>
-	    </form>
+          </div> -->
         </form>
       </div>
   </div>
-
-<hr>

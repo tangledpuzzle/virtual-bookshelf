@@ -483,7 +483,7 @@ class R2pdb_model extends CI_Model
 	{
 		date_default_timezone_set('Europe/Helsinki');
 		$data = array(
-			'ReviewDate' => date('Y-m-d'),
+			'ReviewDate' => date('Y-m-d H:m:s'),
 			'ProductID' => $product_id,
 			'user_id' => $user_id,
 			'Text' => $review,
@@ -595,7 +595,7 @@ class R2pdb_model extends CI_Model
 		
 		// INSERT: 'column name' => value
 		$data = array(
-			'PostDate' => date('Y-m-d'),
+			'PostDate' => date('Y-m-d H:m:s'),
 			'user_id' => $user_id,
 			'Text' => $text
 		);
@@ -675,7 +675,7 @@ class R2pdb_model extends CI_Model
 		
 		// INSERT: 'column name' => value
 		$data = array(
-			'PostDate' => date('Y-m-d'),
+			'PostDate' => date('Y-m-d H:m:s'),
 			'user_id' => $user_id,
 			'Text' => $text
 		);
@@ -754,7 +754,7 @@ class R2pdb_model extends CI_Model
 		
 		// INSERT: 'column name' => value
 		$data = array(
-			'PostDate' => date('Y-m-d'),
+			'PostDate' => date('Y-m-d H:m:s'),
 			'user_id' => $user_id,
 			'Text' => $text
 		);

@@ -313,7 +313,7 @@ class Requests extends REST_Controller
 					switch ($datatype)
 					{
 						case "reviews":
-							$data = $this->r2pdb_model->get_product_reviews_display($productid);
+							$data = $this->r2pdb_model->get_product_reviews_by_id_display($productid);
 							break;
 						case "comments":
 							$data = $this->r2pdb_model->get_product_comments_display($productid);

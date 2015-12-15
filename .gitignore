@@ -29,3 +29,6 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 # The config file.
 application/config/config.php
 application/config/database.php
+
+# Testing
+application/tests/build/*

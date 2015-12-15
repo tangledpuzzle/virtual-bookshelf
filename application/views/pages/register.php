@@ -2,7 +2,7 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
-	echo '<legend class="first-content-element">Register an Account</legend>';
+	echo '<h1 class="first-content-element">Register an Account</h1>';
 
 	if( isset( $validation_errors ) )
 	{
@@ -18,7 +18,7 @@
 		<div class="form-group required">
 			<label for="reg_name" class="control-label col-md-2 required">Login Name</label>
 			<div class="col-md-3">
-				<input type="text" class="form-control" id="reg_name" name="reg_name" min="3" placeholder="Secret Login Name" autocomplete="off" maxlength="<?php echo config_item('max_chars_for_user_name'); ?>" required="true">
+				<input type="text" class="form-control" id="reg_name" name="reg_name"  placeholder="Secret Login Name" autocomplete="off" maxlength="<?php echo config_item('max_chars_for_user_name'); ?>" required>
 			</div>
 		</div>
 		
@@ -26,14 +26,14 @@
 		<div class="form-group required">
 			<label for="reg_pass" class="control-label col-md-2 required">Password</label>
 			<div class="col-md-3">
-				<input type="password" class="form-control" id="reg_pass" name="reg_pass" min="8" required="true" maxlength="<?php echo config_item('max_chars_for_password'); ?>" autocomplete="off" onfocus="this.removeAttribute('readonly');">
+				<input type="password" class="form-control" id="reg_pass" name="reg_pass"  required maxlength="<?php echo config_item('max_chars_for_password'); ?>" autocomplete="off" onfocus="this.removeAttribute('readonly');">
 			</div>
 		</div>
 
 		<div class="form-group required">
 			<label for="reg_screenname" class="control-label col-md-2 required">Screen Name</label>
 			<div class="col-md-3">
-				<input type="text" class="form-control" id="reg_screenname" name="reg_screenname" min="3" placeholder="Public Screen Name" required="true">
+				<input type="text" class="form-control" id="reg_screenname" name="reg_screenname"  placeholder="Public Screen Name" required>
 			</div>
 		</div>
 		

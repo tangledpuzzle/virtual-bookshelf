@@ -1,10 +1,10 @@
 <link rel="stylesheet" type="text/css" href="../../../css/review.css">
 
-	<h1 class="first-content-element">Book Review of <a href="<?php echo "../bookview/" . $review["ProductID"]; ?>";><?php echo $review["Name"]; ?></a></h1>
+	<h1 class="first-content-element">Book Review of <a href="<?php echo "../bookview/" . $review["ProductID"]; ?>"><?php echo $review["Name"]; ?></a></h1>
 	
 	<div class="row">
 		<div class="col-md-12">
-			<p id="review-author">Written by <a href="<?php echo "../userview/" . $review["user_id"]; ?>";><?php echo $review["ScreenName"]; ?></a> in <?php echo $review["ReviewDate"]; ?></p>
+			<p id="review-author">Written by <a href="<?php echo "../userview/" . $review["user_id"]; ?>"><?php echo $review["ScreenName"]; ?></a> in <?php echo $review["ReviewDate"]; ?></p>
 		</div>
 	</div>
 	

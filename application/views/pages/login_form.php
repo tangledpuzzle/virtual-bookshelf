@@ -1,4 +1,12 @@
 <?php
+
+
+// disallow direct access.
+if ($this->uri->uri_string()==="login_form"){
+	show_404();
+}
+else{ 
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
@@ -15,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 if( ! isset( $optional_login ) )
 {
-	echo '<legend class="first-content-element">Login</legend>';
+	echo '<h1 class="first-content-element">Login</h1>';
 }
 
 if( ! isset( $on_hold_message ) )
@@ -36,14 +44,14 @@ if( ! isset( $on_hold_message ) )
 		<div class="form-group required">
 			<label for="login_string" class="control-label col-md-2 required">Login Name</label>
 			<div class="col-md-3">
-				<input type="text" class="form-control" id="login_string" name="login_string" min="3" autocomplete="off" maxlength="<?php echo config_item('max_chars_for_user_name'); ?>" required="true">
+				<input type="text" class="form-control" id="login_string" name="login_string" autocomplete="off" maxlength="<?php echo config_item('max_chars_for_user_name'); ?>" required>
 			</div>
 		</div>
 		
 		<div class="form-group required">
 			<label for="login_pass" class="control-label col-md-2 required">Password</label>
 			<div class="col-md-3">
-				<input type="password" class="form-control" id="login_pass" name="login_pass" min="3" required="true" maxlength="<?php echo config_item('max_chars_for_password'); ?>" autocomplete="off" onfocus="this.removeAttribute('readonly');">
+				<input type="password" class="form-control" id="login_pass" name="login_pass" required maxlength="<?php echo config_item('max_chars_for_password'); ?>" autocomplete="off" onfocus="this.removeAttribute('readonly');">
 			</div>
 		</div>
 
@@ -96,6 +104,7 @@ if( ! isset( $on_hold_message ) )
 			</div>
 		';
 	}
+}
 
 /* End of file login_form.php */
 /* Location: /views/examples/login_form.php */ 

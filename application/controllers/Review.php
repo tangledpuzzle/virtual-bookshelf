@@ -6,14 +6,15 @@ class Review extends My_projekti
 {
 	public function write_review($productid)
 	{
-		if ($this->verify_min_level(1))
+		if($this->auth_level > 0)
 		{
 			if ($this->r2pdb_model->is_valid_product_id($productid) === TRUE)
 			{
 				$data['productid'] = $productid;
-
+				echo "rev contrl";
 				if($this->input->post('submit'))
 				{
+				echo "PSOTING contrl";
 					$this->r2pdb_model->add_review(
 						(int) $this->auth_user_id,
 						$productid,
@@ -22,10 +23,11 @@ class Review extends My_projekti
 						$this->input->post("pros"),
 						$this->input->post("cons"));
 					
-					$this->view('bookview', $productid);
+					$this->view('review_posted');
 				}
 				else
 				{
+				echo "rev show form";
 					$this->view('writereview', $data);
 				}
 			}

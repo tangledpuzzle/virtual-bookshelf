@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="CodeIgniter Application Test Suite" tests="17" assertions="17" failures="4" errors="0" time="0.058110">
+    <testsuite name="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" tests="17" assertions="17" failures="4" errors="0" time="0.058110">
+      <testcase name="test_validate_row_id_valid" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="123" assertions="1" time="0.004524"/>
+      <testcase name="test_validate_row_id_unused" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="134" assertions="1" time="0.003019"/>
+      <testcase name="test_validate_row_id_invalid" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="145" assertions="1" time="0.002753"/>
+      <testcase name="test_validate_row_id_malformed" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="156" assertions="1" time="0.003354">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">R2pdbmodel_model_test::test_validate_row_id_malformed
+Failed asserting that true matches expected false.
+
+/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php:161
+/home/codio/workspace/r2projekti/application/tests/phpunit.phar:545
+</failure>
+      </testcase>
+      <testcase name="test_validate_row_id_string" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="167" assertions="1" time="0.002776"/>
+      <testcase name="test_validate_row_id_unassigned" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="178" assertions="1" time="0.002800"/>
+      <testcase name="test_validate_row_id_NULL" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="189" assertions="1" time="0.002753"/>
+      <testcase name="test_get_rows_by_field_display_swedish_products" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="205" assertions="1" time="0.004137"/>
+      <testcase name="test_get_rows_by_field_display_valid" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="216" assertions="1" time="0.003569"/>
+      <testcase name="test_get_rows_by_field_display_unused" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="227" assertions="1" time="0.003531"/>
+      <testcase name="test_get_rows_by_field_display_invalid" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="238" assertions="1" time="0.003462"/>
+      <testcase name="test_get_rows_by_field_display_malformed" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="249" assertions="1" time="0.003620">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">R2pdbmodel_model_test::test_get_rows_by_field_display_malformed
+Array (...) does not match expected type "NULL".
+
+/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php:254
+/home/codio/workspace/r2projekti/application/tests/phpunit.phar:545
+</failure>
+      </testcase>
+      <testcase name="test_get_rows_by_field_display_string" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="260" assertions="1" time="0.003689">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">R2pdbmodel_model_test::test_get_rows_by_field_display_string
+Array () does not match expected type "NULL".
+
+/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php:265
+/home/codio/workspace/r2projekti/application/tests/phpunit.phar:545
+</failure>
+      </testcase>
+      <testcase name="test_get_rows_by_field_display_unassigned" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="271" assertions="1" time="0.003610"/>
+      <testcase name="test_get_rows_by_field_display_null" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="282" assertions="1" time="0.003611">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">R2pdbmodel_model_test::test_get_rows_by_field_display_null
+Array () does not match expected type "NULL".
+
+/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php:287
+/home/codio/workspace/r2projekti/application/tests/phpunit.phar:545
+</failure>
+      </testcase>
+      <testcase name="test_get_collections" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="366" assertions="1" time="0.003163"/>
+      <testcase name="test_get_empty_collection" class="R2pdbmodel_model_test" file="/home/codio/workspace/r2projekti/application/tests/models/R2pdb_model_test.php" line="376" assertions="1" time="0.003738"/>
+    </testsuite>
+  </testsuite>
+</testsuites>

@@ -889,23 +889,23 @@ class R2pdb_model extends CI_Model
 	
 	// comments
 	
-	/**
+	/*
 	* Get all comments with data formatting for display purposes.
 	* @return array an array of arrays containing all comments
-	*/
+	
 	public function get_comments_display()
 	{
 		return $this->get_table_rows_display("comments");
-	}
+	}*/
 	
-	/**
+	/*
 	* Get all comments without data formatting for display purposes.
 	* @return array an array of arrays containing all comments
-	*/
+	
 	public function get_comments()
 	{
 		return $this->get_table_rows("comments");
-	}
+	}*/
 	
 	/**
 	* Checks if given comment ID is present in the table.
@@ -951,11 +951,11 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get all countries without data formatting for display purposes.
 	* @return array an array of arrays containing all countries
-	*/
+	
 	public function get_countries()
 	{
 		return $this->get_table_rows("countries");
-	}
+	}*/
 	
 	/**
 	* Get a specific country by their ID with data formatting for display purposes.

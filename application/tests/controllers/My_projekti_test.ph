@@ -529,7 +529,7 @@ class My_projekti_test extends TestCase
 		//php header test
         $this->assertContains('<img id="logo"', $output);
 		// php page test
-		$this->assertContains('<legend class="first-content-element">Register an Account', $output);
+		$this->assertContains('<h1 class="first-content-element">Register an Account', $output);
 		// php footer php
 		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
     }

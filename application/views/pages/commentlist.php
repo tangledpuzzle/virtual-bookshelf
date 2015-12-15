@@ -23,6 +23,10 @@ else{ ?>
 		// Do it the old fashioned way.
 		<?php echo 'var comments_json = JSON.stringify(' . $comments . ');' ;?>
 	}
-	createCommentList();
+	createCommentList(<?php
+					// In an attempt to improve security the user admin status is echoed here instead of being stored in sessionStorage.
+					// PHP echos boolean variables as int.
+					echo (int) $user_is_admin;
+				   ?>);
 </script>
 <?php } ?>

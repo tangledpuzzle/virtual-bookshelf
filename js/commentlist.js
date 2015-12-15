@@ -8,7 +8,7 @@
  */
 var comments_json, sessionStorage, document;
 
-function createCommentList() {
+function createCommentList(user_is_admin) {
     "use strict";
     var comments;
     // Is the global json array not undefined?
@@ -24,7 +24,7 @@ function createCommentList() {
     var commenttitle = document.createElement("h3");
     commenttitle.innerHTML = "Comments";
     document.getElementById("commentlist").appendChild(commenttitle);
-    var comment, usera, infodiv, maindiv, datediv, userdiv, commentdiv;
+    var comment, usera, infodiv, maindiv, datediv, userdiv, commentdiv, deldiv, delform, delbtn;
     for(comment in comments) {
         usera = document.createElement("a");
         userdiv = document.createElement("div");
@@ -40,8 +40,29 @@ function createCommentList() {
         infodiv.className = "row";
         infodiv.appendChild(userdiv);
         datediv.innerHTML = comments[comment].PostDate;
-        datediv.className = "col-md-2 ";
+        datediv.className = "col-md-2";
         infodiv.appendChild(datediv);
+		
+		if (user_is_admin === 1)
+		{
+			deldiv = document.createElement("div");
+			deldiv.className = "col-md-1";
+			
+			delform = document.createElement("form");
+			delform.action = "";
+			delform.method = "post";
+			
+			delbtn = document.createElement("input");
+			delbtn.value = "Delete Comment";
+			delbtn.className = "btn btn-danger btn-xs";
+			delbtn.type = "submit";
+			delbtn.name = "submit";
+			
+			delform.appendChild(delbtn);
+			deldiv.appendChild(delform);
+			infodiv.appendChild(deldiv);
+		}
+		
         maindiv.appendChild(infodiv);
         commentdiv.innerHTML = comments[comment].Text;
         commentdiv.className = "col-md-12";

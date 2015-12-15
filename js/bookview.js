@@ -71,7 +71,7 @@ function createBookView(logged_in_user_id) {
             }
         };
         // Posts to the same page.
-        form.action = "";
+        form.action = "/";
         form.method = "post";
         collectionformdiv.appendChild(form);
         var informdiv = document.createElement("div");

@@ -268,7 +268,7 @@ class My_projekti extends MY_Controller
 								$data["error_message"] = "You need to be logged in to write comments.";
 							}
 						}
-						else
+						else if ($collection_name !== NULL)	// Collection data?
 						{
 							// Is the user logged in?
 							if($logged_in_user_id > 0)
@@ -302,6 +302,22 @@ class My_projekti extends MY_Controller
 								$data["error_message"] = "You need to be logged in to add books to shelves.";
 							}
 						}
+						else if ($delete_comment_id !== NULL)	// Comment deletion data?
+						{
+							// Is the user an admin?
+							if($this->auth_level >= 9)
+							{
+								$this->r2pdb_model->remove_product_comment($book_id, $delete_comment_id);
+								
+								// FIXME: Handle success message.
+								$data["success_message"] = "Comment deleted.";
+							}
+							else
+							{
+								$data["error_message"] = "You must be an admin to delete comments.";
+							}
+						}
+						// Otherwise do nothing.
 					}
 
 					// Get book data from database.
@@ -362,6 +378,17 @@ class My_projekti extends MY_Controller
 			// Load comments after the page?
 			if (isset($data["comment_type"]))
 			{
+				// Is the user an admin?
+				// The value is an int because PHP echos booleans as int.
+				if($this->verify_min_level(9))
+				{
+					$data["user_is_admin"] = 1;
+				}
+				else
+				{
+					$data["user_is_admin"] = 0;
+				}
+					
 				// Load list of comments.
 				$this->load->view('pages/commentlist', $data);
 				

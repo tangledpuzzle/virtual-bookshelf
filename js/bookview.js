@@ -37,7 +37,7 @@ function createBookView(logged_in_user_id) {
     hvdiv.appendChild(prodview_title);
     titlerow.appendChild(hvdiv);
     document.getElementById("productview").appendChild(titlerow);
-    // If the user is logged in, create the collection controls row.
+    // If the user is logged in, create the shelf controls row.
     // And the review button.
     if(logged_in_user_id > 0) {
         var collectionrow = document.createElement("div");

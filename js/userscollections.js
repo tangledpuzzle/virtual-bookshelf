@@ -20,7 +20,7 @@ function createUsersCollections() {
         sessionStorage.removeItem('collections_json');
     }
     var collectionstitle = document.createElement("h3");
-    collectionstitle.innerHTML = "Collections";
+    collectionstitle.innerHTML = "Shelves";
     document.getElementById("userscollections").appendChild(collectionstitle);
     var table = document.createElement("table");
     table.className = "table sortable last-content-element";
@@ -34,7 +34,7 @@ function createUsersCollections() {
     review_id.innerHTML = "Collection ID";
     tr.appendChild(review_id);
     var collection_name = document.createElement("th");
-    collection_name.innerHTML = "Collections";
+    collection_name.innerHTML = "Shelves";
     tr.appendChild(collection_name);
     var rating = document.createElement("th");
     rating.innerHTML = "Book Count";

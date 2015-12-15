@@ -21,7 +21,7 @@ function createBookView(logged_in_user_id) {
     }
     var prodview_name, prodview_id, prodview_date, prodview_brief, prodview_description, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, language, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, button1, button2, buttonit, hiddendiv, hvdiv, thead, tbody;
     hiddendiv = document.createElement("div");
-    hiddendiv.id = "product_iddiv";
+    hiddendiv.className = "product_iddiv";
     hiddendiv.style.display = "none";
     hiddendiv.innerHTML = book.ProductID;
     hvdiv = document.createElement("div");
@@ -93,7 +93,7 @@ function createBookView(logged_in_user_id) {
         colselectdiv.appendChild(select);
         select.onchange = function () {
             colnamefield.value = userCollections[document.getElementById("collection-select").value];
-        }
+        };
         for(var item in userCollections) {
             var option = document.createElement("option");
             option.value = item;
@@ -162,14 +162,14 @@ function createBookView(logged_in_user_id) {
     ihmediv.appendChild(thead);
     ihmediv.appendChild(tbody);
     prodview_proddivrow1 = document.createElement("div");
-    prodview_proddivrow1.id = "product-div";
+    prodview_proddivrow1.className = "product-div";
     prodview_proddivrow1.className = "row";
     prodview_brief = document.createElement("div");
     prodview_brief.innerHTML = book.Brief;
     prodview_brief.className = "col-md-12";
     prodview_proddivrow1.appendChild(prodview_brief);
     prodview_proddivrow2 = document.createElement("div");
-    prodview_proddivrow2.id = "product-div";
+    prodview_proddivrow2.className = "product-div";
     prodview_proddivrow2.className = "row";
     prodview_proddescription = document.createElement("div");
     prodview_proddescription.innerHTML = book.Description;

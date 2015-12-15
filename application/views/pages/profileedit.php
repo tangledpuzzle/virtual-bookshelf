@@ -8,7 +8,7 @@
        
         <h3>Personal info</h3>
         <p>Sorry, profile editing is not yet supported.</p>
-        <form class="form-horizontal" role="form"  method="POST" accept-charset="UTF-8" action="<?php echo base_url() . 'index.php/profileedit/' ?>">
+        <form class="form-horizontal" method="POST" accept-charset="UTF-8" action="<?php echo base_url() . 'index.php/profileedit/' ?>">
           <div class="form-group">
             <label class="col-lg-3 control-label">First name:</label>
             <div class="col-lg-8">
@@ -54,7 +54,7 @@
     <div class="form-group">
      
 		<div class="col-lg-8 col-md-offset-3" >
-            <label for="comment">Bio:</label>
+            <label for="bio">Bio:</label>
       <textarea class="form-control" rows="5"   id="bio" ><?php echo $user["Bio"];?></textarea>
 			
     </div>

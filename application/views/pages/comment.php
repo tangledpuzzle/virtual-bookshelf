@@ -8,7 +8,7 @@ else{ ?>
 	
 
 	
-	 <form accept-charset="UTF-8" class="form col-md-6" id="write_comment" role="form" action="" method="POST">
+	 <form accept-charset="UTF-8" class="form col-md-6" id="write_comment" action="/" method="POST">
   
 
 	

@@ -24,11 +24,11 @@ function createBookList() {
         prodlist_productdivrow1.className = "row";
         prodlist_productname = document.createElement("div");
         prodlist_productnamespan = document.createElement("span");
-        prodlist_productnamespan.id = "product-name";
+        prodlist_productnamespan.className = "product-name";
         prodlist_productnamespan.innerHTML = books[product].Name;
         prodlist_productname.appendChild(prodlist_productnamespan);
         prodlist_productidspan = document.createElement("span");
-        prodlist_productidspan.id = "productid";
+        prodlist_productidspan.className = "productid";
         prodlist_productidspan.innerHTML = " [" + books[product].ProductID + "]";
         prodlist_productname.appendChild(prodlist_productidspan);
         prodlist_productname.className = "col-md-3";

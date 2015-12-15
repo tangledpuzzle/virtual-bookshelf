@@ -1,3 +1,9 @@
+<?php 
+// disallow direct access.
+if ($this->uri->uri_string()==="reviewlist"){
+	show_404();
+}
+else{ ?>
 <script type="text/javascript" src="../../../lib/sorttable.js"></script>
 <script type="text/javascript" src="../../../js/r2p.js"></script>
 <script type="text/javascript" src="../../../js/reviewlist.js"></script>
@@ -14,3 +20,4 @@
 	}
 	createReviewList();
 </script>
+<?php } ?>

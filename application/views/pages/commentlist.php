@@ -1,3 +1,9 @@
+<?php 
+// disallow direct access.
+if ($this->uri->uri_string()==="commentlist"){
+	show_404();
+}
+else{ ?>
 <link rel="stylesheet" type="text/css" href="../../../css/commentlist.css">
 <link rel="stylesheet" type="text/css" href="../../../css/bsdev.css">
 
@@ -19,3 +25,4 @@
 	}
 	createCommentList();
 </script>
+<?php } ?>

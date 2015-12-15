@@ -153,6 +153,64 @@ class My_projekti_test extends TestCase
     }
 	
 	/**
+	 * Page Test: bookview by valid uri with commentlist
+	 */
+	public function test_bookview_by_valid_uri_with_commentlist()
+    {
+        $output = $this->request('GET', 'bookview/'. $this->valid_id_int);
+		//php header test
+        $this->assertContains('<img id="logo"', $output);
+		// php page test
+		$this->assertContains('<div id="commentlist">', $output);
+		// php footer php
+		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
+    }
+	
+	/**
+	 * Page Test: bookview by valid uri with reviews
+	 */
+	public function test_bookview_by_valid_uri_with_reviews()
+    {
+        $output = $this->request('GET', 'bookview/'. $this->valid_id_int);
+		//php header test
+        $this->assertContains('<img id="logo"', $output);
+		// php page test
+		$this->assertContains('<div id="reviewlist">', $output);
+		// php footer php
+		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
+    }
+	
+	/**
+	 * Page Test: bookview by valid uri with collections
+	 */
+	public function test_bookview_by_valid_uri_with_collections()
+    {
+        $output = $this->request('GET', 'bookview/'. $this->valid_id_int);
+		//php header test
+        $this->assertContains('<img id="logo"', $output);
+		// php page test
+		$this->assertContains('<div id="reviewlist">', $output);
+		// php footer php
+		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
+    }
+	
+	/**
+	 * Page Test: bookview by valid uri no commenting without login
+	 */
+	public function test_bookview_by_valid_uri_no_commentig_without_login()
+    {
+        $output = $this->request('GET', 'bookview/'. $this->valid_id_int);
+		//php header test
+        $this->assertContains('<img id="logo"', $output);
+		// php page test
+		$this->assertNotContains('<form accept-charset="UTF-8" class="form col-md-6" id="write_comment" role="form" action="" method="POST">', $output);
+		// php footer php
+		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
+		
+    }
+	
+	
+	/**
 	 * Page Test: review by  NULL uri
 	 */
 	public function test_review_by_null_uri()
@@ -178,6 +236,35 @@ class My_projekti_test extends TestCase
 		$this->assertContains('<div id="star-div">', $output);
 		// php footer php
 		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
+    }
+	
+	/**
+	 * Page Test: review by valid uri with commentlist
+	 */
+	public function test_review_by_valid_uri_with_commentlist()
+    {
+        $output = $this->request('GET', 'review/'. $this->valid_id_int);
+		//php header test
+        $this->assertContains('<img id="logo"', $output);
+		// php page test
+		$this->assertContains('<div id="commentlist">', $output);
+		// php footer php
+		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
+    }
+	
+	/**
+	 * Page Test: review by valid uri no commenting without login
+	 */
+	public function test_review_by_valid_uri_no_commenting_without_login()
+    {
+        $output = $this->request('GET', 'review/'. $this->valid_id_int);
+		//php header test
+        $this->assertContains('<img id="logo"', $output);
+		// php page test
+		$this->assertNotContains('<form accept-charset="UTF-8" class="form col-md-6" id="write_comment" role="form" action="" method="POST">', $output);
+		// php footer php
+		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
+		
     }
 	
 	/**
@@ -307,15 +394,15 @@ class My_projekti_test extends TestCase
     }
 	
 	/**
-	 * Page Test: userview by valid uri with reviews
+	 * Page Test: userview by valid uri with collections
 	 */
-	public function test_userview_by_valid_uri_with_reviews()
+	public function test_userview_by_valid_uri_with_collections()
     {
         $output = $this->request('GET', 'userview/'. $this->valid_id_int);
 		//php header test
         $this->assertContains('<img id="logo"', $output);
 		// php page test
-		$this->assertContains('<div id="reviewlist">', $output);
+		$this->assertContains('<div id="userscollections">', $output);
 		// php footer php
 		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
     }
@@ -323,7 +410,7 @@ class My_projekti_test extends TestCase
 	/**
 	 * Page Test: userview by valid uri no commenting without login
 	 */
-	public function test_userview_by_valid_uri_no_commentig_without_login()
+	public function test_userview_by_valid_uri_no_commenting_without_login()
     {
         $output = $this->request('GET', 'userview/'. $this->valid_id_int);
 		//php header test
@@ -405,19 +492,109 @@ class My_projekti_test extends TestCase
 		// php footer php
 		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
     }
-
+	
 	/**
-	 * Page Test: commenting by uri
+	 * Page Test: login by uri
 	 */
-	public function test_commenting_by_uri()
+	public function test_login_by_uri()
     {
-        $output = $this->request('GET', 'booklist');
+        $output = $this->request('GET', 'login');
 		//php header test
         $this->assertContains('<img id="logo"', $output);
 		// php page test
-		$this->assertContains('<div id="productlist" class="list-group">', $output);
+		$this->assertContains('<input type="hidden" name="login_token"', $output);
 		// php footer php
 		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
     }
 	
+	/**
+	 * Page Test: profile-edit by uri without login
+	 */
+	public function test_profile_edit_by_uri_without_login()
+    {
+        $output = $this->request('GET', 'profileedit');
+		//php header test
+        $this->assertContains('<img id="logo"', $output);
+		// php page test
+		$this->assertContains('You need to be logged in to edit your profile.', $output);
+		// php footer php
+		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
+    }
+	
+	/**
+	 * Page Test: registering by uri without login
+	 */
+	public function test_registering_by_uri_without_login()
+    {
+        $output = $this->request('GET', 'register');
+		//php header test
+        $this->assertContains('<img id="logo"', $output);
+		// php page test
+		$this->assertContains('<legend class="first-content-element">Register an Account', $output);
+		// php footer php
+		$this->assertContains('<footer class="navbar-inverse page-footer">', $output);
+    }
+	
+	/**
+	 * Page Test: reviewlist by uri
+	 */
+	public function test_reviewlist_by_uri()
+    {
+        $output = $this->request('GET', 'reviewlist');
+        $this->assertResponseCode(404);
+    }
+	
+	/**
+	 * Page Test: commentlist by uri
+	 */
+	public function test_commentlist_by_uri()
+    {
+        $output = $this->request('GET', 'commentlist');
+        $this->assertResponseCode(404);
+    }
+	
+	/**
+	 * Page Test: comment by uri
+	 */
+	public function test_comment_by_uri()
+    {
+        $output = $this->request('GET', 'comment');
+        $this->assertResponseCode(404);
+    }
+	
+	/**
+	 * Page Test: collectionlist by uri
+	 */
+	public function test_collectionlist_by_uri()
+    {
+        $output = $this->request('GET', 'collectionlist');
+        $this->assertResponseCode(404);
+    }
+	
+	/**
+	 * Page Test: login_form by uri
+	 */
+	public function test_login_form_by_uri()
+    {
+        $output = $this->request('GET', 'login_form');
+        $this->assertResponseCode(404);
+    }
+	
+	/**
+	 * Page Test: review_posted by uri
+	 */
+	public function test_review_posted_by_uri()
+    {
+        $output = $this->request('GET', 'review_posted');
+        $this->assertResponseCode(404);
+    }
+	
+	/**
+	 * Page Test: writereview by uri
+	 */
+	public function test_writereview_by_uri()
+    {
+        $output = $this->request('GET', 'writereview');
+        $this->assertResponseCode(404);
+    }
 }

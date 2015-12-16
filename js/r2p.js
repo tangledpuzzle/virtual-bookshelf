@@ -1,5 +1,10 @@
 var sessionStorage;
 
+/**
+ * Assigns data into sessionStorage.
+ * @author Jose
+ * 
+ */
 function putIntoSessionStorage(key, value) {
     'use strict';
     // Check for sessionStorage availability.

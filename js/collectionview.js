@@ -7,6 +7,10 @@
  */
 var document, sessionStorage, collection_json, window;
 
+/**
+ * Creates  HTML list of books in the collection in the database from the sessionStorage data.
+ * @author Ilkka
+ */
 function createCollectionView() {
     "use strict";
     var collection;

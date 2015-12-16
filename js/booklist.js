@@ -3,6 +3,10 @@
  */
 var books_json, sessionStorage, document;
 
+/**
+ * Creates  HTML list of books in the database from the sessionStorage data.
+ * @author Ilkka
+ */
 function createBookList() {
     "use strict";
     var books;

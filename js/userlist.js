@@ -7,6 +7,10 @@
  */
 var users_json, sessionStorage, document, window;
 
+/**
+ * Creates  HTML list of users in the database from the sessionStorage data.
+ * @author Ilkka
+ */
 function createUserList() {
     "use strict";
     var users;

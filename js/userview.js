@@ -10,6 +10,13 @@ var sessionStorage;
 var document;
 var window;
 
+
+/**
+ * Creates the Userview based on sessionStorage data.
+ * @author Ilkka
+ * @param {string} source_page Is the page used to get to the current page.
+ * @param {int} logged_in_user_id Is user_id of the current user.
+ */
 function createUserView(logged_in_user_id, source_page) {
     "use strict";
     var user;

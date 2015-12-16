@@ -82,6 +82,8 @@ class Requests_test extends TestCase
 		
 		$this->json_result_review_1_comments = '[{"CommentID":4,"PostDate":"2014-10-12 00:00:00","user_id":1,"ScreenName":"A User","Text":"Test Review Comment"}]';
 		
+		$this->json_rest_status_false = '"status":false';
+		
         $this->resetInstance();
         $this->CI->load->model('r2pdb_model');
         $this->obj = $this->CI->r2pdb_model;
@@ -105,6 +107,7 @@ class Requests_test extends TestCase
         );
         $this->assertResponseCode(200);
     }
+	
 	
 	/**
 	 * REST api test: http GET user 1 collections
@@ -242,4 +245,158 @@ class Requests_test extends TestCase
         $this->assertResponseCode(200); //http OK.
     }
 	
+	/**
+	 * REST api test: http GET products unused
+	 */
+    public function test_get_products_unused()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/products/'.$this->unused_id_int);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains(
+            $this->json_rest_status_false,
+            $output
+        );
+        $this->assertResponseCode(404); // http not found
+    }
+	
+	
+	/**
+	 * REST api test: http GET unused user id collections
+	 */
+	public function test_get_user_unused_collections()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/users/'.$this->unused_id_int.'/collections');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(404); //http not found
+    }
+	
+	/**
+	 * REST api test: http GET unused user id comments
+	 */
+	public function test_get_user_unused_comments()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/users/'.$this->unused_id_int.'/comments');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(404); //http not found
+    }
+	
+	/**
+	 * REST api test: http GET unused user id reviews
+	 */
+	public function test_get_user_unused_reviews()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/users/'.$this->unused_id_int.'/reviews');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(404); //http not found
+    }
+	
+	/**
+	 * REST api test: http GET unused user id
+	 */
+	public function test_get_user_unused()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/users/'.$this->unused_id_int.'/');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(404); //http not found
+    }
+	
+	/**
+	 * REST api test: http GET product unused reviews
+	 */
+	public function test_get_products_unused_reviews()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/products/'.$this->unused_id_int.'/reviews/');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(404); //http not found
+    }
+	
+	/**
+	 * REST api test: http GET product unused comments
+	 */
+	public function test_get_products_unused_comments()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/products/'.$this->unused_id_int.'/comments/');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(404); //http not found
+    }
+	
+	
+	/**
+	 * REST api test: http GET collection unused
+	 */
+	public function test_get_collection_unused()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/collections/'.$this->unused_id_int.'/');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(404); //http not found
+    }
+		
+	/**
+	 * REST api test: http GET review unused
+	 */
+	public function test_get_review_unused()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/reviews/'.$this->unused_id_int.'/');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(404); //http not found
+    }
+	
+	/**
+	 * REST api test: http GET unused review comments
+	 */
+	public function test_get_review_unused_comments()
+    {
+        try {
+            $output = $this->request('GET', 'api/requests/reviews/'.$this->unused_id_int.'/comments/');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(404); //http not found
+    }
 }

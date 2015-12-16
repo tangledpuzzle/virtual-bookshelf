@@ -99,3 +99,20 @@ table tbody tr:nth-child(2n) {
  table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
     content:" \25B4\25BE"
 }
+
+.error-msg-box{
+	padding: 1em;
+	border-style: solid;
+	border-color: red  ;
+	border-radius: 1em;
+	border-width: 1px;
+	margin: 0.5em;
+}
+
+.success-msg-box{
+	padding: 1em;
+	border-style: solid;
+	border-color: green;
+	border-radius: 1em;
+	border-width: 1px;
+}

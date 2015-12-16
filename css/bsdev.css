@@ -1,0 +1,24 @@
+/*
+    Document   : r2projekti/application/views/css/review.css
+    Created on : 2015-12-07 08:32 AM
+    Author     : joseu
+*/
+.row {
+    border: 1px dashed green;
+}
+
+span {
+    border: 1px dotted red;
+}
+
+ul {
+    border: 1px dotted orange !important;
+}
+
+div[class^="col-"] {
+    background-color: rgba(255, 0, 0, 0.1) !important;	
+}
+
+.form-group {
+    border: 1px dotted cyan !important;
+}

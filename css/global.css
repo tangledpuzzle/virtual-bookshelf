@@ -1,0 +1,118 @@
+/*
+ * Standard HTML
+ */
+ html {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-color: #ccc !important;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+.navbar {
+    margin-bottom: 0px !important;
+}
+
+/*
+ * Custom Rules
+ */
+
+.fixed-horizontal-size {
+    max-width:100% !important;
+}
+.no-pad-col {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.page-footer {
+    text-align:right;
+    line-height:3em;
+    height:3em;
+    color:#9d9d9d;
+    padding-right: 2em;
+}
+.white-div {
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 64px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 0px 0px 64px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 0px 0px 64px 0px rgba(50, 50, 50, 0.75);
+}
+.main-content {
+    height: auto !important;
+    min-height: 10em;
+    padding: 2em;
+}
+.first-content-element {
+    margin-top: 0 !important;
+}
+.last-content-element {
+    margin-bottom: 0 !important;
+}
+#logo {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+/*
+ * Bootstrap Overrides
+ */
+ .row {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+.container {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+.navbar-right {
+    margin-right:0 !important;
+}
+/*
+ * Tables
+*/
+ tr.table-row-link:hover {
+    background-color: White !important;
+    cursor: pointer;
+}
+table {
+    -webkit-border-top-left-radius: 1em;
+    -moz-border-radius-topleft: 1em;
+    border-top-left-radius: 1em;
+    -webkit-border-top-right-radius: 1em;
+    -moz-border-radius-topright: 1em;
+    border-top-right-radius: 1em;
+}
+table.sortable thead {
+    cursor: default;
+}
+table tbody tr:nth-child(2n+1) {
+    background-color: WhiteSmoke;
+}
+table tbody tr:nth-child(2n) {
+    background-color: #eee;
+}
+/*
+ * Copied from: http://www.kryogenix.org/code/browser/sorttable/#symbolsbeforesorting
+*/
+ table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+    content:" \25B4\25BE"
+}
+
+.error-msg-box{
+	padding: 1em;
+	border-style: solid;
+	border-color: red  ;
+	border-radius: 1em;
+	border-width: 1px;
+	margin: 0.5em;
+}
+
+.success-msg-box{
+	padding: 1em;
+	border-style: solid;
+	border-color: green;
+	border-radius: 1em;
+	border-width: 1px;
+}

@@ -1,0 +1,20 @@
+#product-div {
+    margin: 0;
+    padding: 0;
+    margin-top:0.5em;
+}
+#product-brief {
+    min-height: 2em;
+}
+#product-name {
+    font-weight: bold;
+}
+#product-year {
+    font-style:italic;
+}
+.list-group-item {
+    min-height: 6em;
+}
+.list-group {
+    margin-bottom:0;
+}

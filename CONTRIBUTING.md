@@ -6,9 +6,11 @@ From [Working with Git remote repos worksheet](https://github.com/covcom/205CDE/
 > If you are working as part of a team you will each be working on code in your own branch(es). Before merging a branch back into the master you should issue a merge request. You detail the branch you want to merge, where you want to merge it and the features you have added. Others can view the changes you intend making to the master branch and suggest changes. When working in a team you will be expected to use this tool before merging any branches.
 
 ## List of Wiki Pages ##
-* [Git Configuration](git-configuration)
-* [Codio Box Configuration](codio-box-configuration)
-* [Using Git](using-git)
+1. **[Codio Box Configuration](https://gitlab.com/joseu/R2Projekti/wikis/codio-box-configuration)**
+1. [Git Configuration](https://gitlab.com/joseu/R2Projekti/wikis/git-configuration)
+1. [Installing MySQL](https://gitlab.com/joseu/R2Projekti/wikis/installing-mysql)
+1. [Using Git](https://gitlab.com/joseu/R2Projekti/wikis/using-git)
+1. [API Documentation](https://gitlab.com/joseu/R2Projekti/wikis/api-documentation)
 
 ## Git Branches ##
 * Make a **new branch** for each **new feature**.
@@ -26,14 +28,16 @@ From [Working with Git remote repos worksheet](https://github.com/covcom/205CDE/
 ### 'develop' branch ###
 * The latest development version of the application.
 * Never delete the branch.
-* You can `git push` to the branch after **merges**.
+* Never `git push` **to** the branch.
 * Never `git commit` in the branch.
 * Never write code or modify files in the branch.
+* You **must** `git push origin develop` after merging your feature development branch in to the `develop` branch.
 
 # How to Develop a New Feature #
 * Development is always done in separate branches.
-* **NEVER WRITE, COMMIT, OR PUSH CODE IN `master` BRANCH.**
-* **NEVER WRITE, COMMIT, OR PUSH CODE IN `develop` BRANCH.**
+* **NEVER WRITE, COMMIT, OR PUSH CODE WHILE IN `master` BRANCH.**
+* **NEVER WRITE OR COMMIT CODE IN `develop` BRANCH. DO NOT PUSH TO `develop`. ONLY MERGE TO `develop`.**
+* Check your current branch with `git status`.
 
 ## How to Create a New Local Branch for Development ##
 1. Switch to the `develop` branch: `git checkout develop`
@@ -42,6 +46,12 @@ From [Working with Git remote repos worksheet](https://github.com/covcom/205CDE/
 1. Your local repository is now on the `mynewfeature` branch and the contents are identical to the `develop` branch. Doing this did not do anything on the remote repository in GitLab.
 
 ## How to Write & Commit Code ##
+Do your best to separate the **client** (browser/user) code and **server** (running on the Codio box) code.
+* **Client** code is written in HTML, CSS, and **JavaScript**.
+    * Most/All dynamic content that changes often (views) is client code.
+* **Server** code is written in **PHP**.
+    * Most/All static content (models, controllers) is server code.
+
 Repeat the following steps as many time as needed:
 
 1. Write your code.

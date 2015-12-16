@@ -25,6 +25,7 @@ function createCommentList(user_is_admin) {
     commenttitle.innerHTML = "Comments";
     document.getElementById("commentlist").appendChild(commenttitle);
     var usera, infodiv, maindiv, datediv, userdiv, commentdiv, deldiv, delform, delbtn, delid, i;
+	console.log(comments[0]);
     for(i = comments.length; i > 0; i--) {
         usera = document.createElement("a");
         userdiv = document.createElement("div");
@@ -33,14 +34,14 @@ function createCommentList(user_is_admin) {
         maindiv.className = "row";
         commentdiv = document.createElement("div");
         datediv = document.createElement("div");
-        usera.href = "./userview/" + comments[i].user_id;
-        usera.innerHTML = comments[i].ScreenName;
+        usera.href = "./userview/" + comments[i-1].user_id;
+        usera.innerHTML = comments[i-1].ScreenName;
 
         userdiv.className = "col-md-4";
         userdiv.appendChild(usera);
         infodiv.className = "row";
         infodiv.appendChild(userdiv);
-        datediv.innerHTML = comments[i].PostDate;
+        datediv.innerHTML = comments[i-1].PostDate;
         datediv.className = "col-md-2";
         infodiv.appendChild(datediv);
         if(user_is_admin === 1) {
@@ -53,7 +54,7 @@ function createCommentList(user_is_admin) {
             delid.type = "number";
             delid.name = "delete_comment_id";
             delid.className = "hidden";
-            delid.value = comments[i].CommentID;
+            delid.value = comments[i-1].CommentID;
             delbtn = document.createElement("input");
             delbtn.value = "Delete Comment";
             delbtn.className = "btn btn-danger btn-xs";
@@ -65,7 +66,7 @@ function createCommentList(user_is_admin) {
             infodiv.appendChild(deldiv);
         }
         maindiv.appendChild(infodiv);
-        commentdiv.innerHTML = comments[i].Text;
+        commentdiv.innerHTML = comments[i-1].Text;
         commentdiv.className = "col-md-12";
         maindiv.appendChild(commentdiv);
         document.getElementById("commentlist").appendChild(maindiv);

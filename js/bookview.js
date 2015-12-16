@@ -64,7 +64,6 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
                 // 0 is an invalid ID value.
                 hiddencolid.value = 0;
             }
-			alert("sub id " + hiddencolid.value)
         };
         // Posts to the same page.
         form.action = "";

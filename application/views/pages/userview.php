@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../../../css/userview.css">
+
 <script type="text/javascript" src="../../../js/r2p.js"></script>
 <script type="text/javascript" src="../../../js/userview.js"></script>
 
@@ -12,5 +12,5 @@
 	createUserView(<?php
 					// In an attempt to improve security the user id is echoed here instead of being stored in sessionStorage.
 					echo (int) $logged_in_user_id;
-				   ?>);
+				   ?>, "<?php echo $source_page ?>");
 </script>

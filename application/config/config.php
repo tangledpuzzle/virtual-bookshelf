@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://vital-minimum.codio.io:9500/';	// Put your base URL here.
+$config['base_url'] = 'https://explore-latin.codio.io:9500/';	// Put your base URL here.
 
 /*
 |--------------------------------------------------------------------------

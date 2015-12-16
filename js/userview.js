@@ -10,7 +10,7 @@ var sessionStorage;
 var document;
 var window;
 
-function createUserView(logged_in_user_id) {
+function createUserView(logged_in_user_id, source_page) {
     "use strict";
     var user;
     // Is the global json array not undefined?
@@ -51,7 +51,12 @@ function createUserView(logged_in_user_id) {
         button_edit.className = "btn btn-default btn-lg pull-right";
         titlerow.appendChild(buttondiv);
         button_edit.onclick = function() {
-            window.location.href = "profileedit";
+			if (source_page === "myprofile"){
+				window.location = "profileedit";
+			}
+           else{
+			   window.location = "../profileedit";
+		   }
         };
     }
     document.getElementById("userview").appendChild(titlerow);

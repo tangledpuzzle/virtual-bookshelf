@@ -1,3 +1,13 @@
+<?php 
+	if(isset($success_message))
+	{
+		echo '<div class="success-msg-box"><h4>Success</h4>' . $success_message . '</div>';
+	}
+	else if(isset($error_message))
+	{
+		echo '<div class="error-msg-box"><h4>Error</h4>' . $success_message . '</div>';
+	}
+?>
 <h1 class="first-content-element">Welcome!</h1><br>
 <p>This web page is our project for web technologies course. On this website You can add to your collection and review on what books can be found in the site.</p><p>First , You need to register and You must be logged in to the site. Review rating  from 1 to 5 and You can add comments as You want. The rating and the comment  You have entered will appear on the site with your screen name.</p>
 	<h2>Resources Used In The Project</h2>

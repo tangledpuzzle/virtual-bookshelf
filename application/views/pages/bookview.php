@@ -14,5 +14,9 @@
 	createBookView(<?php
 					// In an attempt to improve security the user id is echoed here instead of being stored in sessionStorage.
 					echo (int) $logged_in_user_id;
+				   ?>,
+				   <?php
+					// And the user's collections as a JSON array.
+					echo $user_collections;
 				   ?>);
 </script>

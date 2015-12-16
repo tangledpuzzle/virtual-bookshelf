@@ -8,7 +8,7 @@
 
 var book_json, sessionStorage, document, window, alert;
 
-function createBookView(logged_in_user_id) {
+function createBookView(logged_in_user_id, logged_in_user_collections) {
     "use strict";
     var book;
     // Is the global json array not undefined?
@@ -21,7 +21,6 @@ function createBookView(logged_in_user_id) {
         // Remove the item from storage as it is no longer needed.
         sessionStorage.removeItem('book_json');
     }
-    
 	var prodview_date, prodview_brief, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, hiddendiv, hvdiv, thead, tbody;
     
 	hiddendiv = document.createElement("div");
@@ -53,12 +52,12 @@ function createBookView(logged_in_user_id) {
         var colnamefield = document.createElement("input");
         var hiddencolid = document.createElement("input");
         var select = document.createElement("select");
-        //var userCollections = book.UserCollection;
+        /*var userCollections = book.UserCollection;
         //FIXME!!! Get data from database        
         var userCollections = {
             "123": "asd",
             "52": "b"
-        };
+        };*/
         form.onsubmit = function () {
             // Check if the text field and list select contents are identical.	
             if(colnamefield.value === userCollections[select.value]) {
@@ -101,10 +100,10 @@ function createBookView(logged_in_user_id) {
         };
 		
 		var item, option;
-        for(item in userCollections) {
+        for(item in logged_in_user_collections) {
             option = document.createElement("option");
-            option.value = item;
-            option.innerHTML = userCollections[item];
+            option.value = item.CollectionID;
+            option.innerHTML = item.CollectionName;
             select.appendChild(option);
         }
         var buttoncol = document.createElement("input");

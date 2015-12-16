@@ -1,5 +1,4 @@
 <link rel="stylesheet" type="text/css" href="../../../css/userview.css">
-<link rel="stylesheet" type="text/css" href="../../../css/bsdev.css">
 <script type="text/javascript" src="../../../js/r2p.js"></script>
 <script type="text/javascript" src="../../../js/userview.js"></script>
 

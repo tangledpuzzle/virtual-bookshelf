@@ -1,3 +1,13 @@
+<?php 
+	if(isset($success_message))
+	{
+		echo '<div class="success-msg-box"><h4>Success</h4>' . $success_message . '</div>';
+	}
+	else if(isset($error_message))
+	{
+		echo '<div class="error-msg-box"><h4>Error</h4>' . $success_message . '</div>';
+	}
+?>
 <h1 class="first-content-element">Welcome!</h1><br>
 <p>VIRTUAL BOOKSHELF is a new kind of book reviewing service for the modern age. Our service enables you to create and manage your own bookshelves and review any books found on the site.</p><p>Register now and become a part of our growing community.</p>
 	<h2>Resources Used In The Project</h2>

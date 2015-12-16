@@ -1,3 +1,13 @@
+<?php 
+	if(isset($success_message))
+	{
+		echo '<div class="success-msg-box"><h4>Success</h4>' . $success_message . '</div>';
+	}
+	else if(isset($error_message))
+	{
+		echo '<div class="error-msg-box"><h4>Error</h4>' . $success_message . '</div>';
+	}
+?>
 <link rel="stylesheet" type="text/css" href="../../../css/review.css">
 
 	<h1 class="first-content-element">Book Review of <a href="<?php echo "../bookview/" . $review["ProductID"]; ?>"><?php echo $review["Name"]; ?></a></h1>

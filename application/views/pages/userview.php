@@ -1,7 +1,16 @@
 
 <script type="text/javascript" src="../../../js/r2p.js"></script>
 <script type="text/javascript" src="../../../js/userview.js"></script>
-
+<?php 
+	if(isset($success_message))
+	{
+		echo '<div class="success-msg-box"><h4>Success</h4>' . $success_message . '</div>';
+	}
+	else if(isset($error_message))
+	{
+		echo '<div class="error-msg-box"><h4>Error</h4>' . $success_message . '</div>';
+	}
+?>
 <div id="userview"></div>
 <script type="text/javascript">
 	if (!putIntoSessionStorage("user_json", JSON.stringify(<?php echo $user ;?>)))

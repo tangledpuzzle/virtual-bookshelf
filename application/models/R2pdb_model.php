@@ -9,7 +9,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Returns a string containg the names of the table columns that contain publicly viewable information.
 	* @param string $table_name name of the table
-	* @return string|null|boolean public data columns names as a string, FALSE for unknown table name, NULL if $table_name was null 
+	* @return string|null|boolean public data columns names as a string,
+									FALSE for unknown table name,
+									NULL if $table_name was null 
 	*/
 	private function get_public_data_columns($table_name)
 	{
@@ -40,7 +42,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Returns a string containg the names of the table columns that contain publicly viewable information. For use with the display data getter.
 	* @param string $table_name name of the table
-	* @return string|null|boolean public data columns names as a string, FALSE for unknown table name, NULL if $table_name was null 
+	* @return string|null|boolean public data columns names as a string,
+									FALSE for unknown table name,
+									NULL if $table_name was null 
 	*/
 	private function get_public_data_columns_display($table_name)
 	{
@@ -83,7 +87,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Returns the name of the ID column of the given table name.
 	* @param string $table_name name of the table
-	* @return string|null|boolean name of ID column as string, FALSE for unknown table name, NULL if $table_name was null 
+	* @return string|null|boolean name of ID column as string,
+									FALSE for unknown table name,
+									NULL if $table_name was null 
 	*/
 	private function get_id_column_from_table($table_name)
 	{
@@ -234,7 +240,7 @@ class R2pdb_model extends CI_Model
     }
 	
 	/* 
-	 * GENERIC PRIVATE DATA GETTERS
+	 * GENERIC PUBLIC DATA GETTERS
 	 */
 	
 	/**
@@ -310,7 +316,8 @@ class R2pdb_model extends CI_Model
 	/*
 	* A generic get data function for a variable number of fields. Warning: Fewer integrity checks are performed with this function, use with caution.
 	* @param various $arg_array a key-value array of database field names to sort by, use "!table_name" key for table name
-	* @return array|null an array of arrays containing found rows, NULL if no arguments were given 
+	* @return array|null an array of arrays containing found rows,
+									NULL if no arguments were given 
 	
 	public function get_rows_by_field()
 	{
@@ -333,7 +340,9 @@ class R2pdb_model extends CI_Model
 	* A generic get data by id function for a single row.
 	* @param int $id row ID
 	* @param string $table_name name of the table
-	* @return array|boolean|null an array of arrays containing found rows, FALSE for invalid ID or unknown table name, NULL if $table_name or $id was null 
+	* @return array|boolean|null an array of arrays containing found rows,
+									FALSE for invalid ID or unknown table name,
+									NULL if $table_name or $id was null 
 	
 	private function get_row_by_id($table_name, $id)
 	{
@@ -899,7 +908,7 @@ class R2pdb_model extends CI_Model
 	}*/
 	
 	/*
-	* Get all comments without data formatting for display purposes.
+	* Get all comments without data formatting.
 	* @return array an array of arrays containing all comments
 	
 	public function get_comments()
@@ -920,7 +929,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get a specific comment by their ID with data formatting for display purposes.
 	* @param int $id comment ID
-	* @return array|boolean|null an array containing found comment as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found comment as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_comment_by_id_display($id)
 	{
@@ -928,9 +939,11 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/*
-	* Get a specific comment by their ID without data formatting for display purposes.
+	* Get a specific comment by their ID without data formatting.
 	* @param int $id comment ID
-	* @return array|boolean|null an array containing found comment as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found comment as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	
 	public function get_comment_by_id($id)
 	{
@@ -948,8 +961,8 @@ class R2pdb_model extends CI_Model
 		return $this->get_table_rows_display("countries");
 	}
 	
-	/**
-	* Get all countries without data formatting for display purposes.
+	/*
+	* Get all countries without data formatting.
 	* @return array an array of arrays containing all countries
 	
 	public function get_countries()
@@ -960,7 +973,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get a specific country by their ID with data formatting for display purposes.
 	* @param int $id country ID
-	* @return array|boolean|null an array containing found country as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found country as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_country_by_id_display($id)
 	{
@@ -968,9 +983,11 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/*
-	* Get a specific country by their ID without data formatting for display purposes.
+	* Get a specific country by their ID without data formatting.
 	* @param int $id country ID
-	* @return array|boolean|null an array containing found country as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found country as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	
 	public function get_country_by_id($id)
 	{
@@ -988,19 +1005,21 @@ class R2pdb_model extends CI_Model
 		return $this->get_table_rows_display("genders");
 	}
 	
-	/**
-	* Get all genders without data formatting for display purposes.
+	/*
+	* Get all genders without data formatting.
 	* @return array an array of arrays containing all genders
-	*/
+	
 	public function get_genders()
 	{
 		return $this->get_table_rows("genders");
-	}
+	}*/
 	
 	/**
 	* Get a specific gender by their ID with data formatting for display purposes.
 	* @param int $id gender ID
-	* @return array|boolean|null an array containing found gender as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found gender as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_gender_by_id_display($id)
 	{
@@ -1008,9 +1027,11 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/*
-	* Get a specific gender by their ID without data formatting for display purposes.
+	* Get a specific gender by their ID without data formatting.
 	* @param int $id gender ID
-	* @return array|boolean|null an array containing found gender as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found gender as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	
 	public function get_gender_by_id($id)
 	{
@@ -1028,19 +1049,21 @@ class R2pdb_model extends CI_Model
 		return $this->get_table_rows_display("genres");
 	}
 	
-	/**
-	* Get all genres without data formatting for display purposes.
+	/*
+	* Get all genres without data formatting.
 	* @return array an array of arrays containing all genres
-	*/
+	
 	public function get_genres()
 	{
 		return $this->get_table_rows("genres");
-	}
+	}*/
 	
 	/**
 	* Get a specific genre by their ID with data formatting for display purposes.
 	* @param int $id genre ID
-	* @return array|boolean|null an array containing found genre as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found genre as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_genre_by_id_display($id)
 	{
@@ -1048,9 +1071,11 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/*
-	* Get a specific genre by their ID without data formatting for display purposes.
+	* Get a specific genre by their ID without data formatting.
 	* @param int $id genre ID
-	* @return array|boolean|null an array containing found genre as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found genre as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	
 	public function get_genre_by_id($id)
 	{
@@ -1079,14 +1104,14 @@ class R2pdb_model extends CI_Model
 		return $this->get_table_rows_display("products");
 	}
 	
-	/**
-	* Get all products without data formatting for display purposes.
+	/*
+	* Get all products without data formatting.
 	* @return array an array of arrays containing all products
-	*/
+	*
 	public function get_products()
 	{
 		return $this->get_table_rows("products");
-	}
+	}*/
 	
 	/**
 	* Checks if given product ID is present in the table.
@@ -1101,7 +1126,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get a specific product by their ID with data formatting for display purposes.
 	* @param int $id product ID
-	* @return array|boolean|null an array containing found product as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found product as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_product_by_id_display($id)
 	{
@@ -1109,9 +1136,11 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/*
-	* Get a specific product by their ID without data formatting for display purposes.
+	* Get a specific product by their ID without data formatting.
 	* @param int $id product ID
-	* @return array|boolean|null an array containing found product as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found product as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	
 	public function get_product_by_id($id)
 	{
@@ -1121,7 +1150,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get all product reviews with data formatting for display purposes.
 	* @param int $productid product ID
-	* @return array|boolean|null an array containing found product reviews as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found product reviews as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_product_reviews_by_id_display($productid)
 	{
@@ -1141,7 +1172,7 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get all publishers without data formatting for display purposes.
+	* Get all publishers without data formatting.
 	* @return array an array of arrays containing all publishers
 	*/
 	public function get_publishers()
@@ -1162,7 +1193,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get a specific publisher by their ID with data formatting for display purposes.
 	* @param int $id publisher ID
-	* @return array|boolean|null an array containing found publisher as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found publisher as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_publisher_by_id_display($id)
 	{
@@ -1170,9 +1203,11 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/*
-	* Get a specific publisher by their ID without data formatting for display purposes.
+	* Get a specific publisher by their ID without data formatting.
 	* @param int $id publisher ID
-	* @return array|boolean|null an array containing found publisher as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found publisher as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	
 	public function get_publisher_by_id($id)
 	{
@@ -1201,14 +1236,14 @@ class R2pdb_model extends CI_Model
 		return $this->get_table_rows_display("reviews");
 	}
 	
-	/**
-	* Get all reviews without data formatting for display purposes.
+	/*
+	* Get all reviews without data formatting.
 	* @return array an array of arrays containing all reviews
-	*/
+	
 	public function get_reviews()
 	{
 		return $this->get_table_rows("reviews");
-	}
+	}*/
 	
 	/**
 	* Checks if given review ID is present in the table.
@@ -1223,7 +1258,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get a specific review by their ID with data formatting for display purposes.
 	* @param int $id review ID
-	* @return array|boolean|null an array containing found review as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found review as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_review_by_id_display($id)
 	{
@@ -1233,10 +1270,13 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get a list of review information without the text by the ProductID with data formatting for display purposes.
 	* @param int $id product ID
-	* @return array|boolean|null an array containing found reviews as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found reviews as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_review_infos_by_product_id_display($id)
 	{
+		// FIXME VALIDATION
 		$table_name ="reviews";
 		$this->db->select("ReviewID, ReviewDate, reviews.user_id, ScreenName, Rating");
 		$this->db->where("ProductID", (int) $id);
@@ -1251,9 +1291,11 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/*
-	* Get a specific review by their ID without data formatting for display purposes.
+	* Get a specific review by their ID without data formatting.
 	* @param int $id review ID
-	* @return array|boolean|null an array containing found review as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found review as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	
 	public function get_review_by_id($id)
 	{
@@ -1272,7 +1314,7 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/**
-	* Get all users without data formatting for display purposes.
+	* Get all users without data formatting.
 	* @return array an array of arrays containing all users
 	*/
 	public function get_users()
@@ -1293,7 +1335,9 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get a specific user by their ID with data formatting for display purposes.
 	* @param int $id user ID
-	* @return array|boolean|null an array containing found user as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found user as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	*/
 	public function get_user_by_id_display($id)
 	{
@@ -1301,9 +1345,11 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/*
-	* Get a specific user by their ID without data formatting for display purposes.
+	* Get a specific user by their ID without data formatting.
 	* @param int $id user ID
-	* @return array|boolean|null an array containing found user as an array, FALSE for invalid ID, NULL if $id was null 
+	* @return array|boolean|null an array containing found user as an array,
+									FALSE for invalid ID,
+									NULL if $id was null 
 	
 	public function get_user_by_id($id)
 	{
@@ -1332,13 +1378,14 @@ class R2pdb_model extends CI_Model
 		return $this->get_rows_by_field_display($args);
 	}
 		
-	/**
+	/*
 	* Get all user collections with full product data with data formatting for display purposes.
 	* @param int $userid user ID
 	* @return array an array of collections containing all products in an array
-	*/
+	
 	public function get_user_collections_full_display($userid)
 	{
+		// FIXME: Validation
 		$table_name ="userCollections";
 		$this->db->select("userCollections.CollectionID, CollectionName");
 		$this->db->where("userCollections.user_id", (int) $userid);
@@ -1377,7 +1424,7 @@ class R2pdb_model extends CI_Model
 		}
 		
 		return $collections;
-	}
+	}*/
 		
 	/**
 	* Get all user collections with product id, name, and release date with data formatting for display purposes.

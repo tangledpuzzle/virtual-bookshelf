@@ -345,7 +345,7 @@ class My_projekti extends MY_Controller
 					
 					// Get reviews written for this book.
 					$data['reviews'] = json_encode($this->r2pdb_model->get_review_infos_by_product_id_display($book_id));
-					
+
 					// Comment type for writing comments.
 					$data["comment_type"] = "product";
 					

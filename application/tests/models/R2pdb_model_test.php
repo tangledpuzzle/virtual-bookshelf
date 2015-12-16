@@ -20,6 +20,8 @@ class R2pdbmodel_model_test extends TestCase
 	public $database_products_language_swedish;
 	public $database_row_empty_collection_id_2;
 	public $database_row_comment_id_1;
+	public $database_row_review_infos_product_1;
+	public $database_row_short_collection_info_user_1;
 	
 	public $valid_table_name;
 	public $invalid_table_name;
@@ -97,7 +99,10 @@ class R2pdbmodel_model_test extends TestCase
 		$this->database_row_empty_collection_id_2 = array("CollectionID" => 2,
 														  "CollectionName" => "Empty Collection",
 														  "Products" => array());
-  
+
+		$this->database_row_review_infos_product_1 = array(array("ReviewID"=>1,"ReviewDate"=>"2001-09-23 00:00:00","user_id"=>1,"ScreenName"=>"A User","Rating"=>5),array("ReviewID"=>6,"ReviewDate"=>"2012-09-01 00:00:00","user_id"=>7,"ScreenName"=>"Test Account 7","Rating"=>2),array("ReviewID"=>23,"ReviewDate"=>"2006-05-25 00:00:00","user_id"=>2,"ScreenName"=>"A Moderator","Rating"=>3),array("ReviewID"=>27,"ReviewDate"=>"2011-03-22 00:00:00","user_id"=>6,"ScreenName"=>"Test Account 6","Rating"=>4),array("ReviewID"=>28,"ReviewDate"=>"2011-03-27 00:00:00","user_id"=>8,"ScreenName"=>"Test Account 8","Rating"=>5));
+		$this->database_row_short_collection_info_user_1 = array(array("CollectionID"=>1,"CollectionName"=>"Test Collection","ProductCount"=>5),array("CollectionID"=>2,"CollectionName"=>"Empty Collection","ProductCount"=>0));
+		
 		$this->valid_table_name = "products";
 		$this->invalid_table_name = '!#¤%&/()=?;:_@£$€[\\]}';
 		$this->unused_table_name = "this_table_name_is_not_used";
@@ -125,7 +130,7 @@ class R2pdbmodel_model_test extends TestCase
 	 */
 	
 	/**
-	 * Test row id validation with: valid id
+	 * Test of generic row id validation function with: valid id
 	 */
     public function test_validate_row_id_valid()
     {
@@ -136,7 +141,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 
 	/**
-	 * Test row id validation with: unused id
+	 * Test of generic row id validation function with: unused id
 	 */
     public function test_validate_row_id_unused()
     {
@@ -147,7 +152,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test row id validation with: invalid id
+	 * Test of generic row id validation function with: invalid id
 	 */
     public function test_validate_row_id_invalid()
     {
@@ -158,7 +163,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test row id validation with: malformed
+	 * Test of generic row id validation function with: malformed
 	 */
     public function test_validate_row_id_malformed()
     {
@@ -169,7 +174,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test row id validation with: string
+	 * Test of generic row id validation function with: string
 	 */
     public function test_validate_row_id_string()
     {
@@ -180,7 +185,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test row id validation with: unassigned id
+	 * Test of generic row id validation function with: unassigned id
 	 */
     public function test_validate_row_id_unassigned()
     {
@@ -191,7 +196,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 		
 	/**
-	 * Test row id validation with: NULL id
+	 * Test of generic row id validation function with: NULL id
 	 */
     public function test_validate_row_id_NULL()
     {
@@ -206,7 +211,7 @@ class R2pdbmodel_model_test extends TestCase
 	 */
 	
 	/**
-	 * Test get rows by field: LanguageName is Swedish
+	 * Test of generic get rows by field function: LanguageName is Swedish
 	 * Also tests table joining.
 	 */
     public function test_get_rows_by_field_display_swedish_products()
@@ -218,7 +223,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test get rows by field: valid
+	 * Test of generic get rows by field function: valid
 	 */
     public function test_get_rows_by_field_display_valid()
     {
@@ -229,7 +234,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test get rows by field: unused
+	 * Test of generic get rows by field function: unused
 	 */
     public function test_get_rows_by_field_display_unused()
     {
@@ -240,7 +245,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test get rows by field: invalid
+	 * Test of generic get rows by field function: invalid
 	 */
     public function test_get_rows_by_field_display_invalid()
     {
@@ -251,7 +256,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test get rows by field: malformed
+	 * Test of generic get rows by field function: malformed
 	 */
     public function test_get_rows_by_field_display_malformed()
     {
@@ -262,7 +267,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test get rows by field: string
+	 * Test of generic get rows by field function: string
 	 */
     public function test_get_rows_by_field_display_string()
     {
@@ -273,7 +278,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test get rows by field: unassigned
+	 * Test of generic get rows by field function: unassigned
 	 */
     public function test_get_rows_by_field_display_unassigned()
     {
@@ -284,7 +289,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/**
-	 * Test get rows by field: null
+	 * Test of generic get rows by field function: null
 	 */
     public function test_get_rows_by_field_display_null()
     {
@@ -293,7 +298,6 @@ class R2pdbmodel_model_test extends TestCase
 		$expected = NULL;
         $this->assertEquals($expected, $actual);
     }
-
 	
 	/*
 	 * ----------- get_table_rows -----------
@@ -309,56 +313,6 @@ class R2pdbmodel_model_test extends TestCase
 		$actual = count($pubfunc($this->valid_table_name));
 		
 		$expected = $this->number_of_products;
-        $this->assertEquals($expected, $actual);
-    }
-	
-	/**
-	 * Test get rows: unused
-	 
-    public function test_get_table_rows_unused()
-    {
-		$actual = self::getFunctionAsPublic($this->obj->get_table_rows($this->unused_table_name));
-		$expected = $this->database_row_no_result;
-        $this->assertEquals($expected, $actual);
-    }
-	
-	/**
-	 * Test get rows: invalid
-	 
-    public function test_get_table_rows_invalid()
-    {
-		$actual = self::getFunctionAsPublic($this->obj->get_table_rows($this->invalid_table_name));
-		$expected = NULL;
-        $this->assertEquals($expected, $actual);
-    }
-	
-	/**
-	 * Test get rows: malformed
-	 
-    public function test_get_table_rows_malformed()
-    {
-		$actual = ($this->malformed_table_name));
-		$expected = NULL;
-        $this->assertEquals($expected, $actual);
-    }
-	
-	/**
-	 * Test get rows: unassigned
-	 
-    public function test_get_table_rows_unassigned()
-    {
-		$actual = self::getFunctionAsPublic($this->obj->get_table_rows($this->unassigned));
-		$expected = NULL;
-        $this->assertEquals($expected, $actual);
-    }
-	
-	/**
-	 * Test get rows: null
-	 
-    public function test_get_table_rows_null()
-    {
-		$actual = self::getFunctionAsPublic($this->obj->get_table_rows(NULL));
-		$expected = NULL;
         $this->assertEquals($expected, $actual);
     }*/
 	
@@ -388,7 +342,7 @@ class R2pdbmodel_model_test extends TestCase
     }
 	
 	/*
-	 * is_valid_collection_id() and other is_valid_*_id() use is_valid_row_id() which has been extensively tested.
+	 * iVarious is_valid_*_id() use is_valid_row_id() which has been extensively tested.
 	 */
 	 
 	/*
@@ -400,8 +354,174 @@ class R2pdbmodel_model_test extends TestCase
 	 */
     public function test_get_comment_by_id_display()
     {
-		$actual = $this->obj->get_comment_by_id_display(1);
+		$actual = $this->obj->get_comment_by_id_display($this->valid_id_int);
 		$expected = $this->database_row_comment_id_1;
         $this->assertEquals($expected, $actual);
+    }
+	
+	/*
+	 * The various get_*_by_id_display all use get_rows_by_field_display which has been extensively tested.
+	 */
+	
+	/*
+	 * ----------- reviews -----------
+	 */
+	 
+	/**
+	 * Test get review information with product id: valid
+	 */
+    public function test_get_review_infos_by_product_id_display_valid()
+    {
+		$actual = $this->obj->get_review_infos_by_product_id_display($this->valid_id_int);
+		$expected = $this->database_row_review_infos_product_1;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get review information with product id: invalid
+	 */
+    public function test_get_review_infos_by_product_id_display_invalid()
+    {
+		$actual = $this->obj->get_review_infos_by_product_id_display($this->invalid_id_int);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get review information with product id: unused
+	 */
+    public function test_get_review_infos_by_product_id_display_unused()
+    {
+		$actual = $this->obj->get_review_infos_by_product_id_display($this->unused_id_int);
+		$expected = $this->database_row_no_result;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get review information with product id: malformed
+	 */
+    public function test_get_review_infos_by_product_id_display_malformed()
+    {
+		$actual = $this->obj->get_review_infos_by_product_id_display($this->malformed_id_int);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get review information with product id: string
+	 */
+    public function test_get_review_infos_by_product_id_display_string()
+    {
+		$actual = $this->obj->get_review_infos_by_product_id_display($this->string);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get review information with product id: unassigned
+	 */
+    public function test_get_review_infos_by_product_id_display_unassigned()
+    {
+		$actual = $this->obj->get_review_infos_by_product_id_display($this->unassigned);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get review information with product id: NULL
+	 */
+    public function test_get_review_infos_by_product_id_display_null()
+    {
+		$actual = $this->obj->get_review_infos_by_product_id_display(NULL);
+		$expected = NULL;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/*
+	 * ----------- user collections -----------
+	 */
+	
+	/**
+	 * Test get short user collection info with user id: valid
+	 */
+    public function test_get_user_collections_short_display_valid()
+    {
+		$actual = $this->obj->get_user_collections_short_display($this->valid_id_int);
+		$expected = $this->database_row_short_collection_info_user_1;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get short user collection info with user id: invalid
+	 */
+    public function test_get_user_collections_short_display_invalid()
+    {
+		$actual = $this->obj->get_user_collections_short_display($this->invalid_id_int);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get short user collection info with user id: unused
+	 */
+    public function test_get_user_collections_short_display_unused()
+    {
+		$actual = $this->obj->get_user_collections_short_display($this->unused_id_int);
+		$expected = $this->database_row_no_result;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get short user collection info with user id: malformed
+	 */
+    public function test_get_user_collections_short_display_malformed()
+    {
+		$actual = $this->obj->get_user_collections_short_display($this->malformed_id_int);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get short user collection info with user id: string
+	 */
+    public function test_get_user_collections_short_display_string()
+    {
+		$actual = $this->obj->get_user_collections_short_display($this->string);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get short user collection info with user id: unassigned
+	 */
+    public function test_get_user_collections_short_display_unassigned()
+    {
+		$actual = $this->obj->get_user_collections_short_display($this->unassigned);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get short user collection info with user id: NULL
+	 */
+    public function test_get_user_collections_short_display_null()
+    {
+		$actual = $this->obj->get_user_collections_short_display(NULL);
+		$expected = NULL;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	
+	/*
+	 * ----------- private: correct_result_data_types -----------
+	 */
+	 
+	/**
+	 * Test getting data from database in the correct format, i.e. numbers are ints.
+	 */
+    public function test_correct_result_data_types()
+    {
+		$actual = $this->obj->get_user_collections_short_display($this->valid_id_int);
+        $this->assertInternalType('int', $actual[0]["CollectionID"]);
     }
 }

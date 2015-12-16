@@ -361,10 +361,17 @@ class My_projekti extends MY_Controller
 								// Add to existing collection?
 								if ($collection_id > 0)
 								{
-									$this->r2pdb_model->add_product_id_to_collection($book_id, $collection_id);
+									if ($this->r2pdb_model->is_not_in_collection_id($collection_id, $book_id) === TRUE)
+									{
+										$this->r2pdb_model->add_product_id_to_collection($book_id, $collection_id);
+										// FIXME: Handle success message.
+										$data["success_message"] = "Book added to shelf " . $collection_name . "!";	
+									}
+									else
+									{
+										$data["error_message"] = "Book already in that shelf.";	
+									}
 									
-									// FIXME: Handle success message.
-									$data["success_message"] = "Book added to shelf " . $collection_name . "!";
 								}
 								else
 								{

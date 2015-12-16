@@ -596,4 +596,6 @@ class My_projekti_test extends TestCase
         $output = $this->request('GET', 'writereview');
         $this->assertResponseCode(404);
     }
+	
+	
 }

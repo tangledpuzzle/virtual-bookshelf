@@ -8,6 +8,11 @@
  */
 var comments_json, sessionStorage, document;
 
+/**
+ * Creates the Commentlist based on sessionStorage data.
+ * @author Ilkka
+ *  @param {string} user_is_Admin Is the current users admin status ID.
+ */
 function createCommentList(user_is_admin) {
     "use strict";
     var comments;

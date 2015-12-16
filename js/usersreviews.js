@@ -6,6 +6,10 @@
  * To change this template use Tools | Templates.
  */
 
+/**
+ * Creates  HTML list of reviews in the database from the sessionStorage data.
+ * @author Ilkka
+ */
 function createReviewList() {
     "use strict";
     var reviews;

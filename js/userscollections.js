@@ -7,6 +7,10 @@
  */
 var document, sessionStorage, collections_json, window;
 
+/**
+ * Creates  HTML list of users collections in the database from the sessionStorage data.
+ * @author Ilkka
+ */
 function createUsersCollections() {
     "use strict";
     var collections;

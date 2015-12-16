@@ -33,8 +33,9 @@ function createCommentList(user_is_admin) {
         maindiv.className = "row";
         commentdiv = document.createElement("div");
         datediv = document.createElement("div");
-        usera.href = "./useview/" + comments[i].user_id;
+        usera.href = "./userview/" + comments[i].user_id;
         usera.innerHTML = comments[i].ScreenName;
+
         userdiv.className = "col-md-4";
         userdiv.appendChild(usera);
         infodiv.className = "row";

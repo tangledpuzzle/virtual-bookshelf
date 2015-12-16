@@ -12,3 +12,6 @@
 .inline-form-col {
 	padding-left: 0;
 }
+.no-top-margin-form-control {
+	margin-top: 0 !important;
+}

@@ -1444,7 +1444,7 @@ class R2pdb_model extends CI_Model
 		$query = $this->db->get($table_name);
 		$result = $query->result_array();
 		$array = array();
-		print_r($result);
+
 		$length = count($result);
 		
 		// For every collection.

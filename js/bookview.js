@@ -22,7 +22,7 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
         sessionStorage.removeItem('book_json');
     }
 	var prodview_date, prodview_brief, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, hiddendiv, hvdiv, thead, tbody;
-    
+
 	hiddendiv = document.createElement("div");
     hiddendiv.id = "product_iddiv";
     hiddendiv.style.display = "none";
@@ -52,15 +52,11 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
         var colnamefield = document.createElement("input");
         var hiddencolid = document.createElement("input");
         var select = document.createElement("select");
-        /*var userCollections = book.UserCollection;
-        //FIXME!!! Get data from database        
-        var userCollections = {
-            "123": "asd",
-            "52": "b"
-        };*/
+        
         form.onsubmit = function () {
             // Check if the text field and list select contents are identical.	
-            if(colnamefield.value === userCollections[select.value]) {
+            var name = colnamefield.value;
+            if(name.trim().length === 0 || name === logged_in_user_collections[select.value]) {
                 // Use ID from the JSON.
                 hiddencolid.value = select.value;
             } else {
@@ -68,21 +64,22 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
                 // 0 is an invalid ID value.
                 hiddencolid.value = 0;
             }
+			alert("sub id " + hiddencolid.value)
         };
         // Posts to the same page.
-        form.action = "/";
+        form.action = "";
         form.method = "post";
         collectionformdiv.appendChild(form);
         var informdiv = document.createElement("div");
         informdiv.className = "form-group";
         form.appendChild(informdiv);
         var colnamediv = document.createElement("div");
-        colnamediv.className = "form-group col-md-3 inline-form-col required";
+        colnamediv.className = "form-group col-md-3 required inline-form-col";
         informdiv.appendChild(colnamediv);
         colnamefield.type = "text";
         colnamefield.name = "collection-name";
         colnamefield.placeholder = "New or Existing Shelf Name";
-        colnamefield.className = "form-control required";
+        colnamefield.className = "form-control no-top-margin-form-control required";
         colnamediv.appendChild(colnamefield);
         hiddencolid.type = "number";
         hiddencolid.name = "collection-id";
@@ -91,27 +88,30 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
         var colselectdiv = document.createElement("div");
         colselectdiv.className = "form-group col-md-3 inline-form-col";
         informdiv.appendChild(colselectdiv);
-        select.className = "form-control";
+        select.className = "form-control no-top-margin-form-control";
         select.id = "collection-select";
         colselectdiv.appendChild(select);
 		
         select.onchange = function () {
-            colnamefield.value = userCollections[document.getElementById("collection-select").value];
+            colnamefield.value = logged_in_user_collections[document.getElementById("collection-select").value];
         };
 		
-		var item, option;
-        for(item in logged_in_user_collections) {
+		var collectionid, option;
+        for(collectionid in logged_in_user_collections) {
             option = document.createElement("option");
-            option.value = item.CollectionID;
-            option.innerHTML = item.CollectionName;
+            option.value = collectionid;
+            option.innerHTML = logged_in_user_collections[collectionid];
             select.appendChild(option);
         }
+        var colbtndiv = document.createElement("div");
+        colbtndiv.className = "form-group col-md-3 inline-form-col";
+        informdiv.appendChild(colbtndiv);
         var buttoncol = document.createElement("input");
         buttoncol.className = "btn btn-default";
         buttoncol.type = "submit";
         buttoncol.name = "submit";
         buttoncol.value = "Add to Shelf";
-        informdiv.appendChild(buttoncol);
+        colbtndiv.appendChild(buttoncol);
         var brev = document.createElement("div");
         brev.className = "col-md-2 no-pad-col";
         var buttonrev = document.createElement("button");

@@ -43,7 +43,11 @@ class Requests extends REST_Controller
 		}
 		else
 		{
-			if (!is_numeric($id) || (int) $id <= 0)
+			if (!is_numeric($id))
+			{
+				$this->response(['status' => FALSE, 'message' => "Non-numeric " . $id_type_name . " ID."], REST_Controller::HTTP_BAD_REQUEST);
+			}
+			else if ((int) $id <= 0)
 			{
 				$this->response(['status' => FALSE, 'message' => "Invalid " . $id_type_name . " ID."], REST_Controller::HTTP_BAD_REQUEST);
 			}
@@ -125,7 +129,7 @@ class Requests extends REST_Controller
 	}
 	
 	/*
-	 * HTTP POST: RAW DATABASE ACCESS
+	 * HTTP POST: get_rows_by_field_display
 	 * 
 	 * FIXME: WARNING: REMOVE BEFORE PRODUCTION! DEVELOPMENT ONLY!
 	 * 
@@ -401,18 +405,33 @@ class Requests extends REST_Controller
 	}
 	/*
 	 * HTTP POST: COMMENTS
-	 * TODO: Implement login functionality.
+	 * TODO: Implement proper login functionality.
 	 */
 	public function comments_post()
 	{
+		$auth = FALSE;
+		$user_name = NULL;
+		$password = NULL;
+		
+		// Authorization through Postman.
 		if (!empty($this->input->server('PHP_AUTH_USER')))
 		{
-			// REST API authentication: user name
+			$auth = TRUE;
 			$user_name = $this->input->server('PHP_AUTH_USER');
 			$password = $this->input->server('PHP_AUTH_PW');
-			
+		}
+		else if (!empty($this->input->server('HTTP_AUTHORIZATION'))) // Authorization through PHPUnit.
+		{
+			$auth = TRUE;
+			$data = explode(':' , base64_decode(substr($this->input->server('HTTP_AUTHORIZATION'), 6)));
+			$user_name = $data[0];
+			$password = $data[1];
+		}
+		
+		if($auth === TRUE)
+		{
 			// No proper API login is implemented.
-			if ($user_name === "admin" && $password === 1234)
+			if ($user_name === "admin" && $password === '1234')
 			{
 				// Get productid parameter from the query.
 				$productid = $this->get('productid');
@@ -433,8 +452,12 @@ class Requests extends REST_Controller
 				if ($userid !== NULL)
 				{
 					// User comment.
-					if ($userid !== NULL && $this->r2pdb_model->is_valid_user_id((int) $userid) === TRUE)
+					$check = $this->check_for_valid_id("User", $userid);
+					
+					if ($check === TRUE)
 					{
+						$userid = (int) $userid;
+						
 						if ($this->r2pdb_model->add_user_comment($logged_in_user_id, $text, $userid) === TRUE)
 						{
 							$this->set_response(['status' => TRUE, 'message' => "Comment posted."], REST_Controller::HTTP_OK);
@@ -444,16 +467,16 @@ class Requests extends REST_Controller
 							$this->set_response(['status' => FALSE, 'message' => "Comment posting failed."], REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
 						}
 					}
-					else
-					{
-						$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-					}
+					// If false, check_for_valid_id already set a response.
 				}
 				else if ($reviewid !== NULL)
 				{
 					// Review comment.
-					if ($reviewid !== NULL && $this->r2pdb_model->is_valid_review_id((int) $reviewid) === TRUE)
+					$check = $this->check_for_valid_id("Review", $reviewid);
+					
+					if ($check === TRUE)
 					{
+						$reviewid = (int) $reviewid;
 						if ($this->r2pdb_model->add_review_comment($logged_in_user_id, $text, $reviewid) === TRUE)
 						{
 							$this->set_response(['status' => TRUE, 'message' => "Comment posted."], REST_Controller::HTTP_OK);
@@ -463,16 +486,16 @@ class Requests extends REST_Controller
 							$this->set_response(['status' => FALSE, 'message' => "Comment posting failed."], REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
 						}
 					}
-					else
-					{
-						$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-					}
+					// If false, check_for_valid_id already set a response.
 				}
 				else if ($productid !== NULL)
 				{
 					// Product comment.
-					if ($productid !== NULL && $this->r2pdb_model->is_valid_product_id((int) $productid) === TRUE)
+					$check = $this->check_for_valid_id("Product", $productid);
+					
+					if ($check === TRUE)
 					{
+						$productid = (int) $productid;
 						if ($this->r2pdb_model->add_product_comment($logged_in_user_id, $text, $productid) === TRUE)
 						{
 							$this->set_response(['status' => TRUE, 'message' => "Comment posted."], REST_Controller::HTTP_OK);
@@ -482,15 +505,9 @@ class Requests extends REST_Controller
 							$this->set_response(['status' => FALSE, 'message' => "Comment posting failed."], REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
 						}
 					}
-					else
-					{
-						$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-					}
+					// If false, check_for_valid_id already set a response.
 				}
-				else
-				{
-					$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
-				}
+				// Fall through on invalid ID.
 			}
 			else
 			{
@@ -501,6 +518,7 @@ class Requests extends REST_Controller
 		{
 			$this->set_response(['status' => FALSE, 'message' => "Please provide authentication."], REST_Controller::HTTP_UNAUTHORIZED);
 		}
+		// Still falling through on invalid ID.
 	}
 	
 	/*

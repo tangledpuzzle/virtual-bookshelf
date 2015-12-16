@@ -1,7 +1,5 @@
 <?php
 
-
-//FIXME !! testaa comment POST.
 class Requests_test extends TestCase
 {
 	public $valid_id_int;
@@ -31,6 +29,30 @@ class Requests_test extends TestCase
 	
 	public $number_of_collections;
 	public $number_of_products;
+	
+	public $json_rest_status_false;
+	public $json_rest_status_true;
+
+	/**
+	 * A random unique string for comment posting test.
+	 */
+	public $comment_request_body;
+	
+	
+	/**
+	 * A random unique string for comment posting test.
+	 */
+	public $comment_request_body_invalid;
+	
+	/**
+	 * Correct basic authorization values. User name is 'admin', password is '1234'.
+	 */
+	public $api_auth_ok;
+	
+	/**
+	 * Incorrect basic authorization values. User name is 'admin', password is '1233'.
+	 */
+	public $api_auth_wrong;
 	
 	/**
 	 * Set up the common variables.
@@ -83,12 +105,307 @@ class Requests_test extends TestCase
 		$this->json_result_review_1_comments = '[{"CommentID":4,"PostDate":"2014-10-12 00:00:00","user_id":1,"ScreenName":"A User","Text":"Test Review Comment"}]';
 		
 		$this->json_rest_status_false = '"status":false';
+		$this->json_rest_status_true = '"status":true';
+		
+		$this->comment_request_body = 'PHPUNIT COMMENT nFfG4Y9tiLrlH6YYR6NA';
+		$this->comment_request_body_invalid = 'PHPUNIT COMMENT INVALID DATA thw0qRiSP0hmePUKDfkR';
+		$this->api_auth_ok 	  = 'Basic YWRtaW46MTIzNA==';
+		$this->api_auth_wrong = 'Basic YWRtaW46MTIzMw==';
 		
         $this->resetInstance();
         $this->CI->load->model('r2pdb_model');
         $this->obj = $this->CI->r2pdb_model;
     }
 	
+	
+	/**
+	 * REST api test: http POST product comment without authorization
+	 */
+	public function test_post_comment_product_no_auth()
+    {
+        try {
+        	$output = $this->request('POST', 'api/requests/products/'.$this->valid_id_int.'/comments', ['text' => $this->comment_request_body]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(401); // HTTP unauthorized
+    }
+	
+	/**
+	 * REST api test: http POST review comment without authorization
+	 */
+	public function test_post_comment_review_no_auth()
+    {
+        try {
+        	$output = $this->request('POST', 'api/requests/reviews/'.$this->valid_id_int.'/comments', ['text' => $this->comment_request_body]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(401); // HTTP unauthorized
+    }
+	
+	/**
+	 * REST api test: http POST user comment without authorization
+	 */
+	public function test_post_comment_user_no_auth()
+    {
+        try {
+        	$output = $this->request('POST', 'api/requests/users/'.$this->valid_id_int.'/comments', ['text' => $this->comment_request_body]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(401); // HTTP unauthorized
+    }
+	
+	/**
+	 * REST api test: http POST product comment with wrong authorization
+	 */
+	public function test_post_comment_product_wrong_auth()
+    {
+		$this->request->setHeader('Authorization', $this->api_auth_wrong);
+		
+        try {
+        	$output = $this->request('POST', 'api/requests/products/'.$this->valid_id_int.'/comments', ['text' => $this->comment_request_body]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(401); // HTTP unauthorized
+    }
+	
+	/**
+	 * REST api test: http POST review comment with wrong authorization
+	 */
+	public function test_post_comment_review_wrong_auth()
+    {
+		$this->request->setHeader('Authorization', $this->api_auth_wrong);
+		
+        try {
+        	$output = $this->request('POST', 'api/requests/reviews/'.$this->valid_id_int.'/comments', ['text' => $this->comment_request_body]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(401); // HTTP unauthorized
+    }
+	
+	/**
+	 * REST api test: http POST user comment with wrong authorization
+	 */
+	public function test_post_comment_user_wrong_auth()
+    {
+		$this->request->setHeader('Authorization', $this->api_auth_wrong);
+		
+        try {
+        	$output = $this->request('POST', 'api/requests/users/'.$this->valid_id_int.'/comments', ['text' => $this->comment_request_body]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(401); // HTTP unauthorized
+    }
+	
+	/**
+	 * REST api test: http POST product comment with ok authorization.
+	 */
+	public function test_post_comment_product_ok_auth()
+    {
+		// Set authorization.
+		$this->request->setHeader('Authorization', $this->api_auth_ok);
+		
+		// Do the request.
+        try {
+        	$output = $this->request('POST', 'api/requests/products/'.$this->valid_id_int.'/comments', ['text' => $this->comment_request_body]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+		
+		// Commenting successful.
+        $this->assertContains($this->json_rest_status_true,$output);
+        $this->assertResponseCode(200); // HTTP ok
+		
+		// Get comments posted to user ID valid_id_int.
+        try {
+            $output = $this->request('GET', 'api/requests/products/'.$this->valid_id_int.'/comments');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+		// Verify that comment was posted by checking if the unique string is in the comments.
+        $this->assertContains($this->comment_request_body,$output);
+        $this->assertResponseCode(200); //http OK.
+		
+		// Remove the posted comment which is id 8 as there are 7 default comments.
+		// Assert that removal succeeded.
+        $this->assertEquals(TRUE, $this->obj->remove_product_comment($this->valid_id_int, 8));
+    }
+	
+	/**
+	 * REST api test: http POST review comment with ok authorization.
+	 */
+	public function test_post_comment_review_ok_auth()
+    {
+		$this->request->setHeader('Authorization', $this->api_auth_ok);
+		
+		// Do the request.
+        try {
+        	$output = $this->request('POST', 'api/requests/reviews/'.$this->valid_id_int.'/comments', ['text' => $this->comment_request_body]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+		
+		// Commenting successful.
+        $this->assertContains($this->json_rest_status_true,$output);
+        $this->assertResponseCode(200); // HTTP ok
+		
+		// Get comments posted to user ID valid_id_int.
+        try {
+            $output = $this->request('GET', 'api/requests/reviews/'.$this->valid_id_int.'/comments');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+		// Verify that comment was posted by checking if the unique string is in the comments.
+        $this->assertContains($this->comment_request_body,$output);
+        $this->assertResponseCode(200); //http OK.
+		
+		// Remove the posted comment which is id 9 as there are 7 default comments + 1 posted above.
+		// Assert that removal succeeded.
+        $this->assertEquals(TRUE, $this->obj->remove_review_comment($this->valid_id_int, 9));
+    }
+	
+	/**
+	 * REST api test: http POST user comment with ok authorization.
+	 */
+	public function test_post_comment_user_ok_auth()
+    {
+		$this->request->setHeader('Authorization', $this->api_auth_ok);
+		
+		// Do the request.
+        try {
+        	$output = $this->request('POST', 'api/requests/users/'.$this->valid_id_int.'/comments', ['text' => $this->comment_request_body]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        
+		// Commenting successful.
+        $this->assertContains($this->json_rest_status_true,$output);
+        $this->assertResponseCode(200); // HTTP ok
+		
+		// Get comments posted to user ID valid_id_int.
+        try {
+            $output = $this->request('GET', 'api/requests/users/'.$this->valid_id_int.'/comments');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+
+		// Verify that comment was posted by checking if the unique string is in the comments.
+        $this->assertContains($this->comment_request_body,$output);
+        $this->assertResponseCode(200); //http OK.
+		
+		// Remove the posted comment which is id 10 as there are 7 default comments + 2 posted above.
+		// Assert that removal succeeded.
+        $this->assertEquals(TRUE, $this->obj->remove_user_comment($this->valid_id_int, 10));
+		
+		/*
+		 * PHPUnit runs these tests in order from top to bottom.
+		 * We need to alter the AUTO_INCREMENT value in the comments table back to 8 or some tests further down will fail if these tests are run more than once without resetting the database in between.
+		 */
+		// This doesn't work. You need to reset the database after reach run.
+		//$this->assertEquals(TRUE, $this->obj->db->query("ALTER TABLE comments AUTO_INCREMENT 7"));
+		
+		// Database is now in the same state as before doing the three tests above.
+    }
+	
+	/**
+	 * REST api test: http POST user comment with ok authorization but invalid target user.
+	 */
+	public function test_post_comment_user_ok_auth_invalid_id()
+    {
+		$this->request->setHeader('Authorization', $this->api_auth_ok);
+		
+        try {
+        	$output = $this->request('POST', 'api/requests/users/'.$this->invalid_id_int.'/comments', ['text' => $this->comment_request_body_invalid]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        
+		// Commenting failed.
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(400); // HTTP bad request (404 would be valid but unused)
+		
+		// Get comments posted to user ID valid_id_int.
+        try {
+            $output = $this->request('GET', 'api/requests/users/'.$this->valid_id_int.'/comments');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+		
+		// Verify that comment was NOT posted by checking if the unique string is NOT in the comments.
+        $this->assertNotContains($this->comment_request_body_invalid,$output);
+        $this->assertResponseCode(200); //http OK.
+    }
+	
+	/**
+	 * REST api test: http POST product comment with ok authorization but invalid target product.
+	 */
+	public function test_post_comment_product_ok_auth_invalid_id()
+    {
+		$this->request->setHeader('Authorization', $this->api_auth_ok);
+		
+        try {
+        	$output = $this->request('POST', 'api/requests/products/'.$this->invalid_id_int.'/comments', ['text' => $this->comment_request_body_invalid]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        
+		// Commenting failed.
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(400); // HTTP bad request (404 would be valid but unused)
+		
+		// Get comments posted to user ID valid_id_int.
+        try {
+            $output = $this->request('GET', 'api/requests/products/'.$this->valid_id_int.'/comments');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+		
+		// Verify that comment was NOT posted by checking if the unique string is NOT in the comments.
+        $this->assertNotContains($this->comment_request_body_invalid,$output);
+        $this->assertResponseCode(200); //http OK.
+    }
+	
+	/**
+	 * REST api test: http POST review comment with ok authorization but invalid target review.
+	 */
+	public function test_post_comment_review_ok_auth_invalid_id()
+    {
+		$this->request->setHeader('Authorization', $this->api_auth_ok);
+		
+        try {
+        	$output = $this->request('POST', 'api/requests/reviews/'.$this->invalid_id_int.'/comments', ['text' => $this->comment_request_body_invalid]);
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+        
+		// Commenting failed.
+        $this->assertContains($this->json_rest_status_false,$output);
+        $this->assertResponseCode(400); // HTTP bad request (404 would be valid but unused)
+		
+		// Get comments posted to user ID valid_id_int.
+        try {
+            $output = $this->request('GET', 'api/requests/reviews/'.$this->valid_id_int.'/comments');
+        } catch (CIPHPUnitTestExitException $e) {
+            $output = ob_get_clean();
+        }
+		
+		// Verify that comment was NOT posted by checking if the unique string is NOT in the comments.
+        $this->assertNotContains($this->comment_request_body_invalid,$output);
+        $this->assertResponseCode(200); //http OK.
+    }
 	
 	/**
 	 * REST api test: http GET products

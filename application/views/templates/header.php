@@ -24,7 +24,7 @@
 
 					<ul class="nav navbar-nav navbar-right" > 
 						<?php
-						if (isset( $auth_user_id ))
+						if (isset( $ScreenName ))
 						{
 							echo '<li><span class="navbar-text">' . "Hello, $ScreenName" . '</span></li>';
 							echo '<li><a href="' . base_url() . 'index.php/myprofile">My Profile</a></li>';

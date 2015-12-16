@@ -23,7 +23,6 @@ class Requests extends REST_Controller
 		$this->methods['user_delete']['limit'] = 50; // 50 requests per hour per user/key
 	}
 
-	
 	/*
 	 * HELPER FUNCTIONS
 	 */
@@ -34,7 +33,7 @@ class Requests extends REST_Controller
 	 * @params int|NULL $id ID to validate
 	 * @returns NULL|boolean NULL if ID  is NULL,
 	 * 						 TRUE if ID is valid and present in the correct table,
-	 * 						 if ID is invalid the function will set a proper HTTP response and stop the execution of this function and all subsequent code
+	 * 						 FALSE if ID is invalid the function will set a proper HTTP response and stop the execution of this function and all subsequent code
 	 */
 	private function check_for_valid_id($id_type_name, $id)
 	{
@@ -44,14 +43,14 @@ class Requests extends REST_Controller
 		}
 		else
 		{
-			$id = (int) $id;
-			
-			if ($id <= 0)
+			if (!is_numeric($id) || (int) $id <= 0)
 			{
 				$this->response(['status' => FALSE, 'message' => "Invalid " . $id_type_name . " ID."], REST_Controller::HTTP_BAD_REQUEST);
 			}
 			else
 			{
+				$present_in_table = FALSE;
+				
 				switch ($id_type_name)
 				{
 					case "User":
@@ -72,10 +71,11 @@ class Requests extends REST_Controller
 					default:
 						$this->set_response(['status' => FALSE, 'message' => "You've stumbled upon an unimplemented feature that obviously should have been implemented. Please contact the website administrator with your query."], REST_Controller::HTTP_INTERNAL_SERVER_ERROR);
 				}
-					
+				
 				if ($present_in_table === FALSE)
 				{
 					$this->set_response(['status' => FALSE, 'message' => $id_type_name . " with the ID " . $id . " not found."], REST_Controller::HTTP_NOT_FOUND);
+					return FALSE;
 				}
 				else
 				{
@@ -148,17 +148,22 @@ class Requests extends REST_Controller
 		// CodeIgniter routing rules read anything less than 0 or non-numbers as NULL.
 		$id = $this->get('userid');
 
+		$check = $this->check_for_valid_id("User", $id);
+		
 		// If the ID is NULL, return all users.
-		if ($this->check_for_valid_id("User", $id) === NULL)
+		if ($check === NULL)
 		{
 			$this->respond_with_all("users");
 		}
-		
-		// Get specific user from database.
-		$data = $this->r2pdb_model->get_user_by_id_display($id);
-		
-		// Because of the validity check above it is certain that the user id is present in the table.
-		$this->set_response($data, REST_Controller::HTTP_OK);
+		else if ($check === TRUE)
+		{
+			// Get specific user from database.
+			$data = $this->r2pdb_model->get_user_by_id_display($id);
+
+			// Because of the validity check above it is certain that the user id is present in the table.
+			$this->set_response($data, REST_Controller::HTTP_OK);
+		}
+		// If false, check_for_valid_id already set a response.
 	}
 	
 	/*
@@ -181,7 +186,8 @@ class Requests extends REST_Controller
 		// Get datatype parameter from the query.
 		$datatype = $this->get('datatype');
 		
-		if ($this->check_for_valid_id("User", $userid) === TRUE)
+		$check = $this->check_for_valid_id("User", $userid);
+		if ($check === TRUE)
 		{
 			$userid = (int) $userid;
 
@@ -212,50 +218,9 @@ class Requests extends REST_Controller
 					$this->response(['status' => FALSE, 'message' => "User has no " . $datatype . "."], REST_Controller::HTTP_NOT_FOUND);
 				}
 			}
-			// This is silly and unnecessary.
-			/*else
-			{
-				 Determine what data to get.
-				if ($collectionid === NULL)
-				{
-					$commentid = (int) $commentid;
-					$collectionid = 0; // Invalid ID
-				}
-				else
-				{
-					$collectionid = (int) $collectionid;
-					$commentid = 0; // Invalid ID
-				}
-
-				// One of these is 0 the other must not be 0 or less.
-				if ($collectionid <= 0 && $commentid <= 0)
-				{
-						$this->response(['status' => FALSE, 'message' => "This should not have happened, please contact the site administrator."], REST_Controller::HTTP_BAD_REQUEST);
-				}
-				else if ($collectionid > $commentid) // One of these values is greater than 0.
-				{
-					$data = $this->r2pdb_model->get_collection_by_id_display($collectionid);
-					// Error message to return if the comment does not exist.
-					$errorMessage = "User ID " . $userid . " does not have a collection with the ID " . $collectionid . ".";
-				}
-				else
-				{
-					$data = $this->r2pdb_model->get_comment_by_id_display($commentid);
-					// Error message to return if the comment does not exist.
-					$errorMessage = "User ID " . $userid . " does not have a comment with the ID " . $commentid . ".";
-				}
-
-				if (!empty($data))
-				{
-					$this->set_response($data, REST_Controller::HTTP_OK);
-				}
-				else
-				{
-					$this->set_response(['status' => FALSE, 'message' => $errorMessage], REST_Controller::HTTP_NOT_FOUND);
-				}
-			}*/
 		}
-		
+		// If false, check_for_valid_id already set a response.
+		 
 		/* CodeIgniter will route the query to users_get() if $userid is NULL, so no NULL check is needed.
 		the validator function handles other possible values so no else is needed. */
 	}
@@ -269,17 +234,21 @@ class Requests extends REST_Controller
 		// CodeIgniter routing rules read anything less than 0 or non-numbers as NULL.
 		$id = $this->get('productid');
 
+		$check = $this->check_for_valid_id("Product", $id);
+			
 		// If the ID is NULL, return all products.
-		if ($this->check_for_valid_id("Product", $id) === NULL)
+		if ($check === NULL)
 		{
 			$this->respond_with_all("products");
 		}
-		
-		// Get specific product from database.
-		$data = $this->r2pdb_model->get_product_by_id_display($id);
-		
-		// Because of the validity check above it is certain that the product id is present in the table.
-		$this->set_response($data, REST_Controller::HTTP_OK);
+		else if ($check === TRUE)
+		{
+			// Get specific product from database.
+			$data = $this->r2pdb_model->get_product_by_id_display($id);
+
+			// Because of the validity check above it is certain that the product id is present in the table.
+			$this->set_response($data, REST_Controller::HTTP_OK);
+		}
 	}
 	
 	/*
@@ -299,7 +268,9 @@ class Requests extends REST_Controller
 		// Get datatype parameter from the query.
 		$datatype = $this->get('datatype');
 		
-		if ($this->check_for_valid_id("Product", $productid) === TRUE)
+		$check = $this->check_for_valid_id("Product", $productid);
+		
+		if ($check === TRUE)
 		{
 			$productid = (int) $productid;
 
@@ -334,6 +305,7 @@ class Requests extends REST_Controller
 				}
 			}
 		}
+		// If false, check_for_valid_id already set a response.
 	}
 
 	/*
@@ -345,17 +317,22 @@ class Requests extends REST_Controller
 		// CodeIgniter routing rules read anything less than 0 or non-numbers as NULL.
 		$id = $this->get('collectionid');
 
+		$check = $this->check_for_valid_id("Collection", $id);
+		
 		// If the ID is NULL, return all collections.
-		if ($this->check_for_valid_id("Collection", $id) === NULL)
+		if ($check === NULL)
 		{
 			$this->respond_with_all("collections");
 		}
-		
-		// Get specific collection from database.
-		$data = $this->r2pdb_model->get_collections_by_id_display($id);
-		
-		// Because of the validity check above it is certain that the collection id is present in the table.
-		$this->set_response($data, REST_Controller::HTTP_OK);
+		else if ($check === TRUE)
+		{
+			// Get specific collection from database.
+			$data = $this->r2pdb_model->get_collections_by_id_display($id);
+
+			// Because of the validity check above it is certain that the collection id is present in the table.
+			$this->set_response($data, REST_Controller::HTTP_OK);
+		}
+		// If false, check_for_valid_id already set a response.
 	}
 	
 	/*
@@ -366,18 +343,22 @@ class Requests extends REST_Controller
 		// Get reviewid parameter from the query.
 		// CodeIgniter routing rules read anything less than 0 or non-numbers as NULL.
 		$id = $this->get('reviewid');
-		
+
+		$check = $this->check_for_valid_id("Review", $id);
 		// If the review is NULL, return all reviews.
-		if ($this->check_for_valid_id("Review", $id) === NULL)
+		if ($check === NULL)
 		{
 			$this->respond_with_all("reviews");
 		}
-		
-		// Get specific review from database.
-		$data = $this->r2pdb_model->get_review_by_id_display($id);
-		
-		// Because of the validity check above it is certain that the product id is present in the table.
-		$this->set_response($data, REST_Controller::HTTP_OK);
+		else if ($check === TRUE)
+		{
+			// Get specific review from database.
+			$data = $this->r2pdb_model->get_review_by_id_display($id);
+
+			// Because of the validity check above it is certain that the product id is present in the table.
+			$this->set_response($data, REST_Controller::HTTP_OK);
+		}
+		// If false, check_for_valid_id already set a response.
 	}
 	
 	/*

@@ -120,9 +120,9 @@ class R2pdb_model extends CI_Model
 				default:
 					return NULL;
 			}
-			
 			return FALSE;
 		}
+		return NULL;
 	}
 	
 	/**
@@ -182,32 +182,40 @@ class R2pdb_model extends CI_Model
 	*/
 	public function validate_row_id($table_name, $id)
 	{
-		// FIXME: FAILS ON "123GSDSR"
+		// Return NULL if either paramater is NULL.		
 		if ($id !== NULL && $table_name !== NULL)
 		{
-			if ((int) $id > 0)
+			// FALSE if id is not numeric.
+			if (is_numeric($id) === TRUE)
 			{
-				$id_column_name = $this->get_id_column_from_table($table_name);		
-				
-				// Null check was performed earlier.
-				if ($id_column_name !== NULL)
+				// FALSE if id is invalid. (0 or less.)
+				if ((int) $id > 0)
 				{
-					$query = $this->db->get_where($table_name, array($id_column_name => $id));
-					$this->db->reset_query();
+					$id_column_name = $this->get_id_column_from_table($table_name);		
 					
-					/* Not all database drivers have a native way of getting the total number of rows for a result set.
-					When this is the case, all of the data is prefetched and count() is manually called on the resulting array in order to achieve the same result. */
+					// This will only return NULL if table doesn't exit.
+					if ($id_column_name !== NULL)
+					{
+						$query = $this->db->get_where($table_name, array($id_column_name => $id));
+						$this->db->reset_query();
 
-					if ($query->num_rows() > 0)
-					{
-						return TRUE;
+						/* CodeIgniter user guide: Not all database drivers have a native way of getting the total number of rows for a result set.
+						When this is the case, all of the data is prefetched and count() is manually called on the resulting array in order to achieve the same result. */
+	
+						// If at least 1 row was returned, ID is valid.
+						// Theoretically the only valid number of rows are 1 and 0 but it doesn't hurt to be sure.
+						if ($query->num_rows() > 0)
+						{
+							return TRUE;
+						}
+						else
+						{
+							return FALSE;
+						}
 					}
-					else
-					{
-						return FALSE;
-					}
+					return NULL;
 				}
-				return NULL;
+				return FALSE;
 			}
 			return FALSE;
 		}
@@ -251,65 +259,113 @@ class R2pdb_model extends CI_Model
 	*/
 	public function get_rows_by_field_display()
 	{
+		// Get all arguments given to this function.
 		$arg_list = func_get_args()[0];
-		
-        if ($arg_list !== NULL && count($arg_list))
+        if ($arg_list !== NULL && count($arg_list) !== 0)
         {
-			$table_name = $arg_list["table_name"];
-			unset($arg_list["table_name"]); // Remove table_name element from array as it is not a field.
-			$this->db->where($arg_list); // Add all fields to WHERE statement.
-			
-			$this->db->select($this->get_public_data_columns_display($table_name));
-	
-			// Left join the correct tables.
-			switch ($table_name)
+			// table_name must be in the arguments so we know where to get data from.
+			if (array_key_exists('table_name', $arg_list))
 			{
-				case "reviewComments":
-					$this->db->join("comments", 'comments.CommentID = reviewComments.CommentID', 'left');
-					$this->db->join("users", 'users.user_id = comments.user_id', 'left');
-					$this->db->join("reviews", 'reviews.ReviewID = reviewComments.ReviewID', 'left');
-					break;
-				case "userComments":
-					$this->db->join("comments", 'comments.CommentID = userComments.CommentID', 'left');
-					$this->db->join("users", 'users.user_id = comments.user_id', 'left');
-					break;
-				case "productComments":
-					$this->db->join("comments", 'comments.CommentID = productComments.CommentID', 'left');
-					$this->db->join("users", 'users.user_id = comments.user_id', 'left');
-					$this->db->join("products", 'products.ProductID = productComments.ProductID', 'left');
-					break;
-				case "reviews":
-					$this->db->join("products", 'products.ProductID = reviews.ProductID', 'left');
-					$this->db->join("users", 'users.user_id = reviews.user_id', 'left');
-					break;
-				case "comments":
-					$this->db->join("users", 'users.user_id = comments.user_id', 'left');
-					break;
-				case "products":
-					$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
-					$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
-					break;
-				case "users":
-					$this->db->join("countries", 'countries.CountryID = users.CountryID', 'left');
-					$this->db->join("genders", 'genders.GenderID = users.GenderID', 'left');
-					break;
-				case "collections":
-				case "countries":
-				case "genders":
-				case "genres":
-				case "publishers":
-				default:
-					// No foreign keys to join.
-					break;
-			}
-
-			$this->db->order_by($this->get_id_column_from_table($table_name), 'ASC');
+				$table_name = $arg_list["table_name"];
+				unset($arg_list["table_name"]); // Remove table_name element from array as it is not a field.
+				
+				// Name of the ID column in this table?
+				$id_col = $this->get_id_column_from_table($table_name);
 			
-			$query = $this->db->get($table_name);
-			$this->db->reset_query();
-			return $this->correct_result_data_types($query);
-	
-			return $query->result_array();
+				// Are we trying to select the ID column? (SELECT CommentID FROM comments)
+				if (array_key_exists($id_col, $arg_list))
+				{
+					// Get ID number.
+					$id = $arg_list[$id_col];
+					// TODO: Separate into it's own function.
+					// Validate ID.
+					if ($id === NULL)
+					{
+						return NULL;	// Return NULL if id is NULL.
+					}
+					else if (is_numeric($id) === FALSE || (int) $id < 1)
+					{
+						// FALSE if id is not numeric.
+						// FALSE if id is invalid. (Less than 1.)
+						return FALSE;
+					}
+					// ID is ok.
+				}
+				else if (array_key_exists($table_name . '.' . $id_col, $arg_list))	// Are we trying to select the ID column with the table name? (SELECT comments.CommentID FROM comments)
+				{
+					// Get ID number.
+					$id = $arg_list[$table_name . '.' . $id_col];
+					// TODO: Separate into it's own function.
+					// Validate ID.
+					if ($id === NULL)
+					{
+						return NULL;	// Return NULL if id is NULL.
+					}
+					else if (is_numeric($id) === FALSE || (int) $id < 1)
+					{
+						// FALSE if id is not numeric.
+						// FALSE if id is invalid. (Less than 1.)
+						return FALSE;
+					}
+					// ID is ok.
+				}
+				
+				// Add all fields to WHERE statement.
+				$this->db->where($arg_list);
+
+				$this->db->select($this->get_public_data_columns_display($table_name));
+
+				// Left join the correct tables.
+				switch ($table_name)
+				{
+					case "reviewComments":
+						$this->db->join("comments", 'comments.CommentID = reviewComments.CommentID', 'left');
+						$this->db->join("users", 'users.user_id = comments.user_id', 'left');
+						$this->db->join("reviews", 'reviews.ReviewID = reviewComments.ReviewID', 'left');
+						break;
+					case "userComments":
+						$this->db->join("comments", 'comments.CommentID = userComments.CommentID', 'left');
+						$this->db->join("users", 'users.user_id = comments.user_id', 'left');
+						break;
+					case "productComments":
+						$this->db->join("comments", 'comments.CommentID = productComments.CommentID', 'left');
+						$this->db->join("users", 'users.user_id = comments.user_id', 'left');
+						$this->db->join("products", 'products.ProductID = productComments.ProductID', 'left');
+						break;
+					case "reviews":
+						$this->db->join("products", 'products.ProductID = reviews.ProductID', 'left');
+						$this->db->join("users", 'users.user_id = reviews.user_id', 'left');
+						break;
+					case "comments":
+						$this->db->join("users", 'users.user_id = comments.user_id', 'left');
+						break;
+					case "products":
+						$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
+						$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+						break;
+					case "users":
+						$this->db->join("countries", 'countries.CountryID = users.CountryID', 'left');
+						$this->db->join("genders", 'genders.GenderID = users.GenderID', 'left');
+						break;
+					case "collections":
+					case "countries":
+					case "genders":
+					case "genres":
+					case "publishers":
+					default:
+						// No foreign keys to join.
+						break;
+				}
+
+				// Order by table ID column by ascending order
+				$this->db->order_by($this->get_id_column_from_table($table_name), 'ASC');
+
+				$query = $this->db->get($table_name);
+				$this->db->reset_query();
+				
+				return $this->correct_result_data_types($query);
+			}
+			return FALSE;
         }
 		return NULL;
 	}
@@ -373,7 +429,7 @@ class R2pdb_model extends CI_Model
 		
         if ($valid !== NULL)
         {
-			if ($valid)
+			if ($valid === TRUE)
 			{
 				$this->db->select($this->get_public_data_columns_display($table_name));
 				
@@ -850,7 +906,7 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get a specific collection and contents by their ID with data formatting for display purposes.
 	* @param int $id collection ID
-	* @return array|boolean|null an array containing found collection as an array,
+	* @return array|boolean|null an array containing found collection data and contents as an array,
 								FALSE for invalid ID,
 								NULL if $id was null 
 	*/
@@ -864,24 +920,29 @@ class R2pdb_model extends CI_Model
 		$query = $this->db->get($table_name);
 		
 		// Only one row is returned.
-		$collection = $this->correct_result_data_types($query)[0];
+		$collection = $this->correct_result_data_types($query);
 		$this->db->reset_query();
 		
-		// Get collection product data.
-		$table_name = "collectionProducts";
-		$this->db->select("products.ProductID, Name, ReleaseDate");
-		$this->db->where("collectionProducts.CollectionID", (int) $id);
+		if (!empty($collection))
+		{
+			$collection = $collection[0];
+			
+			// Get collection product data.
+			$table_name = "collectionProducts";
+			$this->db->select("products.ProductID, Name, ReleaseDate");
+			$this->db->where("collectionProducts.CollectionID", (int) $id);
 
-		// Left join with products to get product data.
-		$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
+			// Left join with products to get product data.
+			$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
 
-		$this->db->order_by("collectionProducts.ProductID", 'ASC');
+			$this->db->order_by("collectionProducts.ProductID", 'ASC');
 
-		// Get collection product data.
-		$query = $this->db->get($table_name);
-		$this->db->reset_query();
-	
-		$collection["Products"] = $this->correct_result_data_types($query);
+			// Get collection product data.
+			$query = $this->db->get($table_name);
+			$this->db->reset_query();
+
+			$collection["Products"] = $this->correct_result_data_types($query);
+		}
 		
 		return $collection;
 	}
@@ -1299,18 +1360,32 @@ class R2pdb_model extends CI_Model
 	*/
 	public function get_review_infos_by_product_id_display($id)
 	{
-		// FIXME VALIDATION
-		$table_name ="reviews";
-		$this->db->select("ReviewID, ReviewDate, reviews.user_id, ScreenName, Rating");
-		$this->db->where("ProductID", (int) $id);
+		// Return NULL if parameter is NULL.		
+		if ($id !== NULL)
+		{
+			// FALSE if id is not numeric.
+			if (is_numeric($id) === TRUE)
+			{
+				// FALSE if id is invalid. (0 or less.)
+				if ((int) $id > 0)
+				{
+					$table_name = "reviews";
+					$this->db->select("ReviewID, ReviewDate, reviews.user_id, ScreenName, Rating");
+					$this->db->where("ProductID", (int) $id);
 
-		// Left join to get user name.
-		$this->db->join("users", 'reviews.user_id = users.user_id', 'left');
+					// Left join to get user name.
+					$this->db->join("users", 'reviews.user_id = users.user_id', 'left');
 
-		$query = $this->db->get($table_name);
-		$this->db->reset_query();
-		
-		return $this->correct_result_data_types($query);
+					$query = $this->db->get($table_name);
+					$this->db->reset_query();
+
+					return $this->correct_result_data_types($query);
+				}
+				return FALSE;
+			}
+			return FALSE;
+		}
+		return NULL;
 	}
 	
 	/*
@@ -1408,7 +1483,6 @@ class R2pdb_model extends CI_Model
 	
 	public function get_user_collections_full_display($userid)
 	{
-		// FIXME: Validation
 		$table_name ="userCollections";
 		$this->db->select("userCollections.CollectionID, CollectionName");
 		$this->db->where("userCollections.user_id", (int) $userid);
@@ -1452,49 +1526,66 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get all user collections with product id, name, and release date with data formatting for display purposes.
 	* @param int $userid user ID
-	* @return array an array of arrays containing collection data
+	* @return array|NULL|boolean an array of arrays containing collection data,
+									NULL if given id is NULL,
+									FALSE if given ID is invalid
 	*/
 	public function get_user_collections_short_display($userid)
 	{
-		$table_name ="userCollections";
-		$this->db->select("userCollections.CollectionID, CollectionName");
-		$this->db->where("userCollections.user_id", (int) $userid);
-
-		// Left join to get collection name.
-		$this->db->join("collections", 'userCollections.CollectionID = collections.CollectionID', 'left');
-
-		$query = $this->db->get($table_name);
-		$this->db->reset_query();
-		
-		$collections = $this->correct_result_data_types($query);
-		
-		$length = count($collections);
-		
-		// For every collection.
-		for ($i = 0; $i < $length; $i++)
+		// Return NULL if parameter is NULL.		
+		if ($userid !== NULL)
 		{
-			$table_name ="collectionProducts";
-			/*$this->db->select("products.ProductID");
-			$this->db->where("collectionProducts.CollectionID", (int) $collections[$i]["CollectionID"]);
+			// FALSE if id is not numeric.
+			if (is_numeric($userid) === TRUE)
+			{
+				// FALSE if id is invalid. (0 or less.)
+				if ((int) $userid > 0)
+				{
+					$table_name ="userCollections";
+					$this->db->select("userCollections.CollectionID, CollectionName");
+					$this->db->where("userCollections.user_id", (int) $userid);
 
-			/ Left join with products to get product data.
-			$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
+					// Left join to get collection name.
+					$this->db->join("collections", 'userCollections.CollectionID = collections.CollectionID', 'left');
 
-			// Product joins.
-			$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
-			$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+					$query = $this->db->get($table_name);
+					$this->db->reset_query();
 
-			$this->db->order_by("collectionProducts.ProductID", 'ASC');*/
+					$collections = $this->correct_result_data_types($query);
 
-			// Get collection product data.
-			$this->db->like('collectionProducts.CollectionID', (int) $collections[$i]["CollectionID"]);
-			$this->db->from($table_name);
-		
-			$collections[$i]["ProductCount"] = $this->db->count_all_results();
-			$this->db->reset_query();
+					$length = count($collections);
+
+					// For every collection.
+					for ($i = 0; $i < $length; $i++)
+					{
+						$table_name ="collectionProducts";
+						/*$this->db->select("products.ProductID");
+						$this->db->where("collectionProducts.CollectionID", (int) $collections[$i]["CollectionID"]);
+
+						/ Left join with products to get product data.
+						$this->db->join("products", 'collectionProducts.ProductID = products.ProductID', 'left');
+
+						// Product joins.
+						$this->db->join("languages", 'languages.LanguageID = products.LanguageID', 'left');
+						$this->db->join("publishers", 'publishers.PublisherID = products.PublisherID', 'left');
+
+						$this->db->order_by("collectionProducts.ProductID", 'ASC');*/
+
+						// Get collection product data.
+						$this->db->like('collectionProducts.CollectionID', (int) $collections[$i]["CollectionID"]);
+						$this->db->from($table_name);
+
+						$collections[$i]["ProductCount"] = $this->db->count_all_results();
+						$this->db->reset_query();
+					}
+
+					return $collections;
+				}
+				return FALSE;
+			}
+			return FALSE;
 		}
-		
-		return $collections;
+		return NULL;
 	}
 	
 	/**

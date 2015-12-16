@@ -36,7 +36,7 @@ class R2pdbmodel_model_test extends TestCase
     {
 		$this->valid_id_int = 1;
 		$this->invalid_id_int = 0;
-		$this->unused_id_int = 999999;
+		$this->unused_id_int = 99999;
 		$this->malformed_id_int = "1sdfui";
 		$this->string = "Test string.";
 		
@@ -251,7 +251,7 @@ class R2pdbmodel_model_test extends TestCase
     {
 		$fields = array("table_name" => "products", "products.ProductID" => $this->invalid_id_int);
 		$actual = $this->obj->get_rows_by_field_display($fields);
-		$expected = $this->database_row_no_result;
+		$expected = FALSE;
         $this->assertEquals($expected, $actual);
     }
 	
@@ -262,7 +262,7 @@ class R2pdbmodel_model_test extends TestCase
     {
 		$fields = array("table_name" => "products", "products.ProductID" => $this->malformed_id_int);
 		$actual = $this->obj->get_rows_by_field_display($fields);
-		$expected = NULL;
+		$expected = FALSE;
         $this->assertEquals($expected, $actual);
     }
 	
@@ -273,7 +273,7 @@ class R2pdbmodel_model_test extends TestCase
     {
 		$fields = array("table_name" => "products", "products.ProductID" => $this->string);
 		$actual = $this->obj->get_rows_by_field_display($fields);
-		$expected = NULL;
+		$expected = FALSE;
         $this->assertEquals($expected, $actual);
     }
 	
@@ -284,7 +284,7 @@ class R2pdbmodel_model_test extends TestCase
     {
 		$fields = array("table_name" => "products", "products.ProductID" => $this->unassigned);
 		$actual = $this->obj->get_rows_by_field_display($fields);
-		$expected = $this->database_row_no_result;
+		$expected = NULL;
         $this->assertEquals($expected, $actual);
     }
 	
@@ -352,7 +352,7 @@ class R2pdbmodel_model_test extends TestCase
 	/**
 	 * Test get comment by id
 	 */
-    public function test_get_comment_by_id_display()
+    public function test_get_comment_by_id_display_valid()
     {
 		$actual = $this->obj->get_comment_by_id_display($this->valid_id_int);
 		$expected = $this->database_row_comment_id_1;

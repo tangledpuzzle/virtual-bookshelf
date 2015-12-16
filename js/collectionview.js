@@ -7,6 +7,10 @@
  */
 var document, sessionStorage, collection_json, window;
 
+/**
+ * Creates  HTML list of books in the collection in the database from the sessionStorage data.
+ * @author Ilkka
+ */
 function createCollectionView() {
     "use strict";
     var collection;
@@ -43,6 +47,7 @@ function createCollectionView() {
     book_name.innerHTML = "Book Name";
     tr.appendChild(book_name);
     var publisher = document.createElement("th");
+	publisher.className="hidden";
     publisher.innerHTML = "Publisher";
     tr.appendChild(publisher);
     var release_date = document.createElement("th");
@@ -65,7 +70,8 @@ function createCollectionView() {
         book_name.innerHTML = collection.Products[obj].Name;
         tr.appendChild(book_name);
         publisher = document.createElement("td");
-        publisher.innerHTML = collection.Products[obj].Publisher;
+		publisher.className="hidden";
+        publisher.innerHTML = collection.Products[obj].PublisherName;
         tr.appendChild(publisher);
         release_date = document.createElement("td");
         release_date.innerHTML = collection.Products[obj].ReleaseDate;

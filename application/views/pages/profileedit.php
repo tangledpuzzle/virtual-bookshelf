@@ -1,4 +1,14 @@
-    <h1 class="first-content-element">Edit Profile</h1>
+<?php 
+	if(isset($success_message))
+	{
+		echo '<div class="success-msg-box"><h4>Success</h4>' . $success_message . '</div>';
+	}
+	else if(isset($error_message))
+	{
+		echo '<div class="error-msg-box"><h4>Error</h4>' . $success_message . '</div>';
+	}
+?>
+<h1 class="first-content-element">Edit Profile</h1>
   	<hr>
 	<div class="row">
 	

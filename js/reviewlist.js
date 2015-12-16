@@ -2,6 +2,11 @@
  * User: joseu
  */
 var document, sessionStorage, window, reviews_json;
+
+/**
+ * Creates  HTML list of reviews in the database from the sessionStorage data.
+ * @author Ilkka
+ */
 function createReviewList() {
     "use strict";
     var reviews;

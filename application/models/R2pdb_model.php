@@ -216,7 +216,7 @@ class R2pdb_model extends CI_Model
 	
 	// Copied from Community Auth examples.
 	/**
-    * Get an unused ID for user creation. Currently not used.
+    * Get an unused ID for user creation.
     *
     * @return  int between 1200 and 4294967295
     */
@@ -258,6 +258,7 @@ class R2pdb_model extends CI_Model
 			$table_name = $arg_list["table_name"];
 			unset($arg_list["table_name"]); // Remove table_name element from array as it is not a field.
 			$this->db->where($arg_list); // Add all fields to WHERE statement.
+			
 			$this->db->select($this->get_public_data_columns_display($table_name));
 	
 			// Left join the correct tables.
@@ -895,6 +896,28 @@ class R2pdb_model extends CI_Model
 		return $this->validate_row_id('collections', (int) $id);
 	}
 	
+	/**
+	* Checks if given product ID is not present in the collection.
+	* @param int $productid product id number
+	* @param int $collection collection id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_not_in_collection_id($productid, $collectionid)
+	{
+		$this->db->where(array("CollectionID" => (int) $collectionid, "ProductID" => (int) $productid));
+		$this->db->select("CollectionID");
+		$query = $this->db->get("collectionProducts");
+		$this->db->reset_query();
+		
+		if ($query->num_rows() > 0)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 	
 	// comments
 	
@@ -1429,7 +1452,7 @@ class R2pdb_model extends CI_Model
 	/**
 	* Get all user collections with product id, name, and release date with data formatting for display purposes.
 	* @param int $userid user ID
-	* @return array an array of collections containing all products in an array
+	* @return array an array of arrays containing collection data
 	*/
 	public function get_user_collections_short_display($userid)
 	{
@@ -1472,5 +1495,34 @@ class R2pdb_model extends CI_Model
 		}
 		
 		return $collections;
+	}
+	
+	/**
+	* Get all user collections with collection id as STRING key and name as value.
+	* @param int $userid user ID
+	* @return array an array of collections
+	*/
+	public function get_user_collections_minimal_list($userid)
+	{
+		$table_name ="userCollections";
+		$this->db->select("userCollections.CollectionID, CollectionName");
+		$this->db->where("userCollections.user_id", (int) $userid);
+
+		// Left join to get collection name.
+		$this->db->join("collections", 'userCollections.CollectionID = collections.CollectionID', 'left');
+
+		$query = $this->db->get($table_name);
+		$result = $query->result_array();
+		$array = array();
+
+		$length = count($result);
+		
+		// For every collection.
+		for ($i = 0; $i < $length; $i++)
+		{
+			$array[$result[$i]["CollectionID"]] = $result[$i]["CollectionName"];
+		}
+		
+		return $array;
 	}
 }

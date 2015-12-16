@@ -24,7 +24,7 @@ class My_projekti extends MY_Controller
 		// Load Community Auth variables.
 		$this->is_logged_in();
 		
-		// Is the user logged in?
+		// Community Auth: Is the user logged in?
 		if($this->auth_level !== NULL)
 		{
 			if( $http_user_cookie_contents = $this->input->cookie(config_item('http_user_cookie_name')))
@@ -76,7 +76,6 @@ class My_projekti extends MY_Controller
 				{
 					// Get data from database.
 					$data["collection"] = json_encode($this->r2pdb_model->get_collections_by_id_display($id));
-					
 				}
 				else
 				{
@@ -98,17 +97,40 @@ class My_projekti extends MY_Controller
 					// Was data submitted to this page with HTTP POST?
 					if($this->input->post('submit'))
 					{
-						// Is the user logged in?
-						if($logged_in_user_id > 0)
+						
+						$user_id = $logged_in_user_id;
+						$comment = $this->input->post("comment-text");
+						$delete_comment_id = $this->input->post("delete_comment_id");
+						
+						// Is there comment text data?
+						if ($comment !== NULL)
 						{
-							$this->r2pdb_model->add_review_comment($logged_in_user_id,
-																   $this->input->post("comment-text"),
-																   $review_id);
+							// Is the user logged in?
+							if($logged_in_user_id > 0)
+							{
+								$this->r2pdb_model->add_review_comment($logged_in_user_id, $comment, $review_id);
+							}
+							else
+							{
+								$data["error_message"] = "You need to be logged in to write reviews.";
+							}
 						}
-						else
+						else if ($delete_comment_id !== NULL)	// Comment deletion data?
 						{
-							$data["error_message"] = "You need to be logged in to write reviews.";
+							// Is the user an admin?
+							if($this->auth_level >= 9)
+							{
+								$this->r2pdb_model->remove_review_comment($review_id, $delete_comment_id);
+
+								// FIXME: Handle success message.
+								$data["success_message"] = "Comment deleted.";
+							}
+							else
+							{
+								$data["error_message"] = "You must be an admin to delete comments.";
+							}
 						}
+						// Otherwise do nothing.
 					}
 					
 					// Get data from database.
@@ -136,17 +158,39 @@ class My_projekti extends MY_Controller
 					// Was data submitted to this page with HTTP POST?
 					if($this->input->post('submit'))
 					{
-						// Is the user logged in?
-						if($logged_in_user_id > 0)
+						
+						$comment = $this->input->post("comment-text");
+						$delete_comment_id = $this->input->post("delete_comment_id");
+						
+						// Is there comment text data?
+						if ($comment !== NULL)
 						{
-							$this->r2pdb_model->add_user_comment($logged_in_user_id,
-																 $this->input->post("comment-text"),
-																 $user_id);
+							// Is the user logged in?
+							if($logged_in_user_id > 0)
+							{
+								$this->r2pdb_model->add_user_comment($logged_in_user_id, $comment, $user_id);
+							}
+							else
+							{
+								$data["error_message"] = "You need to be logged in to write comments.";
+							}
 						}
-						else
+						else if ($delete_comment_id !== NULL)	// Comment deletion data?
 						{
-							$data["error_message"] = "You need to be logged in to write comments.";
+							// Is the user an admin?
+							if($this->auth_level >= 9)
+							{
+								$this->r2pdb_model->remove_user_comment($user_id, $delete_comment_id);
+
+								// FIXME: Handle success message.
+								$data["success_message"] = "Comment deleted.";
+							}
+							else
+							{
+								$data["error_message"] = "You must be an admin to delete comments.";
+							}
 						}
+						// Otherwise do nothing.
 					}
 					
 					// Get user data from database.
@@ -192,17 +236,38 @@ class My_projekti extends MY_Controller
 						// Was data submitted to this page with HTTP POST?
 						if($this->input->post('submit'))
 						{
-							// Is the user logged in?
-							if($logged_in_user_id > 0)
+							$comment = $this->input->post("comment-text");
+							$delete_comment_id = $this->input->post("delete_comment_id");
+							
+							// Is there comment text data?
+							if ($comment !== NULL)
 							{
-								$this->r2pdb_model->add_user_comment($logged_in_user_id,
-																	 $this->input->post("comment-text"),
-																	 $user_id);
+								// Is the user logged in?
+								if($logged_in_user_id > 0)
+								{
+									$this->r2pdb_model->add_user_comment($logged_in_user_id, $comment, $user_id);
+								}
+								else
+								{
+									$data["error_message"] = "You need to be logged in to write comments.";
+								}
 							}
-							else
+							else if ($delete_comment_id !== NULL)	// Comment deletion data?
 							{
-								$data["error_message"] = "You need to be logged in to write comments.";
+								// Is the user an admin?
+								if($this->auth_level >= 9)
+								{
+									$this->r2pdb_model->remove_user_comment($user_id, $delete_comment_id);
+
+									// FIXME: Handle success message.
+									$data["success_message"] = "Comment deleted.";
+								}
+								else
+								{
+									$data["error_message"] = "You must be an admin to delete comments.";
+								}
 							}
+							// Otherwise do nothing.
 						}
 						
 						// Get user data from database.
@@ -357,6 +422,14 @@ class My_projekti extends MY_Controller
 					
 					// Give the JavaScript script information (through the view PHP file) if the current user is logged in to selectively disable dynamically created site features.
 					$data["logged_in_user_id"] = $logged_in_user_id;
+					
+					
+					// Is the user logged in?
+					if($logged_in_user_id > 0)
+					{
+						// Get user's collection names and IDs for showing in the dropdown menu.
+						$data['user_collections'] = json_encode($this->r2pdb_model->get_user_collections_minimal_list($logged_in_user_id));
+					}
 					
 				}
 				else

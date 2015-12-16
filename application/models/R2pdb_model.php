@@ -252,6 +252,7 @@ class R2pdb_model extends CI_Model
 			$table_name = $arg_list["table_name"];
 			unset($arg_list["table_name"]); // Remove table_name element from array as it is not a field.
 			$this->db->where($arg_list); // Add all fields to WHERE statement.
+			
 			$this->db->select($this->get_public_data_columns_display($table_name));
 	
 			// Left join the correct tables.
@@ -886,6 +887,28 @@ class R2pdb_model extends CI_Model
 		return $this->validate_row_id('collections', (int) $id);
 	}
 	
+	/**
+	* Checks if given product ID is not present in the collection.
+	* @param int $productid product id number
+	* @param int $collection collection id number
+	* @return boolean TRUE if ID is valid
+	*/
+	public function is_not_in_collection_id($productid, $collectionid)
+	{
+		$this->db->where(array("CollectionID" => (int) $collectionid, "ProductID" => (int) $productid));
+		$this->db->select("CollectionID");
+		$query = $this->db->get("collectionProducts");
+		$this->db->reset_query();
+		
+		if ($query->num_rows() > 0)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+	}
 	
 	// comments
 	

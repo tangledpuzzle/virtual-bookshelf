@@ -84,7 +84,18 @@ function createUserView(logged_in_user_id, source_page) {
     userview_userdivtitle.appendChild(userview_datetitle);
     userview_userdivrow0 = document.createElement("tr");
     fullname = document.createElement("td");
-    fullname.innerHTML = user.FirstName + " " + user.LastName;
+	var first = user.FirstName;
+	if (first === null)
+	{
+		first= "";
+	}
+	var last = user.LastName;
+	if (last === null)
+	{
+		last= "";
+	}
+	var full = first + " " + last;
+    fullname.innerHTML = full.trim();
     fullname.className = "col-md-4";
     userview_userdivrow0.appendChild(fullname);
     userview_country = document.createElement("td");
@@ -92,7 +103,14 @@ function createUserView(logged_in_user_id, source_page) {
     userview_country.className = "col-md-3";
     userview_userdivrow0.appendChild(userview_country);
     userage = document.createElement("td");
-    userage.innerHTML = user.Age;
+	if (user.Age === 0)
+	{
+    	userage.innerHTML = "";
+	}
+	else
+	{
+		userage.innerHTML = user.Age
+	}
     userage.className = "col-md-1";
     userview_userdivrow0.appendChild(userage);
     genderdiv = document.createElement("td");

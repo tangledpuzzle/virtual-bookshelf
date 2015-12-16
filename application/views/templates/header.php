@@ -5,6 +5,8 @@
 	<link rel="stylesheet" type="text/css" href="../../../css/global.css" >
 	<link rel="stylesheet" type="text/css" href="../../../bs/css/bootstrap.css" >
 	<link rel="stylesheet" type="text/css" href="../../../bs/css/bootstrap-theme.css" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 	<!-- Project helper functions. -->
 	<script type="text/javascript" src="../../../js/r2p.js"></script>
 </head>

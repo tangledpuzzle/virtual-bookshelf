@@ -53,7 +53,8 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
         var hiddencolid = document.createElement("input");
         var select = document.createElement("select");
         
-        form.onsubmit = function () {
+        
+		form.onsubmit = function () {
             // Check if the text field and list select contents are identical.	
             var name = colnamefield.value;
             if(name.trim().length === 0 || name === logged_in_user_collections[select.value]) {
@@ -91,7 +92,8 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
         select.id = "collection-select";
         colselectdiv.appendChild(select);
 		
-        select.onchange = function () {
+       
+		select.onchange = function () {
             colnamefield.value = logged_in_user_collections[document.getElementById("collection-select").value];
         };
 		

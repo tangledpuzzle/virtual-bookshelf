@@ -6,15 +6,17 @@ class Review extends My_projekti
 {
 	public function write_review($productid)
 	{
+		// Load Community Auth variables.
+		$this->is_logged_in();
+		
 		if($this->auth_level > 0)
 		{
 			if ($this->r2pdb_model->is_valid_product_id($productid) === TRUE)
 			{
 				$data['productid'] = $productid;
-				echo "rev contrl";
+
 				if($this->input->post('submit'))
 				{
-				echo "PSOTING contrl";
 					$this->r2pdb_model->add_review(
 						(int) $this->auth_user_id,
 						$productid,
@@ -27,7 +29,6 @@ class Review extends My_projekti
 				}
 				else
 				{
-				echo "rev show form";
 					$this->view('writereview', $data);
 				}
 			}

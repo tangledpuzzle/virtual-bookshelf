@@ -443,6 +443,10 @@ class My_projekti extends MY_Controller
 						// Get user's collection names and IDs for showing in the dropdown menu.
 						$data['user_collections'] = json_encode($this->r2pdb_model->get_user_collections_minimal_list($logged_in_user_id));
 					}
+					else
+					{
+						$data['user_collections'] = json_encode(array());
+					}
 					
 				}
 				else

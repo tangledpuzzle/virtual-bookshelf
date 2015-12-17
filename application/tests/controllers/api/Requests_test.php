@@ -89,6 +89,11 @@ class Requests_test extends TestCase
 	public $json_result_collection_1;
 	
 	/**
+	 * REST API request result as JSON for: database product ID 1 reviews
+	 */
+	public $json_result_product_1_reviews;
+		
+	/**
 	 * REST API request result as JSON for: database review ID 1 comments
 	 */
 	public $json_result_review_1_comments;
@@ -191,6 +196,8 @@ class Requests_test extends TestCase
 		$this->json_result_review_1 = '[{"ReviewID":1,"ReviewDate":"2001-09-23 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"A User","user_id":1,"Text":"Review text goes here.","Pros":"It had some good things.","Cons":"Can\'t think of any.","Rating":5},{"ReviewID":6,"ReviewDate":"2012-09-01 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 7","user_id":7,"Text":"Sed nisi.","Pros":null,"Cons":null,"Rating":2},{"ReviewID":23,"ReviewDate":"2006-05-25 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"A Moderator","user_id":2,"Text":"Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.","Pros":null,"Cons":"Sed dignissim lacinia nunc.","Rating":3},{"ReviewID":27,"ReviewDate":"2011-03-22 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 6","user_id":6,"Text":"Quisque volutpat condimentum velit.","Pros":null,"Cons":null,"Rating":4},{"ReviewID":28,"ReviewDate":"2011-03-27 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 8","user_id":8,"Text":"Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.","Pros":"Curabitur sodales ligula in libero.","Cons":"Suspendisse in justo eu magna luctus suscipit.","Rating":5}]';
 		
 		$this->json_result_product_1_comment = '[{"CommentID":2,"PostDate":"1901-11-11 00:00:00","user_id":2,"ScreenName":"A Moderator","Text":"Test Product Comment"},{"CommentID":3,"PostDate":"2021-09-19 00:00:00","user_id":3,"ScreenName":"An Admin","Text":"Test Product Comment 2"}]';
+		
+		$this->json_result_product_1_reviews ='[{"ReviewID":1,"ReviewDate":"2001-09-23 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"A User","user_id":1,"Text":"Review text goes here.","Pros":"It had some good things.","Cons":"Can\'t think of any.","Rating":5},{"ReviewID":6,"ReviewDate":"2012-09-01 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 7","user_id":7,"Text":"Sed nisi.","Pros":null,"Cons":null,"Rating":2},{"ReviewID":23,"ReviewDate":"2006-05-25 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"A Moderator","user_id":2,"Text":"Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.","Pros":null,"Cons":"Sed dignissim lacinia nunc.","Rating":3},{"ReviewID":27,"ReviewDate":"2011-03-22 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 6","user_id":6,"Text":"Quisque volutpat condimentum velit.","Pros":null,"Cons":null,"Rating":4},{"ReviewID":28,"ReviewDate":"2011-03-27 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 8","user_id":8,"Text":"Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.","Pros":"Curabitur sodales ligula in libero.","Cons":"Suspendisse in justo eu magna luctus suscipit.","Rating":5}]';
 		
 		$this->json_result_collection_1 = '{"CollectionID":1,"CollectionName":"Test Collection","Products":[{"ProductID":1,"Name":"Sample Book 1","ReleaseDate":"2008-11-11"},{"ProductID":2,"Name":"Sample Book 2","ReleaseDate":null},{"ProductID":3,"Name":"Sample Book 3","ReleaseDate":"2018-12-11"},{"ProductID":5,"Name":"Sample Book 5","ReleaseDate":"2007-11-11"},{"ProductID":10,"Name":"Sample Book 10","ReleaseDate":"2015-11-11"}]}';
 		
@@ -609,7 +616,7 @@ class Requests_test extends TestCase
             $output = ob_get_clean();
         }
 
-        $this->assertEquals($this->json_result_review_1,$output);
+        $this->assertEquals($this->json_result_product_1_reviews,$output);
         $this->assertResponseCode(200); //http OK.
     }
 	

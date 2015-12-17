@@ -30,13 +30,6 @@ class Login extends My_projekti
      */
     public function login()
     {
-        // Method should not be directly accessible
-        if( $this->uri->uri_string() == 'examples/login')
-        {
-            show_404();
-        }
-		else
-		{
 			// Load Community Auth variables.
 			$this->is_logged_in();
 
@@ -56,7 +49,6 @@ class Login extends My_projekti
 
 				$this->view('login_form', null);
 			}
-		}
     }
 
     /**

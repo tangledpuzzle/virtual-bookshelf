@@ -22,7 +22,7 @@ class Review extends My_projekti
 		$this->is_logged_in();
 		
 		// User logged in?
-		if($this->auth_level > 0)
+		if($this->auth_level !== NULL)
 		{
 			// Valid product?
 			if ($this->r2pdb_model->is_valid_product_id($productid) === TRUE)
@@ -50,14 +50,14 @@ class Review extends My_projekti
 			}
 			else
 			{
-				$data["message"] = "Invalid product ID.";
-				$this->view('message', $data);
+				$data["error_message"] = "Invalid product ID.";
+				$this->view('error', $data);
 			}
 		}
 		else
 		{
-			$data["message"] = "You need to be logged in to write a review.";
-			$this->view('message', $data);
+			$data["error_message"] = "You need to be logged in to write a review.";
+			$this->view('error', $data);
 		}
 	}
 }

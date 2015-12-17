@@ -57,6 +57,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 // SPECIFIC CONTROLLERS
 $route['writereview/(:num)'] = 'review/write_review/$1';
+// For malformed parameters.
+$route['writereview/(:any)'] = 'review/write_review/$1';
 $route['register'] = 'register/show_register';
 $route['profileedit'] = 'profileedit/update_user';
 $route[LOGIN_PAGE] = 'login/login';

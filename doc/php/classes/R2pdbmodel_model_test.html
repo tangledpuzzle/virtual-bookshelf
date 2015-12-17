@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-741984607"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-741984607" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Login.html">Login</a></li>
+                                                    <li class="class"><a href="../classes/My_projekti.html">My_projekti</a></li>
+                                                    <li class="class"><a href="../classes/My_projekti_test.html">My_projekti_test</a></li>
+                                                    <li class="class"><a href="../classes/Profileedit.html">Profileedit</a></li>
+                                                    <li class="class"><a href="../classes/R2pdb_model.html">R2pdb_model</a></li>
+                                                    <li class="class"><a href="../classes/R2pdbmodel_model_test.html">R2pdbmodel_model_test</a></li>
+                                                    <li class="class"><a href="../classes/Register.html">Register</a></li>
+                                                    <li class="class"><a href="../classes/Register_test.html">Register_test</a></li>
+                                                    <li class="class"><a href="../classes/Requests.html">Requests</a></li>
+                                                    <li class="class"><a href="../classes/Requests_test.html">Requests_test</a></li>
+                                                    <li class="class"><a href="../classes/Review.html">Review</a></li>
+                                                    <li class="class"><a href="../classes/Review_test.html">Review_test</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>R2pdbmodel_model_test</h1>
+                    <p><em>Testing class for the MySQL database model used in the project.</em></p>
+                    <p>The tests assume that the most recent version of the DEFAULT database is used.
+To reset the local database to default, run dev/init.sql in MySQL.</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_setUp" class="">setUp()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_validate_row_id_valid" class="">test_validate_row_id_valid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_validate_row_id_unused" class="">test_validate_row_id_unused()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_validate_row_id_invalid" class="">test_validate_row_id_invalid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_validate_row_id_malformed" class="">test_validate_row_id_malformed()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_validate_row_id_string" class="">test_validate_row_id_string()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_validate_row_id_unassigned" class="">test_validate_row_id_unassigned()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_validate_row_id_NULL" class="">test_validate_row_id_NULL()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_rows_by_field_display_swedish_products" class="">test_get_rows_by_field_display_swedish_products()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_rows_by_field_display_valid" class="">test_get_rows_by_field_display_valid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_rows_by_field_display_unused" class="">test_get_rows_by_field_display_unused()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_rows_by_field_display_invalid" class="">test_get_rows_by_field_display_invalid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_rows_by_field_display_malformed" class="">test_get_rows_by_field_display_malformed()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_rows_by_field_display_string" class="">test_get_rows_by_field_display_string()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_rows_by_field_display_unassigned" class="">test_get_rows_by_field_display_unassigned()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_rows_by_field_display_null" class="">test_get_rows_by_field_display_null()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_collections" class="">test_get_collections()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_empty_collection" class="">test_get_empty_collection()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_comment_by_id_display_valid" class="">test_get_comment_by_id_display_valid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_review_infos_by_product_id_display_valid" class="">test_get_review_infos_by_product_id_display_valid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_review_infos_by_product_id_display_invalid" class="">test_get_review_infos_by_product_id_display_invalid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_review_infos_by_product_id_display_unused" class="">test_get_review_infos_by_product_id_display_unused()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_review_infos_by_product_id_display_malformed" class="">test_get_review_infos_by_product_id_display_malformed()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_review_infos_by_product_id_display_string" class="">test_get_review_infos_by_product_id_display_string()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_review_infos_by_product_id_display_unassigned" class="">test_get_review_infos_by_product_id_display_unassigned()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_review_infos_by_product_id_display_null" class="">test_get_review_infos_by_product_id_display_null()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_short_display_valid" class="">test_get_user_collections_short_display_valid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_short_display_invalid" class="">test_get_user_collections_short_display_invalid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_short_display_unused" class="">test_get_user_collections_short_display_unused()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_short_display_malformed" class="">test_get_user_collections_short_display_malformed()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_short_display_string" class="">test_get_user_collections_short_display_string()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_short_display_unassigned" class="">test_get_user_collections_short_display_unassigned()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_short_display_null" class="">test_get_user_collections_short_display_null()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_correct_result_data_types" class="">test_correct_result_data_types()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_minimal_list_valid" class="">test_get_user_collections_minimal_list_valid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_minimal_list_invalid" class="">test_get_user_collections_minimal_list_invalid()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_minimal_list_unused" class="">test_get_user_collections_minimal_list_unused()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_minimal_list_malformed" class="">test_get_user_collections_minimal_list_malformed()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_minimal_list_string" class="">test_get_user_collections_minimal_list_string()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_minimal_list_unassigned" class="">test_get_user_collections_minimal_list_unassigned()</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_test_get_user_collections_minimal_list_null" class="">test_get_user_collections_minimal_list_null()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_valid_id_int" class="">$valid_id_int</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_invalid_id_int" class="">$invalid_id_int</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_unused_id_int" class="">$unused_id_int</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_malformed_id_int" class="">$malformed_id_int</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_string" class="">$string</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_unassigned" class="">$unassigned</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_database_row_product_1" class="">$database_row_product_1</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_database_row_no_result" class="">$database_row_no_result</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_database_products_language_swedish" class="">$database_products_language_swedish</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_database_row_empty_collection_id_2" class="">$database_row_empty_collection_id_2</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_database_row_comment_id_1" class="">$database_row_comment_id_1</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_database_row_review_infos_product_1" class="">$database_row_review_infos_product_1</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_database_row_short_collection_info_user_1" class="">$database_row_short_collection_info_user_1</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_database_row_minimal_collection_info_user_1" class="">$database_row_minimal_collection_info_user_1</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_valid_table_name" class="">$valid_table_name</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_invalid_table_name" class="">$invalid_table_name</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_unused_table_name" class="">$unused_table_name</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_number_of_collections" class="">$number_of_collections</a><br />
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#property_number_of_products" class="">$number_of_products</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/R2pdbmodel_model_test.html#method_getFunctionAsPublic" class="">getFunctionAsPublic()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/tests.models.R2pdb_model_test.html"><div class="path-wrapper">tests/models/R2pdb_model_test.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper">\TestCase</div>
+                                                                                                    <div class="namespace-wrapper">\R2pdbmodel_model_test</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Jose</p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_valid_id_int" name="property_valid_id_int" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$valid_id_int</h3>
+                <pre class="signature">$valid_id_int : </pre>
+                <p><em>A valid and used MySQL ID column integer value that is present in all tables in the default database. The value is 1.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_invalid_id_int" name="property_invalid_id_int" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$invalid_id_int</h3>
+                <pre class="signature">$invalid_id_int : </pre>
+                <p><em>An invalid MySQL ID column integer value. The value is 0.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_unused_id_int" name="property_unused_id_int" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$unused_id_int</h3>
+                <pre class="signature">$unused_id_int : </pre>
+                <p><em>A valid MySQL ID column integer value that is not used in any tables in the default database. The value is 999999.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_malformed_id_int" name="property_malformed_id_int" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$malformed_id_int</h3>
+                <pre class="signature">$malformed_id_int : </pre>
+                <p><em>An invalid MySQL ID column value. The value is a number followed with letters.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_string" name="property_string" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$string</h3>
+                <pre class="signature">$string : </pre>
+                <p><em>A random example string.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_unassigned" name="property_unassigned" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$unassigned</h3>
+                <pre class="signature">$unassigned : </pre>
+                <p><em>An unassigned variable.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_database_row_product_1" name="property_database_row_product_1" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$database_row_product_1</h3>
+                <pre class="signature">$database_row_product_1 : </pre>
+                <p><em>The default database row data for: product ID 1</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_database_row_no_result" name="property_database_row_no_result" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$database_row_no_result</h3>
+                <pre class="signature">$database_row_no_result : </pre>
+                <p><em>The default database row data for: no row found</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_database_products_language_swedish" name="property_database_products_language_swedish" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$database_products_language_swedish</h3>
+                <pre class="signature">$database_products_language_swedish : </pre>
+                <p><em>The default database row data for: products where language name is swedish</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_database_row_empty_collection_id_2" name="property_database_row_empty_collection_id_2" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$database_row_empty_collection_id_2</h3>
+                <pre class="signature">$database_row_empty_collection_id_2 : </pre>
+                <p><em>The default database row data for: collection ID 2</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_database_row_comment_id_1" name="property_database_row_comment_id_1" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$database_row_comment_id_1</h3>
+                <pre class="signature">$database_row_comment_id_1 : </pre>
+                <p><em>The default database row data for: comment ID 1</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_database_row_review_infos_product_1" name="property_database_row_review_infos_product_1" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$database_row_review_infos_product_1</h3>
+                <pre class="signature">$database_row_review_infos_product_1 : </pre>
+                <p><em>The default database row data for: product ID 1 reviews (short information for a list)</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_database_row_short_collection_info_user_1" name="property_database_row_short_collection_info_user_1" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$database_row_short_collection_info_user_1</h3>
+                <pre class="signature">$database_row_short_collection_info_user_1 : </pre>
+                <p><em>The default database row data for: user ID 1 collections (short information for a list)</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_database_row_minimal_collection_info_user_1" name="property_database_row_minimal_collection_info_user_1" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$database_row_minimal_collection_info_user_1</h3>
+                <pre class="signature">$database_row_minimal_collection_info_user_1 : </pre>
+                <p><em>The default database row data for: user ID 1 collections (minimal information for a list)</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_valid_table_name" name="property_valid_table_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$valid_table_name</h3>
+                <pre class="signature">$valid_table_name : </pre>
+                <p><em>A valid and used default database table name.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_invalid_table_name" name="property_invalid_table_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$invalid_table_name</h3>
+                <pre class="signature">$invalid_table_name : </pre>
+                <p><em>An invalid database table name.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_unused_table_name" name="property_unused_table_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$unused_table_name</h3>
+                <pre class="signature">$unused_table_name : </pre>
+                <p><em>A valid but unused default database table name.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_number_of_collections" name="property_number_of_collections" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$number_of_collections</h3>
+                <pre class="signature">$number_of_collections : </pre>
+                <p><em>Number of collections in the default database.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_number_of_products" name="property_number_of_products" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$number_of_products</h3>
+                <pre class="signature">$number_of_products : </pre>
+                <p><em>Number of products in the default database.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUp" name="method_setUp" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUp()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUp() </pre>
+                <p><em>Set up the database model before the tests and assign the common variables.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_validate_row_id_valid" name="method_test_validate_row_id_valid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_validate_row_id_valid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_validate_row_id_valid() </pre>
+                <p><em>Test of generic row id validation function with: valid id</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_validate_row_id_unused" name="method_test_validate_row_id_unused" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_validate_row_id_unused()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_validate_row_id_unused() </pre>
+                <p><em>Test of generic row id validation function with: unused id</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_validate_row_id_invalid" name="method_test_validate_row_id_invalid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_validate_row_id_invalid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_validate_row_id_invalid() </pre>
+                <p><em>Test of generic row id validation function with: invalid id</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_validate_row_id_malformed" name="method_test_validate_row_id_malformed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_validate_row_id_malformed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_validate_row_id_malformed() </pre>
+                <p><em>Test of generic row id validation function with: malformed</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_validate_row_id_string" name="method_test_validate_row_id_string" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_validate_row_id_string()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_validate_row_id_string() </pre>
+                <p><em>Test of generic row id validation function with: string</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_validate_row_id_unassigned" name="method_test_validate_row_id_unassigned" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_validate_row_id_unassigned()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_validate_row_id_unassigned() </pre>
+                <p><em>Test of generic row id validation function with: unassigned id</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_validate_row_id_NULL" name="method_test_validate_row_id_NULL" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_validate_row_id_NULL()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_validate_row_id_NULL() </pre>
+                <p><em>Test of generic row id validation function with: NULL id</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_rows_by_field_display_swedish_products" name="method_test_get_rows_by_field_display_swedish_products" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_rows_by_field_display_swedish_products()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_rows_by_field_display_swedish_products() </pre>
+                <p><em>Test of generic get rows by field function: LanguageName is Swedish
+Also tests table joining.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_rows_by_field_display_valid" name="method_test_get_rows_by_field_display_valid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_rows_by_field_display_valid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_rows_by_field_display_valid() </pre>
+                <p><em>Test of generic get rows by field function: valid</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_rows_by_field_display_unused" name="method_test_get_rows_by_field_display_unused" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_rows_by_field_display_unused()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_rows_by_field_display_unused() </pre>
+                <p><em>Test of generic get rows by field function: unused</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_rows_by_field_display_invalid" name="method_test_get_rows_by_field_display_invalid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_rows_by_field_display_invalid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_rows_by_field_display_invalid() </pre>
+                <p><em>Test of generic get rows by field function: invalid</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_rows_by_field_display_malformed" name="method_test_get_rows_by_field_display_malformed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_rows_by_field_display_malformed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_rows_by_field_display_malformed() </pre>
+                <p><em>Test of generic get rows by field function: malformed</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_rows_by_field_display_string" name="method_test_get_rows_by_field_display_string" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_rows_by_field_display_string()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_rows_by_field_display_string() </pre>
+                <p><em>Test of generic get rows by field function: string</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_rows_by_field_display_unassigned" name="method_test_get_rows_by_field_display_unassigned" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_rows_by_field_display_unassigned()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_rows_by_field_display_unassigned() </pre>
+                <p><em>Test of generic get rows by field function: unassigned</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_rows_by_field_display_null" name="method_test_get_rows_by_field_display_null" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_rows_by_field_display_null()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_rows_by_field_display_null() </pre>
+                <p><em>Test of generic get rows by field function: null</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_collections" name="method_test_get_collections" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_collections()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_collections() </pre>
+                <p><em>Test get table rows: collections</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_empty_collection" name="method_test_get_empty_collection" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_empty_collection()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_empty_collection() </pre>
+                <p><em>Test get empty collection (ID 2)</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_comment_by_id_display_valid" name="method_test_get_comment_by_id_display_valid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_comment_by_id_display_valid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_comment_by_id_display_valid() </pre>
+                <p><em>Test get comment by id</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_review_infos_by_product_id_display_valid" name="method_test_get_review_infos_by_product_id_display_valid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_review_infos_by_product_id_display_valid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_review_infos_by_product_id_display_valid() </pre>
+                <p><em>Test get review information with product id: valid</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_review_infos_by_product_id_display_invalid" name="method_test_get_review_infos_by_product_id_display_invalid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_review_infos_by_product_id_display_invalid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_review_infos_by_product_id_display_invalid() </pre>
+                <p><em>Test get review information with product id: invalid</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_review_infos_by_product_id_display_unused" name="method_test_get_review_infos_by_product_id_display_unused" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_review_infos_by_product_id_display_unused()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_review_infos_by_product_id_display_unused() </pre>
+                <p><em>Test get review information with product id: unused</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_review_infos_by_product_id_display_malformed" name="method_test_get_review_infos_by_product_id_display_malformed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_review_infos_by_product_id_display_malformed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_review_infos_by_product_id_display_malformed() </pre>
+                <p><em>Test get review information with product id: malformed</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_review_infos_by_product_id_display_string" name="method_test_get_review_infos_by_product_id_display_string" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_review_infos_by_product_id_display_string()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_review_infos_by_product_id_display_string() </pre>
+                <p><em>Test get review information with product id: string</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_review_infos_by_product_id_display_unassigned" name="method_test_get_review_infos_by_product_id_display_unassigned" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_review_infos_by_product_id_display_unassigned()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_review_infos_by_product_id_display_unassigned() </pre>
+                <p><em>Test get review information with product id: unassigned</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_review_infos_by_product_id_display_null" name="method_test_get_review_infos_by_product_id_display_null" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_review_infos_by_product_id_display_null()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_review_infos_by_product_id_display_null() </pre>
+                <p><em>Test get review information with product id: NULL</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_short_display_valid" name="method_test_get_user_collections_short_display_valid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_short_display_valid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_short_display_valid() </pre>
+                <p><em>Test get short user collection info with user id: valid</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_short_display_invalid" name="method_test_get_user_collections_short_display_invalid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_short_display_invalid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_short_display_invalid() </pre>
+                <p><em>Test get short user collection info with user id: invalid</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_short_display_unused" name="method_test_get_user_collections_short_display_unused" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_short_display_unused()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_short_display_unused() </pre>
+                <p><em>Test get short user collection info with user id: unused</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_short_display_malformed" name="method_test_get_user_collections_short_display_malformed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_short_display_malformed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_short_display_malformed() </pre>
+                <p><em>Test get short user collection info with user id: malformed</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_short_display_string" name="method_test_get_user_collections_short_display_string" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_short_display_string()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_short_display_string() </pre>
+                <p><em>Test get short user collection info with user id: string</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_short_display_unassigned" name="method_test_get_user_collections_short_display_unassigned" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_short_display_unassigned()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_short_display_unassigned() </pre>
+                <p><em>Test get short user collection info with user id: unassigned</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_short_display_null" name="method_test_get_user_collections_short_display_null" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_short_display_null()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_short_display_null() </pre>
+                <p><em>Test get short user collection info with user id: NULL</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_correct_result_data_types" name="method_test_correct_result_data_types" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_correct_result_data_types()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_correct_result_data_types() </pre>
+                <p><em>Test getting data from database in the correct format, i.e. numbers are ints.</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_minimal_list_valid" name="method_test_get_user_collections_minimal_list_valid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_minimal_list_valid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_minimal_list_valid() </pre>
+                <p><em>Test get minimal user collection info with user id: valid</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_minimal_list_invalid" name="method_test_get_user_collections_minimal_list_invalid" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_minimal_list_invalid()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_minimal_list_invalid() </pre>
+                <p><em>Test get minimal user collection info with user id: invalid</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_minimal_list_unused" name="method_test_get_user_collections_minimal_list_unused" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_minimal_list_unused()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_minimal_list_unused() </pre>
+                <p><em>Test get minimal user collection info with user id: unused</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_minimal_list_malformed" name="method_test_get_user_collections_minimal_list_malformed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_minimal_list_malformed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_minimal_list_malformed() </pre>
+                <p><em>Test get minimal user collection info with user id: malformed</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_minimal_list_string" name="method_test_get_user_collections_minimal_list_string" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_minimal_list_string()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_minimal_list_string() </pre>
+                <p><em>Test get minimal user collection info with user id: string</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_minimal_list_unassigned" name="method_test_get_user_collections_minimal_list_unassigned" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_minimal_list_unassigned()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_minimal_list_unassigned() </pre>
+                <p><em>Test get minimal user collection info with user id: unassigned</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_test_get_user_collections_minimal_list_null" name="method_test_get_user_collections_minimal_list_null" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">test_get_user_collections_minimal_list_null()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">test_get_user_collections_minimal_list_null() </pre>
+                <p><em>Test get minimal user collection info with user id: NULL</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFunctionAsPublic" name="method_getFunctionAsPublic" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getFunctionAsPublic()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFunctionAsPublic(string  <span class="argument">$name</span>) </pre>
+                <p><em>Reflection magic copypasted from: http://stackoverflow.com/a/2798203</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>Name of the function to get as public.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">R2pdb_model_test.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/tests/models/R2pdb_model_test.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 17th, 2015 at 16:39.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

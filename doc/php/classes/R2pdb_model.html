@@ -1,0 +1,2418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">4</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1532903492"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1532903492" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Login.html">Login</a></li>
+                                                    <li class="class"><a href="../classes/My_projekti.html">My_projekti</a></li>
+                                                    <li class="class"><a href="../classes/My_projekti_test.html">My_projekti_test</a></li>
+                                                    <li class="class"><a href="../classes/Profileedit.html">Profileedit</a></li>
+                                                    <li class="class"><a href="../classes/R2pdb_model.html">R2pdb_model</a></li>
+                                                    <li class="class"><a href="../classes/R2pdbmodel_model_test.html">R2pdbmodel_model_test</a></li>
+                                                    <li class="class"><a href="../classes/Register.html">Register</a></li>
+                                                    <li class="class"><a href="../classes/Register_test.html">Register_test</a></li>
+                                                    <li class="class"><a href="../classes/Requests.html">Requests</a></li>
+                                                    <li class="class"><a href="../classes/Requests_test.html">Requests_test</a></li>
+                                                    <li class="class"><a href="../classes/Review.html">Review</a></li>
+                                                    <li class="class"><a href="../classes/Review_test.html">Review_test</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>R2pdb_model</h1>
+                    <p><em>MySQL database model.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/R2pdb_model.html#method_validate_row_id" class="">validate_row_id()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_unused_user_id" class="">get_unused_user_id()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_rows_by_field_display" class="">get_rows_by_field_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_add_review" class="">add_review()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_add_product_id_to_collection" class="">add_product_id_to_collection()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_add_collection" class="">add_collection()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_remove_product_id_from_collection" class="">remove_product_id_from_collection()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_add_user_comment" class="">add_user_comment()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_remove_user_comment" class="">remove_user_comment()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_add_product_comment" class="">add_product_comment()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_remove_product_comment" class="">remove_product_comment()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_add_review_comment" class="">add_review_comment()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_remove_review_comment" class="">remove_review_comment()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_collections_display" class="">get_collections_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_collections_by_id_display" class="">get_collections_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_is_valid_collection_id" class="">is_valid_collection_id()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_is_not_in_collection_id" class="">is_not_in_collection_id()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_is_valid_comment_id" class="">is_valid_comment_id()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_comment_by_id_display" class="">get_comment_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_countries_display" class="">get_countries_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_country_by_id_display" class="">get_country_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_genders_display" class="">get_genders_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_gender_by_id_display" class="">get_gender_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_genres_display" class="">get_genres_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_genre_by_id_display" class="">get_genre_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_product_comments_display" class="">get_product_comments_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_products_display" class="">get_products_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_is_valid_product_id" class="">is_valid_product_id()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_product_by_id_display" class="">get_product_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_product_reviews_by_id_display" class="">get_product_reviews_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_publishers_display" class="">get_publishers_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_publishers" class="">get_publishers()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_is_valid_publisher_id" class="">is_valid_publisher_id()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_publisher_by_id_display" class="">get_publisher_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_review_comments_display" class="">get_review_comments_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_reviews_display" class="">get_reviews_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_is_valid_review_id" class="">is_valid_review_id()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_review_by_id_display" class="">get_review_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_review_infos_by_product_id_display" class="">get_review_infos_by_product_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_users_display" class="">get_users_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_users" class="">get_users()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_is_valid_user_id" class="">is_valid_user_id()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_user_by_id_display" class="">get_user_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_user_reviews_display" class="">get_user_reviews_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_user_comments_display" class="">get_user_comments_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_user_collections_short_display" class="">get_user_collections_short_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_user_collections_minimal_list" class="">get_user_collections_minimal_list()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/R2pdb_model.html#method_get_public_data_columns" class="">get_public_data_columns()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_public_data_columns_display" class="">get_public_data_columns_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_id_column_from_table" class="">get_id_column_from_table()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_correct_result_data_types" class="">correct_result_data_types()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_row_by_id_display" class="">get_row_by_id_display()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_table_rows" class="">get_table_rows()</a><br />
+                                                                    <a href="../classes/R2pdb_model.html#method_get_table_rows_display" class="">get_table_rows_display()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/models.R2pdb_model.html"><div class="path-wrapper">models/R2pdb_model.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">model</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper">\CI_Model</div>
+                                                                                                    <div class="namespace-wrapper">\R2pdb_model</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                        
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_validate_row_id" name="method_validate_row_id" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">validate_row_id()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">validate_row_id(string  <span class="argument">$table_name</span>, integer  <span class="argument">$id</span>) : boolean|null</pre>
+                <p><em>Validates given row ID value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table_name </td>
+                                <td><p>name of the table</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>row ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|null
+                                            &mdash; <p>TRUE if the ID is valid and present in the table,
+FALSE if ID is not present or is invalid,
+NULL if $table_name or $id was null or table name is unknown</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_unused_user_id" name="method_get_unused_user_id" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_unused_user_id()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_unused_user_id() : integer</pre>
+                <p><em>Get an unused ID for user creation.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                            &mdash; <p>between 1200 and 4294967295</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_rows_by_field_display" name="method_get_rows_by_field_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_rows_by_field_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_rows_by_field_display() : array|null</pre>
+                <p><em>A generic get data function for a variable number of fields.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array|null
+                                            &mdash; <p>an array of arrays containing found rows,
+NULL if no arguments were given</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_review" name="method_add_review" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_review()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_review(integer  <span class="argument">$user_id</span>, integer  <span class="argument">$product_id</span>, integer  <span class="argument">$rating</span>, string  <span class="argument">$review</span>, string  <span class="argument">$pros</span>, string  <span class="argument">$cons</span>) : boolean|null</pre>
+                <p><em>Insert data into the reviews table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$user_id </td>
+                                <td><p>user id who wrote the review</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$product_id </td>
+                                <td><p>product id the review is about</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$rating </td>
+                                <td><p>rating number in the range [1,5]</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$review </td>
+                                <td><p>review text</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$pros </td>
+                                <td><p>positive things</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$cons </td>
+                                <td><p>negative things</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean|null
+                                            &mdash; <p>TRUE if review was added,
+FALSE if database query failed,</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_product_id_to_collection" name="method_add_product_id_to_collection" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_product_id_to_collection()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_product_id_to_collection(  <span class="argument">$productid</span>,   <span class="argument">$collectionid</span>) : boolean</pre>
+                <p><em>Insert given product to given collection.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$productid </td>
+                                <td><p>int product ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$collectionid </td>
+                                <td><p>int collection ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if product was added,
+FALSE if database query failed</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_collection" name="method_add_collection" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_collection()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_collection(  <span class="argument">$name</span>,   <span class="argument">$user_id</span>) : boolean</pre>
+                <p><em>Insert a new collection for a user.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td><p>string collection name</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$user_id </td>
+                                <td><p>int user ID who created the collection</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if collection was added,
+FALSE if database query failed</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove_product_id_from_collection" name="method_remove_product_id_from_collection" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove_product_id_from_collection()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove_product_id_from_collection(  <span class="argument">$productid</span>,   <span class="argument">$collectionid</span>) : boolean</pre>
+                <p><em>Deletes given product from given collection.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$productid </td>
+                                <td><p>int product ID</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$collectionid </td>
+                                <td><p>int collection ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if product was removed,
+FALSE if database query failed</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_user_comment" name="method_add_user_comment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_user_comment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_user_comment(integer  <span class="argument">$user_id</span>, string  <span class="argument">$text</span>, integer  <span class="argument">$target_user_id</span>) : boolean</pre>
+                <p><em>Insert data into the user comments table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$user_id </td>
+                                <td><p>user id who wrote the comment</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text </td>
+                                <td><p>comment text</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$target_user_id </td>
+                                <td><p>user id the comment is about</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if comment was added,
+FALSE if database query failed,</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove_user_comment" name="method_remove_user_comment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove_user_comment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove_user_comment(integer  <span class="argument">$target_user_id</span>, integer  <span class="argument">$commentid</span>) : boolean</pre>
+                <p><em>Delete comment data.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$target_user_id </td>
+                                <td><p>user id of the person whose profile the comment is on</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$commentid </td>
+                                <td><p>comment id to be deleted</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if comment was deleted,
+FALSE if database query failed,</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_product_comment" name="method_add_product_comment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_product_comment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_product_comment(integer  <span class="argument">$user_id</span>, string  <span class="argument">$text</span>, integer  <span class="argument">$target_product_id</span>) : boolean</pre>
+                <p><em>Insert data into the product comments table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$user_id </td>
+                                <td><p>user id who wrote the comment</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text </td>
+                                <td><p>comment text</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$target_product_id </td>
+                                <td><p>product id the comment is about</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if comment was added,
+FALSE if database query failed,</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove_product_comment" name="method_remove_product_comment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove_product_comment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove_product_comment(integer  <span class="argument">$target_product_id</span>, integer  <span class="argument">$commentid</span>) : boolean</pre>
+                <p><em>Delete comment data.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$target_product_id </td>
+                                <td><p>product id the comment is about</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$commentid </td>
+                                <td><p>comment id to be deleted</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if comment was deleted,
+FALSE if database query failed,</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_add_review_comment" name="method_add_review_comment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">add_review_comment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">add_review_comment(integer  <span class="argument">$user_id</span>, string  <span class="argument">$text</span>, integer  <span class="argument">$target_review_id</span>) : boolean</pre>
+                <p><em>Insert data into the review comments table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$user_id </td>
+                                <td><p>user id who wrote the comment</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text </td>
+                                <td><p>comment text</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$target_review_id </td>
+                                <td><p>review id the comment is about</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if comment was added,
+FALSE if database query failed,</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_remove_review_comment" name="method_remove_review_comment" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">remove_review_comment()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">remove_review_comment(integer  <span class="argument">$target_review_id</span>, integer  <span class="argument">$commentid</span>) : boolean</pre>
+                <p><em>Delete comment data.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$target_review_id </td>
+                                <td><p>review id the comment is about</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$commentid </td>
+                                <td><p>comment id to be deleted</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if comment was deleted,
+FALSE if database query failed,</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_collections_display" name="method_get_collections_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_collections_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_collections_display() : array</pre>
+                <p><em>Get all collections with data formatting for display purposes.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all collections</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_collections_by_id_display" name="method_get_collections_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_collections_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_collections_by_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a specific collection and contents by their ID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>collection ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found collection data and contents as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_valid_collection_id" name="method_is_valid_collection_id" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">is_valid_collection_id()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_valid_collection_id(  <span class="argument">$id</span>) : boolean</pre>
+                <p><em>Checks if given collection ID is present in the table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$id </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if ID is valid</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_not_in_collection_id" name="method_is_not_in_collection_id" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">is_not_in_collection_id()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_not_in_collection_id(integer  <span class="argument">$productid</span>,   <span class="argument">$collectionid</span>) : boolean</pre>
+                <p><em>Checks if given product ID is not present in the collection.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$productid </td>
+                                <td><p>product id number</p></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$collectionid </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if ID is valid</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_valid_comment_id" name="method_is_valid_comment_id" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">is_valid_comment_id()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_valid_comment_id(integer  <span class="argument">$id</span>) : boolean</pre>
+                <p><em>Checks if given comment ID is present in the table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>comment id number</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if ID is valid</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_comment_by_id_display" name="method_get_comment_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_comment_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_comment_by_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a specific comment by their ID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>comment ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found comment as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_countries_display" name="method_get_countries_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_countries_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_countries_display() : array</pre>
+                <p><em>Get all countries with data formatting for display purposes.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all countries</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_country_by_id_display" name="method_get_country_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_country_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_country_by_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a specific country by their ID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>country ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found country as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_genders_display" name="method_get_genders_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_genders_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_genders_display() : array</pre>
+                <p><em>Get all genders with data formatting for display purposes.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all genders</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_gender_by_id_display" name="method_get_gender_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_gender_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_gender_by_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a specific gender by their ID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>gender ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found gender as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_genres_display" name="method_get_genres_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_genres_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_genres_display() : array</pre>
+                <p><em>Get all genres with data formatting for display purposes.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all genres</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_genre_by_id_display" name="method_get_genre_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_genre_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_genre_by_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a specific genre by their ID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>genre ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found genre as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_product_comments_display" name="method_get_product_comments_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_product_comments_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_product_comments_display(integer  <span class="argument">$productid</span>) : array</pre>
+                <p><em>Get all comments of a specific product with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$productid </td>
+                                <td><p>id of the product</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all comments</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_products_display" name="method_get_products_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_products_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_products_display() : array</pre>
+                <p><em>Get all products with data formatting for display purposes.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all products</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_valid_product_id" name="method_is_valid_product_id" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">is_valid_product_id()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_valid_product_id(integer  <span class="argument">$id</span>) : boolean</pre>
+                <p><em>Checks if given product ID is present in the table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>product id number</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if ID is valid</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_product_by_id_display" name="method_get_product_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_product_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_product_by_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a specific product by their ID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>product ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found product as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_product_reviews_by_id_display" name="method_get_product_reviews_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_product_reviews_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_product_reviews_by_id_display(integer  <span class="argument">$productid</span>) : array|boolean|null</pre>
+                <p><em>Get all product reviews with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$productid </td>
+                                <td><p>product ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found product reviews as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_publishers_display" name="method_get_publishers_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_publishers_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_publishers_display() : array</pre>
+                <p><em>Get all publishers with data formatting for display purposes.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all publishers</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_publishers" name="method_get_publishers" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_publishers()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_publishers() : array</pre>
+                <p><em>Get all publishers without data formatting.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all publishers</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_valid_publisher_id" name="method_is_valid_publisher_id" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">is_valid_publisher_id()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_valid_publisher_id(integer  <span class="argument">$id</span>) : boolean</pre>
+                <p><em>Checks if given publisher ID is present in the table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>publisher id number</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if ID is valid</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_publisher_by_id_display" name="method_get_publisher_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_publisher_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_publisher_by_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a specific publisher by their ID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>publisher ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found publisher as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_review_comments_display" name="method_get_review_comments_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_review_comments_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_review_comments_display(integer  <span class="argument">$reviewid</span>) : array</pre>
+                <p><em>Get all comments of a specific review with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$reviewid </td>
+                                <td><p>id of the review</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all comments</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_reviews_display" name="method_get_reviews_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_reviews_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_reviews_display() : array</pre>
+                <p><em>Get all reviews with data formatting for display purposes.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all reviews</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_valid_review_id" name="method_is_valid_review_id" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">is_valid_review_id()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_valid_review_id(integer  <span class="argument">$id</span>) : boolean</pre>
+                <p><em>Checks if given review ID is present in the table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>review id number</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if ID is valid</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_review_by_id_display" name="method_get_review_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_review_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_review_by_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a specific review by their ID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>review ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found review as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_review_infos_by_product_id_display" name="method_get_review_infos_by_product_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_review_infos_by_product_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_review_infos_by_product_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a list of review information without the text by the ProductID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>product ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found reviews as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_users_display" name="method_get_users_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_users_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_users_display() : array</pre>
+                <p><em>Get all users with data formatting for display purposes.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all users</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_users" name="method_get_users" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_users()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_users() : array</pre>
+                <p><em>Get all users without data formatting.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all users</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_valid_user_id" name="method_is_valid_user_id" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">is_valid_user_id()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_valid_user_id(integer  <span class="argument">$id</span>) : boolean</pre>
+                <p><em>Checks if given user ID is present in the table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>product id number</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                            &mdash; <p>TRUE if ID is valid</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_user_by_id_display" name="method_get_user_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_user_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_user_by_id_display(integer  <span class="argument">$id</span>) : array|boolean|null</pre>
+                <p><em>Get a specific user by their ID with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>user ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|boolean|null
+                                            &mdash; <p>an array containing found user as an array,
+FALSE for invalid ID,
+NULL if $id was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_user_reviews_display" name="method_get_user_reviews_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_user_reviews_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_user_reviews_display(integer  <span class="argument">$userid</span>) : array</pre>
+                <p><em>Get all user reviews with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$userid </td>
+                                <td><p>user ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all reviews</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_user_comments_display" name="method_get_user_comments_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_user_comments_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_user_comments_display(integer  <span class="argument">$userid</span>) : array</pre>
+                <p><em>Get all user comments with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$userid </td>
+                                <td><p>user ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing all comments</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_user_collections_short_display" name="method_get_user_collections_short_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_user_collections_short_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_user_collections_short_display(integer  <span class="argument">$userid</span>) : array|NULL|boolean</pre>
+                <p><em>Get all user collections with product id, name, and release date with data formatting for display purposes.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$userid </td>
+                                <td><p>user ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array|NULL|boolean
+                                            &mdash; <p>an array of arrays containing collection data,
+NULL if given id is NULL,
+FALSE if given ID is invalid</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_user_collections_minimal_list" name="method_get_user_collections_minimal_list" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">get_user_collections_minimal_list()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_user_collections_minimal_list(integer  <span class="argument">$userid</span>) : array</pre>
+                <p><em>Get all user collections with collection id as STRING key and name as value.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$userid </td>
+                                <td><p>user ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of collections</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_public_data_columns" name="method_get_public_data_columns" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">get_public_data_columns()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_public_data_columns(string  <span class="argument">$table_name</span>) : string|null|boolean</pre>
+                <p><em>Returns a string containg the names of the table columns that contain publicly viewable information.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table_name </td>
+                                <td><p>name of the table</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string|null|boolean
+                                            &mdash; <p>public data columns names as a string,
+FALSE for unknown table name,
+NULL if $table_name was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_public_data_columns_display" name="method_get_public_data_columns_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">get_public_data_columns_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_public_data_columns_display(string  <span class="argument">$table_name</span>) : string|null|boolean</pre>
+                <p><em>Returns a string containg the names of the table columns that contain publicly viewable information. For use with the display data getter.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table_name </td>
+                                <td><p>name of the table</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string|null|boolean
+                                            &mdash; <p>public data columns names as a string,
+FALSE for unknown table name,
+NULL if $table_name was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_id_column_from_table" name="method_get_id_column_from_table" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">get_id_column_from_table()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_id_column_from_table(string  <span class="argument">$table_name</span>) : string|null|boolean</pre>
+                <p><em>Returns the name of the ID column of the given table name.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table_name </td>
+                                <td><p>name of the table</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string|null|boolean
+                                            &mdash; <p>name of ID column as string,
+FALSE for unknown table name,
+NULL if $table_name was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_correct_result_data_types" name="method_correct_result_data_types" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">correct_result_data_types()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">correct_result_data_types(object  <span class="argument">$query</span>) : object|null</pre>
+                <p><em>Makes the appropriate fields have the correct data type as specified in the database table, instead of everything being a string.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>object</td>
+                                <td>$query </td>
+                                <td><p>raw database query object</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    object|null
+                                            &mdash; <p>array an array of arrays containing the rows of the table or NULL if given query was null</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_row_by_id_display" name="method_get_row_by_id_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">get_row_by_id_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_row_by_id_display(string  <span class="argument">$table_name</span>, integer  <span class="argument">$id</span>) : array</pre>
+                <p><em>A generic get data function for all rows in a table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table_name </td>
+                                <td><p>name of the table</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$id </td>
+                                <td><p>row ID</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing the rows of the table</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_table_rows" name="method_get_table_rows" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">get_table_rows()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_table_rows(string  <span class="argument">$table_name</span>) : array</pre>
+                <p><em>A generic get data function for all rows in a table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table_name </td>
+                                <td><p>name of the table</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing the rows of the table</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_get_table_rows_display" name="method_get_table_rows_display" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">get_table_rows_display()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">get_table_rows_display(string  <span class="argument">$table_name</span>) : array</pre>
+                <p><em>A generic get data function for all rows in a table.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$table_name </td>
+                                <td><p>name of the table</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                            &mdash; <p>an array of arrays containing the rows of the table</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">R2pdb_model.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/models/R2pdb_model.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 17th, 2015 at 16:39.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

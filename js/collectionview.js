@@ -1,11 +1,15 @@
 /**
- * Created with webprojekti.
- * User: ME-varjoil
- * Date: 2015-12-14
- * Time: 09:25 AM
- * To change this template use Tools | Templates.
+ * Common global variable explicitly defined to shut up JSLint.
  */
-var document, sessionStorage, collection_json, window;
+var document, sessionStorage, window;
+/**
+ * Collection JSON data defined in the collectionview.php file. Used if browser does not support sessionStorage.
+ */
+var collection_json;
+/**
+ * Creates an HTML page for a collection from the data returned by the database model.
+ * @author Ilkka
+ */
 
 function createCollectionView() {
     "use strict";
@@ -43,7 +47,7 @@ function createCollectionView() {
     book_name.innerHTML = "Book Name";
     tr.appendChild(book_name);
     var publisher = document.createElement("th");
-	publisher.className="hidden";
+    publisher.className = "hidden";
     publisher.innerHTML = "Publisher";
     tr.appendChild(publisher);
     var release_date = document.createElement("th");
@@ -66,7 +70,7 @@ function createCollectionView() {
         book_name.innerHTML = collection.Products[obj].Name;
         tr.appendChild(book_name);
         publisher = document.createElement("td");
-		publisher.className="hidden";
+        publisher.className = "hidden";
         publisher.innerHTML = collection.Products[obj].PublisherName;
         tr.appendChild(publisher);
         release_date = document.createElement("td");

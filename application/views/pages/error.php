@@ -1,4 +1,9 @@
 <?php
+/**
+ * A generic error message page.
+ * @author Jose
+ */
+
 if (isset($error_message))
 {
 	echo '<div class="error-msg-box">';

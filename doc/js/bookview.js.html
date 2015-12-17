@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: bookview.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: bookview.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Book JSON data defined in the bookview.php file. Used if browser does not support sessionStorage.
+ */
+var book_json;
+/**
+ * Common global variable explicitly defined to shut up JSLint.
+ */
+var sessionStorage, document, window, alert;
+/**
+ * Creates an HTML page for a book from the data returned by the database model.
+ * @author Ilkka &amp; Jose
+ * @param {int} logged_in_user_id The user_id of the current logged in user. -1 if user is not logged in.
+ * @param {object} logged_in_user_collections A JSON map of currently logged in user's collections. Empty if user is not logged in. The key is the collection ID int., the value is the title string for the collection.
+ */
+
+function createBookView(logged_in_user_id, logged_in_user_collections) {
+    "use strict";
+    var book;
+    // Is the global json array not undefined?
+    if('undefined' !== typeof book_json) {
+        // Copy the data to the local variable.
+        book = book_json;
+    } else {
+        // Get the data from sessionStorage.
+        book = JSON.parse(sessionStorage.getItem('book_json'));
+        // Remove the item from storage as it is no longer needed.
+        sessionStorage.removeItem('book_json');
+    }
+    var prodview_date, prodview_brief, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, hiddendiv, hvdiv, thead, tbody;
+    hiddendiv = document.createElement("div");
+    hiddendiv.id = "product_iddiv";
+    hiddendiv.style.display = "none";
+    hiddendiv.innerHTML = book.ProductID;
+    hvdiv = document.createElement("div");
+    if(logged_in_user_id > 0) {
+        hvdiv.className = "col-md-10";
+    } else {
+        hvdiv.className = "col-md-12";
+    }
+    titlerow = document.createElement("div");
+    titlerow.className = "row";
+    prodview_title = document.createElement("h1");
+    prodview_title.innerHTML = book.Name + " &lt;small> [" + book.ProductID + "] &lt;/small>";
+    hvdiv.appendChild(prodview_title);
+    titlerow.appendChild(hvdiv);
+    document.getElementById("productview").appendChild(titlerow);
+    // If the user is logged in, create the shelf controls row.
+    // And the review button.
+    if(logged_in_user_id > 0) {
+        var collectionrow = document.createElement("div");
+        collectionrow.className = "row";
+        var collectionformdiv = document.createElement("div");
+        collectionformdiv.className = "col-md-12";
+        collectionrow.appendChild(collectionformdiv);
+        var form = document.createElement("form");
+        var colnamefield = document.createElement("input");
+        var hiddencolid = document.createElement("input");
+        var select = document.createElement("select");
+        form.onsubmit = function() {
+            // Check if the text field and list select contents are identical.	
+            var name = colnamefield.value;
+            if(name.trim().length === 0 || name === logged_in_user_collections[select.value]) {
+                // Use ID from the JSON.
+                hiddencolid.value = select.value;
+            } else {
+                // User wants to add a product to a a new collection.
+                // 0 is an invalid ID value.
+                hiddencolid.value = 0;
+            }
+        };
+        // Posts to the same page.
+        form.action = "";
+        form.method = "post";
+        collectionformdiv.appendChild(form);
+        var informdiv = document.createElement("div");
+        informdiv.className = "form-group";
+        form.appendChild(informdiv);
+        var colnamediv = document.createElement("div");
+        colnamediv.className = "form-group col-md-3 required inline-form-col";
+        informdiv.appendChild(colnamediv);
+        colnamefield.type = "text";
+        colnamefield.name = "collection-name";
+        colnamefield.placeholder = "New or Existing Shelf Name";
+        colnamefield.className = "form-control no-top-margin-form-control required";
+        colnamediv.appendChild(colnamefield);
+        hiddencolid.type = "number";
+        hiddencolid.name = "collection-id";
+        hiddencolid.className = "hidden";
+        colnamediv.appendChild(hiddencolid);
+        var colselectdiv = document.createElement("div");
+        colselectdiv.className = "form-group col-md-3 inline-form-col";
+        informdiv.appendChild(colselectdiv);
+        select.className = "form-control no-top-margin-form-control";
+        select.id = "collection-select";
+        colselectdiv.appendChild(select);
+        select.onchange = function() {
+            colnamefield.value = logged_in_user_collections[document.getElementById("collection-select").value];
+        };
+        var collectionid, option;
+        for(collectionid in logged_in_user_collections) {
+            option = document.createElement("option");
+            option.value = collectionid;
+            option.innerHTML = logged_in_user_collections[collectionid];
+            select.appendChild(option);
+        }
+        var colbtndiv = document.createElement("div");
+        colbtndiv.className = "form-group col-md-3 inline-form-col";
+        informdiv.appendChild(colbtndiv);
+        var buttoncol = document.createElement("input");
+        buttoncol.className = "btn btn-default";
+        buttoncol.type = "submit";
+        buttoncol.name = "submit";
+        buttoncol.value = "Add to Shelf";
+        colbtndiv.appendChild(buttoncol);
+        var brev = document.createElement("div");
+        brev.className = "col-md-2 no-pad-col";
+        var buttonrev = document.createElement("button");
+        buttonrev.className = "btn-lg btn-success pull-right";
+        buttonrev.innerHTML = "Review";
+        brev.appendChild(buttonrev);
+        titlerow.appendChild(brev);
+        buttonrev.onclick = function() {
+            window.location = "../writereview/" + document.getElementById("product_iddiv").innerHTML;
+        };
+        document.getElementById("productview").appendChild(collectionrow);
+    }
+    document.getElementById("productview").appendChild(hiddendiv);
+    prodview_proddivtitle = document.createElement("tr");
+    prodview_datetitle = document.createElement("th");
+    prodview_datetitle.innerHTML = "Release Date";
+    prodview_datetitle.className = "col-md-3";
+    prodview_proddivtitle.appendChild(prodview_datetitle);
+    prodview_publishertitle = document.createElement("th");
+    prodview_publishertitle.innerHTML = "Publisher";
+    prodview_publishertitle.className = "col-md-3";
+    prodview_proddivtitle.appendChild(prodview_publishertitle);
+    prodeantitle = document.createElement("th");
+    prodeantitle.innerHTML = "EAN13";
+    prodeantitle.className = "col-md-4";
+    prodview_proddivtitle.appendChild(prodeantitle);
+    languagedivtitle = document.createElement("th");
+    languagedivtitle.innerHTML = "Language";
+    languagedivtitle.className = "col-md-2";
+    prodview_proddivtitle.appendChild(languagedivtitle);
+    prodview_proddivrow0 = document.createElement("tr");
+    prodview_date = document.createElement("td");
+    prodview_date.innerHTML = book.ReleaseDate;
+    prodview_date.className = "col-md-3";
+    prodview_proddivrow0.appendChild(prodview_date);
+    prodview_publisher = document.createElement("td");
+    prodview_publisher.innerHTML = book.PublisherName;
+    prodview_publisher.className = "col-md-3";
+    prodview_proddivrow0.appendChild(prodview_publisher);
+    prodean = document.createElement("td");
+    prodean.innerHTML = book.EAN13;
+    prodean.className = "col-md-4";
+    prodview_proddivrow0.appendChild(prodean);
+    languagediv = document.createElement("td");
+    languagediv.innerHTML = book.LanguageName;
+    languagediv.className = "col-md-2";
+    prodview_proddivrow0.appendChild(languagediv);
+    thead = document.createElement("thead");
+    thead.appendChild(prodview_proddivtitle);
+    tbody = document.createElement("tbody");
+    tbody.appendChild(prodview_proddivrow0);
+    ihmediv = document.createElement("table");
+    ihmediv.className = "table";
+    ihmediv.appendChild(thead);
+    ihmediv.appendChild(tbody);
+    prodview_proddivrow1 = document.createElement("div");
+    prodview_proddivrow1.className = "product-div";
+    prodview_proddivrow1.className = "row";
+    prodview_brief = document.createElement("div");
+    prodview_brief.innerHTML = book.Brief;
+    prodview_brief.className = "col-md-12";
+    prodview_proddivrow1.appendChild(prodview_brief);
+    prodview_proddivrow2 = document.createElement("div");
+    prodview_proddivrow2.className = "product-div";
+    prodview_proddivrow2.className = "row";
+    prodview_proddescription = document.createElement("div");
+    prodview_proddescription.innerHTML = book.Description;
+    prodview_proddescription.className = "col-md-12";
+    prodview_proddivrow2.appendChild(prodview_proddescription);
+    document.getElementById("productview").appendChild(ihmediv);
+    document.getElementById("productview").appendChild(prodview_proddivrow1);
+    document.getElementById("productview").appendChild(prodview_proddivrow2);
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#book_json">book_json</a></li><li><a href="global.html#books_json">books_json</a></li><li><a href="global.html#collection_json">collection_json</a></li><li><a href="global.html#collections_json">collections_json</a></li><li><a href="global.html#comments_json">comments_json</a></li><li><a href="global.html#createBookList">createBookList</a></li><li><a href="global.html#createBookView">createBookView</a></li><li><a href="global.html#createCollectionView">createCollectionView</a></li><li><a href="global.html#createCommentList">createCommentList</a></li><li><a href="global.html#createReviewList">createReviewList</a></li><li><a href="global.html#createUserList">createUserList</a></li><li><a href="global.html#createUsersCollections">createUsersCollections</a></li><li><a href="global.html#createUserView">createUserView</a></li><li><a href="global.html#document">document</a></li><li><a href="global.html#putIntoSessionStorage">putIntoSessionStorage</a></li><li><a href="global.html#reviews_json">reviews_json</a></li><li><a href="global.html#sessionStorage">sessionStorage</a></li><li><a href="global.html#user_json">user_json</a></li><li><a href="global.html#users_json">users_json</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 17 2015 12:18:10 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

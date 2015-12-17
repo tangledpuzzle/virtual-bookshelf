@@ -1,20 +1,33 @@
 <?php
+/**
+ * User registration page controller.
+ * @author Bayram & Jose
+ * @package controller
+ */
 defined('BASEPATH') or exit('No direct script access allowed');
 include_once (dirname(__FILE__) . "/My_projekti.php");
 
+/**
+ * Class for handling user profile editing. Made in preparation for the feature. Currently unimplemented.
+ */
 class Profileedit extends My_projekti
 {
+	/**
+	 * Update user database row and show the profile edit page.
+	 */
 	public function update_user()
 	{
 			$data = NULL;
-		if($this->input->post('submit'))
+		
+		// HTTP POST data submitted? This is development code.
+		/*if($this->input->post('submit'))
 		{
 			$data["message"] = $this->input->post("ScreenName");
 			$this->view('message', $data);
 		}
-		else{
+		else{*/
 			$this->view('profileedit', $data);
-		}
+		//}
 		
 	}
 }

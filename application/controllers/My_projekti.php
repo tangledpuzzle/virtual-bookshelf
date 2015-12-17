@@ -1,12 +1,29 @@
 <?php
+/**
+ * The main controller.
+ * @author Jose
+ * @package controller
+ */
 
+/**
+ * The main controller for all pages that do not have a controller of their own.
+ */
 class My_projekti extends MY_Controller
 {
+	/**
+	 * Construct the parent Community Auth controller to allow user authentication.
+	 */
 	function __construct()
 	{
         parent::__construct();
     }
 	
+	/**
+	 * The main page load function. This function should be used to load ALL pages, even if a page has their own controller, the actual page must be loaded through this function.
+	 * Handles various user authentication tasks.
+	 * @param string $page Name of the PHP file to load.
+	 * @param mixed|array $data Data to pass into the views.
+	 */
 	public function view($page = 'front', $data = NULL)
 	{
 		// Page existence check is performed only just before the page is loaded to allow for "fake URLS" like /myprofile.
@@ -32,14 +49,22 @@ class My_projekti extends MY_Controller
 				$data["cookie"] = unserialize( $http_user_cookie_contents );
 			}
 		}
-			
+		
+		// Load the header.
 		$this->load->view('templates/header', $data);
 		
+		// Load the actual page view.
 		$this->load_page($page, $data);
 		
+		// Load the footer.
 		$this->load->view('templates/footer');
 	}
 	
+	/**
+	 * Handles loading page views.
+	 * @param string $page Name of the PHP file to load.
+	 * @param mixed|array $data Data to pass into the view.
+	 */
 	private function load_page($page, $data)
 	{
 		// Community Auth: Is the user logged in?
@@ -54,6 +79,7 @@ class My_projekti extends MY_Controller
 			$logged_in_user_id = -1;
 		}
 		
+		// Which page to load?
 		switch ($page)
 		{
 			case "booklist":
@@ -122,7 +148,6 @@ class My_projekti extends MY_Controller
 							{
 								$this->r2pdb_model->remove_review_comment($review_id, $delete_comment_id);
 
-								// FIXME: Handle success message.
 								$data["success_message"] = "Comment deleted.";
 							}
 							else
@@ -182,7 +207,6 @@ class My_projekti extends MY_Controller
 							{
 								$this->r2pdb_model->remove_user_comment($user_id, $delete_comment_id);
 
-								// FIXME: Handle success message.
 								$data["success_message"] = "Comment deleted.";
 							}
 							else
@@ -211,7 +235,7 @@ class My_projekti extends MY_Controller
 					// Give the JavaScript script information (through the view PHP file) if the current user is logged in to selectively disable dynamically created site features.
 					$data["logged_in_user_id"] = $logged_in_user_id;
 					
-					//userview is opened from source page
+					// Source page is userview (For JavaScript)
 					$data["source_page"] = $page;
 				}
 				else
@@ -262,7 +286,6 @@ class My_projekti extends MY_Controller
 								{
 									$this->r2pdb_model->remove_user_comment($user_id, $delete_comment_id);
 
-									// FIXME: Handle success message.
 									$data["success_message"] = "Comment deleted.";
 								}
 								else
@@ -276,6 +299,9 @@ class My_projekti extends MY_Controller
 						// Get user data from database.
 						$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
 						
+						// Get a short info list of this user's collections from database.
+						$data["collections"] = json_encode($this->r2pdb_model->get_user_collections_short_display($user_id));
+
 						// Comment type for writing comments.
 						$data["comment_type"] = "user";
 						
@@ -285,7 +311,7 @@ class My_projekti extends MY_Controller
 						// Give the JavaScript script information (through the view PHP file) if the current user is logged in to selectively disable dynamically created site features.
 						$data["logged_in_user_id"] = $logged_in_user_id;
 						
-						//userview is opened from source page
+						// Source page is myprofile (For JavaScript)
 						$data["source_page"] = "myprofile";
 					}
 					else
@@ -370,7 +396,6 @@ class My_projekti extends MY_Controller
 									if ($this->r2pdb_model->is_not_in_collection_id($collection_id, $book_id) === TRUE)
 									{
 										$this->r2pdb_model->add_product_id_to_collection($book_id, $collection_id);
-										// FIXME: Handle success message.
 										$data["success_message"] = "Book added to shelf " . $collection_name . "!";	
 									}
 									else
@@ -407,7 +432,6 @@ class My_projekti extends MY_Controller
 							{
 								$this->r2pdb_model->remove_product_comment($book_id, $delete_comment_id);
 								
-								// FIXME: Handle success message.
 								$data["success_message"] = "Comment deleted.";
 							}
 							else
@@ -423,7 +447,7 @@ class My_projekti extends MY_Controller
 					
 					// Get reviews written for this book.
 					$data['reviews'] = json_encode($this->r2pdb_model->get_review_infos_by_product_id_display($book_id));
-					
+
 					// Comment type for writing comments.
 					$data["comment_type"] = "product";
 					
@@ -453,6 +477,9 @@ class My_projekti extends MY_Controller
 				{
 					$data["error_message"] = "Invalid book ID '" . $book_id . "'.";
 				}
+				break;
+			default:
+				// Loading a page that requires no special preprocessing.
 				break;
 		}
 		

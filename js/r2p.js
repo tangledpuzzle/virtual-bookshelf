@@ -1,9 +1,18 @@
+/**
+ * Common global variable explicitly defined to shut up JSLint.
+ */
 var sessionStorage;
+/**
+ * Sets data into sessionStorage key-value map.
+ * @param {string} data key
+ * @param {*} data value
+ * @author Jose
+ */
 
 function putIntoSessionStorage(key, value) {
     'use strict';
     // Check for sessionStorage availability.
-    if('undefined' !== typeof (sessionStorage)) {
+    if('undefined' !== typeof(sessionStorage)) {
         // Concatenate the key into an empty String in case something other than String was given.
         var empty = "";
         var keyString = empty.concat(key);

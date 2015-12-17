@@ -1,10 +1,21 @@
 /**
- * User: ME-varjoil
+ * Book list JSON data defined in the booklist.php file. Used if browser does not support sessionStorage.
  */
-var books_json, sessionStorage, document;
+var books_json;
+/**
+ * Common global variable explicitly defined to shut up JSLint.
+ */
+var sessionStorage, document;
+/**
+ * Creates an HTML list of books from the data returned by the database model.
+ * @author Ilkka
+ */
 
 function createBookList() {
     "use strict";
+    /**
+     * A local variable for the book list JSON data.
+     */
     var books;
     // Is the global json array not undefined?
     if('undefined' !== typeof books_json) {
@@ -16,6 +27,9 @@ function createBookList() {
         // Remove the item from storage as it is no longer needed.
         sessionStorage.removeItem('books_json');
     }
+    /**
+     * HTML elements created.
+     */
     var product, prodlist_productdivrow1, prodlist_productnamespan, prodlist_productidspan, prodlist_productdivrow2, prodlist_productdiv, prodlist_productname, prodlist_publisher, prodlist_year, prodlist_productbrief, prodean;
     for(product in books) {
         prodlist_productdiv = document.createElement("a");

@@ -1,11 +1,15 @@
 /**
- * Created with webprojekti.
- * User: ME-varjoil
- * Date: 2015-12-11
- * Time: 09:37 AM
- * To change this template use Tools | Templates.
+ * Common global variable explicitly defined to shut up JSLint.
  */
-var users_json, sessionStorage, document, window;
+var sessionStorage, document, window;
+/**
+ * User list JSON data defined in the userlist.php file. Used if browser does not support sessionStorage.
+ */
+var users_json;
+/**
+ * Creates an HTML list of users from the data returned by the database model.
+ * @author Ilkka
+ */
 
 function createUserList() {
     "use strict";

@@ -1,3 +1,9 @@
+# Arvosteleva opettaja #
+
+Lue YHTEENVETO.md.
+
+----
+
 # Group 2 web project #
 Please write your ideas into Google Drive.
 
@@ -36,9 +42,8 @@ Note the following pages on the left toolbar:
 | Sun 13.12 | | |
 | **Mon 14.12** | **9:00 - 17:00** | **Programming. Project finished.** |
 | Tue 15.12 |  | **Working from home:** Programming if needed. |
-| **Wed 16.12** | **9:00 - 15:00** | **Project returned.** |
-| Thu 17.12 | |  |
-| Fri 18.12 | | Last day of school. |
+| **Wed 16.12** | **9:00 - 15:00** | Presentation. Last day of school. |
+| Thu 17.12 | | **Project returned.** |
 
 # Necessary Course Worksheets #
 The following is a list of [worksheets](https://github.com/covcom/205CDE/tree/master/labs) that you should have completed in order understand the technologies used in this project.
@@ -107,14 +112,13 @@ The following is a list of [worksheets](https://github.com/covcom/205CDE/tree/ma
 - CSS3
 - JavaScript
 - PHP5
-- Regular Expressions
 - Apache2
 - Bootstrap
 - CodeIgniter
 - CodeIgniter REST Server
 - MySQL
-- Jasmine
-- PHPUnit
+- 3rd Party Library: Community Auth
+- 3rd Party Library: sorttable
 
 ## Tools ##
 - Codio
@@ -125,6 +129,7 @@ The following is a list of [worksheets](https://github.com/covcom/205CDE/tree/ma
 - JSLint
 - PHPDoc
 - JSDoc
+- PHPUnit
 - MVC pattern
 
 # Project Requirements #

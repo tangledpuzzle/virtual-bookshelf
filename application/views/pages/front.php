@@ -27,6 +27,8 @@
 		<li>CodeIgniter</li>
 		<li>CodeIgniter REST Server</li>
 		<li>MySQL</li>
+		<li>3rd Party Library: <a href="http://community-auth.com/">Community Auth</a></li>
+		<li>3rd Party Library: <a href="http://www.kryogenix.org/code/browser/sorttable/">sorttable</a></li>
 	</ul>
 	<h3>Tools</h3>
 	<ul>

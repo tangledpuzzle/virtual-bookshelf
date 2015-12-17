@@ -1,4 +1,9 @@
 <?php
+/**
+ * A generic message page.
+ * @author Jose
+ */
+
 if (isset($error_message))
 {
 	if (isset($header))

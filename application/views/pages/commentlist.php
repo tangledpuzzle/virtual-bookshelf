@@ -1,9 +1,17 @@
-<?php 
+<?php
+/**
+ * A generic view for showing a list of comments for the data shown on this page. (User/Product/Review)
+ * This is a view that is to be added at the bottom of pages that allow commenting and must not be used as "standalone" page.
+ * @author Ilkka
+ */
+
 // disallow direct access.
 if ($this->uri->uri_string()==="commentlist"){
 	show_404();
 }
-else{ ?>
+else
+{
+?>
 <hr>
 
 <div id="commentlist"></div>
@@ -11,8 +19,6 @@ else{ ?>
 <script type="text/javascript" src="../../../js/commentlist.js"></script>
 <script type="text/javascript" src="../../../js/r2p.js"></script>
 <script type="text/javascript" src="../../../lib/sorttable.js"></script>
-
-
 
 <script type="text/javascript">
 	if (!putIntoSessionStorage("comments_json", JSON.stringify(<?php echo $comments ;?>)))
@@ -26,4 +32,6 @@ else{ ?>
 					echo (int) $user_is_admin;
 				   ?>);
 </script>
-<?php } ?>
+<?php
+}
+?>

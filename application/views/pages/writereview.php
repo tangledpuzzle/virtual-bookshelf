@@ -1,6 +1,16 @@
-<?php 
+<?php
+/**
+ * A page for writing a review.
+ * @author Jose
+ * @package view
+ * @namespace view
+ */
+// phpDocumentor has a bug that requires you to use namespaces for it to recognize PHP pages that have no PHP "nodes".
+namespace view;
+
 // disallow direct access.
-if ($this->uri->uri_string()==="writereview"){
+if ($this->uri->uri_string()==="writereview")
+{
 	show_404();
 }
 else
@@ -74,4 +84,6 @@ else
 			</div>
 		</div>
 	</form>
-<?php }?>
+<?php
+}
+?>

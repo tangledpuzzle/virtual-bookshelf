@@ -1,8 +1,12 @@
 <?php
 /**
+* The MySQL database model.
+* @author Jose
+*/
+
+/**
 * MySQL database model.
-* @package r2pdb_model
-* @author Jose Uusitalo
+* @package model
 */
 class R2pdb_model extends CI_Model
 {
@@ -252,7 +256,7 @@ class R2pdb_model extends CI_Model
 	 */
 	
 	/**
-	* A generic get data function for a variable number of fields. Warning: Fewer integrity checks are performed with this function, use with caution.
+	* A generic get data function for a variable number of fields.
 	* @param various $arg_array a key-value array of database field names to sort by, use "table_name" key for table name
 	* @return array|null an array of arrays containing found rows,
 							NULL if no arguments were given 
@@ -371,7 +375,7 @@ class R2pdb_model extends CI_Model
 	}
 	
 	/*
-	* A generic get data function for a variable number of fields. Warning: Fewer integrity checks are performed with this function, use with caution.
+	* A generic get data function for a variable number of fields.
 	* @param various $arg_array a key-value array of database field names to sort by, use "!table_name" key for table name
 	* @return array|null an array of arrays containing found rows,
 									NULL if no arguments were given 
@@ -420,6 +424,7 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* A generic get data function for all rows in a table.
+	* @param int $id row ID
 	* @param string $table_name name of the table
 	* @return array an array of arrays containing the rows of the table 
 	*/
@@ -539,7 +544,6 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Insert data into the reviews table.
-	* Warning: Does not perform data integrity checks.
 	* @param int $user_id user id who wrote the review
 	* @param int $product_id product id the review is about
 	* @param int $rating rating number in the range [1,5]
@@ -567,9 +571,8 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Insert given product to given collection.
-	* Warning: Does not perform data integrity checks.
-	* $productid int product ID
-	* $collectionid int collection ID
+	* @param $productid int product ID
+	* @param $collectionid int collection ID
 	* @return boolean TRUE if product was added,
 							 FALSE if database query failed
 	*/
@@ -587,9 +590,8 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Insert a new collection for a user.
-	* Warning: Does not perform data integrity checks.
-	* $name string collection name
-	* $user_id int user ID who created the collection
+	* @param $name string collection name
+	* @param $user_id int user ID who created the collection
 	* @return boolean TRUE if collection was added,
 							 FALSE if database query failed
 	*/
@@ -628,9 +630,8 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Deletes given product from given collection.
-	* Warning: Does not perform data integrity checks.
-	* $productid int product ID
-	* $collectionid int collection ID
+	* @param $productid int product ID
+	* @param $collectionid int collection ID
 	* @return boolean TRUE if product was removed,
 							 FALSE if database query failed
 	*/
@@ -652,7 +653,6 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Insert data into the user comments table.
-	* Warning: Does not perform data integrity checks.
 	* @param int $user_id user id who wrote the comment
 	* @param string $text comment text
 	* @param int $target_user_id user id the comment is about
@@ -692,7 +692,6 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Delete comment data.
-	* Warning: Does not perform data integrity checks.
 	* @param int $target_user_id user id of the person whose profile the comment is on
 	* @param int $commentid comment id to be deleted
 	* @return boolean TRUE if comment was deleted,
@@ -732,7 +731,6 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Insert data into the product comments table.
-	* Warning: Does not perform data integrity checks.
 	* @param int $user_id user id who wrote the comment
 	* @param string $text comment text
 	* @param int $target_product_id product id the comment is about
@@ -771,7 +769,6 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Delete comment data.
-	* Warning: Does not perform data integrity checks.
 	* @param int $target_product_id product id the comment is about
 	* @param int $commentid comment id to be deleted
 	* @return boolean TRUE if comment was deleted,
@@ -811,7 +808,6 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Insert data into the review comments table.
-	* Warning: Does not perform data integrity checks.
 	* @param int $user_id user id who wrote the comment
 	* @param string $text comment text
 	* @param int $target_review_id review id the comment is about
@@ -850,7 +846,6 @@ class R2pdb_model extends CI_Model
 	
 	/**
 	* Delete comment data.
-	* Warning: Does not perform data integrity checks.
 	* @param int $target_review_id review id the comment is about
 	* @param int $commentid comment id to be deleted
 	* @return boolean TRUE if comment was deleted,

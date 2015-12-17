@@ -1,36 +1,131 @@
 <?php
+/**
+ * PHPUnit tests for the REST API.
+ */
 
+/**
+ * Test for the REST API.
+ */
 class Requests_test extends TestCase
 {
+	/**
+	 * A valid and used MySQL ID column integer value that is present in all tables in the default database. The value is 1.
+	 */
 	public $valid_id_int;
+	
+	/**
+	 * An invalid MySQL ID column integer value. The value is 0.
+	 */
 	public $invalid_id_int;
+	
+	/**
+	 * A valid MySQL ID column integer value that is not used in any tables in the default database. The value is 999999.
+	 */
 	public $unused_id_int;
+	
+	/**
+	 * An invalid MySQL ID column value. The value is a number followed with letters.
+	 */
 	public $malformed_id_int;
+	
+	/**
+	 * A random example string.
+	 */
 	public $string;
+	
+	/**
+	 * An unassigned variable.
+	 */
 	public $unassigned;
 	
+	/**
+	 * REST API request result as JSON for: database product ID 1
+	 */
 	public $json_result_product_1;
-	public $json_result_no_result;
-	public $json_result_empty_collection_id_2;
-	public $json_user_1_collections;
-	public $json_result_user_1_comments;
-	public $json_result_user_1_reviews;
-	public $json_result_user_1;
-	public $json_result_product_1_review;
-	public $json_result_product_1_comment;
-	public $json_result_product_1_id;
-	public $json_result_collection_1;
-	public $json_result_review_1;
-	public $json_result_review_1_comments;
 	
+	/**
+	 * REST API request result as JSON for: no result
+	 */
+	public $json_result_no_result;
+	
+	/**
+	 * REST API request result as JSON for: database collection ID 2
+	 */
+	public $json_result_empty_collection_id_2;
+	
+	/**
+	 * REST API request result as JSON for: database user ID 1 collections
+	 */
+	public $json_user_1_collections;
+	
+	/**
+	 * REST API request result as JSON for: database user ID 1 comments
+	 */
+	public $json_result_user_1_comments;
+	
+	/**
+	 * REST API request result as JSON for: database user ID 1 reviews
+	 */
+	public $json_result_user_1_reviews;
+	
+	/**
+	 * REST API request result as JSON for: database user ID 1
+	 */
+	public $json_result_user_1;
+	
+	/**
+	 * REST API request result as JSON for: database review ID 1
+	 */
+	public $json_result_review_1;
+	
+	/**
+	 * REST API request result as JSON for: database product ID 1 comments
+	 */
+	public $json_result_product_1_comment;
+	
+	/**
+	 * REST API request result as JSON for: database collection ID 1
+	 */
+	public $json_result_collection_1;
+	
+	/**
+	 * REST API request result as JSON for: database review ID 1 comments
+	 */
+	public $json_result_review_1_comments;
+
+	/**
+	 * A valid and used resource name.
+	 */
 	public $valid_resource_name;
+	
+	/**
+	 * An invalid resource name.
+	 */
 	public $invalid_resource_name;
+	
+	/**
+	 * A valid but unused resource name.
+	 */
 	public $unused_resource_name;
 	
+	/**
+	 * Number of collections in the default database.
+	 */
 	public $number_of_collections;
+	
+	/**
+	 * Number of products in the default database.
+	 */
 	public $number_of_products;
 	
+	/**
+	 * JSON data returned by the REST API on an unsuccessful request.
+	 */
 	public $json_rest_status_false;
+	
+	/**
+	 * JSON data returned by the REST API on a successful request. (When applicable ie. posting a comment.)
+	 */
 	public $json_rest_status_true;
 
 	/**
@@ -55,7 +150,8 @@ class Requests_test extends TestCase
 	public $api_auth_wrong;
 	
 	/**
-	 * Set up the common variables.
+	 * Set up the common variables before tests.
+	 * @author Jose
 	 */
     public function setUp()
     {
@@ -92,11 +188,9 @@ class Requests_test extends TestCase
 		
 		$this->json_result_user_1 = '{"user_id":1,"ScreenName":"A User","FirstName":null,"LastName":null,"Age":37,"GenderName":"Male","CountryName":"Japan","user_date":"2015-12-12 21:14:07","AvatarPath":null,"Bio":"test user please ignore"}';
 		
-		$this->json_result_product_1_review = '[{"ReviewID":1,"ReviewDate":"2001-09-23 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"A User","user_id":1,"Text":"Review text goes here.","Pros":"It had some good things.","Cons":"Can\'t think of any.","Rating":5},{"ReviewID":6,"ReviewDate":"2012-09-01 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 7","user_id":7,"Text":"Sed nisi.","Pros":null,"Cons":null,"Rating":2},{"ReviewID":23,"ReviewDate":"2006-05-25 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"A Moderator","user_id":2,"Text":"Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.","Pros":null,"Cons":"Sed dignissim lacinia nunc.","Rating":3},{"ReviewID":27,"ReviewDate":"2011-03-22 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 6","user_id":6,"Text":"Quisque volutpat condimentum velit.","Pros":null,"Cons":null,"Rating":4},{"ReviewID":28,"ReviewDate":"2011-03-27 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 8","user_id":8,"Text":"Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.","Pros":"Curabitur sodales ligula in libero.","Cons":"Suspendisse in justo eu magna luctus suscipit.","Rating":5}]';
+		$this->json_result_review_1 = '[{"ReviewID":1,"ReviewDate":"2001-09-23 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"A User","user_id":1,"Text":"Review text goes here.","Pros":"It had some good things.","Cons":"Can\'t think of any.","Rating":5},{"ReviewID":6,"ReviewDate":"2012-09-01 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 7","user_id":7,"Text":"Sed nisi.","Pros":null,"Cons":null,"Rating":2},{"ReviewID":23,"ReviewDate":"2006-05-25 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"A Moderator","user_id":2,"Text":"Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.","Pros":null,"Cons":"Sed dignissim lacinia nunc.","Rating":3},{"ReviewID":27,"ReviewDate":"2011-03-22 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 6","user_id":6,"Text":"Quisque volutpat condimentum velit.","Pros":null,"Cons":null,"Rating":4},{"ReviewID":28,"ReviewDate":"2011-03-27 00:00:00","ProductID":1,"Name":"Sample Book 1","ScreenName":"Test Account 8","user_id":8,"Text":"Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.","Pros":"Curabitur sodales ligula in libero.","Cons":"Suspendisse in justo eu magna luctus suscipit.","Rating":5}]';
 		
 		$this->json_result_product_1_comment = '[{"CommentID":2,"PostDate":"1901-11-11 00:00:00","user_id":2,"ScreenName":"A Moderator","Text":"Test Product Comment"},{"CommentID":3,"PostDate":"2021-09-19 00:00:00","user_id":3,"ScreenName":"An Admin","Text":"Test Product Comment 2"}]';
-		
-		$this->json_result_product_1_id = '{"ProductID":1,"Name":"Sample Book 1","ReleaseDate":"2008-11-11","ImagePath":"img-path","LanguageName":"Finnish","Brief":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.","Description":"Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti. Lorem ipsum ligula ut hendrerit mollis, ipsum erat vehicula risus, eu suscipit sem libero nec erat. Aliquam erat volutpat. Sed congue augue vitae neque. Nulla consectetuer porttitor pede. Fusce purus morbi tortor magna condimentum vel, placerat id blandit sit amet tortor.\n\nMauris sed libero. Suspendisse facilisis nulla in lacinia laoreet, lorem velit accumsan velit vel mattis libero nisl et sem. Proin interdum maecenas massa turpis sagittis in, interdum non lobortis vitae massa. Quisque purus lectus, posuere eget imperdiet nec sodales id arcu. Vestibulum elit pede dictum eu, viverra non tincidunt eu ligula.\n\nNam molestie nec tortor. Donec placerat leo sit amet velit. Vestibulum id justo ut vitae massa. Proin in dolor mauris consequat aliquam. Donec ipsum, vestibulum ullamcorper venenatis augue. Aliquam tempus nisi in auctor vulputate, erat felis pellentesque augue nec, pellentesque lectus justo nec erat. Aliquam et nisl. Quisque sit amet dolor in justo pretium condimentum.\n\nVivamus placerat lacus vel vehicula scelerisque, dui enim adipiscing lacus sit amet sagittis, libero enim vitae mi. In neque magna posuere, euismod ac tincidunt tempor est. Ut suscipit nisi eu purus. Proin ut pede mauris eget ipsum. Integer vel quam nunc commodo consequat. Integer ac eros eu tellus dignissim viverra. Maecenas erat aliquam erat volutpat. Ut venenatis ipsum quis turpis. Integer cursus scelerisque lorem. Sed nec mauris id quam blandit consequat. Cras nibh mi hendrerit vitae, dapibus et aliquam et magna. Nulla vitae elit. Mauris consectetuer odio vitae augue.","EAN13":"0000000000000","PublisherName":"Publisher #3"}';
 		
 		$this->json_result_collection_1 = '{"CollectionID":1,"CollectionName":"Test Collection","Products":[{"ProductID":1,"Name":"Sample Book 1","ReleaseDate":"2008-11-11"},{"ProductID":2,"Name":"Sample Book 2","ReleaseDate":null},{"ProductID":3,"Name":"Sample Book 3","ReleaseDate":"2018-12-11"},{"ProductID":5,"Name":"Sample Book 5","ReleaseDate":"2007-11-11"},{"ProductID":10,"Name":"Sample Book 10","ReleaseDate":"2015-11-11"}]}';
 		
@@ -120,6 +214,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST product comment without authorization
+	 * @author Jose
 	 */
 	public function test_post_comment_product_no_auth()
     {
@@ -134,6 +229,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST review comment without authorization
+	 * @author Jose
 	 */
 	public function test_post_comment_review_no_auth()
     {
@@ -148,6 +244,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST user comment without authorization
+	 * @author Jose
 	 */
 	public function test_post_comment_user_no_auth()
     {
@@ -162,6 +259,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST product comment with wrong authorization
+	 * @author Jose
 	 */
 	public function test_post_comment_product_wrong_auth()
     {
@@ -178,6 +276,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST review comment with wrong authorization
+	 * @author Jose
 	 */
 	public function test_post_comment_review_wrong_auth()
     {
@@ -194,6 +293,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST user comment with wrong authorization
+	 * @author Jose
 	 */
 	public function test_post_comment_user_wrong_auth()
     {
@@ -210,6 +310,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST product comment with ok authorization.
+	 * @author Jose
 	 */
 	public function test_post_comment_product_ok_auth()
     {
@@ -245,6 +346,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST review comment with ok authorization.
+	 * @author Jose
 	 */
 	public function test_post_comment_review_ok_auth()
     {
@@ -279,6 +381,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST user comment with ok authorization.
+	 * @author Jose
 	 */
 	public function test_post_comment_user_ok_auth()
     {
@@ -314,7 +417,7 @@ class Requests_test extends TestCase
 		 * PHPUnit runs these tests in order from top to bottom.
 		 * We need to alter the AUTO_INCREMENT value in the comments table back to 8 or some tests further down will fail if these tests are run more than once without resetting the database in between.
 		 */
-		// This doesn't work. You need to reset the database after reach run.
+		// This doesn't work. You need to reset the database manually after reach run.
 		//$this->assertEquals(TRUE, $this->obj->db->query("ALTER TABLE comments AUTO_INCREMENT 7"));
 		
 		// Database is now in the same state as before doing the three tests above.
@@ -322,6 +425,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST user comment with ok authorization but invalid target user.
+	 * @author Jose
 	 */
 	public function test_post_comment_user_ok_auth_invalid_id()
     {
@@ -351,6 +455,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST product comment with ok authorization but invalid target product.
+	 * @author Jose
 	 */
 	public function test_post_comment_product_ok_auth_invalid_id()
     {
@@ -380,6 +485,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http POST review comment with ok authorization but invalid target review.
+	 * @author Jose
 	 */
 	public function test_post_comment_review_ok_auth_invalid_id()
     {
@@ -409,6 +515,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET products
+	 * @author Jose
 	 */
     public function test_get_products_1()
     {
@@ -428,6 +535,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET user 1 collections
+	 * @author Jose
 	 */
 	public function test_get_user_1_collections()
     {
@@ -443,6 +551,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET user 1 comments
+	 * @author Ilkka
 	 */
 	public function test_get_user_1_comments()
     {
@@ -458,6 +567,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET user 1 reviews
+	 * @author Ilkka
 	 */
 	public function test_get_user_1_reviews()
     {
@@ -473,6 +583,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET user 1
+	 * @author Ilkka
 	 */
 	public function test_get_user_1()
     {
@@ -488,6 +599,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET product 1 reviews
+	 * @author Ilkka
 	 */
 	public function test_get_products_1_reviews()
     {
@@ -497,12 +609,13 @@ class Requests_test extends TestCase
             $output = ob_get_clean();
         }
 
-        $this->assertEquals($this->json_result_product_1_review,$output);
+        $this->assertEquals($this->json_result_review_1,$output);
         $this->assertResponseCode(200); //http OK.
     }
 	
 	/**
 	 * REST api test: http GET product 1 comments
+	 * @author Ilkka
 	 */
 	public function test_get_products_1_comments()
     {
@@ -519,6 +632,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET collection 1
+	 * @author Ilkka
 	 */
 	public function test_get_collection_1()
     {
@@ -534,6 +648,7 @@ class Requests_test extends TestCase
 		
 	/**
 	 * REST api test: http GET review 1
+	 * @author Ilkka
 	 */
 	public function test_get_review_1()
     {
@@ -549,6 +664,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET review 1 comments
+	 * @author Ilkka
 	 */
 	public function test_get_review_1_comments()
     {
@@ -564,6 +680,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET products unused
+	 * @author Jose
 	 */
     public function test_get_products_unused()
     {
@@ -583,6 +700,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET unused user id collections
+	 * @author Jose
 	 */
 	public function test_get_user_unused_collections()
     {
@@ -598,6 +716,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET unused user id comments
+	 * @author Jose
 	 */
 	public function test_get_user_unused_comments()
     {
@@ -613,6 +732,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET unused user id reviews
+	 * @author Jose
 	 */
 	public function test_get_user_unused_reviews()
     {
@@ -628,6 +748,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET unused user id
+	 * @author Jose
 	 */
 	public function test_get_user_unused()
     {
@@ -643,6 +764,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET product unused reviews
+	 * @author Jose
 	 */
 	public function test_get_products_unused_reviews()
     {
@@ -658,6 +780,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET product unused comments
+	 * @author Jose
 	 */
 	public function test_get_products_unused_comments()
     {
@@ -674,6 +797,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET collection unused
+	 * @author Jose
 	 */
 	public function test_get_collection_unused()
     {
@@ -689,6 +813,7 @@ class Requests_test extends TestCase
 		
 	/**
 	 * REST api test: http GET review unused
+	 * @author Jose
 	 */
 	public function test_get_review_unused()
     {
@@ -704,6 +829,7 @@ class Requests_test extends TestCase
 	
 	/**
 	 * REST api test: http GET unused review comments
+	 * @author Jose
 	 */
 	public function test_get_review_unused_comments()
     {

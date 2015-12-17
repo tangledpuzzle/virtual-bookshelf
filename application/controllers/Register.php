@@ -1,15 +1,28 @@
 <?php
+/**
+ * User registration page controller.
+ * @author Community Auth & Jose
+ */
 defined('BASEPATH') or exit('No direct script access allowed');
 
 include_once (dirname(__FILE__) . "/My_projekti.php");
 
+/**
+ * Class for handling user registration.
+ */
 class Register extends My_projekti
 {
+	/**
+	 * Construct the parent class before this one.
+	 */
     public function __construct()
     {
         parent::__construct();
     }
 
+	/**
+	 * Show the registration page, validate registration details, and add a new user into the database.
+	 */
     public function show_register()
     {
 		// Load Community Auth variables.
@@ -18,13 +31,19 @@ class Register extends My_projekti
 		// Is the user logged in?
 		if($this->auth_level !== NULL)
 		{
+			// In that case show the user's profile, you need to log out before registering an account.
 			$this->view('myprofile', NULL);
 		}
 		else
 		{
+			// User not logged in.
+			
 			$data = NULL;
+			
+			// POST data posted to this page?
 			if($this->input->post('submit'))
 			{
+				// Get the data.
 				$user_data = array(
 					'user_name'     => $this->input->post("reg_name"),
 					'ScreenName'    => $this->input->post("reg_screenname"),
@@ -61,8 +80,10 @@ class Register extends My_projekti
 
 				$this->form_validation->set_rules( $validation_rules );
 
+				// Validate registration form data.
 				if( $this->form_validation->run() )
 				{
+					// If valid, create user.
 					$user_data['user_salt']     = $this->authentication->random_salt();
 					$user_data['user_pass']     = $this->authentication->hash_passwd($user_data['user_pass'], $user_data['user_salt']);
 					$user_data['user_id']       = $this->r2pdb_model->get_unused_user_id();
@@ -78,10 +99,12 @@ class Register extends My_projekti
 				}
 				else
 				{
+					// Validation failed.
 					$data["validation_errors"] = validation_errors();
 				}
 			}
-
+			
+			// User not logged in and no POST data found.
 			$this->view('register', $data);
 		}
     }

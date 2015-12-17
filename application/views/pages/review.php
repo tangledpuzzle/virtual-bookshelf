@@ -1,4 +1,9 @@
-<?php 
+<?php
+/**
+ * A page showing the data for a signle review.
+ * @author Jose
+ */
+
 	if(isset($success_message))
 	{
 		echo '<div class="success-msg-box"><h4>Success</h4>' . $success_message . '</div>';

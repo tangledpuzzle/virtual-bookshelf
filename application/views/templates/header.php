@@ -1,3 +1,13 @@
+<?php
+/**
+ * The header at the top of every page.
+ * @author Jose & Bayram
+ * @package view
+ * @namespace view
+ */
+// phpDocumentor has a bug that requires you to use namespaces for it to recognize PHP pages that have no PHP "nodes".
+namespace view;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

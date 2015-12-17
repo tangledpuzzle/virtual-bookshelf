@@ -1,0 +1,1 @@
+php doc/phpdoc/phpDocumentor.phar -d application/controllers/,application/models/,application/views/pages/,application/views/templates/,application/tests/controllers,application/tests/models -t doc/php/

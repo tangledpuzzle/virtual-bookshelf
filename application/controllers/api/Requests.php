@@ -1,16 +1,21 @@
 <?php
-
+/**
+ * The REST API implementation.
+ * @author Jose
+ */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 require_once APPPATH . '/libraries/REST_Controller.php';
 
 /**
 * REST API.
-* @package r2p_api
 * @author Jose Uusitalo
 */
 class Requests extends REST_Controller
 {
+	/**
+	 * Construct the parent controller and assign some request limits.
+	 */
 	function __construct()
 	{
 		// Construct the parent class
@@ -29,9 +34,9 @@ class Requests extends REST_Controller
 	
 	/**
 	 * A generic private helper function to prevent duplicate code.
-	 * @params string $id_type_name the type of the ID with a capital first letter (e.g. "User" or "Product")
-	 * @params int|NULL $id ID to validate
-	 * @returns NULL|boolean NULL if ID  is NULL,
+	 * @param string $id_type_name the type of the ID with a capital first letter (e.g. "User" or "Product")
+	 * @param int|null $id ID to validate
+	 * @returns null|boolean NULL if ID  is NULL,
 	 * 						 TRUE if ID is valid and present in the correct table,
 	 * 						 FALSE if ID is invalid the function will set a proper HTTP response and stop the execution of this function and all subsequent code
 	 */
@@ -91,7 +96,7 @@ class Requests extends REST_Controller
 	
 	/**
 	 * A generic private helper function to prevent duplicate code. Responds with all data of specified data type, if any is present.
-	 * @params string $datatype the type of the data to respond with in lower case and plural (e.g. "users" or "reviews")
+	 * @param string $datatype the type of the data to respond with in lower case and plural (e.g. "users" or "reviews")
 	 */
 	private function respond_with_all($datatype)
 	{
@@ -143,8 +148,8 @@ class Requests extends REST_Controller
 		$this->response($data, REST_Controller::HTTP_OK);
 	}*/
 	
-	/*
-	 * HTTP GET: USERS
+	/**
+	 * Handle: HTTP GET api/requests/users/userid/$1
 	 */
 	public function users_get()
 	{
@@ -170,8 +175,8 @@ class Requests extends REST_Controller
 		// If false, check_for_valid_id already set a response.
 	}
 	
-	/*
-	 * HTTP GET: USER DATA
+	/**
+	 * Handle: HTTP GET: api/requests/userdata/userid/$1/datatype/$2
 	 */
 	public function userdata_get()
 	{
@@ -229,8 +234,8 @@ class Requests extends REST_Controller
 		the validator function handles other possible values so no else is needed. */
 	}
 	
-	/*
-	 * HTTP GET: PRODUCTS
+	/**
+	 * Handle: HTTP GET api/requests/products/productid/$1
 	 */
 	public function products_get()
 	{
@@ -255,8 +260,8 @@ class Requests extends REST_Controller
 		}
 	}
 	
-	/*
-	 * HTTP GET: PRODUCT DATA
+	/**
+	 * Handle: HTTP GET api/requests/productdata/productid/$1/datatype/$2
 	 */
 	public function productdata_get()
 	{
@@ -312,8 +317,8 @@ class Requests extends REST_Controller
 		// If false, check_for_valid_id already set a response.
 	}
 
-	/*
-	 * HTTP GET: COLLECTIONS
+	/**
+	 * Handle: HTTP GET api/requests/collections/collectionid/$1
 	 */
 	public function collections_get()
 	{
@@ -339,8 +344,8 @@ class Requests extends REST_Controller
 		// If false, check_for_valid_id already set a response.
 	}
 	
-	/*
-	 * HTTP GET: REVIEWS
+	/**
+	 * Handle: HTTP GET api/requests/reviews/reviewid/$1
 	 */
 	public function reviews_get()
 	{
@@ -365,8 +370,8 @@ class Requests extends REST_Controller
 		// If false, check_for_valid_id already set a response.
 	}
 	
-	/*
-	 * HTTP GET: PRODUCT DATA
+	/**
+	 * Handle: HTTP GET api/requests/productdata/productid/$1/datatype/$2
 	 */
 	public function reviewdata_get()
 	{
@@ -403,8 +408,9 @@ class Requests extends REST_Controller
 			}
 		}
 	}
-	/*
-	 * HTTP POST: COMMENTS
+	
+	/**
+	 * Handle: HTTP POST api/requests/comments/<type>/$1
 	 * TODO: Implement proper login functionality.
 	 */
 	public function comments_post()
@@ -535,10 +541,10 @@ class Requests extends REST_Controller
 		// Get productid parameter from the query.
 		$productid = $this->get('productid');
 		
-		// TODO: Userid is required at the moment.
+		// Userid is required at the moment.
 		if ($userid === NULL)
 		{
-			// FIXME: Dev code
+			// Dev code
 			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
 		}
 		else
@@ -548,21 +554,21 @@ class Requests extends REST_Controller
 
 		/* Validate the ID.
 		   UserID field in the database must be >= 1.
-		   TODO: Move to separate function later.
+		   Move to separate function later.
 		 *
 		if ($userid <= 0)
 		{
 			// Invalid id.
-			// FIXME: Dev code
+			// Dev code
 			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
 		}
 
-		// TODO: Get specific user from database.
+		// Get specific user from database.
 		$user = NULL;
 
 		if ($collectionid === NULL)
 		{
-			// FIXME: Dev code
+			// Dev code
 			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
 		}
 		else
@@ -576,7 +582,7 @@ class Requests extends REST_Controller
 			$this->response(NULL, REST_Controller::HTTP_BAD_REQUEST);
 		}
 
-		// TODO: Get specific product from database.
+		// Get specific product from database.
 		$collection = NULL;
 		
 		if ($productid === NULL)
@@ -590,7 +596,7 @@ class Requests extends REST_Controller
 
 		/* Validate the ID.
 		   ProductID field in the database must be >= 1.
-		   TODO: Move to separate function later.
+		   Move to separate function later.
 		 *
 		if ($productid <= 0)
 		{
@@ -598,7 +604,7 @@ class Requests extends REST_Controller
 			$this->response($userid . " " . $collectionid . " " . $productid, REST_Controller::HTTP_BAD_REQUEST);
 		}
 
-		// TODO: Get specific product from database.
+		// Get specific product from database.
 		$product = NULL;
 		
 		$message = ['dummydata' => "Product ID " . $productid . " successfully added to collection ID " . $collectionid . " of user ID " . $userid . "."];

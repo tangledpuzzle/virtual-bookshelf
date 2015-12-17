@@ -1,5 +1,9 @@
-
 <?php
+/**
+ * The user registration page.
+ * @author Jose
+ */
+
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
 	echo '<h1 class="first-content-element">Register an Account</h1>';

@@ -1,4 +1,7 @@
 <?php
+/**
+ * PHPUnit tests for the database model.
+ */
 
 /**
  * Testing class for the MySQL database model used in the project.
@@ -8,29 +11,101 @@
  */
 class R2pdbmodel_model_test extends TestCase
 {
+	
+	/**
+	 * A valid and used MySQL ID column integer value that is present in all tables in the default database. The value is 1.
+	 */
 	public $valid_id_int;
+	
+	/**
+	 * An invalid MySQL ID column integer value. The value is 0.
+	 */
 	public $invalid_id_int;
+	
+	/**
+	 * A valid MySQL ID column integer value that is not used in any tables in the default database. The value is 999999.
+	 */
 	public $unused_id_int;
+	
+	/**
+	 * An invalid MySQL ID column value. The value is a number followed with letters.
+	 */
 	public $malformed_id_int;
+	
+	/**
+	 * A random example string.
+	 */
 	public $string;
+	
+	/**
+	 * An unassigned variable.
+	 */
 	public $unassigned;
 	
+	
+	/**
+	 * The default database row data for: product ID 1
+	 */
 	public $database_row_product_1;
+	
+	/**
+	 * The default database row data for: no row found
+	 */
 	public $database_row_no_result;
+	
+	/**
+	 * The default database row data for: products where language name is swedish
+	 */
 	public $database_products_language_swedish;
+	
+	/**
+	 * The default database row data for: collection ID 2
+	 */
 	public $database_row_empty_collection_id_2;
+	
+	/**
+	 * The default database row data for: comment ID 1
+	 */
 	public $database_row_comment_id_1;
+	
+	/**
+	 * The default database row data for: product ID 1 reviews (short information for a list)
+	 */
 	public $database_row_review_infos_product_1;
+	
+	/**
+	 * The default database row data for: user ID 1 collections (short information for a list)
+	 */
 	public $database_row_short_collection_info_user_1;
 	
+	/**
+	 * A valid and used default database table name.
+	 */
 	public $valid_table_name;
+	
+	/**
+	 * An invalid database table name.
+	 */
 	public $invalid_table_name;
+	
+	/**
+	 * A valid but unused default database table name.
+	 */
 	public $unused_table_name;
 	
-	public $number_of_collections;
-	public $number_of_products;
+	
 	/**
-	 * Set up the database model before each test and assign the common variables.
+	 * Number of collections in the default database.
+	 */
+	public $number_of_collections;
+	
+	/**
+	 * Number of products in the default database.
+	 */
+	public $number_of_products;
+	
+	/**
+	 * Set up the database model before the tests and assign the common variables.
 	 */
     public function setUp()
     {
@@ -116,6 +191,7 @@ class R2pdbmodel_model_test extends TestCase
 
 	/**
 	 * Reflection magic copypasted from: http://stackoverflow.com/a/2798203
+	 * @param string $name Name of the function to get as public.
 	 */
 	protected static function getFunctionAsPublic($name)
 	{

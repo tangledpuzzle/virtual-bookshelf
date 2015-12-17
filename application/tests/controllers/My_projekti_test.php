@@ -1,14 +1,40 @@
 <?php
+/**
+ * PHPUnit tests for the main controller.
+ */
 
+/**
+ * Test for the main controller.
+ */
 class My_projekti_test extends TestCase
 {
-	public $invalid_id_int;
+	
+	/**
+	 * A valid and used MySQL ID column integer value that is present in all tables in the default database. The value is 1.
+	 */
 	public $valid_id_int;
-	public $malformed_id_string;
+	
+	/**
+	 * An invalid MySQL ID column integer value. The value is 0.
+	 */
+	public $invalid_id_int;
+	
+	/**
+	 * A valid MySQL ID column integer value that is not used in any tables in the default database. The value is 999999.
+	 */
 	public $unused_id_int;
 	
+	/**
+	 * An invalid MySQL ID column value. The value is a number followed with letters.
+	 */
+	public $malformed_id_string;
 	
-	public function setUp(){
+	/**
+	 * Set up the common variables before tests.
+	 * @author Jose
+	 */
+	public function setUp()
+	{
 		$this->invalid_id_int=0;
 		$this->valid_id_int=1;
 		$this->malformed_id_string="eifkgnmrit";
@@ -17,6 +43,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Test for: Valid APPPATH
+	 * @author Jose
 	 */
 	public function test_APPPATH()
 	{
@@ -31,6 +58,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: 404 part 1
+	 * @author Jose
 	 */
 	public function test_404()
 	{
@@ -40,6 +68,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: 404 part 2
+	 * @author Jose
 	 */
 	public function test_404_2()
 	{
@@ -49,6 +78,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: front page by function
+	 * @author Jose
 	 */
     public function test_index_by_function()
     {
@@ -59,6 +89,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: front page by uri
+	 * @author Jose
 	 */
 	public function test_index_by_uri()
     {
@@ -69,6 +100,7 @@ class My_projekti_test extends TestCase
 
 	/**
 	 * Page Test: booklist by uri
+	 * @author Ilkka
 	 */
 	public function test_booklist_by_uri()
     {
@@ -83,6 +115,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: bookview by  NULL uri
+	 * @author Ilkka
 	 */
 	public function test_bookview_by_null_uri()
     {
@@ -97,6 +130,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: bookview by valid uri
+	 * @author Ilkka
 	 */
 	public function test_bookview_by_valid_uri()
     {
@@ -111,6 +145,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: bookview by invalid uri
+	 * @author Ilkka
 	 */
 	public function test_bookview_by_invalid_uri()
     {
@@ -125,6 +160,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: bookview by unused uri
+	 * @author Ilkka
 	 */
 	public function test_bookview_by_unused_uri()
     {
@@ -139,6 +175,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: bookview by malformed uri
+	 * @author Ilkka
 	 */
 	public function test_bookview_by_malformed_uri()
     {
@@ -153,6 +190,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: bookview by valid uri with commentlist
+	 * @author Ilkka
 	 */
 	public function test_bookview_by_valid_uri_with_commentlist()
     {
@@ -167,6 +205,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: bookview by valid uri with reviews
+	 * @author Ilkka
 	 */
 	public function test_bookview_by_valid_uri_with_reviews()
     {
@@ -195,6 +234,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: bookview by valid uri no commenting without login
+	 * @author Ilkka
 	 */
 	public function test_bookview_by_valid_uri_no_commentig_without_login()
     {
@@ -211,6 +251,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: review by  NULL uri
+	 * @author Ilkka
 	 */
 	public function test_review_by_null_uri()
     {
@@ -225,6 +266,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: review by valid uri
+	 * @author Ilkka
 	 */
 	public function test_review_by_valid_uri()
     {
@@ -239,6 +281,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: review by valid uri with commentlist
+	 * @author Ilkka
 	 */
 	public function test_review_by_valid_uri_with_commentlist()
     {
@@ -253,6 +296,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: review by valid uri no commenting without login
+	 * @author Ilkka
 	 */
 	public function test_review_by_valid_uri_no_commenting_without_login()
     {
@@ -268,6 +312,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: review by invalid uri
+	 * @author Ilkka
 	 */
 	public function test_review_by_invalid_uri()
     {
@@ -282,6 +327,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: review by unused uri
+	 * @author Ilkka
 	 */
 	public function test_review_by_unused_uri()
     {
@@ -296,6 +342,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: review by malformed uri
+	 * @author Ilkka
 	 */
 	public function test_review_by_malformed_uri()
     {
@@ -310,6 +357,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: userview by  NULL uri
+	 * @author Ilkka
 	 */
 	public function test_userview_by_null_uri()
     {
@@ -324,6 +372,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: userview by valid uri
+	 * @author Ilkka
 	 */
 	public function test_userview_by_valid_uri()
     {
@@ -338,6 +387,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: userview by invalid uri
+	 * @author Ilkka
 	 */
 	public function test_userview_by_invalid_uri()
     {
@@ -352,6 +402,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: userview by unused uri
+	 * @author Ilkka
 	 */
 	public function test_userview_by_unused_uri()
     {
@@ -366,6 +417,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: userview by malformed uri
+	 * @author Ilkka
 	 */
 	public function test_userview_by_malformed_uri()
     {
@@ -380,6 +432,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: userview by valid uri with commentlist
+	 * @author Ilkka
 	 */
 	public function test_userview_by_valid_uri_with_commentlist()
     {
@@ -394,6 +447,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: userview by valid uri with collections
+	 * @author Ilkka
 	 */
 	public function test_userview_by_valid_uri_with_collections()
     {
@@ -408,6 +462,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: userview by valid uri no commenting without login
+	 * @author Ilkka
 	 */
 	public function test_userview_by_valid_uri_no_commenting_without_login()
     {
@@ -424,6 +479,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: collectionview by  NULL uri
+	 * @author Ilkka
 	 */
 	public function test_collectionview_by_null_uri()
     {
@@ -438,6 +494,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: collectionview by valid uri
+	 * @author Ilkka
 	 */
 	public function test_collectionview_by_valid_uri()
     {
@@ -452,6 +509,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: collectionview by invalid uri
+	 * @author Ilkka
 	 */
 	public function test_collectionview_by_invalid_uri()
     {
@@ -466,6 +524,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: collectionview by unused uri
+	 * @author Ilkka
 	 */
 	public function test_collectionview_by_unused_uri()
     {
@@ -480,6 +539,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: collectionview by malformed uri
+	 * @author Ilkka
 	 */
 	public function test_collectionview_by_malformed_uri()
     {
@@ -494,6 +554,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: login by uri
+	 * @author Ilkka
 	 */
 	public function test_login_by_uri()
     {
@@ -508,6 +569,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: profile-edit by uri without login
+	 * @author Ilkka
 	 */
 	public function test_profile_edit_by_uri_without_login()
     {
@@ -522,6 +584,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: registering by uri without login
+	 * @author Ilkka
 	 */
 	public function test_registering_by_uri_without_login()
     {
@@ -536,6 +599,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: reviewlist by uri
+	 * @author Ilkka
 	 */
 	public function test_reviewlist_by_uri()
     {
@@ -545,6 +609,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: commentlist by uri
+	 * @author Ilkka
 	 */
 	public function test_commentlist_by_uri()
     {
@@ -554,6 +619,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: comment by uri
+	 * @author Ilkka
 	 */
 	public function test_comment_by_uri()
     {
@@ -563,6 +629,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: collectionlist by uri
+	 * @author Ilkka
 	 */
 	public function test_collectionlist_by_uri()
     {
@@ -572,6 +639,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: login_form by uri
+	 * @author Ilkka
 	 */
 	public function test_login_form_by_uri()
     {
@@ -581,6 +649,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: review_posted by uri
+	 * @author Ilkka
 	 */
 	public function test_review_posted_by_uri()
     {
@@ -590,6 +659,7 @@ class My_projekti_test extends TestCase
 	
 	/**
 	 * Page Test: writereview by uri
+	 * @author Ilkka
 	 */
 	public function test_writereview_by_uri()
     {

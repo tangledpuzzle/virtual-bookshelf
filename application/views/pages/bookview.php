@@ -1,3 +1,13 @@
+<?php
+/**
+ * A page showing the data of a single book.
+ * @author Jose
+ * @package view
+ * @namespace view
+ */
+// phpDocumentor has a bug that requires you to use namespaces for it to recognize PHP pages that have no PHP "nodes".
+namespace view;
+?>
 <link rel="stylesheet" type="text/css" href="../../../css/bookview.css">
 <script type="text/javascript" src="../../../js/bookview.js"></script>
 <?php 

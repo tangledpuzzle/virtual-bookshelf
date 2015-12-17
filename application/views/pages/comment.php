@@ -1,4 +1,10 @@
-<?php 
+<?php
+/**
+ * A generic view for showing the comment writing box for the data shown on this page. (User/Product/Review)
+ * This is a view that is to be added at the bottom of pages that allow commenting.
+ * @author Ilkka
+ */
+
 // disallow direct access.
 if ($this->uri->uri_string()==="comment"){
 	show_404();

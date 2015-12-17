@@ -1,4 +1,10 @@
-<?php 
+<?php
+/**
+ * A page listing all review for this product.
+ * This is a view that is to be added at the bottom of bookview pages and must not be used as a "standalone" page.
+ * @author Jose
+ */
+
 // disallow direct access.
 if ($this->uri->uri_string()==="reviewlist"){
 	show_404();

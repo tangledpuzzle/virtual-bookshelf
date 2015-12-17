@@ -1,4 +1,9 @@
-<?php 
+<?php
+/**
+ * The user profile editing page.
+ * @author Bayram
+ */
+
 	if(isset($success_message))
 	{
 		echo '<div class="success-msg-box"><h4>Success</h4>' . $success_message . '</div>';
@@ -69,9 +74,6 @@
 
 		 </div>
 
-
-			
-          
           <!-- <div class="form-group">
             <label class="col-md-3 control-label"></label>
             <div class="col-md-8">

@@ -1,3 +1,13 @@
+<?php
+/**
+ * A page listing all users in the database.
+ * @author Jose
+ * @package view
+ * @namespace view
+ */
+// phpDocumentor has a bug that requires you to use namespaces for it to recognize PHP pages that have no PHP "nodes".
+namespace view;
+?>
 <script type="text/javascript" src="../../../js/userlist.js"></script>
 <script type="text/javascript" src="../../../js/r2p.js"></script>
 <script type="text/javascript" src="../../../lib/sorttable.js"></script>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: userview.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: userview.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * User JSON data defined in the booklist.php file. Used if browser does not support sessionStorage.
+ */
+var user_json;
+/**
+ * Common global variable explicitly defined to shut up JSLint.
+ */
+var sessionStorage, document, window;
+/**
+ * Creates an HTML page for a user from the data returned by the database model.
+ * @author Ilkka
+ * @param {string} source_page Is the page used to get to the current page.
+ * @param {int} logged_in_user_id Is user_id of the current user.
+ */
+
+function createUserView(logged_in_user_id, source_page) {
+    "use strict";
+    var user;
+    // Is the global json array not undefined?
+    if('undefined' !== typeof user_json) {
+        // Copy the data to the local variable.
+        user = user_json;
+    } else {
+        // Get the data from sessionStorage.
+        user = JSON.parse(sessionStorage.getItem('user_json'));
+        // Remove the item from storage as it is no longer needed.
+        sessionStorage.removeItem('user_json');
+    }
+    var userview_name, userview_date, userview_brief, userview_country, userage, genderdiv, thead, tbody, fullname,
+        hiddendiv, userview_userdivrow1, ihmediv, userview_userdivrow0,
+        hvdiv, titlerow, userview_userdivtitle, userview_datetitle, userview_countrytitle, useragetitle, genderdivtitle, userview_title;
+    hiddendiv = document.createElement("div");
+    hiddendiv.id = "user_iddiv";
+    hiddendiv.style.display = "none";
+    hiddendiv.innerHTML = user.user_id;
+    hvdiv = document.createElement("div");
+    if(logged_in_user_id === user.user_id) {
+        hvdiv.className = "col-md-10";
+    } else {
+        hvdiv.className = "col-md-12";
+    }
+    titlerow = document.createElement("div");
+    titlerow.className = "row";
+    userview_title = document.createElement("h1");
+    userview_title.innerHTML = user.ScreenName + " &lt;small> [" + user.user_id + "] &lt;/small>";
+    hvdiv.appendChild(userview_title);
+    titlerow.appendChild(hvdiv);
+    if(logged_in_user_id === user.user_id) {
+        var buttondiv = document.createElement("div");
+        buttondiv.className = "col-md-2 no-pad-col";
+        var button_edit = document.createElement("button");
+        button_edit.innerHTML = "Edit Profile";
+        buttondiv.appendChild(button_edit);
+        button_edit.className = "btn btn-default btn-lg pull-right";
+        titlerow.appendChild(buttondiv);
+        button_edit.onclick = function() {
+            if(source_page === "myprofile") {
+                window.location = "profileedit";
+            } else {
+                window.location = "../profileedit";
+            }
+        };
+    }
+    document.getElementById("userview").appendChild(titlerow);
+    document.getElementById("userview").appendChild(hiddendiv);
+    userview_userdivtitle = document.createElement("tr");
+    userview_name = document.createElement("th");
+    userview_name.innerHTML = "Full name";
+    userview_name.className = "col-md-4";
+    userview_userdivtitle.appendChild(userview_name);
+    userview_countrytitle = document.createElement("th");
+    userview_countrytitle.innerHTML = "Country";
+    userview_countrytitle.className = "col-md-3";
+    userview_userdivtitle.appendChild(userview_countrytitle);
+    useragetitle = document.createElement("th");
+    useragetitle.innerHTML = "Age";
+    useragetitle.className = "col-md-1";
+    userview_userdivtitle.appendChild(useragetitle);
+    genderdivtitle = document.createElement("th");
+    genderdivtitle.innerHTML = "Gender";
+    genderdivtitle.className = "col-md-1";
+    userview_userdivtitle.appendChild(genderdivtitle);
+    userview_datetitle = document.createElement("th");
+    userview_datetitle.innerHTML = "Join date";
+    userview_datetitle.className = "col-md-3";
+    userview_userdivtitle.appendChild(userview_datetitle);
+    userview_userdivrow0 = document.createElement("tr");
+    fullname = document.createElement("td");
+    var first = user.FirstName;
+    if(first === null) {
+        first = "";
+    }
+    var last = user.LastName;
+    if(last === null) {
+        last = "";
+    }
+    var full = first + " " + last;
+    fullname.innerHTML = full.trim();
+    fullname.className = "col-md-4";
+    userview_userdivrow0.appendChild(fullname);
+    userview_country = document.createElement("td");
+    userview_country.innerHTML = user.CountryName;
+    userview_country.className = "col-md-3";
+    userview_userdivrow0.appendChild(userview_country);
+    userage = document.createElement("td");
+    if(user.Age === 0) {
+        userage.innerHTML = "";
+    } else {
+        userage.innerHTML = user.Age;
+    }
+    userage.className = "col-md-1";
+    userview_userdivrow0.appendChild(userage);
+    genderdiv = document.createElement("td");
+    genderdiv.innerHTML = user.GenderName;
+    genderdiv.className = "col-md-1";
+    userview_userdivrow0.appendChild(genderdiv);
+    userview_date = document.createElement("td");
+    userview_date.innerHTML = user.user_date;
+    userview_date.className = "col-md-3";
+    userview_userdivrow0.appendChild(userview_date);
+    thead = document.createElement("thead");
+    thead.appendChild(userview_userdivtitle);
+    tbody = document.createElement("tbody");
+    tbody.appendChild(userview_userdivrow0);
+    ihmediv = document.createElement("table");
+    ihmediv.className = "table";
+    ihmediv.appendChild(thead);
+    ihmediv.appendChild(tbody);
+    userview_userdivrow1 = document.createElement("div");
+    userview_userdivrow1.id = "user-div";
+    userview_userdivrow1.className = "row";
+    userview_brief = document.createElement("div");
+    userview_brief.innerHTML = user.Bio;
+    userview_brief.className = "col-md-12";
+    userview_userdivrow1.appendChild(userview_brief);
+    document.getElementById("userview").appendChild(ihmediv);
+    document.getElementById("userview").appendChild(userview_userdivrow1);
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#book_json">book_json</a></li><li><a href="global.html#books_json">books_json</a></li><li><a href="global.html#collection_json">collection_json</a></li><li><a href="global.html#collections_json">collections_json</a></li><li><a href="global.html#comments_json">comments_json</a></li><li><a href="global.html#createBookList">createBookList</a></li><li><a href="global.html#createBookView">createBookView</a></li><li><a href="global.html#createCollectionView">createCollectionView</a></li><li><a href="global.html#createCommentList">createCommentList</a></li><li><a href="global.html#createReviewList">createReviewList</a></li><li><a href="global.html#createUserList">createUserList</a></li><li><a href="global.html#createUsersCollections">createUsersCollections</a></li><li><a href="global.html#createUserView">createUserView</a></li><li><a href="global.html#document">document</a></li><li><a href="global.html#putIntoSessionStorage">putIntoSessionStorage</a></li><li><a href="global.html#reviews_json">reviews_json</a></li><li><a href="global.html#sessionStorage">sessionStorage</a></li><li><a href="global.html#user_json">user_json</a></li><li><a href="global.html#users_json">users_json</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 17 2015 12:18:10 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

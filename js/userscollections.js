@@ -1,16 +1,16 @@
 /**
- * Created with webprojekti.
- * User: ME-varjoil
- * Date: 2015-12-14
- * Time: 03:31 PM
- * To change this template use Tools | Templates.
+ * Common global variable explicitly defined to shut up JSLint.
  */
-var document, sessionStorage, collections_json, window;
-
+var document, sessionStorage, window;
 /**
- * Creates  HTML list of users collections in the database from the sessionStorage data.
+ * User collections list JSON data defined in the collectionlist.php file. Used if browser does not support sessionStorage.
+ */
+var collections_json;
+/**
+ * Creates an HTML list of user's collections from the data returned by the database model.
  * @author Ilkka
  */
+
 function createUsersCollections() {
     "use strict";
     var collections;

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: collectionview.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: collectionview.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Common global variable explicitly defined to shut up JSLint.
+ */
+var document, sessionStorage, window;
+/**
+ * Collection JSON data defined in the collectionview.php file. Used if browser does not support sessionStorage.
+ */
+var collection_json;
+/**
+ * Creates an HTML page for a collection from the data returned by the database model.
+ * @author Ilkka
+ */
+
+function createCollectionView() {
+    "use strict";
+    var collection;
+    // Is the global json array not undefined?
+    if('undefined' !== typeof collection_json) {
+        // Copy the data to the local variable.
+        collection = collection_json;
+    } else {
+        // Get the data from sessionStorage.
+        collection = JSON.parse(sessionStorage.getItem('collection_json'));
+        // Remove the item from storage as it is no longer needed.
+        sessionStorage.removeItem('collection_json');
+    }
+    var title = document.createElement("h1");
+    title.className = "first-content-element";
+    title.innerHTML = collection.CollectionName;
+    document.getElementById("collectionview").appendChild(title);
+    var collection_id = document.createElement("div");
+    collection_id.className = "hidden";
+    collection_id.innerHTML = collection.CollectionID;
+    document.getElementById("collectionview").appendChild(collection_id);
+    var table = document.createElement("table");
+    table.className = "table sortable last-content-element";
+    document.getElementById("collectionview").appendChild(table);
+    var thead = document.createElement("thead");
+    table.appendChild(thead);
+    var tr = document.createElement("tr");
+    thead.appendChild(tr);
+    var book_id = document.createElement("th");
+    book_id.className = "hidden";
+    book_id.innerHTML = "Book ID";
+    tr.appendChild(book_id);
+    var book_name = document.createElement("th");
+    book_name.innerHTML = "Book Name";
+    tr.appendChild(book_name);
+    var publisher = document.createElement("th");
+    publisher.className = "hidden";
+    publisher.innerHTML = "Publisher";
+    tr.appendChild(publisher);
+    var release_date = document.createElement("th");
+    release_date.innerHTML = "Release Date";
+    tr.appendChild(release_date);
+    var tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+    var obj;
+    for(obj in collection.Products) {
+        tr = document.createElement("tr");
+        tr.className = "table-row-link";
+        tr.onclick = function() {
+            window.location.href = "../bookview/" + this.childNodes[0].innerHTML;
+        };
+        book_id = document.createElement("td");
+        book_id.className = "hidden";
+        book_id.innerHTML = collection.Products[obj].ProductID;
+        tr.appendChild(book_id);
+        book_name = document.createElement("td");
+        book_name.innerHTML = collection.Products[obj].Name;
+        tr.appendChild(book_name);
+        publisher = document.createElement("td");
+        publisher.className = "hidden";
+        publisher.innerHTML = collection.Products[obj].PublisherName;
+        tr.appendChild(publisher);
+        release_date = document.createElement("td");
+        release_date.innerHTML = collection.Products[obj].ReleaseDate;
+        tr.appendChild(release_date);
+        tbody.appendChild(tr);
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#book_json">book_json</a></li><li><a href="global.html#books_json">books_json</a></li><li><a href="global.html#collection_json">collection_json</a></li><li><a href="global.html#collections_json">collections_json</a></li><li><a href="global.html#comments_json">comments_json</a></li><li><a href="global.html#createBookList">createBookList</a></li><li><a href="global.html#createBookView">createBookView</a></li><li><a href="global.html#createCollectionView">createCollectionView</a></li><li><a href="global.html#createCommentList">createCommentList</a></li><li><a href="global.html#createReviewList">createReviewList</a></li><li><a href="global.html#createUserList">createUserList</a></li><li><a href="global.html#createUsersCollections">createUsersCollections</a></li><li><a href="global.html#createUserView">createUserView</a></li><li><a href="global.html#document">document</a></li><li><a href="global.html#putIntoSessionStorage">putIntoSessionStorage</a></li><li><a href="global.html#reviews_json">reviews_json</a></li><li><a href="global.html#sessionStorage">sessionStorage</a></li><li><a href="global.html#user_json">user_json</a></li><li><a href="global.html#users_json">users_json</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 17 2015 12:18:10 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,22 +1,18 @@
 /**
- * Created with webprojekti.
- * User: ME-varjoil
- * Date: 2015-12-11
- * Time: 09:37 AM
- * To change this template use Tools | Templates.
+ * User JSON data defined in the booklist.php file. Used if browser does not support sessionStorage.
  */
 var user_json;
-var sessionStorage;
-var document;
-var window;
-
-
 /**
- * Creates the Userview based on sessionStorage data.
+ * Common global variable explicitly defined to shut up JSLint.
+ */
+var sessionStorage, document, window;
+/**
+ * Creates an HTML page for a user from the data returned by the database model.
  * @author Ilkka
  * @param {string} source_page Is the page used to get to the current page.
  * @param {int} logged_in_user_id Is user_id of the current user.
  */
+
 function createUserView(logged_in_user_id, source_page) {
     "use strict";
     var user;
@@ -58,12 +54,11 @@ function createUserView(logged_in_user_id, source_page) {
         button_edit.className = "btn btn-default btn-lg pull-right";
         titlerow.appendChild(buttondiv);
         button_edit.onclick = function() {
-			if (source_page === "myprofile"){
-				window.location = "profileedit";
-			}
-           else{
-			   window.location = "../profileedit";
-		   }
+            if(source_page === "myprofile") {
+                window.location = "profileedit";
+            } else {
+                window.location = "../profileedit";
+            }
         };
     }
     document.getElementById("userview").appendChild(titlerow);
@@ -91,17 +86,15 @@ function createUserView(logged_in_user_id, source_page) {
     userview_userdivtitle.appendChild(userview_datetitle);
     userview_userdivrow0 = document.createElement("tr");
     fullname = document.createElement("td");
-	var first = user.FirstName;
-	if (first === null)
-	{
-		first= "";
-	}
-	var last = user.LastName;
-	if (last === null)
-	{
-		last= "";
-	}
-	var full = first + " " + last;
+    var first = user.FirstName;
+    if(first === null) {
+        first = "";
+    }
+    var last = user.LastName;
+    if(last === null) {
+        last = "";
+    }
+    var full = first + " " + last;
     fullname.innerHTML = full.trim();
     fullname.className = "col-md-4";
     userview_userdivrow0.appendChild(fullname);
@@ -110,14 +103,11 @@ function createUserView(logged_in_user_id, source_page) {
     userview_country.className = "col-md-3";
     userview_userdivrow0.appendChild(userview_country);
     userage = document.createElement("td");
-	if (user.Age === 0)
-	{
-    	userage.innerHTML = "";
-	}
-	else
-	{
-		userage.innerHTML = user.Age
-	}
+    if(user.Age === 0) {
+        userage.innerHTML = "";
+    } else {
+        userage.innerHTML = user.Age;
+    }
     userage.className = "col-md-1";
     userview_userdivrow0.appendChild(userage);
     genderdiv = document.createElement("td");

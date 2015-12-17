@@ -1,21 +1,18 @@
 /**
- * Created with webprojekti.
- * User: ME-varjoil
- * Date: 2015-12-09
- * Time: 01:51 PM
- * To change this template use Tools | Templates.
+ * Book JSON data defined in the bookview.php file. Used if browser does not support sessionStorage.
  */
-
-var book_json, sessionStorage, document, window, alert;
-
+var book_json;
 /**
- * Creates the Bookview based on sessionStorage data.
- * @author Ilkka
- * @param {object} logged_in_user_collections Is a json_object.
- * @param {int} logged_in_user_collections.CollectionID Is a database row id.
- * @param {string} logged_in_user_collections.CollectionName Is the title for the collection.
- * @param {int} logged_in_user_id Is user_id of the current user.
+ * Common global variable explicitly defined to shut up JSLint.
  */
+var sessionStorage, document, window, alert;
+/**
+ * Creates an HTML page for a book from the data returned by the database model.
+ * @author Ilkka & Jose
+ * @param {int} logged_in_user_id The user_id of the current logged in user. -1 if user is not logged in.
+ * @param {object} logged_in_user_collections A JSON map of currently logged in user's collections. Empty if user is not logged in. The key is the collection ID int., the value is the title string for the collection.
+ */
+
 function createBookView(logged_in_user_id, logged_in_user_collections) {
     "use strict";
     var book;
@@ -29,9 +26,8 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
         // Remove the item from storage as it is no longer needed.
         sessionStorage.removeItem('book_json');
     }
-	var prodview_date, prodview_brief, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, hiddendiv, hvdiv, thead, tbody;
-
-	hiddendiv = document.createElement("div");
+    var prodview_date, prodview_brief, prodview_proddescription, prodview_publisher, prodview_proddivrow1, prodview_proddivrow2, prodview_title, prodean, prodview_proddivrow0, languagediv, prodview_proddivtitle, prodview_datetitle, prodview_publishertitle, prodeantitle, languagedivtitle, ihmediv, titlerow, hiddendiv, hvdiv, thead, tbody;
+    hiddendiv = document.createElement("div");
     hiddendiv.id = "product_iddiv";
     hiddendiv.style.display = "none";
     hiddendiv.innerHTML = book.ProductID;
@@ -60,9 +56,7 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
         var colnamefield = document.createElement("input");
         var hiddencolid = document.createElement("input");
         var select = document.createElement("select");
-        
-        
-		form.onsubmit = function () {
+        form.onsubmit = function() {
             // Check if the text field and list select contents are identical.	
             var name = colnamefield.value;
             if(name.trim().length === 0 || name === logged_in_user_collections[select.value]) {
@@ -99,13 +93,10 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
         select.className = "form-control no-top-margin-form-control";
         select.id = "collection-select";
         colselectdiv.appendChild(select);
-		
-       
-		select.onchange = function () {
+        select.onchange = function() {
             colnamefield.value = logged_in_user_collections[document.getElementById("collection-select").value];
         };
-		
-		var collectionid, option;
+        var collectionid, option;
         for(collectionid in logged_in_user_collections) {
             option = document.createElement("option");
             option.value = collectionid;
@@ -128,7 +119,7 @@ function createBookView(logged_in_user_id, logged_in_user_collections) {
         buttonrev.innerHTML = "Review";
         brev.appendChild(buttonrev);
         titlerow.appendChild(brev);
-        buttonrev.onclick = function () {
+        buttonrev.onclick = function() {
             window.location = "../writereview/" + document.getElementById("product_iddiv").innerHTML;
         };
         document.getElementById("productview").appendChild(collectionrow);

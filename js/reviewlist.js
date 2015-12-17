@@ -1,12 +1,16 @@
 /**
- * User: joseu
+ * Common global variable explicitly defined to shut up JSLint.
  */
-var document, sessionStorage, window, reviews_json;
-
+var document, sessionStorage, window;
 /**
- * Creates  HTML list of reviews in the database from the sessionStorage data.
- * @author Ilkka
+ * Review list JSON data defined in the reviewlist.php file. Used if browser does not support sessionStorage.
  */
+var reviews_json;
+/**
+ * Creates an HTML list of reviews from the data returned by the database model.
+ * @author Jose
+ */
+
 function createReviewList() {
     "use strict";
     var reviews;
@@ -42,7 +46,7 @@ function createReviewList() {
     tr.appendChild(review_date);
     var tbody = document.createElement("tbody");
     table.appendChild(tbody);
-	var obj;
+    var obj;
     for(obj in reviews) {
         tr = document.createElement("tr");
         tr.className = "table-row-link";

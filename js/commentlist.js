@@ -1,18 +1,17 @@
 /**
- * Created with webprojekti.
- * User: ME-varjoil
- * Date: 2015-12-11
- * Time: 01:42 PM
- * To change this template use Tools | Templates.
- * CommentID, PostDate, UserID, Text
+ * Common global variable explicitly defined to shut up JSLint.
  */
-var comments_json, sessionStorage, document;
-
+var sessionStorage, document;
 /**
- * Creates the Commentlist based on sessionStorage data.
- * @author Ilkka
- *  @param {string} user_is_Admin Is the current users admin status ID.
+ * Comment list JSON data defined in the commentlist.php file. Used if browser does not support sessionStorage.
  */
+var comments_json;
+/**
+ * Creates an HTML list of comments from the data returned by the database model.
+ * @author Ilkka & Jose
+ * @param {int} user_is_admin Is the current users admin status. 1 = user is admin, 0 = user is not admin or is not logged in.
+ */
+
 function createCommentList(user_is_admin) {
     "use strict";
     var comments;
@@ -30,7 +29,6 @@ function createCommentList(user_is_admin) {
     commenttitle.innerHTML = "Comments";
     document.getElementById("commentlist").appendChild(commenttitle);
     var usera, infodiv, maindiv, datediv, userdiv, commentdiv, deldiv, delform, delbtn, delid, i;
-	console.log(comments[0]);
     for(i = comments.length; i > 0; i--) {
         usera = document.createElement("a");
         userdiv = document.createElement("div");
@@ -39,14 +37,13 @@ function createCommentList(user_is_admin) {
         maindiv.className = "row";
         commentdiv = document.createElement("div");
         datediv = document.createElement("div");
-        usera.href = "../userview/" + comments[i-1].user_id;
-        usera.innerHTML = comments[i-1].ScreenName;
-
+        usera.href = "../userview/" + comments[i - 1].user_id;
+        usera.innerHTML = comments[i - 1].ScreenName;
         userdiv.className = "col-md-4";
         userdiv.appendChild(usera);
         infodiv.className = "row";
         infodiv.appendChild(userdiv);
-        datediv.innerHTML = comments[i-1].PostDate;
+        datediv.innerHTML = comments[i - 1].PostDate;
         datediv.className = "col-md-2";
         infodiv.appendChild(datediv);
         if(user_is_admin === 1) {
@@ -59,7 +56,7 @@ function createCommentList(user_is_admin) {
             delid.type = "number";
             delid.name = "delete_comment_id";
             delid.className = "hidden";
-            delid.value = comments[i-1].CommentID;
+            delid.value = comments[i - 1].CommentID;
             delbtn = document.createElement("input");
             delbtn.value = "Delete Comment";
             delbtn.className = "btn btn-danger btn-xs";
@@ -71,7 +68,7 @@ function createCommentList(user_is_admin) {
             infodiv.appendChild(deldiv);
         }
         maindiv.appendChild(infodiv);
-        commentdiv.innerHTML = comments[i-1].Text;
+        commentdiv.innerHTML = comments[i - 1].Text;
         commentdiv.className = "col-md-12";
         maindiv.appendChild(commentdiv);
         document.getElementById("commentlist").appendChild(maindiv);

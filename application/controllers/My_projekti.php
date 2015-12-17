@@ -235,7 +235,7 @@ class My_projekti extends MY_Controller
 					// Give the JavaScript script information (through the view PHP file) if the current user is logged in to selectively disable dynamically created site features.
 					$data["logged_in_user_id"] = $logged_in_user_id;
 					
-					//userview is opened from source page
+					// Source page is userview (For JavaScript)
 					$data["source_page"] = $page;
 				}
 				else
@@ -299,6 +299,9 @@ class My_projekti extends MY_Controller
 						// Get user data from database.
 						$data["user"] = json_encode($this->r2pdb_model->get_user_by_id_display($user_id));
 						
+						// Get a short info list of this user's collections from database.
+						$data["collections"] = json_encode($this->r2pdb_model->get_user_collections_short_display($user_id));
+
 						// Comment type for writing comments.
 						$data["comment_type"] = "user";
 						
@@ -308,7 +311,7 @@ class My_projekti extends MY_Controller
 						// Give the JavaScript script information (through the view PHP file) if the current user is logged in to selectively disable dynamically created site features.
 						$data["logged_in_user_id"] = $logged_in_user_id;
 						
-						//userview is opened from source page
+						// Source page is myprofile (For JavaScript)
 						$data["source_page"] = "myprofile";
 					}
 					else

@@ -1590,25 +1590,39 @@ class R2pdb_model extends CI_Model
 	*/
 	public function get_user_collections_minimal_list($userid)
 	{
-		$table_name ="userCollections";
-		$this->db->select("userCollections.CollectionID, CollectionName");
-		$this->db->where("userCollections.user_id", (int) $userid);
-
-		// Left join to get collection name.
-		$this->db->join("collections", 'userCollections.CollectionID = collections.CollectionID', 'left');
-
-		$query = $this->db->get($table_name);
-		$result = $query->result_array();
-		$array = array();
-
-		$length = count($result);
-		
-		// For every collection.
-		for ($i = 0; $i < $length; $i++)
+		// Return NULL if parameter is NULL.		
+		if ($userid !== NULL)
 		{
-			$array[$result[$i]["CollectionID"]] = $result[$i]["CollectionName"];
+			// FALSE if id is not numeric.
+			if (is_numeric($userid) === TRUE)
+			{
+				// FALSE if id is invalid. (0 or less.)
+				if ((int) $userid > 0)
+				{
+					$table_name ="userCollections";
+					$this->db->select("userCollections.CollectionID, CollectionName");
+					$this->db->where("userCollections.user_id", (int) $userid);
+
+					// Left join to get collection name.
+					$this->db->join("collections", 'userCollections.CollectionID = collections.CollectionID', 'left');
+
+					$query = $this->db->get($table_name);
+					$result = $query->result_array();
+					$array = array();
+
+					$length = count($result);
+
+					// For every collection.
+					for ($i = 0; $i < $length; $i++)
+					{
+						$array[$result[$i]["CollectionID"]] = $result[$i]["CollectionName"];
+					}
+					return $array;
+				}
+				return FALSE;
+			}
+			return FALSE;
 		}
-		
-		return $array;
+		return NULL;
 	}
 }

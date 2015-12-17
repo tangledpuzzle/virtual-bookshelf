@@ -1,0 +1,101 @@
+<?php
+/**
+ * PHPUnit tests for the review controller.
+ */
+
+/**
+ * Test for the register controller.
+ * @author Jose
+ */
+class Review_test extends TestCase
+{
+	
+	/**
+	 * A valid and used MySQL ID column integer value that is present in all tables in the default database. The value is 1.
+	 */
+	public $valid_id_int;
+	
+	/**
+	 * An invalid MySQL ID column integer value. The value is 0.
+	 */
+	public $invalid_id_int;
+	
+	/**
+	 * A valid MySQL ID column integer value that is not used in any tables in the default database. The value is 999999.
+	 */
+	public $unused_id_int;
+	
+	/**
+	 * An invalid MySQL ID column value. The value is a number followed with letters.
+	 */
+	public $malformed_id_string;
+	
+	/**
+	 * Set up the common variables before tests.
+	 */
+	public function setUp()
+	{
+		$this->invalid_id_int=0;
+		$this->valid_id_int=1;
+		$this->malformed_id_string="eifkgnmrit";
+		$this->unused_id_int=999999;
+	}
+
+	/**
+	 * Page Test: writereview by uri not logged in
+	 */
+	public function test_writereview_by_uri()
+    {
+        $output = $this->request('GET', 'writereview');
+		$this->assertResponseCode(404);
+    }
+	
+	/**
+	 * Page Test: writereview by  NULL uri not logged in
+	 */
+	public function test_writereview_by_null_uri()
+    {
+        $output = $this->request('GET', 'writereview/');
+		$this->assertResponseCode(404);
+    }
+	
+	/**
+	 * Page Test: writereview by valid uri not logged in
+	 */
+	public function test_writereview_by_valid_uri()
+    {
+        $output = $this->request('GET', 'writereview/'. $this->valid_id_int);
+        $this->assertContains('class="error-msg-box"', $output);
+        $this->assertContains('You need to be logged in to write a review.', $output);
+    }
+	
+	/**
+	 * Page Test: writereview by invalid uri not logged in
+	 */
+	public function test_writereview_by_invalid_uri()
+    {
+        $output = $this->request('GET', 'writereview/'. $this->invalid_id_int);
+        $this->assertContains('class="error-msg-box"', $output);
+        $this->assertContains('You need to be logged in to write a review.', $output);
+    }
+	
+	/**
+	 * Page Test: writereview by unused uri not logged in
+	 */
+	public function test_writereview_by_unused_uri()
+    {
+        $output = $this->request('GET', 'writereview/'. $this->unused_id_int);
+        $this->assertContains('class="error-msg-box"', $output);
+        $this->assertContains('You need to be logged in to write a review.', $output);
+    }
+	
+	/**
+	 * Page Test: writereview by malformed uri not logged in
+	 */
+	public function test_writereview_by_malformed_uri()
+    {
+        $output = $this->request('GET', 'writereview/'. $this->malformed_id_string);
+        $this->assertContains('class="error-msg-box"', $output);
+        $this->assertContains('You need to be logged in to write a review.', $output);
+    }
+}

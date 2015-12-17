@@ -4,8 +4,9 @@
  * @author Jose
  */
 
-if (isset($error_message))
+if (isset($message))
 {
+	echo '<div class="msg-box">';
 	if (isset($header))
 	{
 		echo '<h3 class="first-content-element">' . $header . '</h3>';
@@ -15,6 +16,7 @@ if (isset($error_message))
 	{
 		echo '<p class="first-content-element last-content-element">' . $message . '</p>';
 	}
+	echo '</div>';
 }
 else
 {

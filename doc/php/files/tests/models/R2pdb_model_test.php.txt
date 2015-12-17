@@ -79,6 +79,11 @@ class R2pdbmodel_model_test extends TestCase
 	public $database_row_short_collection_info_user_1;
 	
 	/**
+	 * The default database row data for: user ID 1 collections (minimal information for a list)
+	 */
+	public $database_row_minimal_collection_info_user_1;
+	
+	/**
 	 * A valid and used default database table name.
 	 */
 	public $valid_table_name;
@@ -177,6 +182,7 @@ class R2pdbmodel_model_test extends TestCase
 
 		$this->database_row_review_infos_product_1 = array(array("ReviewID"=>1,"ReviewDate"=>"2001-09-23 00:00:00","user_id"=>1,"ScreenName"=>"A User","Rating"=>5),array("ReviewID"=>6,"ReviewDate"=>"2012-09-01 00:00:00","user_id"=>7,"ScreenName"=>"Test Account 7","Rating"=>2),array("ReviewID"=>23,"ReviewDate"=>"2006-05-25 00:00:00","user_id"=>2,"ScreenName"=>"A Moderator","Rating"=>3),array("ReviewID"=>27,"ReviewDate"=>"2011-03-22 00:00:00","user_id"=>6,"ScreenName"=>"Test Account 6","Rating"=>4),array("ReviewID"=>28,"ReviewDate"=>"2011-03-27 00:00:00","user_id"=>8,"ScreenName"=>"Test Account 8","Rating"=>5));
 		$this->database_row_short_collection_info_user_1 = array(array("CollectionID"=>1,"CollectionName"=>"Test Collection","ProductCount"=>5),array("CollectionID"=>2,"CollectionName"=>"Empty Collection","ProductCount"=>0));
+		$this->database_row_minimal_collection_info_user_1 = array(1=> "Test Collection", 2=> "Empty Collection"); 
 		
 		$this->valid_table_name = "products";
 		$this->invalid_table_name = '!#¤%&/()=?;:_@£$€[\\]}';
@@ -599,5 +605,80 @@ class R2pdbmodel_model_test extends TestCase
     {
 		$actual = $this->obj->get_user_collections_short_display($this->valid_id_int);
         $this->assertInternalType('int', $actual[0]["CollectionID"]);
+    }
+	
+	
+	/*
+	 * ----------- user collections -----------
+	 */
+	
+	/**
+	 * Test get minimal user collection info with user id: valid
+	 */
+    public function test_get_user_collections_minimal_list_valid()
+    {
+		$actual = $this->obj->get_user_collections_minimal_list($this->valid_id_int);
+		$expected = $this->database_row_minimal_collection_info_user_1;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get minimal user collection info with user id: invalid
+	 */
+    public function test_get_user_collections_minimal_list_invalid()
+    {
+		$actual = $this->obj->get_user_collections_minimal_list($this->invalid_id_int);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get minimal user collection info with user id: unused
+	 */
+    public function test_get_user_collections_minimal_list_unused()
+    {
+		$actual = $this->obj->get_user_collections_minimal_list($this->unused_id_int);
+		$expected = $this->database_row_no_result;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get minimal user collection info with user id: malformed
+	 */
+    public function test_get_user_collections_minimal_list_malformed()
+    {
+		$actual = $this->obj->get_user_collections_minimal_list($this->malformed_id_int);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get minimal user collection info with user id: string
+	 */
+    public function test_get_user_collections_minimal_list_string()
+    {
+		$actual = $this->obj->get_user_collections_minimal_list($this->string);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get minimal user collection info with user id: unassigned
+	 */
+    public function test_get_user_collections_minimal_list_unassigned()
+    {
+		$actual = $this->obj->get_user_collections_minimal_list($this->unassigned);
+		$expected = FALSE;
+        $this->assertEquals($expected, $actual);
+    }
+	
+	/**
+	 * Test get minimal user collection info with user id: NULL
+	 */
+    public function test_get_user_collections_minimal_list_null()
+    {
+		$actual = $this->obj->get_user_collections_minimal_list(NULL);
+		$expected = NULL;
+        $this->assertEquals($expected, $actual);
     }
 }

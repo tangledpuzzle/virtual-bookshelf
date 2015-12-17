@@ -55,7 +55,7 @@ Kommentti lähetetään avaimella "text" ja arvona kommentin teksti.
 - Admin: An Admin | `adm` : `asdASD123`
 - Käyttäjä: Esitys | `public` : `salaSANA1`
 - Admin: Esitys Admin | `admin` : `salaSANA1`
-- Kaikki muut käyttäjät: Test Account <numero> | `test<numero>` : `asdASD123`
+- Kaikki muut käyttäjät: Test Account [4-10] | `test[4-10]` : `asdASD123`
 
 ## Kolmannen osapuolen kirjastot
 Käyttäjäjärjestelmä: [Community Auth](http://community-auth.com/)

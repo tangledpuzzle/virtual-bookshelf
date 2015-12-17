@@ -2,6 +2,8 @@
 
 Lue YHTEENVETO.md.
 
+Projektin arvosteltava versio on `master` haaran viimeisin kommitti. 
+
 ----
 
 # Group 2 web project #

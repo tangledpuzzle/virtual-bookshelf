@@ -1,6 +1,6 @@
-source ~/workspace/r2projekti/dev/database.sql;
-source ~/workspace/r2projekti/dev/users.sql;
-source ~/workspace/r2projekti/dev/products.sql;
-source ~/workspace/r2projekti/dev/reviews.sql;
-source ~/workspace/r2projekti/dev/collections.sql;
-source ~/workspace/r2projekti/dev/comments.sql;
+source ~/virtual-bookshelf/dev/database.sql;
+source ~/virtual-bookshelf/dev/users.sql;
+source ~/virtual-bookshelf/dev/products.sql;
+source ~/virtual-bookshelf/dev/reviews.sql;
+source ~/virtual-bookshelf/dev/collections.sql;
+source ~/virtual-bookshelf/dev/comments.sql;

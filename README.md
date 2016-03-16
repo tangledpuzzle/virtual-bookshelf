@@ -25,7 +25,7 @@ A web application project developed by a group of 2nd year students (Bayram Asla
 # Usage #
 The site requires a MySQL database. Run the following command in a MySQL command prompt to initialize the database: `source ~/virtual-bookshelf/dev/init.sql`
 
-REST API documentation can be found at the root in `API_DOCUMENTATION.md` or in the wiki.
+REST API documentation can be found at the root in `API_DOCUMENTATION.md`.
 
 The three available HTTP POST requests require "Basic Auth" authentication.
 At the moment there is only one set of valid, hardcoded authentication: `admin` : `1234`.

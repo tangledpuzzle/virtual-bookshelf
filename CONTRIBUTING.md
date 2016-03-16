@@ -5,13 +5,6 @@ From [Working with Git remote repos worksheet](https://github.com/covcom/205CDE/
 > ## Merge Requests ##
 > If you are working as part of a team you will each be working on code in your own branch(es). Before merging a branch back into the master you should issue a merge request. You detail the branch you want to merge, where you want to merge it and the features you have added. Others can view the changes you intend making to the master branch and suggest changes. When working in a team you will be expected to use this tool before merging any branches.
 
-## List of Wiki Pages ##
-1. **[Codio Box Configuration]()**
-1. [Git Configuration]()
-1. [Installing MySQL]()
-1. [Using Git]()
-1. [API Documentation]()
-
 ## Git Branches ##
 * Make a **new branch** for each **new feature**.
 * Make a **new branch** for **fixing bugs**.

@@ -44,7 +44,7 @@ class Auth_model extends MY_Model {
 			'user_id',
 			'user_modified',
 			'user_banned',
-			'ScreenName'	// R2Projekti: Get auth data ScreenName.
+			'ScreenName'	// Virtual Bookshelf: Get auth data ScreenName.
 		);
 
 		// User table query
@@ -108,7 +108,7 @@ class Auth_model extends MY_Model {
 			'user_agent_string',
 			'user_id',
 			'user_banned',
-			'ScreenName'	// R2Projekti: Get data from ScreenName column for the http user cookie.
+			'ScreenName'	// Virtual Bookshelf: Get data from ScreenName column for the http user cookie.
 		);
 
 		$this->db->select( $selected_columns );

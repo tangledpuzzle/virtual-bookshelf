@@ -1,6 +1,7 @@
+# Virtual Bookshelf #
 A web application project developed by a group of 2nd year students (Bayram Aslan, Ilkka Varjokunnas & me) of Metropolia University of Applied Sciences during 2015-11-24—2015-12-17.
 
-# Project Requirements #
+### Project Requirements ###
 1. A working self-designed application e.g. a blog or a review platform.
 	- Everything works as intended.
 1. The back end must have a REST API.
@@ -22,7 +23,7 @@ A web application project developed by a group of 2nd year students (Bayram Asla
 	- PHP documentation is in: `doc/php/`
 	- JavaScript documentation is in: `doc/js/`
 	
-# Usage #
+### Usage ###
 The site requires a MySQL database. Run the following command in a MySQL command prompt to initialize the database: `source ~/virtual-bookshelf/dev/init.sql`
 
 REST API documentation can be found at the root in `API_DOCUMENTATION.md`.
@@ -32,15 +33,15 @@ At the moment there is only one set of valid, hardcoded authentication: `admin` 
 For example to send a new comment to user ID 2: `POST index.php/api/requests/users/2/comments`
 The comment is sent with the key `text` where the value is the text of the comment.
 
-# Hardcoded User Accounts #
+### Hardcoded User Accounts ###
 - Regular users: `usr` : `asdASD123` & `public` : `salaSANA1`
 - Several other users: `test4` : `asdASD123`, `test5` : `asdASD123`, and so on up to `test10`.
 - A moderator: `mod` : `asdASD123`
 	- No extra functionality over the user role.
 - An admin: `adm` : `asdASD123` & `admin` : `salaSANA1`
 
-# Resources Used In The Project#
-## Technologies  ##
+### Resources Used In The Project ###
+#### Technologies  ####
 - HTML5
 - CSS3
 - JavaScript
@@ -53,7 +54,7 @@ The comment is sent with the key `text` where the value is the text of the comme
 - 3rd Party CodeIgniter Library: Community Auth
 - 3rd Party CodeIgniter Library: sorttable
 
-## Tools ##
+#### Tools ####
 - Codio.com (development environment)
 - Ubuntu
 - Git
